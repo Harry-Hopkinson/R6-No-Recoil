@@ -18,6 +18,4 @@ RecoilPreset RecoilPresets[] =
 RecoilPreset CurrentRecoil = RecoilPresets[SelectedMode];
 bool Running = true;
 
-int ToggleKey = 0x14; // Caps Lock Key
-
 #endif

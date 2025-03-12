@@ -18,7 +18,9 @@ void SaveConfig()
         configFile << "# 0 = Low, 1 = Medium, 2 = High, 3 = Custom\n";
         configFile << "Mode = " << SelectedMode << "\n";
         configFile << "Enabled = " << (EnableRC ? "true" : "false") << "\n";
-        configFile << "Vertical = " << CurrentRecoil.Vertical << "\n\n";
+        configFile << "Vertical = " << CurrentRecoil.Vertical << "\n";
+        configFile << "# Use https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes for the key codes\n";
+        configFile << "ToggleKey = " << ToggleKey << "\n\n";
 
         configFile << "[UI]\n";
         configFile << "DarkTheme = " << (DarkTheme ? "true" : "false") << "\n";
@@ -136,6 +138,20 @@ void ApplyRecoil()
     }
 }
 
+void ToggleRecoilListener()
+{
+    while (Running)
+    {
+        if (GetAsyncKeyState(ToggleKey) & 0x8000)
+        {
+            EnableRC = !EnableRC;
+            InvalidateRect(FindWindow(NULL, "R6 No Recoil"), NULL, TRUE);
+            std::this_thread::sleep_for(std::chrono::milliseconds(300));
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    }
+}
+
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
     // Register Window Class
@@ -155,6 +171,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         SelectedMode = config["RecoilPresets"]["Mode"].value_or(1);
         SelectedMode = std::clamp(SelectedMode, 0, 3);
         CurrentRecoil.Vertical = config["RecoilPresets"]["Vertical"].value_or(RecoilPresets[SelectedMode].Vertical);
+        // Default to Caps Lock Key
+        ToggleKey = config["RecoilPresets"]["ToggleKey"].value_or(VK_CAPITAL);
     }
     catch (const toml::parse_error& err)
     {
@@ -173,8 +191,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     ShowWindow(hwnd, nCmdShow);
     UpdateWindow(hwnd);
 
-    // Start recoil correction thread
     std::thread recoilThread(ApplyRecoil);
+    std::thread toggleThread(ToggleRecoilListener);
 
     // Message Loop
     MSG msg = {};
@@ -189,6 +207,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         std::this_thread::sleep_for(std::chrono::milliseconds(16));
     }
 
-    recoilThread.join();
+    if (toggleThread.joinable())
+        toggleThread.join();
+    if (recoilThread.joinable())
+        recoilThread.join();
     return 0;
 }

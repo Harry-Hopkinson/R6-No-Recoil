@@ -110,6 +110,20 @@ void ApplyRecoil()
     }
 }
 
+void ToggleRecoilListener()
+{
+    while (Running)
+    {
+        if (GetAsyncKeyState(VK_CAPITAL) & 0x8000)
+        {
+            EnableRC = !EnableRC;
+            InvalidateRect(FindWindow(NULL, "R6 No Recoil"), NULL, TRUE);
+            std::this_thread::sleep_for(std::chrono::milliseconds(300));
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    }
+}
+
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
     // Register Window Class
@@ -130,8 +144,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     ShowWindow(hwnd, nCmdShow);
     UpdateWindow(hwnd);
 
-    // Start recoil correction thread
     std::thread recoilThread(ApplyRecoil);
+    std::thread toggleThread(ToggleRecoilListener);
 
     // Message Loop
     MSG msg = {};
@@ -146,6 +160,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         std::this_thread::sleep_for(std::chrono::milliseconds(16));
     }
 
-    recoilThread.join();
+    if (toggleThread.joinable())
+        toggleThread.join();
+    if (recoilThread.joinable())
+        recoilThread.join();
     return 0;
 }

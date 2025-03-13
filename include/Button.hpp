@@ -2,7 +2,6 @@
 #define BUTTON_HPP
 
 #include <windows.h>
-#include <string>
 
 class Button
 {

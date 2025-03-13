@@ -18,4 +18,6 @@ RecoilPreset RecoilPresets[] =
 RecoilPreset CurrentRecoil = RecoilPresets[SelectedMode];
 bool Running = true;
 
+bool UseCapsLockToggle = false;
+
 #endif

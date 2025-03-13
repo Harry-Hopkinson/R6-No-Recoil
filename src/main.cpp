@@ -35,6 +35,11 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 ToggleTheme();
                 InvalidateRect(hwnd, NULL, TRUE);
             }
+            else if (LOWORD(wParam) == 4) // Toggle Caps Lock Feature Button
+            {
+                UseCapsLockToggle = !UseCapsLockToggle;
+                InvalidateRect(hwnd, NULL, TRUE);
+            }
         }
         break;
 
@@ -44,6 +49,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             Buttons.emplace_back(hwnd, centerX, 200, 150, 40, "Toggle Recoil", 1);
             Buttons.emplace_back(hwnd, centerX, 250, 150, 40, "Change Mode", 2);
             Buttons.emplace_back(hwnd, centerX, 300, 150, 40, "Toggle Theme", 3);
+            Buttons.emplace_back(hwnd, centerX, 350, 150, 40, "Caps Lock Toggle", 4);
         }
         break;
 
@@ -74,6 +80,10 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             DrawCenteredText(hdc, EnableRC ? "ON" : "OFF", 120, rect.right);
             DrawCenteredText(hdc, "Mode:", 150, rect.right);
             DrawCenteredText(hdc, Modes[SelectedMode], 170, rect.right);
+
+            // Display Caps Lock toggle status
+            DrawCenteredText(hdc, "Caps Lock Toggle:", 420, rect.right);
+            DrawCenteredText(hdc, UseCapsLockToggle ? "ENABLED" : "DISABLED", 440, rect.right);
 
             EndPaint(hwnd, &ps);
         }
@@ -114,7 +124,7 @@ void ToggleRecoilListener()
 {
     while (Running)
     {
-        if (GetAsyncKeyState(VK_CAPITAL) & 0x8000)
+        if (UseCapsLockToggle && (GetAsyncKeyState(VK_CAPITAL) & 0x8000))
         {
             EnableRC = !EnableRC;
             InvalidateRect(FindWindow(NULL, "R6 No Recoil"), NULL, TRUE);

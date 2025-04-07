@@ -39,21 +39,70 @@
     will-change: transform;
   }
 
+  .overlay-gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.75));
+    z-index: 1;
+  }
+
   .hero-content {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 4rem;
     text-align: center;
     padding: 2rem;
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
     opacity: 0;
     animation: fadeIn 1.2s ease-out forwards;
     animation-delay: 0.3s;
+  }
+
+  .hero-content h1 {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+  }
+
+  .buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    text-decoration: none;
+    padding: 0.8rem 1.6rem;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    transition: all 0.25s ease-in-out;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+
+  .btn.primary {
+    background: #0d6efd;
+    color: white;
+  }
+
+  .btn.primary:hover {
+    background: #0b5ed7;
+  }
+
+  .btn.secondary {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+
+  .btn.secondary:hover {
+    background: rgba(255,255,255,0.25);
   }
 
   @keyframes fadeIn {
@@ -66,6 +115,8 @@
     max-width: 800px;
     margin: 0 auto;
     padding: 4rem 2rem;
+    background: white;
+    border-top: 2px solid #eee;
     animation: slideIn 1s ease forwards;
   }
 
@@ -99,8 +150,8 @@
   }
 
   @media (max-width: 600px) {
-    .hero-content {
-      font-size: 2.5rem;
+    .hero-content h1 {
+      font-size: 3rem;
     }
 
     .content {
@@ -115,13 +166,24 @@
     class="parallax-bg"
     style="transform: translateY({ScrollY * 0.5}px);"
   ></div>
+  <div class="overlay-gradient"></div>
   <div class="hero-content">
-    R6 No Recoil
+    <div>
+      <h1>R6 No Recoil</h1>
+      <div class="buttons">
+        <a
+          href="https://github.com/Harry-Hopkinson/R6-No-Recoil/releases"
+          target="_blank"
+          class="btn primary"
+        >⬇ Download</a>
+        <a href="#info" class="btn secondary">📖 Learn More</a>
+      </div>
+    </div>
   </div>
 </div>
 
 <!-- Main Content -->
-<div class="content">
+<div id="info" class="content">
   <h2>🛠 Features</h2>
   <ul>
     <li>🎯 Real-time recoil compensation</li>

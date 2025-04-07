@@ -21,6 +21,7 @@
 
 <style>
   :global(body) {
+    overflow-x: hidden;
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
     scroll-behavior: smooth;
@@ -90,7 +91,7 @@
     border-radius: 8px;
     font-size: 1.1rem;
     transition: all 0.25s ease-in-out;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   }
 
   .btn.primary {
@@ -103,13 +104,13 @@
   }
 
   .btn.secondary {
-    background: rgba(255,255,255,0.15);
+    background: rgba(255, 255, 255, 0.15);
     color: white;
-    border: 1px solid rgba(255,255,255,0.3);
+    border: 1px solid rgba(255, 255, 255, 0.3);
   }
 
   .btn.secondary:hover {
-    background: rgba(255,255,255,0.25);
+    background: rgba(255, 255, 255, 0.25);
   }
 
   @keyframes fadeIn {
@@ -119,12 +120,30 @@
   }
 
   .content {
-    max-width: 800px;
-    margin: 0 auto;
+    width: 100%;
+    max-width: none;
+    margin: 0;
     padding: 4rem 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3rem;
     background: white;
     border-top: 2px solid #eee;
     animation: slideIn 1s ease forwards;
+  }
+
+  .content .text,
+  .content .image {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .content .image img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-height: 800px;
+    object-fit: cover;
   }
 
   @keyframes slideIn {
@@ -156,12 +175,20 @@
     margin-top: 0.5rem;
   }
 
-  @media (max-width: 600px) {
+  code {
+    background: #eee;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: monospace;
+  }
+
+  @media (max-width: 768px) {
     .hero-content h1 {
       font-size: 3rem;
     }
 
     .content {
+      flex-direction: column;
       padding: 2rem 1rem;
     }
   }
@@ -191,26 +218,43 @@
   </div>
 </div>
 
-<!-- Main Content -->
+<!-- Main Info Section -->
 <div id="info" class="content">
-  <h2>🛠 Features</h2>
-  <ul>
-    <li>🎯 Real-time recoil compensation</li>
-    <li>⚙ Customizable presets</li>
-    <li>🌓 Dark/Light theme toggle</li>
-    <li>💾 Config file support (TOML)</li>
-  </ul>
+  <!-- Left: Image -->
+  <div class="image">
+    <img src="/App.png" alt="App preview" />
+  </div>
 
-  <h2>📦 Lightweight</h2>
-  <p>The latest build is just 200 KB — down from 1.2 MB — thanks to a custom lightweight configuration parser.</p>
+  <!-- Right: Info Content -->
+  <div class="text">
+    <h2>🎯 What is R6 No Recoil?</h2>
+    <p>A lightweight, efficient no-recoil tool for Rainbow Six Siege. Designed for smooth performance and ease of use.</p>
 
-  <h2>🚀 How to Use</h2>
-  <ol>
-    <li>Launch the app</li>
-    <li>Choose your recoil preset</li>
-    <li>Toggle on/off using the UI or Caps Lock</li>
-  </ol>
+    <h2>🚀 Why Use This Tool?</h2>
+    <ul>
+      <li>📌 Reduces weapon recoil for better accuracy</li>
+      <li>⚡ Lightweight & fast — optimized for low CPU usage</li>
+      <li>🔧 No installation required — just run the <code>.exe</code></li>
+      <li>🖥️ Works on Windows 10 & 11</li>
+      <li>🛠️ Open source & customizable</li>
+    </ul>
 
-  <h2>🔒 Disclaimer</h2>
-  <p>This tool is designed for educational purposes and offline/bot matches. Use at your own risk.</p>
+    <h2>🎮 How to Use</h2>
+    <ol>
+      <li>Download <code>r6-no-recoil.exe</code> from GitHub</li>
+      <li>Double-click to run the program</li>
+      <li><strong>Press Enter</strong> to toggle the no-recoil effect</li>
+      <li><strong>Scroll mouse</strong> to adjust speed</li>
+    </ol>
+
+    <h2>🚧 Currently in Development</h2>
+    <ul>
+      <li>🔁 Crouch macro feature</li>
+      <li>🎨 Improved GUI and UX</li>
+      <li>⚙ Advanced customization options</li>
+    </ul>
+
+    <h2>⚠️ Disclaimer</h2>
+    <p>This tool is for <strong>educational purposes only</strong>. Windows Defender may show a false positive — check using VirusTotal if unsure.</p>
+  </div>
 </div>

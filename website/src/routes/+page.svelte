@@ -10,6 +10,13 @@
     window.addEventListener('scroll', HandleScroll);
     return () => window.removeEventListener('scroll', HandleScroll);
   });
+
+  const ScrollToInfo = () => {
+    const el = document.getElementById("info");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 </script>
 
 <style>
@@ -176,7 +183,9 @@
           target="_blank"
           class="btn primary"
         >⬇ Download</a>
-        <a href="#info" class="btn secondary">📖 Learn More</a>
+        <button class="btn secondary" on:click={ScrollToInfo}>
+          📖 Learn More
+        </button>
       </div>
     </div>
   </div>

@@ -1,7 +1,5 @@
-#ifndef BUTTON_HPP
-#define BUTTON_HPP
+#pragma once
 
-#include <windows.h>
 #include <string>
 
 class Button
@@ -21,5 +19,3 @@ private:
     HWND hwndButton;
     int id;
 };
-
-#endif

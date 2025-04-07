@@ -1,5 +1,4 @@
-#ifndef UI_HPP
-#define UI_HPP
+#pragma once
 
 #include "../include/Button.hpp"
 #include <vector>
@@ -17,11 +16,9 @@ std::vector<Button> Buttons;
 const int WINDOW_WIDTH = 400;
 const int WINDOW_HEIGHT = 490;
 
-bool DarkTheme = true;
+bool DarkTheme;
 
 void ToggleTheme()
 {
     DarkTheme = !DarkTheme;
 }
-
-#endif

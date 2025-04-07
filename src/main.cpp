@@ -4,6 +4,109 @@
 
 #include "../include/RecoilPresets.hpp"
 #include "../include/UI.hpp"
+#include "../include/Utils.hpp"
+
+void LoadConfig()
+{
+    HANDLE file = CreateFileA("Config.toml", GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+    if (file == INVALID_HANDLE_VALUE)
+    {
+        EnableRC = true;
+        DarkTheme = true;
+        return;
+    }
+
+    DWORD fileSize = GetFileSize(file, NULL);
+    if (fileSize == INVALID_FILE_SIZE || fileSize == 0)
+    {
+        CloseHandle(file);
+        return;
+    }
+
+    char* buffer = new char[fileSize + 1];
+    DWORD bytesRead;
+    if (!ReadFile(file, buffer, fileSize, &bytesRead, NULL))
+    {
+        delete[] buffer;
+        CloseHandle(file);
+        return;
+    }
+
+    buffer[bytesRead] = '\0'; // Null-terminate
+    CloseHandle(file);
+
+    std::string section;
+    char* line = strtok(buffer, "\r\n");
+    while (line)
+    {
+        while (*line == ' ' || *line == '\t') ++line; // Trim left
+        if (*line == '\0' || *line == '#') { line = strtok(NULL, "\r\n"); continue; }
+
+        if (line[0] == '[')
+        {
+            char* end = strchr(line, ']');
+            if (end) section = std::string(line + 1, end);
+            line = strtok(NULL, "\r\n");
+            continue;
+        }
+
+        char* equal = strchr(line, '=');
+        if (!equal) { line = strtok(NULL, "\r\n"); continue; }
+
+        std::string key(line, equal);
+        std::string value(equal + 1);
+
+        // Trim both
+        key.erase(0, key.find_first_not_of(" \t"));
+        key.erase(key.find_last_not_of(" \t") + 1);
+        value.erase(0, value.find_first_not_of(" \t"));
+        value.erase(value.find_last_not_of(" \t") + 1);
+
+        if (section == "RecoilPresets")
+        {
+            if (key == "Mode") SelectedMode = atoi(value.c_str());
+            else if (key == "Enabled") EnableRC = (value == "true" || value == "1");
+            else if (key == "Vertical") CurrentRecoil.Vertical = atoi(value.c_str());
+            else if (key == "ToggleKey") ToggleKey = atoi(value.c_str());
+        }
+        else if (section == "UI")
+        {
+            if (key == "DarkTheme") DarkTheme = (value == "true" || value == "1");
+        }
+
+        line = strtok(NULL, "\r\n");
+    }
+
+    delete[] buffer;
+
+    SelectedMode = clamp(SelectedMode, 0, 3);
+    CurrentRecoil = RecoilPresets[SelectedMode];
+}
+
+void SaveConfig()
+{
+    HANDLE file = CreateFileA("Config.toml", GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+    if (file == INVALID_HANDLE_VALUE)
+        return;
+
+    char buffer[512];
+    int len = 0;
+
+    len += wsprintfA(buffer + len, "[RecoilPresets]\r\n");
+    len += wsprintfA(buffer + len, "# 0 = Low, 1 = Medium, 2 = High, 3 = Custom\r\n");
+    len += wsprintfA(buffer + len, "Mode = %d\r\n", SelectedMode);
+    len += wsprintfA(buffer + len, "Enabled = %s\r\n", EnableRC ? "true" : "false");
+    len += wsprintfA(buffer + len, "Vertical = %d\r\n", CurrentRecoil.Vertical);
+    len += wsprintfA(buffer + len, "ToggleKey = %d\r\n\r\n", ToggleKey);
+
+    len += wsprintfA(buffer + len, "[UI]\r\n");
+    len += wsprintfA(buffer + len, "DarkTheme = %s\r\n", DarkTheme ? "true" : "false");
+
+    DWORD written;
+    WriteFile(file, buffer, len, &written, NULL);
+    CloseHandle(file);
+}
+
 
 // Window Procedure for handling events
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -22,22 +125,26 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             if (LOWORD(wParam) == 1) // Toggle Recoil Button
             {
                 EnableRC = !EnableRC;
+                SaveConfig();
                 InvalidateRect(hwnd, NULL, TRUE);
             }
             else if (LOWORD(wParam) == 2) // Change Mode Button
             {
                 SelectedMode = (SelectedMode + 1) % 4;
                 CurrentRecoil = RecoilPresets[SelectedMode];
+                SaveConfig();
                 InvalidateRect(hwnd, NULL, TRUE);
             }
             else if (LOWORD(wParam) == 3) // Toggle Theme Button
             {
                 ToggleTheme();
+                SaveConfig();
                 InvalidateRect(hwnd, NULL, TRUE);
             }
             else if (LOWORD(wParam) == 4) // Toggle Caps Lock Feature Button
             {
-                UseCapsLockToggle = !UseCapsLockToggle;
+                UseToggleKey = !UseToggleKey;
+                SaveConfig();
                 InvalidateRect(hwnd, NULL, TRUE);
             }
         }
@@ -83,7 +190,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             // Display Caps Lock toggle status
             DrawCenteredText(hdc, "Caps Lock Toggle:", 420, rect.right);
-            DrawCenteredText(hdc, UseCapsLockToggle ? "ENABLED" : "DISABLED", 440, rect.right);
+            DrawCenteredText(hdc, UseToggleKey ? "ENABLED" : "DISABLED", 440, rect.right);
 
             EndPaint(hwnd, &ps);
         }
@@ -124,7 +231,7 @@ void ToggleRecoilListener()
 {
     while (Running)
     {
-        if (UseCapsLockToggle && (GetAsyncKeyState(VK_CAPITAL) & 0x8000))
+        if (UseToggleKey && (GetAsyncKeyState(ToggleKey) & 0x8000))
         {
             EnableRC = !EnableRC;
             InvalidateRect(FindWindow(NULL, "R6 No Recoil"), NULL, TRUE);
@@ -142,6 +249,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     wc.hInstance = hInstance;
     wc.lpszClassName = "NoRecoilWindow";
     RegisterClass(&wc);
+
+    LoadConfig();
 
     // Create Window
     HWND hwnd = CreateWindowEx(0, "NoRecoilWindow", "R6 No Recoil",
@@ -170,9 +279,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         std::this_thread::sleep_for(std::chrono::milliseconds(16));
     }
 
-    if (toggleThread.joinable())
-        toggleThread.join();
     if (recoilThread.joinable())
         recoilThread.join();
+    if (toggleThread.joinable())
+        toggleThread.join();
     return 0;
 }

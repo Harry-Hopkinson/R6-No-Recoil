@@ -21,6 +21,7 @@ A lightweight, efficient **no-recoil tool** for Rainbow Six Siege. Designed for 
 4. **Enjoy Smoother Aim!**
 
 ## 🚧 Currently in Development
+- **Crouch Macro** - As suggested by r6cruch[https://github.com/Harry-Hopkinson/R6-No-Recoil/issues/1]
 - **Improved GUI** – A cleaner, more user-friendly interface is being developed.
 - **Customization Options** – Ability to fine-tune settings via a UI panel.
 

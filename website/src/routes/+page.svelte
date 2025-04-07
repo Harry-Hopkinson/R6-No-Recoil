@@ -39,7 +39,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url('/Image.png');
+    background-image: url('/image.png');
     background-size: cover;
     background-position: center;
     z-index: 0;

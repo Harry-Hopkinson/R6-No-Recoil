@@ -1,6 +1,6 @@
 # 🎯 R6 No Recoil
 
-![Preview](website/static/Image.png)
+![Preview](website/static/image.png)
 
 A lightweight, efficient **no-recoil tool** for Rainbow Six Siege. Designed for smooth performance and ease of use.
 

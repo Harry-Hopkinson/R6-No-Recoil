@@ -34,3 +34,6 @@ bool Running = true;
 
 int ToggleKey = VK_CAPITAL;
 bool UseToggleKey = false;
+
+bool EnableCrouchMacro = false;
+int CrouchKey = 0x43;  // Default crouch key (C)

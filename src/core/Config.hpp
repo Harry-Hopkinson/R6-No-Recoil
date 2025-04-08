@@ -18,6 +18,7 @@ void SaveConfig()
     len += wsprintfA(buffer + len, "# 0 = LOW, 1 = MEDIUM, 2 = HIGH, 3 = ULTRA\r\n");
     len += wsprintfA(buffer + len, "Mode = %d\r\n", SelectedMode);
     len += wsprintfA(buffer + len, "Enabled = %s\r\n", EnableRC ? "true" : "false");
+    len += wsprintfA(buffer + len, "EnableCrouchMacro = %s\r\n", EnableCrouchMacro ? "true" : "false");
     len += wsprintfA(buffer + len, "\r\n");
 
     len += wsprintfA(buffer + len, "# Vertical recoil amounts for each preset\r\n");
@@ -121,6 +122,7 @@ void LoadConfig()
             else if (key == "UltraSensVertical") RecoilPresets[3].Vertical = atoi(value.c_str());
             else if (key == "UltraSensHorizontal") RecoilPresets[3].Horizontal = atoi(value.c_str());
             else if (key == "ToggleKey") ToggleKey = atoi(value.c_str());
+            else if (key == "EnableCrouchMacro") EnableCrouchMacro = (value == "true" || value == "1");
         }
         else if (section == "UI")
         {

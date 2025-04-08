@@ -29,6 +29,25 @@ void ApplyRecoil()
                 std::this_thread::sleep_for(std::chrono::milliseconds(5));
             }
         }
+
+        // Crouch spam when C key is held
+        if (EnableCrouchMacro && (GetAsyncKeyState(CrouchKey) & 0x8000))
+        {
+            INPUT input[2] = {};
+
+            // Key down
+            input[0].type = INPUT_KEYBOARD;
+            input[0].ki.wVk = CrouchKey;
+
+            // Key up
+            input[1].type = INPUT_KEYBOARD;
+            input[1].ki.wVk = CrouchKey;
+            input[1].ki.dwFlags = KEYEVENTF_KEYUP;
+
+            SendInput(2, input, sizeof(INPUT));
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        }
+        
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
 }

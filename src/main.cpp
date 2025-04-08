@@ -42,13 +42,13 @@ void LoadConfig()
   {
     while (*line == ' ' || *line == '\t') ++line;  // Trim left
     if (*line == '\0' || *line == '#')
-	{
+    {
       line = strtok(NULL, "\r\n");
       continue;
     }
 
     if (line[0] == '[')
-	{
+    {
       char* end = strchr(line, ']');
       if (end) section = std::string(line + 1, end);
       line = strtok(NULL, "\r\n");
@@ -57,7 +57,7 @@ void LoadConfig()
 
     char* equal = strchr(line, '=');
     if (!equal)
-	{
+    {
       line = strtok(NULL, "\r\n");
       continue;
     }
@@ -72,7 +72,7 @@ void LoadConfig()
     value.erase(value.find_last_not_of(" \t") + 1);
 
     if (section == "RecoilPresets")
-	{
+    {
       if (key == "Mode")
         SelectedMode = atoi(value.c_str());
       else if (key == "Enabled")
@@ -81,12 +81,10 @@ void LoadConfig()
         CurrentRecoil.Vertical = atoi(value.c_str());
       else if (key == "ToggleKey")
         ToggleKey = atoi(value.c_str());
-    }
-	else if (section == "UI")
-	{
+    } else if (section == "UI")
+    {
       if (key == "DarkTheme") DarkTheme = (value == "true" || value == "1");
     }
-
     line = strtok(NULL, "\r\n");
   }
 
@@ -130,14 +128,13 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
   switch (uMsg)
   {
     case WM_CLOSE:
-	{
+    {
       Running = false;
       PostQuitMessage(0);
-    }
-	break;
+    } break;
 
     case WM_COMMAND:
-	{
+    {
       if (LOWORD(wParam) == 1)  // Toggle Recoil Button
       {
         EnableRC = !EnableRC;
@@ -160,11 +157,10 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
         SaveConfig();
         InvalidateRect(hwnd, NULL, TRUE);
       }
-    }
-	break;
+    } break;
 
     case WM_CREATE:
-	{
+    {
       Buttons.emplace_back(hwnd, 30, 320, 130, 40, "Toggle Recoil", 1);
       Buttons.emplace_back(hwnd, 30 + (130 + 20), 320, 130, 40, "Change Mode",
                            2);
@@ -172,11 +168,10 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
                            "Toggle Theme", 3);
       Buttons.emplace_back(hwnd, 30 + 3 * (130 + 20), 320, 130, 40,
                            "Caps Lock Toggle", 4);
-    }
-	break;
+    } break;
 
     case WM_PAINT:
-	{
+    {
       PAINTSTRUCT ps;
       HDC hdc = BeginPaint(hwnd, &ps);
 
@@ -215,17 +210,15 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
       DrawCenteredText(hdc, recoilInfo, 280, rect.right);
 
       EndPaint(hwnd, &ps);
-    }
-	break;
+    } break;
 
     case WM_KEYDOWN:
-	{
+    {
       if (wParam == VK_ESCAPE)
-	  {
+      {
         PostMessage(hwnd, WM_CLOSE, 0, 0);  // Close the window
       }
-    }
-	break;
+    } break;
 
     default:
       return DefWindowProc(hwnd, uMsg, wParam, lParam);
@@ -257,7 +250,7 @@ void ToggleRecoilListener()
   while (Running)
   {
     if (UseToggleKey && (GetAsyncKeyState(ToggleKey) & 0x8000))
-	{
+    {
       EnableRC = !EnableRC;
       InvalidateRect(FindWindow(NULL, "R6 No Recoil"), NULL, TRUE);
       std::this_thread::sleep_for(std::chrono::milliseconds(300));
@@ -298,7 +291,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
   while (Running)
   {
     while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
-	{
+    {
       TranslateMessage(&msg);
       DispatchMessage(&msg);
     }

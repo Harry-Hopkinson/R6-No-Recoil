@@ -13,8 +13,8 @@ void DrawCenteredText(HDC hdc, LPCSTR text, int yOffset, int windowWidth)
 }
 
 std::vector<Button> Buttons;
-const int WINDOW_WIDTH = 650;
-const int WINDOW_HEIGHT = 400;
+const int WINDOW_WIDTH = 775;
+const int WINDOW_HEIGHT = 450;
 
 bool DarkTheme;
 

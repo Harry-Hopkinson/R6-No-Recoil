@@ -30,3 +30,6 @@ bool Running = true;
 // https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
 int ToggleKey = VK_CAPITAL;
 bool UseToggleKey = false;
+
+bool EnableCrouchMacro = false;
+int CrouchKey = 0x43;  // Default crouch key (C)

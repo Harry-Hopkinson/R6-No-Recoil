@@ -5,6 +5,14 @@
 bool EnableRC;
 const char* Modes[] = {"LOW", "MEDIUM", "HIGH", "ULTRA"};
 int SelectedMode = 1;
+const char* ModeDescriptions[] =
+{
+    "LOW: Best for SMGs and Pistols",
+    "MEDIUM: Ideal for Medium Recoil Assault Rifles",
+	"HIGH: Best for High Recoil Assault Rifles",
+    "ULTRA: Best for Twitch's F2",
+};
+
 
 // Recoil settings
 struct RecoilPreset

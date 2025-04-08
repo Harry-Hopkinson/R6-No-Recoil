@@ -151,14 +151,14 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         break;
 
         case WM_CREATE:
-        {
-            int centerX = (WINDOW_WIDTH - 150) / 2; // Center buttons horizontally
-            Buttons.emplace_back(hwnd, centerX, 200, 150, 40, "Toggle Recoil", 1);
-            Buttons.emplace_back(hwnd, centerX, 250, 150, 40, "Change Mode", 2);
-            Buttons.emplace_back(hwnd, centerX, 300, 150, 40, "Toggle Theme", 3);
-            Buttons.emplace_back(hwnd, centerX, 350, 150, 40, "Caps Lock Toggle", 4);
-        }
-        break;
+		{
+			Buttons.emplace_back(hwnd, 30, 320, 130, 40, "Toggle Recoil", 1);
+			Buttons.emplace_back(hwnd, 30 + (130 + 20), 320, 130, 40, "Change Mode", 2);
+			Buttons.emplace_back(hwnd, 30 + 2 * (130 + 20), 320, 130, 40, "Toggle Theme", 3);
+			Buttons.emplace_back(hwnd, 30 + 3 * (130 + 20), 320, 130, 40, "Caps Lock Toggle", 4);
+		}
+		break;
+
 
         case WM_PAINT:
         {
@@ -181,16 +181,21 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             SetTextColor(hdc, textColor);
             SetBkMode(hdc, TRANSPARENT);
 
-            // Draw centered text
-            DrawCenteredText(hdc, "Recoil Control", 50, rect.right);
-            DrawCenteredText(hdc, "Enable:", 100, rect.right);
-            DrawCenteredText(hdc, EnableRC ? "ON" : "OFF", 120, rect.right);
-            DrawCenteredText(hdc, "Mode:", 150, rect.right);
-            DrawCenteredText(hdc, Modes[SelectedMode], 170, rect.right);
+            DrawCenteredText(hdc, "Recoil Control", 30, rect.right);
+			DrawCenteredText(hdc, "Enable:", 70, rect.right);
+			DrawCenteredText(hdc, EnableRC ? "ON" : "OFF", 90, rect.right);
+			DrawCenteredText(hdc, "Mode:", 130, rect.right);
+			DrawCenteredText(hdc, Modes[SelectedMode], 150, rect.right);
+			DrawCenteredText(hdc, ModeDescriptions[SelectedMode], 170, rect.right);
 
-            // Display Caps Lock toggle status
-            DrawCenteredText(hdc, "Caps Lock Toggle:", 420, rect.right);
-            DrawCenteredText(hdc, UseToggleKey ? "ENABLED" : "DISABLED", 440, rect.right);
+			DrawCenteredText(hdc, "Caps Lock Toggle:", 200, rect.right);
+			DrawCenteredText(hdc, UseToggleKey ? "ENABLED" : "DISABLED", 220, rect.right);
+
+			// Display current recoil values
+			char recoilInfo[40];
+			wsprintfA(recoilInfo, "Vertical: %d  |  Horizontal: %d", CurrentRecoil.Vertical, CurrentRecoil.Horizontal);
+			DrawCenteredText(hdc, "Current Recoil Settings:", 260, rect.right);
+			DrawCenteredText(hdc, recoilInfo, 280, rect.right);
 
             EndPaint(hwnd, &ps);
         }

@@ -222,7 +222,7 @@
 <div id="info" class="content">
   <!-- Left: Image -->
   <div class="image">
-    <img src="/App.png" alt="App preview" />
+    <img src="/app.png" alt="App preview" />
   </div>
 
   <!-- Right: Info Content -->

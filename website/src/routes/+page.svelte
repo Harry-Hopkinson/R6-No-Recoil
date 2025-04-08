@@ -144,6 +144,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     max-height: 800px;
     object-fit: cover;
+    margin-top: 200px;
   }
 
   @keyframes slideIn {

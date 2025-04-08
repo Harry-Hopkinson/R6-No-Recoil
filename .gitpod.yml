@@ -1,0 +1,3 @@
+tasks:
+  - init: cd website && yarn install
+    command: yarn dev --open

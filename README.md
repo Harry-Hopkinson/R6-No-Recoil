@@ -7,7 +7,7 @@ A lightweight, efficient **no-recoil tool** for Rainbow Six Siege. Designed for 
 ## 🚀 Why Use This Tool?
 
 - **📌 No Recoil** – Reduces weapon recoil for better accuracy.
-- **⚡ Lightweight & Fast** – Optimized for minimal CPU usage.
+- **⚡ Lightweight & Fast** – Optimised for minimal CPU usage.
 - **🔧 No Installation Required** – Just run the `.exe`.
 - **🖥️ Works on Any Setup** – Supports Windows 10/11.
 - **🛠️ Open Source & Customisable** – Modify as needed.

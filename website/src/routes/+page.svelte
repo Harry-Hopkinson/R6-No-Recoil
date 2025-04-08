@@ -205,6 +205,9 @@
   <div class="hero-content">
     <div>
       <h1>R6 No Recoil</h1>
+      <p style="font-size: 1.25rem; margin-top: -1rem; margin-bottom: 1.5rem; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+        Open-source, fast, and lightweight no-recoil tool for Rainbow Six Siege. Easy to use and optimised for smooth performance.
+      </p>
       <div class="buttons">
         <a
           href="https://github.com/Harry-Hopkinson/R6-No-Recoil/releases"
@@ -234,7 +237,7 @@
     <h2>🚀 Why Use This Tool?</h2>
     <ul>
       <li>📌 Reduces weapon recoil for better accuracy</li>
-      <li>⚡ Lightweight & fast — optimized for low CPU usage</li>
+      <li>⚡ Lightweight & fast — optimised for low CPU usage</li>
       <li>🔧 No installation required — just run the <code>.exe</code></li>
       <li>🖥️ Works on Windows 10 & 11</li>
       <li>🛠️ Open source & customisable</li>

@@ -10,7 +10,7 @@ A lightweight, efficient **no-recoil tool** for Rainbow Six Siege. Designed for 
 - **⚡ Lightweight & Fast** – Optimized for minimal CPU usage.
 - **🔧 No Installation Required** – Just run the `.exe`.
 - **🖥️ Works on Any Setup** – Supports Windows 10/11.
-- **🛠️ Open Source & Customizable** – Modify as needed.
+- **🛠️ Open Source & Customisable** – Modify as needed.
 
 ## 🎮 How to Use
 1. **Download** `r6-no-recoil.exe` from the Github Release Page.
@@ -23,7 +23,7 @@ A lightweight, efficient **no-recoil tool** for Rainbow Six Siege. Designed for 
 ## 🚧 Currently in Development
 - **Crouch Macro** - As suggested by r6cruch[https://github.com/Harry-Hopkinson/R6-No-Recoil/issues/1]
 - **Improved GUI** – A cleaner, more user-friendly interface is being developed.
-- **Customization Options** – Ability to fine-tune settings via a UI panel.
+- **Customisation Options** – Ability to fine-tune settings via a UI panel.
 
 ## ⚠️ Disclaimer
 This tool is for **educational purposes only**. Use it at your own risk. I do not advocate cheating.

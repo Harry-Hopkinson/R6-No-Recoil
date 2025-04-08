@@ -237,7 +237,7 @@
       <li>⚡ Lightweight & fast — optimized for low CPU usage</li>
       <li>🔧 No installation required — just run the <code>.exe</code></li>
       <li>🖥️ Works on Windows 10 & 11</li>
-      <li>🛠️ Open source & customizable</li>
+      <li>🛠️ Open source & customisable</li>
     </ul>
 
     <h2>🎮 How to Use</h2>
@@ -252,7 +252,7 @@
     <ul>
       <li>🔁 Crouch macro feature</li>
       <li>🎨 Improved GUI and UX</li>
-      <li>⚙ Advanced customization options</li>
+      <li>⚙ Advanced customisation options</li>
     </ul>
 
     <h2>⚠️ Disclaimer</h2>

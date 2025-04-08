@@ -34,3 +34,6 @@ void DrawCenteredText(HDC hdc, LPCSTR text, int yOffset, int windowWidth)
 }
 
 bool DarkTheme = true;
+
+bool EnableCrouchMacro = false;
+int CrouchKey = 0x43;  // Default crouch key (C)

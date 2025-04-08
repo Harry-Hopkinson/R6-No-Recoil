@@ -205,7 +205,7 @@
   <div class="hero-content">
     <div>
       <h1>R6 No Recoil</h1>
-      <p style="font-size: 1.25rem; margin-top: -1rem; margin-bottom: 1.5rem; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+      <p style="font-size: 1.25rem; margin-top: -1rem; margin-bottom: 1.5rem; max-width: 650px; margin-left: auto; margin-right: auto; line-height: 1.6;">
         Open-source, fast, and lightweight no-recoil tool for Rainbow Six Siege. Easy to use and optimised for smooth performance.
       </p>
       <div class="buttons">

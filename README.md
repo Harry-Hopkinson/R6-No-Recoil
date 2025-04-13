@@ -4,6 +4,10 @@
 
 A lightweight, efficient **no-recoil tool** for Rainbow Six Siege. Designed for smooth performance and ease of use.
 
+## 🧠 Why I Made This
+
+Most recoil tools like Logitech G Hub are bloated, heavy, and come with a ton of unnecessary overhead just to perform a simple task. I built this tool to be **clean**, **compact**, and **laser-focused** on one thing: **removing recoil with minimal system impact**. No drivers, no background bloat—just raw utility.
+
 ## 🚀 Why Use This Tool?
 
 - **📌 No Recoil** – Reduces weapon recoil for better accuracy.
@@ -21,13 +25,13 @@ A lightweight, efficient **no-recoil tool** for Rainbow Six Siege. Designed for 
 4. **Enjoy Smoother Aim!**
 
 ## 🚧 Currently in Development
-- **Crouch Macro** - As suggested by r6cruch[https://github.com/Harry-Hopkinson/R6-No-Recoil/issues/1]
+- **Crouch Macro** – As suggested by [r6cruch](https://github.com/Harry-Hopkinson/R6-No-Recoil/issues/1)
 - **Improved GUI** – A cleaner, more user-friendly interface is being developed.
 - **Customisation Options** – Ability to fine-tune settings via a UI panel.
 
 ## ⚠️ Disclaimer
 This tool is for **educational purposes only**. Use it at your own risk. I do not advocate cheating.
-Windows defender may falsely flag this program as a virus. Just allow the app to run anyway. If you are unsure, use **Virus Total** to check the program.
+Windows Defender may falsely flag this program as a virus. Just allow the app to run anyway. If you are unsure, use **VirusTotal** to check the program.
 
 ---
 

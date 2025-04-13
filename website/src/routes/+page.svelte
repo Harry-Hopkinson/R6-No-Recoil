@@ -214,7 +214,7 @@
           href="https://github.com/Harry-Hopkinson/R6-No-Recoil/releases"
           target="_blank"
           class="btn primary"
-        >⬇ Download</a>
+        >💾 Download</a>
         <button class="btn secondary" on:click={ScrollToInfo}>
           📖 Learn More
         </button>

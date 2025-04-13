@@ -218,9 +218,9 @@
           target="_blank"
           class="btn primary"
         >💾 Download</a>
-        <button class="btn secondary" on:click={ScrollToInfo}>
-          📖 Learn More
-        </button>
+        <a href="#info" class="btn secondary" on:click|preventDefault={ScrollToInfo}>
+            📖 Learn More
+        </a>
       </div>
     </div>
   </div>

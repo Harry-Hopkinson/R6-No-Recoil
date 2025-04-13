@@ -174,6 +174,7 @@
 
   p {
     margin-top: 0.5rem;
+    margin-right: 1.3rem;
   }
 
   code {

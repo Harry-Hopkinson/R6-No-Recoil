@@ -8,8 +8,8 @@ const char* Modes[] = {"LOW", "MEDIUM", "HIGH", "ULTRA"};
 int SelectedMode = 1;
 const char* ModeDescriptions[] =
 {
-    "LOW: Best for SMGs and Pistols",
-    "MEDIUM: Ideal for Medium Recoil Assault Rifles (e.g 556XI)",
+    "LOW: Best for Low Recoil SMGs and Pistols",
+    "MEDIUM: Best for Medium Recoil Assault Rifles (e.g 556XI) and High Recoil SMGs (e.g SMG-12)",
     "HIGH: Best for High Recoil Assault Rifles (e.g R4C)",
     "ULTRA: Best for Twitch's F2",
 };

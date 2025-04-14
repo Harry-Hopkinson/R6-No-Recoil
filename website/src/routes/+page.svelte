@@ -185,64 +185,13 @@
   }
 
   @media (max-width: 768px) {
-    .hero {
-      height: auto;
-      padding-top: 5rem;
-      padding-bottom: 4rem;
-    }
-
-    .hero-content {
-      flex-direction: column;
-      padding: 1.5rem;
-    }
-
     .hero-content h1 {
-      font-size: 2.25rem;
-      line-height: 1.2;
-    }
-
-    .hero-content p {
-      font-size: 1rem !important;
-      max-width: 100% !important;
-      margin-left: 0 !important;
-      margin-right: 0 !important;
-    }
-
-    .buttons {
-      flex-direction: column;
-      gap: 0.75rem;
-      align-items: stretch;
-    }
-
-    .btn {
-      width: 100%;
-      font-size: 1rem;
-      text-align: center;
+      font-size: 3rem;
     }
 
     .content {
       flex-direction: column;
       padding: 2rem 1rem;
-      gap: 2rem;
-    }
-
-    .content .image img {
-      margin-top: 0;
-      max-height: none;
-      object-fit: contain;
-      border-radius: 12px;
-    }
-
-    h2 {
-      font-size: 1.5rem;
-    }
-
-    ul, ol {
-      padding-left: 1rem;
-    }
-
-    p {
-      margin-right: 0;
     }
   }
 </style>
@@ -270,7 +219,7 @@
           class="btn primary"
         >💾 Download</a>
         <a href="#info" class="btn secondary" on:click|preventDefault={ScrollToInfo}>
-          📖 Learn More
+            📖 Learn More
         </a>
       </div>
     </div>

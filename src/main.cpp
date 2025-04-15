@@ -1,4 +1,3 @@
-#include <chrono>
 #include <thread>
 
 #include "../include/RecoilPresets.hpp"

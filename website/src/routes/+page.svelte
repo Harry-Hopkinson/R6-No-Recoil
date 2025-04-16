@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from 'svelte';
+  import { onMount } from "svelte";
   let ScrollY = 0;
 
   const HandleScroll = () => {
@@ -7,8 +7,8 @@
   };
 
   onMount(() => {
-    window.addEventListener('scroll', HandleScroll);
-    return () => window.removeEventListener('scroll', HandleScroll);
+    window.addEventListener("scroll", HandleScroll);
+    return () => window.removeEventListener("scroll", HandleScroll);
   });
 
   const ScrollToInfo = () => {
@@ -19,11 +19,103 @@
   };
 </script>
 
+<!-- Hero Section with Parallax Background -->
+<div class="hero">
+  <div
+    class="parallax-bg"
+    style="transform: translateY({ScrollY * 0.5}px);"
+  ></div>
+  <div class="overlay-gradient"></div>
+  <div class="hero-content">
+    <div>
+      <h1>R6 No Recoil</h1>
+      <p
+        style="font-size: 1.25rem; margin-top: -1rem; margin-bottom: 1rem; max-width: 650px; margin-left: auto; margin-right: auto; line-height: 1.6;"
+      >
+        Open-source, fast, and lightweight no-recoil tool for Rainbow Six Siege.
+        Easy to use and optimised for smooth performance.
+      </p>
+      <p
+        style="font-size: 1rem; color: #ccc; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.6;"
+      >
+        Built because tools like Logitech G Hub were too large and bloated just
+        to handle simple recoil control. This tool does one thing well — without
+        the extra overhead.
+      </p>
+      <div class="buttons">
+        <a
+          href="https://github.com/Harry-Hopkinson/R6-No-Recoil/releases"
+          target="_blank"
+          class="btn primary">💾 Download</a
+        >
+        <a
+          href="#info"
+          class="btn secondary"
+          on:click|preventDefault={ScrollToInfo}
+        >
+          📖 Learn More
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Main Info Section -->
+<div id="info" class="content">
+  <!-- Left: Image -->
+  <div class="image">
+    <img src="/app.png" alt="App preview" />
+  </div>
+
+  <!-- Right: Info Content -->
+  <div class="text">
+    <h2>🎯 What is R6 No Recoil?</h2>
+    <p>
+      A lightweight, efficient no-recoil tool for Rainbow Six Siege. Designed
+      for smooth performance and ease of use.
+    </p>
+
+    <h2>🚀 Why Use This Tool?</h2>
+    <ul>
+      <li>📌 Reduces weapon recoil for better accuracy</li>
+      <li>⚡ Lightweight & fast — optimised for low CPU usage</li>
+      <li>🔧 No installation required — just run the <code>.exe</code></li>
+      <li>🖥️ Works on Windows 10 & 11</li>
+      <li>🛠️ Open source & customisable</li>
+    </ul>
+
+    <h2>🎮 How to Use</h2>
+    <ol>
+      <li>
+        Download <code>r6-no-recoil.exe</code> from the GitHub release page
+      </li>
+      <li>Double-click to run the program</li>
+      <li>
+        Use the <strong>Toggle Recoil Button</strong> to toggle the no-recoil effect
+      </li>
+      <li>Use the <strong>Change Mode Button</strong> to adjust speed</li>
+    </ol>
+
+    <h2>🚧 Currently in Development</h2>
+    <ul>
+      <li>🔁 Crouch macro feature</li>
+      <li>🎨 Improved GUI and UX</li>
+      <li>⚙ Advanced customisation options</li>
+    </ul>
+
+    <h2>⚠️ Disclaimer</h2>
+    <p>
+      This tool is for <strong>educational purposes only</strong>. Windows
+      Defender may show a false positive — check using VirusTotal if unsure.
+    </p>
+  </div>
+</div>
+
 <style>
   :global(body) {
     overflow-x: hidden;
     margin: 0;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: "Segoe UI", sans-serif;
     scroll-behavior: smooth;
     background: #f9f9f9;
   }
@@ -40,7 +132,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url('/image.png');
+    background-image: url("/image.png");
     background-size: cover;
     background-position: center;
     z-index: 0;
@@ -53,7 +145,11 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.75));
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.4),
+      rgba(0, 0, 0, 0.75)
+    );
     z-index: 1;
   }
 
@@ -164,7 +260,8 @@
     color: #222;
   }
 
-  ul, ol {
+  ul,
+  ol {
     padding-left: 1.5rem;
   }
 
@@ -195,74 +292,3 @@
     }
   }
 </style>
-
-<!-- Hero Section with Parallax Background -->
-<div class="hero">
-  <div
-    class="parallax-bg"
-    style="transform: translateY({ScrollY * 0.5}px);"
-  ></div>
-  <div class="overlay-gradient"></div>
-  <div class="hero-content">
-    <div>
-      <h1>R6 No Recoil</h1>
-      <p style="font-size: 1.25rem; margin-top: -1rem; margin-bottom: 1rem; max-width: 650px; margin-left: auto; margin-right: auto; line-height: 1.6;">
-        Open-source, fast, and lightweight no-recoil tool for Rainbow Six Siege. Easy to use and optimised for smooth performance.
-      </p>
-      <p style="font-size: 1rem; color: #ccc; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.6;">
-        Built because tools like Logitech G Hub were too large and bloated just to handle simple recoil control. This tool does one thing well — without the extra overhead.
-      </p>
-      <div class="buttons">
-        <a
-          href="https://github.com/Harry-Hopkinson/R6-No-Recoil/releases"
-          target="_blank"
-          class="btn primary"
-        >💾 Download</a>
-        <a href="#info" class="btn secondary" on:click|preventDefault={ScrollToInfo}>
-            📖 Learn More
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Main Info Section -->
-<div id="info" class="content">
-  <!-- Left: Image -->
-  <div class="image">
-    <img src="/app.png" alt="App preview" />
-  </div>
-
-  <!-- Right: Info Content -->
-  <div class="text">
-    <h2>🎯 What is R6 No Recoil?</h2>
-    <p>A lightweight, efficient no-recoil tool for Rainbow Six Siege. Designed for smooth performance and ease of use.</p>
-
-    <h2>🚀 Why Use This Tool?</h2>
-    <ul>
-      <li>📌 Reduces weapon recoil for better accuracy</li>
-      <li>⚡ Lightweight & fast — optimised for low CPU usage</li>
-      <li>🔧 No installation required — just run the <code>.exe</code></li>
-      <li>🖥️ Works on Windows 10 & 11</li>
-      <li>🛠️ Open source & customisable</li>
-    </ul>
-
-    <h2>🎮 How to Use</h2>
-    <ol>
-      <li>Download <code>r6-no-recoil.exe</code> from GitHub</li>
-      <li>Double-click to run the program</li>
-      <li><strong>Press Enter</strong> to toggle the no-recoil effect</li>
-      <li><strong>Scroll mouse</strong> to adjust speed</li>
-    </ol>
-
-    <h2>🚧 Currently in Development</h2>
-    <ul>
-      <li>🔁 Crouch macro feature</li>
-      <li>🎨 Improved GUI and UX</li>
-      <li>⚙ Advanced customisation options</li>
-    </ul>
-
-    <h2>⚠️ Disclaimer</h2>
-    <p>This tool is for <strong>educational purposes only</strong>. Windows Defender may show a false positive — check using VirusTotal if unsure.</p>
-  </div>
-</div>

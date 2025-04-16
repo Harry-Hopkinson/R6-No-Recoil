@@ -4,7 +4,6 @@
 #include <windows.h>
 
 bool EnableRC;
-enum RecoilMode { LOW = 0, MEDIUM, HIGH, ULTRA };
 const char* Modes[] = {"LOW", "MEDIUM", "HIGH", "ULTRA"};
 int SelectedMode = 1;
 const char* ModeDescriptions[] =

@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^4.0.0",
-    "@sveltejs/kit": "^2.16.0",
+    "@sveltejs/kit": "^2.20.6",
     "@sveltejs/vite-plugin-svelte": "^5.0.0",
     "prettier": "3.5.3",
     "prettier-plugin-svelte": "^3.3.3",

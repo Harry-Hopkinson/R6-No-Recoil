@@ -138,7 +138,6 @@ void LoadConfig()
 
     SelectedMode = clamp(SelectedMode, 0, 3);
     CurrentRecoil = RecoilPresets[SelectedMode];
-    CurrentRecoil.Horizontal = 0;
 }
 
 // Window Procedure for handling events
@@ -163,10 +162,9 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
       } else if (LOWORD(wParam) == 2)  // Change Mode Button
       {
         SelectedMode = (SelectedMode + 1) % 4;
-		    if (SelectedMode == 4) CurrentRecoil.Horizontal = 0;
-		    else RecoilPresets[SelectedMode];
-		    SaveConfig();
-		    InvalidateRect(hwnd, NULL, TRUE);
+		CurrentRecoil = RecoilPresets[SelectedMode];
+		SaveConfig();
+		InvalidateRect(hwnd, NULL, TRUE);
       } else if (LOWORD(wParam) == 3)  // Toggle Theme Button
       {
         ToggleTheme();

@@ -45,13 +45,11 @@ UltraSens = 5
 
 # Key used to toggle recoil (e.g. 20 = CAPS LOCK)
 ToggleKey = 20
-```
 
 [UI]
-
 # Enables dark mode in the GUI
-
 DarkTheme = true
+```
 
 ## 🚧 Currently in Development
 

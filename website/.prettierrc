@@ -3,5 +3,5 @@
   "tabWidth": 2,
   "semi": true,
   "singleQuote": false,
-  "plugins": ["prettier-plugin-svelte"]
+  "plugins": ["prettier-plugin-astro"]
 }

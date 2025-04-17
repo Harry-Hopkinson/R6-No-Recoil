@@ -25,6 +25,34 @@ Most recoil tools like Logitech G Hub are bloated, heavy, and come with a ton of
    - **Press `Change Mode`** → Adjust the strength of the recoil compensation.
 4. **Enjoy Smoother Aim!**
 
+## ⚙️ Config Explained
+
+The app automatically creates a `Config.toml` file on first run. You can manually edit it to customize the experience.
+
+### Example:
+
+```toml
+[RecoilPresets]
+# 0 = Low, 1 = Medium, 2 = High, 3 = Ultra
+Mode = 1
+Enabled = true
+
+# Vertical recoil strength for each mode
+LowSens = 2
+MediumSens = 3
+HighSens = 4
+UltraSens = 5
+
+# Key used to toggle recoil (e.g. 20 = CAPS LOCK)
+ToggleKey = 20
+```
+
+[UI]
+
+# Enables dark mode in the GUI
+
+DarkTheme = true
+
 ## 🚧 Currently in Development
 
 - **Crouch Macro** – As suggested by [r6cruch](https://github.com/Harry-Hopkinson/R6-No-Recoil/issues/1)

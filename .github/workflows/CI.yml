@@ -26,8 +26,11 @@ jobs:
         run: |
           choco install mingw -y
           choco install xmake -y
-          echo "::add-path::C:\tools\mingw64\bin"
-          echo "::add-path::C:\ProgramData\chocolatey\bin"
+
+      - name: Add MinGW and Chocolatey to PATH
+        run: |
+          echo "C:\tools\mingw64\bin" >> $env:GITHUB_PATH
+          echo "C:\ProgramData\chocolatey\bin" >> $env:GITHUB_PATH
 
       - name: Verify installation
         run: |

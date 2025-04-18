@@ -47,7 +47,11 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.75));
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.4),
+          rgba(0, 0, 0, 0.75)
+        );
         z-index: 1;
       }
 
@@ -199,18 +203,28 @@
       <div class="hero-content">
         <div>
           <h1>R6 No Recoil</h1>
-          <p style="font-size: 1.25rem; margin-top: -1rem; margin-bottom: 1rem; max-width: 650px; margin-left: auto; margin-right: auto; line-height: 1.6;">
-            Open-source, fast, and lightweight no-recoil tool for Rainbow Six Siege.
-            Easy to use and optimised for smooth performance.
+          <p
+            style="font-size: 1.25rem; margin-top: -1rem; margin-bottom: 1rem; max-width: 650px; margin-left: auto; margin-right: auto; line-height: 1.6;"
+          >
+            Open-source, fast, and lightweight no-recoil tool for Rainbow Six
+            Siege. Easy to use and optimised for smooth performance.
           </p>
-          <p style="font-size: 1rem; color: #ccc; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.6;">
-            Built because tools like Logitech G Hub were too large and bloated just
-            to handle simple recoil control. This tool does one thing well — without
-            the extra overhead.
+          <p
+            style="font-size: 1rem; color: #ccc; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.6;"
+          >
+            Built because tools like Logitech G Hub were too large and bloated
+            just to handle simple recoil control. This tool does one thing well
+            — without the extra overhead.
           </p>
           <div class="buttons">
-            <a href="https://github.com/Harry-Hopkinson/R6-No-Recoil/releases" target="_blank" class="btn primary">💾 Download</a>
-            <a href="#info" class="btn secondary" data-scroll-to-info>📖 Learn More</a>
+            <a
+              href="https://github.com/Harry-Hopkinson/R6-No-Recoil/releases"
+              target="_blank"
+              class="btn primary">💾 Download</a
+            >
+            <a href="#info" class="btn secondary" data-scroll-to-info
+              >📖 Learn More</a
+            >
           </div>
         </div>
       </div>
@@ -223,7 +237,10 @@
       </div>
       <div class="text">
         <h2>🎯 What is R6 No Recoil?</h2>
-        <p>A lightweight, efficient no-recoil tool for Rainbow Six Siege. Designed for smooth performance and ease of use.</p>
+        <p>
+          A lightweight, efficient no-recoil tool for Rainbow Six Siege.
+          Designed for smooth performance and ease of use.
+        </p>
 
         <h2>🚀 Why Use This Tool?</h2>
         <ul>
@@ -236,9 +253,14 @@
 
         <h2>🎮 How to Use</h2>
         <ol>
-          <li>Download <code>r6-no-recoil.exe</code> from the GitHub release page</li>
+          <li>
+            Download <code>r6-no-recoil.exe</code> from the GitHub release page
+          </li>
           <li>Double-click to run the program</li>
-          <li>Use the <strong>Toggle Recoil Button</strong> to toggle the no-recoil effect</li>
+          <li>
+            Use the <strong>Toggle Recoil Button</strong> to toggle the no-recoil
+            effect
+          </li>
           <li>Use the <strong>Change Mode Button</strong> to adjust speed</li>
         </ol>
 
@@ -250,37 +272,39 @@
         </ul>
 
         <h2>⚠️ Disclaimer</h2>
-        <p>This tool is for <strong>educational purposes only</strong>. Windows Defender may show a false positive — check using VirusTotal if unsure.</p>
+        <p>
+          This tool is for <strong>educational purposes only</strong>. Windows
+          Defender may show a false positive — check using VirusTotal if unsure.
+        </p>
       </div>
     </div>
 
     <script>
       let scrollY = 0;
-      const parallax = document.querySelector('.parallax-bg') as HTMLElement;
-    
+      const parallax = document.querySelector(".parallax-bg") as HTMLElement;
+
       const handleScroll = () => {
         scrollY = window.scrollY;
         if (parallax) {
-          parallax.style.transform = 'translateY(' + scrollY * 0.5 + 'px)';
+          parallax.style.transform = "translateY(" + scrollY * 0.5 + "px)";
         }
       };
-    
+
       const scrollToInfo = (e) => {
         e.preventDefault();
-        const el = document.getElementById('info');
+        const el = document.getElementById("info");
         if (el) {
-          el.scrollIntoView({ behavior: 'smooth' });
+          el.scrollIntoView({ behavior: "smooth" });
         }
       };
-    
-      window.addEventListener('scroll', handleScroll);
-    
-      window.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('[data-scroll-to-info]').forEach(el => {
-          el.addEventListener('click', scrollToInfo);
+
+      window.addEventListener("scroll", handleScroll);
+
+      window.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll("[data-scroll-to-info]").forEach((el) => {
+          el.addEventListener("click", scrollToInfo);
         });
       });
     </script>
-    
   </body>
 </html>

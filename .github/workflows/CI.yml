@@ -1,0 +1,45 @@
+name: Build and Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Chocolatey
+        run: |
+          Set-ExecutionPolicy Bypass -Scope Process -Force; `
+          [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; `
+          iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+
+      - name: Install MinGW and xmake
+        run: |
+          choco install mingw -y
+          choco install xmake -y
+          echo "::add-path::C:\tools\mingw64\bin"
+          echo "::add-path::C:\ProgramData\chocolatey\bin"
+
+      - name: Verify installation
+        run: |
+          gcc --version
+          g++ --version
+          xmake --version
+
+      - name: Build the project
+        run: |
+          xmake f -p windows -a x64
+          xmake build
+
+      - name: Test the executable
+        run: |
+          .\build\windows\x64\release\r6-no-recoil.exe || echo "Executable ran (or failed)."

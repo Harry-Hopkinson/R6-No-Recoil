@@ -13,37 +13,17 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      # Step 1: Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Install MinGW using Chocolatey
-      - name: Install MinGW
-        run: |
-          choco install mingw -y
-
-      # Step 3: Add MinGW to PATH
-      - name: Add MinGW to PATH
-        run: |
-          echo "C:\tools\mingw64\bin" >> $env:GITHUB_PATH
-
-      # Step 4: Verify MinGW installation
-      - name: Verify MinGW installation
-        run: |
-          gcc --version
-          g++ --version
-
-      # Step 5: Build the project using g++
       - name: Build the project
         run: |
           g++ -static -O2 -s -o r6-no-recoil.exe src/main.cpp -lgdi32 -luser32 -lkernel32 -mwindows
 
-      # Step 6: Test the executable (optional)
       - name: Test the executable
         run: |
           .\r6-no-recoil.exe || echo "Executable ran (or failed)."
 
-      # Step 7: Upload the executable as an artifact (optional)
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:

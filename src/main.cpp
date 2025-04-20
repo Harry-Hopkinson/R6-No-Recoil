@@ -55,9 +55,6 @@ void LoadConfig()
         RecoilPresets[2].Vertical = 4;
         RecoilPresets[3].Vertical = 5;
 
-        for (int i = 0; i < 4; ++i)
-            RecoilPresets[i].Horizontal = 0;
-
         CurrentRecoil = RecoilPresets[SelectedMode];
         SaveConfig();  // Create default config file
         return;
@@ -255,7 +252,7 @@ void ApplyRecoil()
       while (GetAsyncKeyState(VK_LBUTTON) &
              0x8000)  // Left Mouse Button (Firing)
       {
-        mouse_event(MOUSEEVENTF_MOVE, CurrentRecoil.Horizontal * 2,
+        mouse_event(MOUSEEVENTF_MOVE, 0,
                     CurrentRecoil.Vertical * 2, 0, 0);
         std::this_thread::sleep_for(std::chrono::milliseconds(5));
       }

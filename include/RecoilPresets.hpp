@@ -24,9 +24,9 @@ struct RecoilPreset
 RecoilPreset RecoilPresets[] =
 {
     {2, 0},  // LOW
-    {3, 0}, // MEDIUM
-    {4, 0}, // HIGH
-    {5, 0}  // ULTRA
+    {3, 0},  // MEDIUM
+    {4, 0},  // HIGH
+    {5, 0}   // ULTRA
 };
 
 RecoilPreset CurrentRecoil = RecoilPresets[SelectedMode];

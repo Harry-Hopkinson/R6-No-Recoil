@@ -134,7 +134,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
 		{
 			Running = false;
 			PostQuitMessage(0);
-		} break; // format this
+		} break;
 
 		case WM_COMMAND:
 		{

@@ -43,19 +43,6 @@ void LoadConfig()
                               OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
     if (file == INVALID_HANDLE_VALUE)
     {
-        // Set default config
-        EnableRC = true;
-        DarkTheme = true;
-        SelectedMode = 1;
-        ToggleKey = VK_CAPITAL;
-        UseToggleKey = false;
-
-        RecoilPresets[0].Vertical = 2;
-        RecoilPresets[1].Vertical = 3;
-        RecoilPresets[2].Vertical = 4;
-        RecoilPresets[3].Vertical = 5;
-
-        CurrentRecoil = RecoilPresets[SelectedMode];
         SaveConfig();  // Create default config file
         return;
     }

@@ -18,7 +18,7 @@ Most recoil tools like Logitech G Hub are bloated, heavy, and come with a ton of
 
 ## 🎮 How to Use
 
-1. **Download** `r6-no-recoil.exe` from the Github Release Page.
+1. **Download** `r6-no-recoil.exe` from the [Github Release Page](https://github.com/Harry-Hopkinson/R6-No-Recoil/releases/latest).
 2. **Run the Program** (double-click `r6-no-recoil.exe`).
 3. **Controls:**
    - **Press `Toggle Recoil`** → Toggle the no-recoil effect on/off.

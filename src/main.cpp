@@ -29,7 +29,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
                 InvalidateRect(hwnd, NULL, TRUE);
             } else if (LOWORD(wParam) == 3)  // Toggle Theme Button
             {
-                ToggleTheme();
+                DarkTheme = !DarkTheme;
                 SaveConfig();
                 InvalidateRect(hwnd, NULL, TRUE);
             } else if (LOWORD(wParam) == 4)  // Toggle Caps Lock Feature Button

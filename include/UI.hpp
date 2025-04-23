@@ -34,7 +34,3 @@ void DrawCenteredText(HDC hdc, LPCSTR text, int yOffset, int windowWidth)
 }
 
 bool DarkTheme = true;
-void ToggleTheme()
-{
-    DarkTheme = !DarkTheme;
-}

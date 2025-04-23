@@ -167,8 +167,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     {
         while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
-        TranslateMessage(&msg);
-        DispatchMessage(&msg);
+            TranslateMessage(&msg);
+            DispatchMessage(&msg);
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(16));
     }

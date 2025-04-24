@@ -1,3 +1,4 @@
+#include <random>
 #include <thread>
 
 #include "../include/Config.hpp"
@@ -106,16 +107,36 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
 
 void ApplyRecoil()
 {
+    std::default_random_engine engine(std::random_device{}());
+    std::uniform_int_distribution<int> jitterX(-1, 1);
+    std::uniform_int_distribution<int> jitterY(-1, 1);
+
+    bool horizontalFlip = false;
+
     while (Running)
     {
-        if (EnableRC && (GetAsyncKeyState(VK_RBUTTON) & 0x8000))  // Right Mouse Button (ADS)
+        if (EnableRC && (GetAsyncKeyState(VK_RBUTTON) & 0x8000))  // ADS
         {
-            while (GetAsyncKeyState(VK_LBUTTON) & 0x8000)  // Left Mouse Button (Firing)
+            while (GetAsyncKeyState(VK_LBUTTON) & 0x8000)  // Firing
             {
-                mouse_event(MOUSEEVENTF_MOVE, 0, CurrentRecoil.Vertical * 2, 0, 0);
+                int baseX = CurrentRecoil.Horizontal;
+                int baseY = CurrentRecoil.Vertical * 2;
+
+                int finalX = baseX;
+                int finalY = baseY + jitterY(engine);
+
+                if (baseX != 0)
+                {
+                    finalX += jitterX(engine);
+                    finalX *= (horizontalFlip ? -1 : 1);
+                    horizontalFlip = !horizontalFlip;
+                }
+
+                mouse_event(MOUSEEVENTF_MOVE, finalX, finalY, 0, 0);
                 std::this_thread::sleep_for(std::chrono::milliseconds(5));
             }
         }
+
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
 }

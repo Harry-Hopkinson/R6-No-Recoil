@@ -19,11 +19,16 @@ void SaveConfig()
     len += wsprintfA(buffer + len, "Enabled = %s\r\n", EnableRC ? "true" : "false");
     len += wsprintfA(buffer + len, "\r\n");
 
-    len += wsprintfA(buffer + len, "# Vertical recoil amounts for each preset\r\n");
-    len += wsprintfA(buffer + len, "LowSens = %d\r\n", RecoilPresets[0].Vertical);
-    len += wsprintfA(buffer + len, "MediumSens = %d\r\n", RecoilPresets[1].Vertical);
-    len += wsprintfA(buffer + len, "HighSens = %d\r\n", RecoilPresets[2].Vertical);
-    len += wsprintfA(buffer + len, "UltraSens = %d\r\n", RecoilPresets[3].Vertical);
+    len += wsprintfA(buffer + len, "# Vertical and Horizontal recoil amounts for each preset\r\n");
+    len += wsprintfA(buffer + len, "LowSensVertical = %d\r\n", RecoilPresets[0].Vertical);
+    len += wsprintfA(buffer + len, "MediumSensVertical = %d\r\n", RecoilPresets[1].Vertical);
+    len += wsprintfA(buffer + len, "HighSensVertical = %d\r\n", RecoilPresets[2].Vertical);
+    len += wsprintfA(buffer + len, "UltraSensVertical = %d\r\n", RecoilPresets[3].Vertical);
+    len += wsprintfA(buffer + len, "\r\n");
+    len += wsprintfA(buffer + len, "LowSensHorizontal = %d\r\n", RecoilPresets[0].Horizontal);
+    len += wsprintfA(buffer + len, "MediumSensHorizontal = %d\r\n", RecoilPresets[1].Horizontal);
+    len += wsprintfA(buffer + len, "HighSensHorizontal = %d\r\n", RecoilPresets[2].Horizontal);
+    len += wsprintfA(buffer + len, "UltraSensHorizontal = %d\r\n", RecoilPresets[3].Horizontal);
     len += wsprintfA(buffer + len, "\r\n");
 
     len += wsprintfA(buffer + len, "# Toggle Key (e.g. 20 = CAPS LOCK)\r\n");
@@ -104,10 +109,14 @@ void LoadConfig()
         {
             if (key == "Mode") SelectedMode = atoi(value.c_str());
             else if (key == "Enabled") EnableRC = (value == "true" || value == "1");
-            else if (key == "LowSens") RecoilPresets[0].Vertical = atoi(value.c_str());
-            else if (key == "MediumSens") RecoilPresets[1].Vertical = atoi(value.c_str());
-            else if (key == "HighSens") RecoilPresets[2].Vertical = atoi(value.c_str());
-            else if (key == "UltraSens") RecoilPresets[3].Vertical = atoi(value.c_str());
+            else if (key == "LowSensVertical") RecoilPresets[0].Vertical = atoi(value.c_str());
+            else if (key == "LowSensHorizontal") RecoilPresets[0].Horizontal = atoi(value.c_str());
+            else if (key == "MediumSensVertical") RecoilPresets[1].Vertical = atoi(value.c_str());
+            else if (key == "MediumSensHorizontal") RecoilPresets[1].Horizontal = atoi(value.c_str());
+            else if (key == "HighSensVertical") RecoilPresets[2].Vertical = atoi(value.c_str());
+            else if (key == "HighSensHorizontal") RecoilPresets[2].Horizontal = atoi(value.c_str());
+            else if (key == "UltraSensVertical") RecoilPresets[3].Vertical = atoi(value.c_str());
+            else if (key == "UltraSensHorizontal") RecoilPresets[3].Horizontal = atoi(value.c_str());
             else if (key == "ToggleKey") ToggleKey = atoi(value.c_str());
         }
         else if (section == "UI")

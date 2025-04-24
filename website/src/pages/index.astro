@@ -13,6 +13,10 @@
       content="Rainbow Six Siege, no recoil, R6 macro, anti-recoil, gaming tools, open source"
     />
     <meta name="author" content="Harry Hopkinson" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <style>
       body {
         overflow-x: hidden;
@@ -193,6 +197,23 @@
           padding: 2rem 1rem;
         }
       }
+
+      .github-btn {
+        display: inline-block;
+        margin-top: 1.5rem; /* Add margin to push the button below the others */
+        background: #000;
+        color: white;
+        padding: 0.6rem 0.75rem;
+        border-radius: 50%;
+        font-size: 1.5rem;
+        z-index: 1000;
+        text-align: center;
+        transition: background 0.3s ease;
+      }
+
+      .github-btn:hover {
+        background: #333;
+      }
     </style>
   </head>
   <body>
@@ -226,6 +247,16 @@
               >📖 Learn More</a
             >
           </div>
+          
+          <!-- GitHub Button -->
+          <a
+            href="https://github.com/Harry-Hopkinson/R6-No-Recoil"
+            target="_blank"
+            class="github-btn"
+            aria-label="View source on GitHub"
+          >
+            <i class="fab fa-github"></i>
+          </a>
         </div>
       </div>
     </div>
@@ -290,7 +321,7 @@
         }
       };
 
-      const scrollToInfo = (e) => {
+      const scrollToInfo = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         const el = document.getElementById("info");
         if (el) {

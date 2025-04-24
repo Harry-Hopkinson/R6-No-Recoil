@@ -37,12 +37,13 @@ The app automatically creates a `Config.toml` file on first run. You can manuall
 Mode = 1
 Enabled = true
 
-# Vertical and Horizontal recoil amounts for each preset
+# Vertical recoil amounts for each preset
 LowSensVertical = 2
 MediumSensVertical = 3
 HighSensVertical = 4
 UltraSensVertical = 5
 
+# Horizontal recoil amounts for each preset
 LowSensHorizontal = 0
 MediumSensHorizontal = 0
 HighSensHorizontal = 0

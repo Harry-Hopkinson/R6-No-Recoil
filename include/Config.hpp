@@ -19,12 +19,14 @@ void SaveConfig()
     len += wsprintfA(buffer + len, "Enabled = %s\r\n", EnableRC ? "true" : "false");
     len += wsprintfA(buffer + len, "\r\n");
 
-    len += wsprintfA(buffer + len, "# Vertical and Horizontal recoil amounts for each preset\r\n");
+    len += wsprintfA(buffer + len, "# Vertical recoil amounts for each preset\r\n");
     len += wsprintfA(buffer + len, "LowSensVertical = %d\r\n", RecoilPresets[0].Vertical);
     len += wsprintfA(buffer + len, "MediumSensVertical = %d\r\n", RecoilPresets[1].Vertical);
     len += wsprintfA(buffer + len, "HighSensVertical = %d\r\n", RecoilPresets[2].Vertical);
     len += wsprintfA(buffer + len, "UltraSensVertical = %d\r\n", RecoilPresets[3].Vertical);
     len += wsprintfA(buffer + len, "\r\n");
+
+    len += wsprintfA(buffer + len, "# Horizontal recoil amounts for each preset\r\n");
     len += wsprintfA(buffer + len, "LowSensHorizontal = %d\r\n", RecoilPresets[0].Horizontal);
     len += wsprintfA(buffer + len, "MediumSensHorizontal = %d\r\n", RecoilPresets[1].Horizontal);
     len += wsprintfA(buffer + len, "HighSensHorizontal = %d\r\n", RecoilPresets[2].Horizontal);

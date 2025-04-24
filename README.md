@@ -33,21 +33,25 @@ The app automatically creates a `Config.toml` file on first run. You can manuall
 
 ```toml
 [RecoilPresets]
-# 0 = Low, 1 = Medium, 2 = High, 3 = Ultra
+# 0 = LOW, 1 = MEDIUM, 2 = HIGH, 3 = ULTRA
 Mode = 1
 Enabled = true
 
-# Vertical recoil strength for each mode
-LowSens = 2
-MediumSens = 3
-HighSens = 4
-UltraSens = 5
+# Vertical and Horizontal recoil amounts for each preset
+LowSensVertical = 2
+MediumSensVertical = 3
+HighSensVertical = 4
+UltraSensVertical = 5
 
-# Key used to toggle recoil (e.g. 20 = CAPS LOCK)
+LowSensHorizontal = 0
+MediumSensHorizontal = 0
+HighSensHorizontal = 0
+UltraSensHorizontal = 0
+
+# Toggle Key (e.g. 20 = CAPS LOCK)
 ToggleKey = 20
 
 [UI]
-# Enables dark mode in the GUI
 DarkTheme = true
 ```
 

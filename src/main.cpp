@@ -39,17 +39,25 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
                 SaveConfig();
                 InvalidateRect(hwnd, NULL, TRUE);
             }
+            else if (LOWORD(wParam) == 5)  // Toggle Crouch Macro Button
+            {
+	            EnableCrouchMacro = !EnableCrouchMacro;
+	            SaveConfig();
+	            InvalidateRect(hwnd, NULL, TRUE);
+            }
         } break;
 
         case WM_CREATE:
         {
-            Buttons.emplace_back(hwnd, 30, 320, 130, 40, "Toggle Recoil", 1);
-            Buttons.emplace_back(hwnd, 30 + (130 + 20), 320, 130, 40, "Change Mode",
-                           2);
-            Buttons.emplace_back(hwnd, 30 + 2 * (130 + 20), 320, 130, 40,
-                           "Toggle Theme", 3);
-            Buttons.emplace_back(hwnd, 30 + 3 * (130 + 20), 320, 130, 40,
-                            "Caps Lock Toggle", 4);
+            Buttons.emplace_back(hwnd, 19, 370, 130, 40, "Toggle Recoil", 1);
+            Buttons.emplace_back(hwnd, 19 + (130 + 20), 370, 130, 40,
+                                "Change Mode", 2);
+            Buttons.emplace_back(hwnd, 19 + 2 * (130 + 20), 370, 130, 40,
+                                "Toggle Theme", 3);
+            Buttons.emplace_back(hwnd, 19 + 3 * (130 + 20), 370, 130, 40,
+                                "Caps Lock Toggle", 4);
+            Buttons.emplace_back(hwnd, 19 + 4 * (130 + 20), 370, 130, 40,
+                                "Crouch Macro", 5);
         } break;
 
         case WM_PAINT:
@@ -83,6 +91,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
             DrawCenteredText(hdc, "Caps Lock Toggle:", 200, rect.right);
             DrawCenteredText(hdc, UseToggleKey ? "ENABLED" : "DISABLED", 220,
                             rect.right);
+            DrawCenteredText(hdc, "Crouch Macro:", 310, rect.right);
+            DrawCenteredText(hdc, EnableCrouchMacro ? "ON" : "OFF", 330, rect.right);
 
             // Display current recoil values
             char recoilInfo[40];
@@ -136,6 +146,25 @@ void ApplyRecoil()
                 std::this_thread::sleep_for(std::chrono::milliseconds(5));
             }
         }
+
+        // Crouch spam when C key is held
+        if (EnableCrouchMacro && (GetAsyncKeyState(CrouchKey) & 0x8000))
+        {
+          INPUT input[2] = {};
+
+          // Key down
+          input[0].type = INPUT_KEYBOARD;
+          input[0].ki.wVk = CrouchKey;
+
+          // Key up
+          input[1].type = INPUT_KEYBOARD;
+          input[1].ki.wVk = CrouchKey;
+          input[1].ki.dwFlags = KEYEVENTF_KEYUP;
+
+          SendInput(2, input, sizeof(INPUT));
+          std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        }
+        
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
 }

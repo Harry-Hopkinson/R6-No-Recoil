@@ -13,6 +13,7 @@ Most recoil tools like Logitech G Hub are bloated, heavy, and come with a ton of
 - **📌 No Recoil** – Reduces weapon recoil for better accuracy.
 - **⚡ Lightweight & Fast** – Optimised for minimal CPU usage.
 - **🔧 No Installation Required** – Just run the `.exe`.
+- **⚙️ Powerful Config Support** – Modify the Config.toml file.
 - **🖥️ Works on Any Setup** – Supports Windows 10/11.
 - **🛠️ Open Source & Customisable** – Modify as needed.
 

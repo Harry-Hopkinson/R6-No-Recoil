@@ -1,7 +1,7 @@
 #include <thread>
 
 #include "core/Config.hpp"
-#include "core/random.hpp"
+#include "core/utils/random.hpp"
 #include "ui/Button.hpp"
 
 // Window Procedure for handling events

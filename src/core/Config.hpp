@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "clamp.hpp"
+#include "utils/clamp.hpp"
 
 #include "RecoilPresets.hpp"
 #include "../ui/UI.hpp"

@@ -1,7 +1,8 @@
-#include <random>
 #include <thread>
 
-#include "../include/Config.hpp"
+#include "core/Config.hpp"
+#include "core/utils/random.hpp"
+#include "ui/Button.hpp"
 
 // Window Procedure for handling events
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
@@ -107,10 +108,6 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
 
 void ApplyRecoil()
 {
-    std::default_random_engine engine(std::random_device{}());
-    std::uniform_int_distribution<int> jitterX(-1, 1);
-    std::uniform_int_distribution<int> jitterY(-1, 1);
-
     bool horizontalFlip = false;
 
     while (Running)
@@ -123,11 +120,11 @@ void ApplyRecoil()
                 int baseY = CurrentRecoil.Vertical * 2;
 
                 int finalX = baseX;
-                int finalY = baseY + jitterY(engine);
+                int finalY = baseY + GetRandomInt(-1, 1);
 
                 if (baseX != 0)
                 {
-                    finalX += jitterX(engine);
+                    finalX += GetRandomInt(-1, 1);
                     finalX *= (horizontalFlip ? -1 : 1);
                     horizontalFlip = !horizontalFlip;
                 }

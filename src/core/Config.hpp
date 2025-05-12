@@ -1,5 +1,4 @@
 #pragma once
-#include <string>
 #include "utils/clamp.hpp"
 
 #include "RecoilPresets.hpp"
@@ -55,7 +54,6 @@ void LoadConfig()
         return;
     }
 
-    // Load as usual
     DWORD fileSize = GetFileSize(file, NULL);
     if (fileSize == INVALID_FILE_SIZE || fileSize == 0)
     {
@@ -75,7 +73,7 @@ void LoadConfig()
     buffer[bytesRead] = '\0';
     CloseHandle(file);
 
-    std::string section;
+    char section[32] = {0};
     char* line = strtok(buffer, "\r\n");
     while (line)
     {
@@ -89,7 +87,11 @@ void LoadConfig()
         if (line[0] == '[')
         {
             char* end = strchr(line, ']');
-            if (end) section = std::string(line + 1, end);
+            if (end && (end - line - 1) < sizeof(section))
+            {
+                strncpy(section, line + 1, end - line - 1);
+                section[end - line - 1] = '\0';
+            }
             line = strtok(NULL, "\r\n");
             continue;
         }
@@ -101,30 +103,36 @@ void LoadConfig()
             continue;
         }
 
-        std::string key(line, equal);
-        std::string value(equal + 1);
-        key.erase(0, key.find_first_not_of(" \t"));
-        key.erase(key.find_last_not_of(" \t") + 1);
-        value.erase(0, value.find_first_not_of(" \t"));
-        value.erase(value.find_last_not_of(" \t") + 1);
+        *equal = '\0';
+        char* key = line;
+        char* value = equal + 1;
 
-        if (section == "RecoilPresets")
+        // Trim whitespace
+        while (*key == ' ' || *key == '\t') ++key;
+        char* keyEnd = key + strlen(key) - 1;
+        while (keyEnd > key && (*keyEnd == ' ' || *keyEnd == '\t')) *keyEnd-- = '\0';
+
+        while (*value == ' ' || *value == '\t') ++value;
+        char* valueEnd = value + strlen(value) - 1;
+        while (valueEnd > value && (*valueEnd == ' ' || *valueEnd == '\t')) *valueEnd-- = '\0';
+
+        if (strcmp(section, "RecoilPresets") == 0)
         {
-            if (key == "Mode") SelectedMode = atoi(value.c_str());
-            else if (key == "Enabled") EnableRC = (value == "true" || value == "1");
-            else if (key == "LowSensVertical") RecoilPresets[0].Vertical = atoi(value.c_str());
-            else if (key == "LowSensHorizontal") RecoilPresets[0].Horizontal = atoi(value.c_str());
-            else if (key == "MediumSensVertical") RecoilPresets[1].Vertical = atoi(value.c_str());
-            else if (key == "MediumSensHorizontal") RecoilPresets[1].Horizontal = atoi(value.c_str());
-            else if (key == "HighSensVertical") RecoilPresets[2].Vertical = atoi(value.c_str());
-            else if (key == "HighSensHorizontal") RecoilPresets[2].Horizontal = atoi(value.c_str());
-            else if (key == "UltraSensVertical") RecoilPresets[3].Vertical = atoi(value.c_str());
-            else if (key == "UltraSensHorizontal") RecoilPresets[3].Horizontal = atoi(value.c_str());
-            else if (key == "ToggleKey") ToggleKey = atoi(value.c_str());
+            if (strcmp(key, "Mode") == 0) SelectedMode = atoi(value);
+            else if (strcmp(key, "Enabled") == 0) EnableRC = (strcmp(value, "true") == 0 || strcmp(value, "1") == 0);
+            else if (strcmp(key, "LowSensVertical") == 0) RecoilPresets[0].Vertical = atoi(value);
+            else if (strcmp(key, "LowSensHorizontal") == 0) RecoilPresets[0].Horizontal = atoi(value);
+            else if (strcmp(key, "MediumSensVertical") == 0) RecoilPresets[1].Vertical = atoi(value);
+            else if (strcmp(key, "MediumSensHorizontal") == 0) RecoilPresets[1].Horizontal = atoi(value);
+            else if (strcmp(key, "HighSensVertical") == 0) RecoilPresets[2].Vertical = atoi(value);
+            else if (strcmp(key, "HighSensHorizontal") == 0) RecoilPresets[2].Horizontal = atoi(value);
+            else if (strcmp(key, "UltraSensVertical") == 0) RecoilPresets[3].Vertical = atoi(value);
+            else if (strcmp(key, "UltraSensHorizontal") == 0) RecoilPresets[3].Horizontal = atoi(value);
+            else if (strcmp(key, "ToggleKey") == 0) ToggleKey = atoi(value);
         }
-        else if (section == "UI")
+        else if (strcmp(section, "UI") == 0)
         {
-            if (key == "DarkTheme") DarkTheme = (value == "true" || value == "1");
+            if (strcmp(key, "DarkTheme") == 0) DarkTheme = (strcmp(value, "true") == 0 || strcmp(value, "1") == 0);
         }
 
         line = strtok(NULL, "\r\n");

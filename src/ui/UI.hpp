@@ -1,8 +1,5 @@
 #pragma once
 
-#include <string>
-#include <vector>
-
 const int WINDOW_WIDTH = 650;
 const int WINDOW_HEIGHT = 400;
 

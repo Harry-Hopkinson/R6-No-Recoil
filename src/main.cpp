@@ -1,7 +1,8 @@
 #include <random>
 #include <thread>
 
-#include "../include/Config.hpp"
+#include "core/Config.hpp"
+#include "ui/Button.hpp"
 
 // Window Procedure for handling events
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,

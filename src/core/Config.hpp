@@ -1,8 +1,8 @@
 #pragma once
 
+#include "clamp.hpp"
 #include "RecoilPresets.hpp"
-#include "UI.hpp"
-#include "Utils.hpp"
+#include "../ui/UI.hpp"
 
 void SaveConfig()
 {

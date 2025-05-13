@@ -2,7 +2,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>R6 No Recoil Tool for Rainbow Six Siege</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
@@ -13,20 +13,30 @@
       content="Rainbow Six Siege, no recoil, R6 macro, anti-recoil, gaming tools, open source"
     />
     <meta name="author" content="Harry Hopkinson" />
+
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+
     <style>
       body {
         overflow-x: hidden;
         margin: 0;
-        font-family: "Segoe UI", sans-serif;
+        font-family: "Inter", sans-serif;
         scroll-behavior: smooth;
-        background: #f9f9f9;
+        background: #f2f4f8;
+        color: #333;
       }
 
-      .hero {
+      section.hero {
         position: relative;
         height: 100vh;
         overflow: hidden;
@@ -66,18 +76,27 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        color: white;
         text-align: center;
         padding: 2rem;
         opacity: 0;
         animation: fadeIn 1.2s ease-out forwards;
         animation-delay: 0.3s;
+        color: white;
       }
 
       .hero-content h1 {
-        font-size: 4rem;
-        margin-bottom: 1.5rem;
+        font-size: 4.5rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
         text-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+      }
+
+      .hero-content p {
+        font-size: 1.2rem;
+        line-height: 1.7;
+        max-width: 720px;
+        margin: 0.75rem auto 1.5rem;
+        color: #ddd;
       }
 
       .buttons {
@@ -85,28 +104,32 @@
         gap: 1rem;
         justify-content: center;
         flex-wrap: wrap;
+        margin-top: 1.5rem;
       }
 
       .btn {
         text-decoration: none;
-        padding: 0.8rem 1.6rem;
+        padding: 0.9rem 1.8rem;
         border-radius: 8px;
-        font-size: 1.1rem;
+        font-size: 1rem;
+        font-weight: 600;
         transition: all 0.25s ease-in-out;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
       }
 
       .btn.primary {
-        background: #0d6efd;
+        background: linear-gradient(135deg, #0d6efd, #3b82f6);
         color: white;
       }
 
       .btn.primary:hover {
-        background: #0b5ed7;
+        background: linear-gradient(135deg, #0b5ed7, #2563eb);
       }
 
       .btn.secondary {
-        background: rgba(255, 255, 255, 0.15);
+        background: rgba(255, 255, 255, 0.1);
         color: white;
         border: 1px solid rgba(255, 255, 255, 0.3);
       }
@@ -115,23 +138,48 @@
         background: rgba(255, 255, 255, 0.25);
       }
 
+      .github-btn {
+        display: inline-block;
+        margin-top: 2rem;
+        background: #24292f;
+        color: white;
+        padding: 0.6rem 0.8rem;
+        border-radius: 8px;
+        font-size: 1.5rem;
+        transition: background 0.3s ease;
+        animation: float 3s ease-in-out infinite;
+      }
+
+      .github-btn:hover {
+        background: #1c1f23;
+      }
+
       @keyframes fadeIn {
         to {
           opacity: 1;
         }
       }
 
-      .content {
-        width: 100%;
-        max-width: none;
-        margin: 0;
-        padding: 4rem 2rem;
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-5px);
+        }
+      }
+
+      section.content {
+        background: white;
+        padding: 5rem 3rem;
+        border-top-left-radius: 40px;
+        border-top-right-radius: 40px;
+        box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.05);
         display: flex;
         flex-wrap: wrap;
         gap: 3rem;
-        background: white;
-        border-top: 2px solid #eee;
-        animation: slideIn 1s ease forwards;
+        align-items: center;
       }
 
       .content .text,
@@ -142,28 +190,17 @@
 
       .content .image img {
         width: 100%;
-        border-radius: 20px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         max-height: 800px;
         object-fit: cover;
-        margin-top: 175px;
-      }
-
-      @keyframes slideIn {
-        from {
-          opacity: 0;
-          transform: translateY(30px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+        border-radius: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-top: 2rem;
       }
 
       h2 {
-        margin-top: 2rem;
         font-size: 2rem;
-        color: #222;
+        color: #111;
+        margin-bottom: 1rem;
       }
 
       ul,
@@ -171,17 +208,29 @@
         padding-left: 1.5rem;
       }
 
-      li {
-        margin-bottom: 0.5rem;
+      ul li {
+        margin-bottom: 0.6rem;
+      }
+
+      ul li::before {
+        content: "✔️";
+        margin-right: 0.5rem;
+        color: #0d6efd;
+      }
+
+      ol li {
+        margin-bottom: 0.6rem;
       }
 
       p {
         margin-top: 0.5rem;
-        margin-right: 1.3rem;
+        margin-bottom: 1rem;
+        line-height: 1.7;
       }
 
       code {
-        background: #eee;
+        background: #e0e0e0;
+        color: #111;
         padding: 0.2rem 0.4rem;
         border-radius: 4px;
         font-family: monospace;
@@ -192,47 +241,26 @@
           font-size: 3rem;
         }
 
-        .content {
+        section.content {
           flex-direction: column;
-          padding: 2rem 1rem;
+          padding: 3rem 1.5rem;
         }
-      }
-
-      .github-btn {
-        display: inline-block;
-        margin-top: 1.5rem; /* Add margin to push the button below the others */
-        background: #000;
-        color: white;
-        padding: 0.6rem 0.75rem;
-        border-radius: 50%;
-        font-size: 1.5rem;
-        z-index: 1000;
-        text-align: center;
-        transition: background 0.3s ease;
-      }
-
-      .github-btn:hover {
-        background: #333;
       }
     </style>
   </head>
   <body>
     <!-- Hero Section -->
-    <div class="hero">
+    <section class="hero">
       <div class="parallax-bg"></div>
       <div class="overlay-gradient"></div>
       <div class="hero-content">
         <div>
           <h1>R6 No Recoil</h1>
-          <p
-            style="font-size: 1.25rem; margin-top: -1rem; margin-bottom: 1rem; max-width: 650px; margin-left: auto; margin-right: auto; line-height: 1.6;"
-          >
+          <p>
             Open-source, fast, and lightweight no-recoil tool for Rainbow Six
             Siege. Easy to use and optimised for smooth performance.
           </p>
-          <p
-            style="font-size: 1rem; color: #ccc; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.6;"
-          >
+          <p>
             Built because tools like Logitech G Hub were too large and bloated
             just to handle simple recoil control. This tool does one thing well
             — without the extra overhead.
@@ -247,8 +275,6 @@
               >📖 Learn More</a
             >
           </div>
-
-          <!-- GitHub Button -->
           <a
             href="https://github.com/Harry-Hopkinson/R6-No-Recoil"
             target="_blank"
@@ -259,10 +285,10 @@
           </a>
         </div>
       </div>
-    </div>
+    </section>
 
     <!-- Info Section -->
-    <div id="info" class="content">
+    <section id="info" class="content">
       <div class="image">
         <img src="/app.png" alt="App preview" />
       </div>
@@ -275,12 +301,12 @@
 
         <h2>🚀 Why Use This Tool?</h2>
         <ul>
-          <li>📌 Reduces weapon recoil for better accuracy</li>
-          <li>⚡ Lightweight & fast — optimised for low CPU usage</li>
-          <li>🔧 No installation required — just run the <code>.exe</code></li>
-          <li>⚙️ Powerful Config Support</li>
-          <li>🖥️ Works on Windows 10 & 11</li>
-          <li>🛠️ Open source & customisable</li>
+          <li>Reduces weapon recoil for better accuracy</li>
+          <li>Lightweight & fast — optimised for low CPU usage</li>
+          <li>No installation required — just run the <code>.exe</code></li>
+          <li>Powerful Config Support</li>
+          <li>Works on Windows 10 & 11</li>
+          <li>Open source & customisable</li>
         </ul>
 
         <h2>🎮 How to Use</h2>
@@ -298,9 +324,9 @@
 
         <h2>🚧 Currently in Development</h2>
         <ul>
-          <li>🔁 Crouch macro feature</li>
-          <li>🎨 Improved GUI and UX</li>
-          <li>⚙ Advanced customisation options</li>
+          <li>Crouch macro feature</li>
+          <li>Improved GUI and UX</li>
+          <li>Advanced customisation options</li>
         </ul>
 
         <h2>⚠️ Disclaimer</h2>
@@ -309,20 +335,20 @@
           Defender may show a false positive — check using VirusTotal if unsure.
         </p>
       </div>
-    </div>
+    </section>
 
+    <!-- Scripts -->
     <script>
-      let scrollY = 0;
-      const parallax = document.querySelector(".parallax-bg") as HTMLElement;
+      const parallax = document.querySelector(".parallax-bg");
 
       const handleScroll = () => {
-        scrollY = window.scrollY;
+        const scrollY = window.scrollY;
         if (parallax) {
           parallax.style.transform = "translateY(" + scrollY * 0.5 + "px)";
         }
       };
 
-      const scrollToInfo = (e: { preventDefault: () => void }) => {
+      const scrollToInfo = (e) => {
         e.preventDefault();
         const el = document.getElementById("info");
         if (el) {

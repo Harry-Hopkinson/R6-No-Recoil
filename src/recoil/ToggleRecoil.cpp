@@ -1,3 +1,4 @@
+#include <windows.h>
 #include "../Globals.hpp"
 
 #include "ToggleRecoil.hpp"

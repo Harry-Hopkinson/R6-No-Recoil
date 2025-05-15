@@ -1,6 +1,7 @@
 #pragma once
 
-#include <windows.h>
+extern const int WINDOW_WIDTH;
+extern const int WINDOW_HEIGHT;
 
 struct RecoilPreset
 {
@@ -18,3 +19,5 @@ extern RecoilPreset CurrentRecoil;
 
 extern const char* Modes[4];
 extern const char* ModeDescriptions[4];
+
+extern bool DarkTheme;

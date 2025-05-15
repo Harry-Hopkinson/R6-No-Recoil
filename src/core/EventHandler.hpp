@@ -1,5 +1,6 @@
 #pragma once
 
+#define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);

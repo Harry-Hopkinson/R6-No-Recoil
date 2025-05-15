@@ -6,6 +6,7 @@ const int WINDOW_HEIGHT = 400;
 bool EnableRC = true;
 bool UseToggleKey = false;
 bool Running = true;
+
 int SelectedMode = 1;
 int ToggleKey = 20;
 

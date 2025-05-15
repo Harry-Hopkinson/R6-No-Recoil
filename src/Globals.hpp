@@ -12,8 +12,10 @@ struct RecoilPreset
 extern bool EnableRC;
 extern bool UseToggleKey;
 extern bool Running;
+
 extern int SelectedMode;
 extern int ToggleKey;
+
 extern RecoilPreset RecoilPresets[4];
 extern RecoilPreset CurrentRecoil;
 

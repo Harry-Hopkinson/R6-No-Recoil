@@ -1,7 +1,5 @@
 #include "Globals.hpp"
 
-#include <windows.h>
-
 const int WINDOW_WIDTH = 650;
 const int WINDOW_HEIGHT = 400;
 
@@ -9,7 +7,7 @@ bool EnableRC = true;
 bool UseToggleKey = false;
 bool Running = true;
 int SelectedMode = 1;
-int ToggleKey = VK_CAPITAL;
+int ToggleKey = 20;
 
 RecoilPreset RecoilPresets[4] =
 {

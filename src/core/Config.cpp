@@ -1,8 +1,7 @@
-#include <windows.h>
-
-#include "../Globals.hpp"
-
 #include "Config.hpp"
+
+#include <windows.h>
+#include "../Globals.hpp"
 
 #include "utils/clamp.hpp"
 

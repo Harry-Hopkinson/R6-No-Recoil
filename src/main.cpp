@@ -6,6 +6,9 @@
 #include "recoil/ApplyRecoil.hpp"
 #include "recoil/ToggleRecoil.hpp"
 
+#include "Globals.hpp"
+#include "ui/UI.hpp"
+
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
                    LPSTR lpCmdLine, int nCmdShow)
 {

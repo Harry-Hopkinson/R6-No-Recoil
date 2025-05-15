@@ -5,11 +5,11 @@
 
 inline void InitRandom()
 {
-    static bool initialized = false;
-    if (!initialized)
+    static bool initialised = false;
+    if (!initialised)
     {
         std::srand(static_cast<unsigned int>(std::time(nullptr)));
-        initialized = true;
+        initialised = true;
     }
 }
 

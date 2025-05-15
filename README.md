@@ -28,7 +28,7 @@ Most recoil tools like Logitech G Hub are bloated, heavy, and come with a ton of
 
 ## ⚙️ Config Explained
 
-The app automatically creates a `Config.toml` file on first run. You can manually edit it to customize the experience.
+The app automatically creates a `Config.toml` file on first run. You can manually edit it to customise the experience.
 
 ### Example:
 

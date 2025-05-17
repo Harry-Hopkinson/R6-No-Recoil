@@ -17,8 +17,17 @@ add_executable(r6-no-recoil WIN32 ${files})
 
 # Platform-specific compile and link options
 if(MINGW)
-    target_compile_options(r6-no-recoil PRIVATE -O2 -Wall)
-    target_link_options(r6-no-recoil PRIVATE -static -s -mwindows)
+    target_compile_options(r6-no-recoil PRIVATE
+        -O2 -Wall
+        -fno-exceptions -fno-rtti
+        -ffunction-sections -fdata-sections
+    )
+    target_link_options(r6-no-recoil PRIVATE
+        -static -static-libgcc -static-libstdc++
+        -Wl,--gc-sections
+        -s
+        -mwindows
+    )
 elseif(MSVC)
     target_compile_definitions(r6-no-recoil PRIVATE _CRT_SECURE_NO_WARNINGS)
     target_compile_options(r6-no-recoil PRIVATE /W4)

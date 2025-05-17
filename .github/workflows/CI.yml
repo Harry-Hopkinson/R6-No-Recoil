@@ -1,4 +1,4 @@
-name: Build and Test
+name: Build and Upload
 
 on:
   push:
@@ -9,31 +9,61 @@ on:
       - main
 
 jobs:
-  build:
+  msys2-build:
     runs-on: windows-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup cmake environment
+      - name: Install MSYS2
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: true
+          install: >
+            mingw-w64-x86_64-toolchain
+            make
+            cmake
+
+      - name: Configure project with CMake
+        shell: msys2 {0}
         run: |
-          mkdir build
+          mkdir -p build
           cd build
           cmake .. -G "Unix Makefiles"
 
       - name: Build the project with make
+        shell: msys2 {0}
         run: |
           cd build
           make
 
-      - name: Test the executable
-        run: |
-          cd build
-          .\r6-no-recoil.exe || echo "Executable ran (or failed)."
-
-      - name: Upload artifact
+      - name: Upload artifact (MSYS2)
         uses: actions/upload-artifact@v4
         with:
-          name: r6-no-recoil
+          name: r6-no-recoil-msys2
           path: build/r6-no-recoil.exe
+
+  msvc-build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure project with MSVC CMake generator
+        run: |
+          mkdir build
+          cd build
+          cmake .. -G "Visual Studio 17 2022" -A x64
+
+      - name: Build the project using MSVC
+        run: |
+          cmake --build build --config Release
+
+      - name: Upload artifact (MSVC)
+        uses: actions/upload-artifact@v4
+        with:
+          name: r6-no-recoil-msvc
+          path: build/Release/r6-no-recoil.exe

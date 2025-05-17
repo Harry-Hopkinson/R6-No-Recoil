@@ -25,6 +25,7 @@ if(MINGW)
     target_link_options(r6-no-recoil PRIVATE
         -static -static-libgcc -static-libstdc++
         -Wl,--gc-sections
+        -s
         -mwindows
     )
 elseif(MSVC)

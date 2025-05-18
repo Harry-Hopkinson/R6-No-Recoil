@@ -368,7 +368,7 @@
 
     <!-- Scripts -->
     <script>
-      const parallax = document.querySelector(".parallax-bg");
+      const parallax : HTMLElement | null = document.querySelector(".parallax-bg");
 
       const handleScroll = () => {
         const scrollY = window.scrollY;
@@ -377,7 +377,7 @@
         }
       };
 
-      const scrollToInfo = (e) => {
+      const scrollToInfo = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         const el = document.getElementById("info");
         if (el) {

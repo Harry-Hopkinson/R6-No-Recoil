@@ -3,7 +3,7 @@
 
 #include <thread>
 
-#include "core/Config.hpp"
+#include "config/Config.hpp"
 
 #include "recoil/ApplyRecoil.hpp"
 #include "recoil/ToggleRecoil.hpp"

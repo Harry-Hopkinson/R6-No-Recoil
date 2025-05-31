@@ -72,10 +72,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Yarn Install 📦
         run: |
-          yarn
+          cd website && yarn
       - name: Linting 🧹
         run: |
-          yarn lint
+          cd website && yarn lint

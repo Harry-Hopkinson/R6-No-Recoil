@@ -4,13 +4,13 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
+    "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
+    "build": "ASTRO_TELEMETRY_DISABLED=1 astro build",
     "format": "prettier --write .",
     "lint": "prettier --check ."
   },
   "dependencies": {
-    "astro": "5.7.13"
+    "astro": "5.8.1"
   },
   "devDependencies": {
     "prettier": "3.5.3",

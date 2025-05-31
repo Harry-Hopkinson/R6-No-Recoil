@@ -67,3 +67,15 @@ jobs:
         with:
           name: r6-no-recoil-msvc
           path: build/Release/r6-no-recoil.exe
+  
+  formatter:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Yarn Install 📦
+        run: |
+          yarn
+      - name: Linting 🧹
+        run: |
+          yarn lint

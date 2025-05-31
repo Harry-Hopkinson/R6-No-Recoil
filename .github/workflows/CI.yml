@@ -1,4 +1,4 @@
-name: Build and Upload
+name: Build, Upload and Lint
 
 on:
   push:

@@ -1,0 +1,18 @@
+You need to have Python installed in order for the scripts to work. Once python is installed, install the packages required.
+
+📦 Install the third-party packages:
+====================================
+You'll need to install:
+
+1. pyperclip
+
+2. pynput
+
+Install them using pip. Open a terminal or command prompt and run:
+
+pip install pyperclip pynput
+====================================
+
+If you're using Python 3 and that doesn’t work, try:
+
+pip3 install pyperclip pynput

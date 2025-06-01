@@ -2,6 +2,12 @@
 
 ![Preview](website/public/image.png)
 
+<div align="center">
+    <a href="https://github.com/Harry-Hopkinson/R6-No-Recoil/releases/latest">
+        <img src="https://raw.githubusercontent.com/Harry-Hopkinson/R6-No-Recoil/master/website/public/app.png" alt="App Preview" width="300px">
+    </a>
+</div>
+
 A lightweight, efficient **no-recoil tool** for Rainbow Six Siege. Designed for smooth performance and ease of use.
 
 ## 🧠 Why I Made This

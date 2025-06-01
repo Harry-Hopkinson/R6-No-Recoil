@@ -4,7 +4,7 @@
 
 <div align="center">
     <a href="https://github.com/Harry-Hopkinson/R6-No-Recoil/releases/latest">
-        <img src="https://raw.githubusercontent.com/Harry-Hopkinson/R6-No-Recoil/master/website/public/app.png" alt="App Preview" width="600px">
+        <img src="https://raw.githubusercontent.com/Harry-Hopkinson/R6-No-Recoil/master/website/public/app.png" alt="App Preview" width="750px">
     </a>
 </div>
 

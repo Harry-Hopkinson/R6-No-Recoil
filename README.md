@@ -32,6 +32,18 @@ Most recoil tools like Logitech G Hub are bloated, heavy, and come with a ton of
    - **Press `Change Mode`** → Adjust the strength of the recoil compensation.
 4. **Enjoy Smoother Aim!**
 
+## ⚠️ Important Setup Note
+
+To ensure the recoil compensation behaves consistently across all systems, you must disable Windows mouse acceleration:
+🔧 How to disable **Enhance Pointer Precision**
+
+1. **Open the Control Panel.**
+2. **Go to Mouse → Pointer Options.**
+3. **Uncheck the box for "Enhance pointer precision".**
+4. **Click Apply and OK.**
+
+This prevents Windows from altering mouse movement and ensures the tool moves your mouse by exact values for pixel-perfect recoil control.
+
 ## ⚙️ Config Explained
 
 The app automatically creates a `Config.toml` file on first run. You can manually edit it to customise the experience.

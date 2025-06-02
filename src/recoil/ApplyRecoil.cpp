@@ -6,6 +6,16 @@
 #include <windows.h>
 #include <thread>
 
+void MoveMouseRaw(int dx, int dy)
+{
+    INPUT input = {0};
+    input.type = INPUT_MOUSE;
+    input.mi.dx = dx;
+    input.mi.dy = dy;
+    input.mi.dwFlags = MOUSEEVENTF_MOVE;
+    SendInput(1, &input, sizeof(INPUT));
+}
+
 void ApplyRecoil()
 {
     bool horizontalFlip = false;
@@ -29,7 +39,7 @@ void ApplyRecoil()
                     horizontalFlip = !horizontalFlip;
                 }
 
-                mouse_event(MOUSEEVENTF_MOVE, finalX, finalY, 0, 0);
+                MoveMouseRaw(finalX, finalY);
                 std::this_thread::sleep_for(std::chrono::milliseconds(5));
             }
         }

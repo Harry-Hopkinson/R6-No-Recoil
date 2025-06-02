@@ -88,7 +88,7 @@ void LoadConfig()
         if (line[0] == '[')
         {
             char* end = strchr(line, ']');
-            if (end && (end - line - 1) < sizeof(section))
+            if (end && static_cast<size_t>(end - line - 1) < sizeof(section))
             {
                 strncpy(section, line + 1, end - line - 1);
                 section[end - line - 1] = '\0';

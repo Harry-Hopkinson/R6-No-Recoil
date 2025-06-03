@@ -30,5 +30,25 @@ if(MINGW)
     )
 elseif(MSVC)
     target_compile_definitions(r6-no-recoil PRIVATE _CRT_SECURE_NO_WARNINGS)
-    target_compile_options(r6-no-recoil PRIVATE /W4)
+    target_compile_options(r6-no-recoil PRIVATE
+        /W4                     # High warning level
+        /WX-                    # Do not treat warnings as errors (optional)
+        /O2                     # Optimize for speed
+        /GL                     # Whole Program Optimization
+        /Gy                     # Enable function-level linking
+        /Zc:inline              # Remove unreferenced COMDAT functions/data
+        /Zc:preprocessor        # Use conforming preprocessor (C++20)
+        /EHsc                   # Enable standard C++ exception handling
+        /GS                     # Enable stack security checks
+        /utf-8                  # Source files are in UTF-8
+    )
+    target_link_options(r6-no-recoil PRIVATE
+        /LTCG                   # Link-time code generation (with /GL)
+        /INCREMENTAL:NO         # Required for /LTCG
+        /OPT:REF                # Eliminate unreferenced code/data
+        /OPT:ICF                # Fold identical COMDATs
+        /DYNAMICBASE            # ASLR
+        /NXCOMPAT               # DEP compatibility
+        /SUBSYSTEM:WINDOWS      # Windows GUI app
+    )
 endif()

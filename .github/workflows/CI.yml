@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  msys2-build:
+  msys2:
     runs-on: windows-latest
 
     steps:
@@ -45,7 +45,7 @@ jobs:
           name: r6-no-recoil-msys2
           path: build/r6-no-recoil.exe
 
-  msvc-build:
+  msvc:
     runs-on: windows-latest
 
     steps:
@@ -67,7 +67,7 @@ jobs:
         with:
           name: r6-no-recoil-msvc
           path: build/Release/r6-no-recoil.exe
-  
+
   formatter:
     runs-on: ubuntu-latest
 

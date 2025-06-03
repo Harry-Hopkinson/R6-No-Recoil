@@ -9,43 +9,7 @@ on:
       - main
 
 jobs:
-  msys2:
-    runs-on: windows-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Install MSYS2
-        uses: msys2/setup-msys2@v2
-        with:
-          msystem: MINGW64
-          update: true
-          install: >
-            mingw-w64-x86_64-toolchain
-            make
-            cmake
-
-      - name: Configure project with CMake
-        shell: msys2 {0}
-        run: |
-          mkdir -p build
-          cd build
-          cmake .. -G "Unix Makefiles"
-
-      - name: Build the project with make
-        shell: msys2 {0}
-        run: |
-          cd build
-          make
-
-      - name: Upload artifact (MSYS2)
-        uses: actions/upload-artifact@v4
-        with:
-          name: r6-no-recoil-msys2
-          path: build/r6-no-recoil.exe
-
-  msvc:
+  build:
     runs-on: windows-latest
 
     steps:
@@ -61,6 +25,11 @@ jobs:
       - name: Build the project using MSVC
         run: |
           cmake --build build --config Release
+
+      - name: Strip symbols from the executable
+        run: |
+          cd build/Release
+          strip r6-no-recoil.exe
 
       - name: Upload artifact (MSVC)
         uses: actions/upload-artifact@v4

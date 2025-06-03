@@ -18,37 +18,48 @@ add_executable(r6-no-recoil WIN32 ${files})
 # Platform-specific compile and link options
 if(MINGW)
     target_compile_options(r6-no-recoil PRIVATE
-        -O2 -Wall
-        -fno-exceptions -fno-rtti
-        -ffunction-sections -fdata-sections
+        -O2
+        -Wall
+        -Wno-missing-field-initializers
+        -fno-exceptions
+        -fno-rtti
+        -ffunction-sections
+        -fdata-sections
+        -static
+        -fstack-protector-strong
     )
+
     target_link_options(r6-no-recoil PRIVATE
-        -static -static-libgcc -static-libstdc++
+        -static
+        -static-libgcc
+        -static-libstdc++
         -Wl,--gc-sections
         -s
         -mwindows
+        -Wl,--nxcompat
+        -Wl,--dynamicbase
     )
 elseif(MSVC)
     target_compile_definitions(r6-no-recoil PRIVATE _CRT_SECURE_NO_WARNINGS)
     target_compile_options(r6-no-recoil PRIVATE
-        /W4                     # High warning level
-        /WX-                    # Do not treat warnings as errors (optional)
-        /O2                     # Optimize for speed
-        /GL                     # Whole Program Optimization
-        /Gy                     # Enable function-level linking
-        /Zc:inline              # Remove unreferenced COMDAT functions/data
-        /Zc:preprocessor        # Use conforming preprocessor (C++20)
-        /EHsc                   # Enable standard C++ exception handling
-        /GS                     # Enable stack security checks
-        /utf-8                  # Source files are in UTF-8
+        /W4
+        /WX-
+        /O2
+        /GL
+        /Gy
+        /Zc:inline
+        /Zc:preprocessor
+        /EHsc
+        /GS
+        /utf-8
     )
     target_link_options(r6-no-recoil PRIVATE
-        /LTCG                   # Link-time code generation (with /GL)
-        /INCREMENTAL:NO         # Required for /LTCG
-        /OPT:REF                # Eliminate unreferenced code/data
-        /OPT:ICF                # Fold identical COMDATs
-        /DYNAMICBASE            # ASLR
-        /NXCOMPAT               # DEP compatibility
-        /SUBSYSTEM:WINDOWS      # Windows GUI app
+        /LTCG
+        /INCREMENTAL:NO
+        /OPT:REF
+        /OPT:ICF
+        /DYNAMICBASE
+        /NXCOMPAT
+        /SUBSYSTEM:WINDOWS
     )
 endif()

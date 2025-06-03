@@ -14,9 +14,9 @@
 void DrawCenteredText(HDC hdc, LPCSTR text, int yOffset, int windowWidth)
 {
     SIZE textSize;
-    GetTextExtentPoint32(hdc, text, strlen(text), &textSize);
+    GetTextExtentPoint32(hdc, text, static_cast<int>(strlen(text)), &textSize);
     int textX = (windowWidth - textSize.cx) / 2;
-    TextOut(hdc, textX, yOffset, text, strlen(text));
+    TextOut(hdc, textX, yOffset, text, static_cast<int>(strlen(text)));
 }
 
 // Window Procedure for handling events
@@ -121,8 +121,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
     return 0;
 }
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
-                   LPSTR lpCmdLine, int nCmdShow)
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE,
+                   LPSTR, int nCmdShow)
 {
     // Register Window Class
     WNDCLASS wc = {};

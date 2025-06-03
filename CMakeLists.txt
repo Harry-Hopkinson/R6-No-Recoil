@@ -20,6 +20,7 @@ if(MINGW)
     target_compile_options(r6-no-recoil PRIVATE
         -O2
         -Wall
+        -Wextra
         -Wno-missing-field-initializers
         -fno-exceptions
         -fno-rtti

@@ -274,8 +274,8 @@
               target="_blank"
               class="btn primary">💾 Download</a
             >
-            <a href="#info" class="btn secondary" data-scroll-to-info
-              >📖 Learn More</a
+            <a href="https://github.com/Harry-Hopkinson/R6-No-Recoil/wiki" class="btn secondary"
+              >📖 Wiki (Github) </a
             >
           </div>
           <a
@@ -371,28 +371,12 @@
       const parallax: HTMLElement | null =
         document.querySelector(".parallax-bg");
 
-      const handleScroll = () => {
+      const handleScroll = () =>
+      {
         const scrollY = window.scrollY;
-        if (parallax) {
-          parallax.style.transform = "translateY(" + scrollY * 0.5 + "px)";
-        }
+        if (parallax) parallax.style.transform = "translateY(" + scrollY * 0.5 + "px)";
       };
-
-      const scrollToInfo = (e: { preventDefault: () => void }) => {
-        e.preventDefault();
-        const el = document.getElementById("info");
-        if (el) {
-          el.scrollIntoView({ behavior: "smooth" });
-        }
-      };
-
       window.addEventListener("scroll", handleScroll);
-
-      window.addEventListener("DOMContentLoaded", () => {
-        document.querySelectorAll("[data-scroll-to-info]").forEach((el) => {
-          el.addEventListener("click", scrollToInfo);
-        });
-      });
     </script>
   </body>
 </html>

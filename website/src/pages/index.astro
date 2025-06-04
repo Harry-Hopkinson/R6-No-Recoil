@@ -269,14 +269,14 @@
             — without the extra overhead.
           </p>
           <div class="buttons">
+            <a id="download-btn" target="_blank" class="btn primary"
+              >💾 Download</a
+            >
             <a
-              href="https://github.com/Harry-Hopkinson/R6-No-Recoil/releases/latest"
-              target="_blank"
-              class="btn primary">💾 Download</a
-            >
-            <a href="https://github.com/Harry-Hopkinson/R6-No-Recoil/wiki" class="btn secondary"
-              >📖 Wiki (Github) </a
-            >
+              href="https://github.com/Harry-Hopkinson/R6-No-Recoil/wiki"
+              class="btn secondary"
+              >📖 Wiki (Github)
+            </a>
           </div>
           <a
             href="https://github.com/Harry-Hopkinson/R6-No-Recoil"
@@ -371,12 +371,22 @@
       const parallax: HTMLElement | null =
         document.querySelector(".parallax-bg");
 
-      const handleScroll = () =>
-      {
+      const handleScroll = () => {
         const scrollY = window.scrollY;
-        if (parallax) parallax.style.transform = "translateY(" + scrollY * 0.5 + "px)";
+        if (parallax)
+          parallax.style.transform = "translateY(" + scrollY * 0.5 + "px)";
       };
       window.addEventListener("scroll", handleScroll);
+
+      const version: string = "1.0.9";
+      const exePath: string =
+        "https://github.com/Harry-Hopkinson/R6-No-Recoil/releases/download/" +
+        version +
+        "/r6-no-recoil.exe";
+      document.addEventListener("DOMContentLoaded", () => {
+        const downloadBtn = document.getElementById("download-btn");
+        if (downloadBtn) downloadBtn.href = exePath;
+      });
     </script>
   </body>
 </html>

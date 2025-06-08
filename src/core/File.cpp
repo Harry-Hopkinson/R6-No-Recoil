@@ -1,13 +1,22 @@
 #include "File.hpp"
 
-#include "String.hpp"
-
 std::string GetExecutableDir()
 {
     char buffer[MAX_PATH];
     GetModuleFileNameA(NULL, buffer, MAX_PATH);
     return std::string(buffer);
 }
+
+std::wstring StringToWString(const std::string& str)
+{
+    if (str.empty()) return std::wstring();
+
+    int size_needed = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, nullptr, 0);
+    std::wstring wstr(size_needed, 0);
+    MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, &wstr[0], size_needed);
+    return wstr;
+}
+
 
 std::string GetImagePath(const std::string& name)
 {

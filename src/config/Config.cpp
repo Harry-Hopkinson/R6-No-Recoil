@@ -3,7 +3,7 @@
 #include <windows.h>
 #include "../Globals.hpp"
 
-#include "../core/clamp.hpp"
+#include "../core/utils/clamp.hpp"
 
 void SaveConfig()
 {

@@ -23,8 +23,8 @@ std::string GetImagePath(const std::string& name)
     size_t pos = fullPath.find_last_of("\\/");
     if (pos != std::string::npos)
         fullPath = fullPath.substr(0, pos);
-    fullPath += std::string("\\") + name;
-    return fullPath.c_str();
+    fullPath += "\\assets\\" + name + ".bmp";
+    return fullPath;
 }
 
 HBITMAP LoadBitmap(const std::string& path)
@@ -37,6 +37,6 @@ HBITMAP LoadBitmap(const std::string& path)
         0, 0,
         LR_LOADFROMFILE | LR_CREATEDIBSECTION
     );
-    if (!bitmap) MessageBox(NULL, "Cannot load bitmap", "Error", MB_OK);
+    if (!bitmap) MessageBox(NULL, ("Cannot load bitmap" + path).c_str(), "Error", MB_OK);
     return bitmap;
 }

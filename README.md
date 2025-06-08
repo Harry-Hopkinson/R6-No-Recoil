@@ -70,9 +70,6 @@ UltraSensHorizontal = 0
 
 # Toggle Key (e.g. 20 = CAPS LOCK)
 ToggleKey = 20
-
-[UI]
-DarkTheme = true
 ```
 
 ## 🚧 Currently in Development

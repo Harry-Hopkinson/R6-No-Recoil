@@ -11,6 +11,27 @@
 #include "ui/Button.hpp"
 #include "Globals.hpp"
 
+#include "core/File.hpp"
+
+std::vector<HBITMAP> OperatorBitmaps;
+std::vector<const char*> OperatorNames =
+{
+    "Rauora", "Skopos", "Striker", "Sentry", "Deimos", "Tubarao",
+    "Ram", "Fenrir", "Brava", "Solis", "Grim", "Sens",
+    "Azami", "Thorn", "Osa", "Thunderbird", "Flores", "Aruni",
+    "Zero", "Ace", "Melusi", "Oryx", "Iana", "Wamai",
+    "Kali", "Amaru", "Goyo", "Nokk", "Warden", "Mozzie",
+    "Gridlock", "Nomad", "Kaid", "Clash", "Maverick",
+    "Maestro", "Alibi", "Lion", "Finka", "Vigil",
+    "Dokkaebi", "Zofia", "Ela", "Ying", "Lesion",
+    "Mira", "Jackal", "Hibana", "Echo", "Caveira",
+    "Capitao", "Blackbeard", "Valkyrie", "Buck", "Frost",
+    "Mute", "Sledge", "Smoke", "Thatcher", "Ash",
+    "Castle", "Pulse", "Thermite", "Montagne", "Twitch",
+    "Doc", "Rook", "Jager", "Bandit", "Blitz", "iq",
+    "Fuze", "Glaz", "Tachanka", "Kapkan"
+};
+
 void DrawCenteredText(HDC hdc, LPCSTR text, int yOffset, int windowWidth)
 {
     SIZE textSize;
@@ -23,6 +44,13 @@ void DrawCenteredText(HDC hdc, LPCSTR text, int yOffset, int windowWidth)
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
                             LPARAM lParam)
 {
+    static HBITMAP kaidImage;
+    HDC hdc;
+    PAINTSTRUCT ps;
+    BITMAP bitmap;
+    HDC hdcMem;
+    HGDIOBJ oldBitmap;
+
     switch (uMsg)
     {
         case WM_CLOSE:
@@ -44,12 +72,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
                 CurrentRecoil = RecoilPresets[SelectedMode];
                 SaveConfig();
                 InvalidateRect(hwnd, NULL, TRUE);
-            } else if (LOWORD(wParam) == 3)  // Toggle Theme Button
-            {
-                DarkTheme = !DarkTheme;
-                SaveConfig();
-                InvalidateRect(hwnd, NULL, TRUE);
-            } else if (LOWORD(wParam) == 4)  // Toggle Caps Lock Feature Button
+            } else if (LOWORD(wParam) == 3)  // Toggle Caps Lock Feature Button
             {
                 UseToggleKey = !UseToggleKey;
                 SaveConfig();
@@ -63,9 +86,15 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
             Buttons.emplace_back(hwnd, 30 + (130 + 20), 320, 130, 40, "Change Mode",
                            2);
             Buttons.emplace_back(hwnd, 30 + 2 * (130 + 20), 320, 130, 40,
-                           "Toggle Theme", 3);
-            Buttons.emplace_back(hwnd, 30 + 3 * (130 + 20), 320, 130, 40,
                             "Caps Lock Toggle", 4);
+
+            kaidImage = LoadBitmap("assets\\kaid.bmp");
+
+            for (const auto& name : OperatorNames)
+            {
+                HBITMAP bmp = LoadBitmap(GetImagePath(name).c_str());
+                OperatorBitmaps.push_back(bmp);
+            }
         } break;
 
         case WM_PAINT:
@@ -76,17 +105,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
             RECT rect;
             GetClientRect(hwnd, &rect);
 
-            // Set colors based on theme
-            COLORREF bgColor = DarkTheme ? RGB(0, 0, 0) : RGB(255, 255, 255);
-            COLORREF textColor = DarkTheme ? RGB(255, 255, 255) : RGB(0, 0, 0);
-
-            // Set background
-            HBRUSH hBrush = CreateSolidBrush(bgColor);
-            FillRect(hdc, &rect, hBrush);
-            DeleteObject(hBrush);
-
-            // Set text color
-            SetTextColor(hdc, textColor);
+            // Bolder text
             SetBkMode(hdc, TRANSPARENT);
 
             DrawCenteredText(hdc, "Recoil Control", 30, rect.right);
@@ -107,7 +126,18 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
             DrawCenteredText(hdc, "Current Recoil Settings:", 260, rect.right);
             DrawCenteredText(hdc, recoilInfo, 280, rect.right);
 
+            hdcMem = CreateCompatibleDC(hdc);
+            oldBitmap = SelectObject(hdcMem, kaidImage);
+
+            GetObject(kaidImage, sizeof(bitmap), &bitmap);
+            BitBlt(hdc, 5, 5, bitmap.bmWidth, bitmap.bmHeight,
+                hdcMem, 0, 0, SRCCOPY);
+
+            SelectObject(hdcMem, oldBitmap);
+            DeleteDC(hdcMem);
+
             EndPaint(hwnd, &ps);
+
         } break;
 
         case WM_KEYDOWN:
@@ -125,20 +155,23 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE,
                    LPSTR, int nCmdShow)
 {
     // Register Window Class
-    WNDCLASS wc = {};
-    wc.lpfnWndProc = WindowProc;
-    wc.hInstance = hInstance;
+    WNDCLASS wc = {0};
+
+    wc.style         =  CS_HREDRAW | CS_VREDRAW;
     wc.lpszClassName = "NoRecoilWindow";
+    wc.hInstance     = hInstance;
+    wc.hbrBackground = GetSysColorBrush(COLOR_3DFACE);
+    wc.lpfnWndProc   = WindowProc;
     RegisterClass(&wc);
 
     LoadConfig();
 
     // Create Window
     HWND hwnd =
-        CreateWindowEx(0, "NoRecoilWindow", "R6 No Recoil",
+        CreateWindowEx(0, wc.lpszClassName, "R6 No Recoil",
                        WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX,
-                       CW_USEDEFAULT, CW_USEDEFAULT, WINDOW_WIDTH, WINDOW_HEIGHT,
-                       nullptr, nullptr, hInstance, nullptr);
+                       CW_USEDEFAULT, CW_USEDEFAULT, GetSystemMetrics(SM_CXSCREEN) - 200,
+                       GetSystemMetrics(SM_CYSCREEN) - 200, nullptr, nullptr, hInstance, nullptr);
 
     if (!hwnd) return 0;
 

@@ -1,8 +1,5 @@
 #include "Globals.hpp"
 
-const int WINDOW_WIDTH = 650;
-const int WINDOW_HEIGHT = 410;
-
 bool EnableRC = true;
 bool UseToggleKey = false;
 bool Running = true;
@@ -29,5 +26,3 @@ const char* ModeDescriptions[4] =
     "HIGH: Best for High Recoil Rifles (e.g R4C)",
     "ULTRA: Best for Twitch's F2"
 };
-
-bool DarkTheme = true;

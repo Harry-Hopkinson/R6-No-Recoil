@@ -17,7 +17,6 @@ std::wstring StringToWString(const std::string& str)
     return wstr;
 }
 
-
 std::string GetImagePath(const std::string& name)
 {
     std::string fullPath = GetExecutableDir();
@@ -30,11 +29,14 @@ std::string GetImagePath(const std::string& name)
 
 HBITMAP LoadBitmap(const std::string& path)
 {
-    std::wstring wpath = StringToWString("D:\\Programming\\R6-No-Recoil\\assets\\kaid.bmp");
-    HBITMAP bitmap = (HBITMAP)LoadImageW(NULL, wpath.c_str(), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-    if (!bitmap)
-    {
-        MessageBox(NULL, "Cannot load bitmap", "Error", MB_OK);
-    }
+    std::wstring wpath = StringToWString(path);
+    HBITMAP bitmap = (HBITMAP)LoadImageW(
+        NULL,
+        wpath.c_str(),
+        IMAGE_BITMAP,
+        0, 0,
+        LR_LOADFROMFILE | LR_CREATEDIBSECTION
+    );
+    if (!bitmap) MessageBox(NULL, "Cannot load bitmap", "Error", MB_OK);
     return bitmap;
 }

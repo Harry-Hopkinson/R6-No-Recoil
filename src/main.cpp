@@ -44,13 +44,6 @@ void DrawCenteredText(HDC hdc, LPCSTR text, int yOffset, int windowWidth)
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
                             LPARAM lParam)
 {
-    static HBITMAP kaidImage;
-    HDC hdc;
-    PAINTSTRUCT ps;
-    BITMAP bitmap;
-    HDC hdcMem;
-    HGDIOBJ oldBitmap;
-
     switch (uMsg)
     {
         case WM_CLOSE:
@@ -82,13 +75,9 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
 
         case WM_CREATE:
         {
-            Buttons.emplace_back(hwnd, 30, 320, 130, 40, "Toggle Recoil", 1);
-            Buttons.emplace_back(hwnd, 30 + (130 + 20), 320, 130, 40, "Change Mode",
-                           2);
-            Buttons.emplace_back(hwnd, 30 + 2 * (130 + 20), 320, 130, 40,
-                            "Caps Lock Toggle", 4);
-
-            kaidImage = LoadBitmap("assets\\kaid.bmp");
+            Buttons.emplace_back(hwnd, GetSystemMetrics(SM_CXSCREEN) - 400 - 200, 320, 130, 40, "Toggle Recoil", 1);
+            Buttons.emplace_back(hwnd, GetSystemMetrics(SM_CXSCREEN) - 600 + 200, 320, 130, 40, "Change Mode", 2);
+            Buttons.emplace_back(hwnd, GetSystemMetrics(SM_CXSCREEN) - 800 + 400, 320, 130, 40, "Caps Lock Toggle", 4);
 
             for (const auto& name : OperatorNames)
             {
@@ -105,39 +94,56 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
             RECT rect;
             GetClientRect(hwnd, &rect);
 
-            // Bolder text
-            SetBkMode(hdc, TRANSPARENT);
+            // Draw operator icons on the left
+            HDC hdcMem = CreateCompatibleDC(hdc);
+            HGDIOBJ oldBitmap;
 
-            DrawCenteredText(hdc, "Recoil Control", 30, rect.right);
-            DrawCenteredText(hdc, "Enable:", 70, rect.right);
-            DrawCenteredText(hdc, EnableRC ? "ON" : "OFF", 90, rect.right);
-            DrawCenteredText(hdc, "Mode:", 130, rect.right);
-            DrawCenteredText(hdc, Modes[SelectedMode], 150, rect.right);
-            DrawCenteredText(hdc, ModeDescriptions[SelectedMode], 170, rect.right);
+            for (size_t i = 0; i < OperatorBitmaps.size(); ++i)
+            {
+                HBITMAP bmp = OperatorBitmaps[i];
+                if (!bmp) continue;
 
-            DrawCenteredText(hdc, "Caps Lock Toggle:", 200, rect.right);
-            DrawCenteredText(hdc, UseToggleKey ? "ENABLED" : "DISABLED", 220,
-                            rect.right);
+                oldBitmap = SelectObject(hdcMem, bmp);
 
-            // Display current recoil values
-            char recoilInfo[40];
-            wsprintfA(recoilInfo, "Vertical: %d  |  Horizontal: %d",
-                      CurrentRecoil.Vertical, CurrentRecoil.Horizontal);
-            DrawCenteredText(hdc, "Current Recoil Settings:", 260, rect.right);
-            DrawCenteredText(hdc, recoilInfo, 280, rect.right);
+                BITMAP bm;
+                GetObject(bmp, sizeof(bm), &bm);
 
-            hdcMem = CreateCompatibleDC(hdc);
-            oldBitmap = SelectObject(hdcMem, kaidImage);
+                int x = 30 + (i % 6) * (128 + 1);
+                int y = 30 + (i / 6) * (128 + 1);
 
-            GetObject(kaidImage, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, 5, 5, bitmap.bmWidth, bitmap.bmHeight,
-                hdcMem, 0, 0, SRCCOPY);
+                StretchBlt(hdc, x, y, 128, 128, hdcMem, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY);
 
-            SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap);
+            }
+
             DeleteDC(hdcMem);
 
-            EndPaint(hwnd, &ps);
+            // Draw recoil info on the right side
+            SetBkMode(hdc, TRANSPARENT);
 
+            auto DrawRightAlignedText = [&](LPCSTR text, int yOffset)
+            {
+                SIZE textSize;
+                GetTextExtentPoint32(hdc, text, static_cast<int>(strlen(text)), &textSize);
+                int textX = rect.right - 400 + (400 - textSize.cx) / 2;  // 400px fixed right panel
+                TextOut(hdc, textX, yOffset, text, static_cast<int>(strlen(text)));
+            };
+
+            DrawRightAlignedText("Recoil Control", 30);
+            DrawRightAlignedText("Enable:", 70);
+            DrawRightAlignedText(EnableRC ? "ON" : "OFF", 90);
+            DrawRightAlignedText("Mode:", 130);
+            DrawRightAlignedText(Modes[SelectedMode], 150);
+            DrawRightAlignedText(ModeDescriptions[SelectedMode], 170);
+            DrawRightAlignedText("Caps Lock Toggle:", 200);
+            DrawRightAlignedText(UseToggleKey ? "ENABLED" : "DISABLED", 220);
+
+            char recoilInfo[40];
+            wsprintfA(recoilInfo, "Vertical: %d  |  Horizontal: %d", CurrentRecoil.Vertical, CurrentRecoil.Horizontal);
+            DrawRightAlignedText("Current Recoil Settings:", 260);
+            DrawRightAlignedText(recoilInfo, 280);
+
+            EndPaint(hwnd, &ps);
         } break;
 
         case WM_KEYDOWN:
@@ -160,7 +166,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE,
     wc.style         =  CS_HREDRAW | CS_VREDRAW;
     wc.lpszClassName = "NoRecoilWindow";
     wc.hInstance     = hInstance;
-    wc.hbrBackground = GetSysColorBrush(COLOR_3DFACE);
     wc.lpfnWndProc   = WindowProc;
     RegisterClass(&wc);
 

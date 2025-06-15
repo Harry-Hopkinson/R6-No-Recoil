@@ -32,14 +32,6 @@ std::vector<const char*> OperatorNames =
     "Fuze", "Glaz", "Tachanka", "Kapkan"
 };
 
-void DrawCenteredText(HDC hdc, LPCSTR text, int yOffset, int windowWidth)
-{
-    SIZE textSize;
-    GetTextExtentPoint32(hdc, text, static_cast<int>(strlen(text)), &textSize);
-    int textX = (windowWidth - textSize.cx) / 2;
-    TextOut(hdc, textX, yOffset, text, static_cast<int>(strlen(text)));
-}
-
 // Window Procedure for handling events
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
                             LPARAM lParam)
@@ -108,10 +100,10 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
                 BITMAP bm;
                 GetObject(bmp, sizeof(bm), &bm);
 
-                int x = 30 + (i % 6) * (128 + 1);
-                int y = 30 + (i / 6) * (128 + 1);
+                int x = 30 + (i % 11) * (110 + 1);
+                int y = 30 + (i / 11) * (110 + 1);
 
-                StretchBlt(hdc, x, y, 128, 128, hdcMem, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY);
+                StretchBlt(hdc, x, y, 110, 110, hdcMem, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY);
 
                 SelectObject(hdcMem, oldBitmap);
             }

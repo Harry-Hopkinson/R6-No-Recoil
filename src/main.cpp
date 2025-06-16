@@ -4,16 +4,15 @@
 #include <thread>
 
 #include "config/Config.hpp"
-
 #include "recoil/ApplyRecoil.hpp"
 #include "recoil/ToggleRecoil.hpp"
-
 #include "ui/Button.hpp"
 #include "Globals.hpp"
-
 #include "core/File.hpp"
 
-std::vector<HBITMAP> OperatorBitmaps;
+bool IsAttackerView = true;
+std::vector<HBITMAP> AttackerBitmaps;
+std::vector<HBITMAP> DefenderBitmaps;
 std::vector<const char*> AttackerNames =
 {
     "Striker",     "Sledge",   "Thatcher",   "Ash",      "Thermite",
@@ -36,6 +35,7 @@ std::vector<const char*> DefenderNames =
     "Thunderbird", "Thorn",    "Azami",      "Solis",    "Fenrir",
     "Tubarao",     "Skopos"
 };
+std::vector<HBITMAP>& GetCurrentBitmapList() { return IsAttackerView ? AttackerBitmaps : DefenderBitmaps; }
 
 // Window Procedure for handling events
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
@@ -68,18 +68,38 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
                 SaveConfig();
                 InvalidateRect(hwnd, NULL, TRUE);
             }
+            else if (LOWORD(wParam) == 4)  // Attackers Button
+            {
+                IsAttackerView = true;
+                InvalidateRect(hwnd, NULL, TRUE);
+            }
+            else if (LOWORD(wParam) == 5)  // Defenders Button
+            {
+                IsAttackerView = false;
+                InvalidateRect(hwnd, NULL, TRUE);
+            }
         } break;
 
         case WM_CREATE:
         {
             Buttons.emplace_back(hwnd, GetSystemMetrics(SM_CXSCREEN) - 400 - 200, 320, 130, 40, "Toggle Recoil", 1);
             Buttons.emplace_back(hwnd, GetSystemMetrics(SM_CXSCREEN) - 600 + 200, 320, 130, 40, "Change Mode", 2);
-            Buttons.emplace_back(hwnd, GetSystemMetrics(SM_CXSCREEN) - 800 + 400, 320, 130, 40, "Caps Lock Toggle", 4);
+            Buttons.emplace_back(hwnd, GetSystemMetrics(SM_CXSCREEN) - 800 + 400, 320, 130, 40, "Caps Lock Toggle", 3);
+            Buttons.emplace_back(hwnd, 30, 550, 130, 40, "Attackers", 4);
+            Buttons.emplace_back(hwnd, 180, 550, 130, 40, "Defenders", 5);
 
-            for (const auto& name : OperatorNames)
+            // Load attacker bitmaps
+            for (const auto& name : AttackerNames)
             {
                 HBITMAP bmp = LoadBitmap(GetImagePath(name).c_str());
-                OperatorBitmaps.push_back(bmp);
+                AttackerBitmaps.push_back(bmp);
+            }
+
+            // Load defender bitmaps
+            for (const auto& name : DefenderNames)
+            {
+                HBITMAP bmp = LoadBitmap(GetImagePath(name).c_str());
+                DefenderBitmaps.push_back(bmp);
             }
         } break;
 
@@ -87,20 +107,28 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hwnd, &ps);
-
             RECT rect;
             GetClientRect(hwnd, &rect);
 
-            // Draw operator icons on the left
-            HDC hdcMem = CreateCompatibleDC(hdc);
-            HGDIOBJ oldBitmap;
+            // Create a memory DC compatible with the screen
+            HDC memDC = CreateCompatibleDC(hdc);
+            HBITMAP memBitmap = CreateCompatibleBitmap(hdc, rect.right, rect.bottom);
+            HGDIOBJ oldBitmap = SelectObject(memDC, memBitmap);
 
-            for (size_t i = 0; i < OperatorBitmaps.size(); ++i)
+            // Fill the background
+            FillRect(memDC, &rect, (HBRUSH)(COLOR_WINDOW + 1));
+
+            // Draw bitmaps
+            HDC hdcMem = CreateCompatibleDC(memDC);
+            HGDIOBJ oldBmp = nullptr;
+
+            const auto& bitmaps = GetCurrentBitmapList();
+            for (size_t i = 0; i < bitmaps.size(); ++i)
             {
-                HBITMAP bmp = OperatorBitmaps[i];
+                HBITMAP bmp = bitmaps[i];
                 if (!bmp) continue;
 
-                oldBitmap = SelectObject(hdcMem, bmp);
+                oldBmp = SelectObject(hdcMem, bmp);
 
                 BITMAP bm;
                 GetObject(bmp, sizeof(bm), &bm);
@@ -108,22 +136,19 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
                 int x = 30 + (i % 11) * (110 + 1);
                 int y = 30 + (i / 11) * (110 + 1);
 
-                StretchBlt(hdc, x, y, 110, 110, hdcMem, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY);
-
-                SelectObject(hdcMem, oldBitmap);
+                StretchBlt(memDC, x, y, 110, 110, hdcMem, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY);
+                SelectObject(hdcMem, oldBmp);
             }
 
             DeleteDC(hdcMem);
 
-            // Draw recoil info on the right side
-            SetBkMode(hdc, TRANSPARENT);
-
+            SetBkMode(memDC, TRANSPARENT);
             auto DrawRightAlignedText = [&](LPCSTR text, int yOffset)
             {
                 SIZE textSize;
-                GetTextExtentPoint32(hdc, text, static_cast<int>(strlen(text)), &textSize);
-                int textX = rect.right - 400 + (400 - textSize.cx) / 2;  // 400px fixed right panel
-                TextOut(hdc, textX, yOffset, text, static_cast<int>(strlen(text)));
+                GetTextExtentPoint32(memDC, text, static_cast<int>(strlen(text)), &textSize);
+                int textX = rect.right - 400 + (400 - textSize.cx) / 2;
+                TextOut(memDC, textX, yOffset, text, static_cast<int>(strlen(text)));
             };
 
             DrawRightAlignedText("Recoil Control", 30);
@@ -140,8 +165,17 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
             DrawRightAlignedText("Current Recoil Settings:", 260);
             DrawRightAlignedText(recoilInfo, 280);
 
+            // Blit the entire memory DC to the screen at once
+            BitBlt(hdc, 0, 0, rect.right, rect.bottom, memDC, 0, 0, SRCCOPY);
+
+            // Cleanup
+            SelectObject(memDC, oldBitmap);
+            DeleteObject(memBitmap);
+            DeleteDC(memDC);
+
             EndPaint(hwnd, &ps);
         } break;
+
 
         case WM_KEYDOWN:
         {

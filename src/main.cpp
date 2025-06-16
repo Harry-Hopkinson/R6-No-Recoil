@@ -14,22 +14,27 @@
 #include "core/File.hpp"
 
 std::vector<HBITMAP> OperatorBitmaps;
-std::vector<const char*> OperatorNames =
+std::vector<const char*> AttackerNames =
 {
-    "Rauora", "Skopos", "Striker", "Sentry", "Deimos", "Tubarao",
-    "Ram", "Fenrir", "Brava", "Solis", "Grim", "Sens",
-    "Azami", "Thorn", "Osa", "Thunderbird", "Flores", "Aruni",
-    "Zero", "Ace", "Melusi", "Oryx", "Iana", "Wamai",
-    "Kali", "Amaru", "Goyo", "Nokk", "Warden", "Mozzie",
-    "Gridlock", "Nomad", "Kaid", "Clash", "Maverick",
-    "Maestro", "Alibi", "Lion", "Finka", "Vigil",
-    "Dokkaebi", "Zofia", "Ela", "Ying", "Lesion",
-    "Mira", "Jackal", "Hibana", "Echo", "Caveira",
-    "Capitao", "Blackbeard", "Valkyrie", "Buck", "Frost",
-    "Mute", "Sledge", "Smoke", "Thatcher", "Ash",
-    "Castle", "Pulse", "Thermite", "Montagne", "Twitch",
-    "Doc", "Rook", "Jager", "Bandit", "Blitz", "iq",
-    "Fuze", "Glaz", "Tachanka", "Kapkan"
+    "Striker",     "Sledge",   "Thatcher",   "Ash",      "Thermite",
+    "Twitch",      "Montagne", "Glaz",       "Fuze",     "Blitz",
+    "IQ",          "Buck",     "Blackbeard", "Capitao",  "Hibana",
+    "Jackal",      "Ying",     "Zofia",      "Dokkaebi", "Lion",
+    "Finka",       "Maverick", "Nomad",      "Gridlock", "Nokk",
+    "Amaru",       "Kali",     "Iana",       "Ace",      "Zero",
+    "Flores",      "Osa",      "Sens",       "Grim",     "Brava",
+    "Ram",         "Deimos",   "Rauora"
+};
+std::vector<const char*> DefenderNames =
+{
+    "Sentry",      "Smoke",    "Mute",       "Castle",   "Pulse",
+    "Doc",         "Rook",     "Kapkan",     "Tachanka", "Jager",
+    "Bandit",      "Frost",    "Valkyrie",   "Caveira",  "Echo",
+    "Mira",        "Lesion",   "Ela",        "Vigil",    "Maestro",
+    "Alibi",       "Clash",    "Kaid",       "Mozzie",   "Warden",
+    "Goyo",        "Wamai",    "Oryx",       "Melusi",   "Aruni",
+    "Thunderbird", "Thorn",    "Azami",      "Solis",    "Fenrir",
+    "Tubarao",     "Skopos"
 };
 
 // Window Procedure for handling events

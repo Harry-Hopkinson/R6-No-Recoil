@@ -77,8 +77,7 @@ DarkTheme = true
 
 ## 🚧 Currently in Development
 
-- **Crouch Macro** – As suggested by [r6cruch](https://github.com/Harry-Hopkinson/R6-No-Recoil/issues/1)
-- **Improved GUI** – A cleaner, more user-friendly interface is being developed.
+- **Improved GUI** – A cleaner, more user-friendly interface is being developed with Operator Images.
 - **Customisation Options** – Ability to fine-tune settings via a UI panel.
 
 ## ⚠️ Disclaimer

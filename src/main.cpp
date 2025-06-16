@@ -9,9 +9,7 @@
 #include "ui/Button.hpp"
 #include "Globals.hpp"
 #include "core/File.hpp"
-#include <iostream>
 
-bool IsAttackerView = true;
 std::vector<HBITMAP> AttackerBitmaps;
 std::vector<HBITMAP> DefenderBitmaps;
 std::vector<const char*> AttackerNames =

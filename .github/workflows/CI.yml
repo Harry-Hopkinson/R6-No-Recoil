@@ -31,22 +31,18 @@ jobs:
           cd build/Release
           strip r6-no-recoil.exe
 
-      - name: Upload artifact (MSVC)
+      - name: Prepare release folder with binary and assets
+        run: |
+          mkdir release
+          copy build\Release\r6-no-recoil.exe release\
+          xcopy assets release\assets /E /I /Y
+
+      - name: Zip release folder
+        run: |
+          powershell Compress-Archive -Path release\* -DestinationPath r6-no-recoil.zip
+
+      - name: Upload zipped artifact (MSVC)
         uses: actions/upload-artifact@v4
         with:
           name: r6-no-recoil-msvc
-          path: build/Release/r6-no-recoil.exe
-
-  formatter:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Yarn Install 📦
-        run: |
-          cd website && yarn
-      - name: Linting 🧹
-        run: |
-          cd website && yarn lint
+          path: r6-no-recoil.zip

@@ -9,6 +9,7 @@
 #include "ui/Button.hpp"
 #include "Globals.hpp"
 #include "core/File.hpp"
+#include <iostream>
 
 bool IsAttackerView = true;
 std::vector<HBITMAP> AttackerBitmaps;
@@ -82,9 +83,9 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
 
         case WM_CREATE:
         {
-            Buttons.emplace_back(hwnd, GetSystemMetrics(SM_CXSCREEN) - 400 - 200, 320, 130, 40, "Toggle Recoil", 1);
-            Buttons.emplace_back(hwnd, GetSystemMetrics(SM_CXSCREEN) - 600 + 200, 320, 130, 40, "Change Mode", 2);
-            Buttons.emplace_back(hwnd, GetSystemMetrics(SM_CXSCREEN) - 800 + 400, 320, 130, 40, "Caps Lock Toggle", 3);
+            Buttons.emplace_back(hwnd, WINDOW_WIDTH - 400 - 200, 320, 130, 40, "Toggle Recoil", 1);
+            Buttons.emplace_back(hwnd, WINDOW_WIDTH - 600 + 200, 320, 130, 40, "Change Mode", 2);
+            Buttons.emplace_back(hwnd, WINDOW_WIDTH - 800 + 400, 320, 130, 40, "Caps Lock Toggle", 3);
             Buttons.emplace_back(hwnd, 30, 550, 130, 40, "Attackers", 4);
             Buttons.emplace_back(hwnd, 180, 550, 130, 40, "Defenders", 5);
 
@@ -133,10 +134,10 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
                 BITMAP bm;
                 GetObject(bmp, sizeof(bm), &bm);
 
-                int x = 30 + (i % 11) * (110 + 1);
-                int y = 30 + (i / 11) * (110 + 1);
+                int x = 30 + (i % 7) * (128 + 1);
+                int y = 30 + (i / 7) * (128 + 1);
 
-                StretchBlt(memDC, x, y, 110, 110, hdcMem, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY);
+                StretchBlt(memDC, x, y, 128, 128, hdcMem, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY);
                 SelectObject(hdcMem, oldBmp);
             }
 
@@ -206,8 +207,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE,
     HWND hwnd =
         CreateWindowEx(0, wc.lpszClassName, "R6 No Recoil",
                        WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX,
-                       CW_USEDEFAULT, CW_USEDEFAULT, GetSystemMetrics(SM_CXSCREEN) - 200,
-                       GetSystemMetrics(SM_CYSCREEN) - 200, nullptr, nullptr, hInstance, nullptr);
+                       CW_USEDEFAULT, CW_USEDEFAULT, WINDOW_WIDTH,
+                       WINDOW_HEIGHT, nullptr, nullptr, hInstance, nullptr);
 
     if (!hwnd) return 0;
 

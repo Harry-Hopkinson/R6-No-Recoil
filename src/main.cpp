@@ -135,7 +135,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
                 GetObject(bmp, sizeof(bm), &bm);
 
                 int x = 30 + (i % 7) * (128 + 1);
-                int y = 30 + (i / 7) * (128 + 1);
+                int y = 30 + (int)(i / 7) * (128 + 1);
 
                 StretchBlt(memDC, x, y, 128, 128, hdcMem, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY);
                 SelectObject(hdcMem, oldBmp);

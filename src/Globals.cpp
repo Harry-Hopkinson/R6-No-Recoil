@@ -45,11 +45,3 @@ RecoilPreset RecoilPresets[4] =
 RecoilPreset CurrentRecoil = RecoilPresets[SelectedMode];
 
 const char* Modes[4] = {"LOW", "MEDIUM", "HIGH", "ULTRA"};
-
-const char* ModeDescriptions[4] =
-{
-    "LOW: Best for Low Recoil SMGs and Pistols",
-    "MEDIUM: Best for Medium Recoil Assault Rifles (e.g 556XI)",
-    "HIGH: Best for High Recoil Rifles (e.g R4C)",
-    "ULTRA: Best for Twitch's F2"
-};

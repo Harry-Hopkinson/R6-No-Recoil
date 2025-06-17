@@ -26,4 +26,3 @@ extern RecoilPreset RecoilPresets[4];
 extern RecoilPreset CurrentRecoil;
 
 extern const char* Modes[4];
-extern const char* ModeDescriptions[4];

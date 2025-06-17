@@ -66,9 +66,9 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
 
         case WM_CREATE:
         {
-            Buttons.emplace_back(hwnd, WINDOW_WIDTH - 400 + 200, 420, 150, 40, "Toggle Recoil", 1);
-            Buttons.emplace_back(hwnd, WINDOW_WIDTH - 600 + 200, 420, 150, 40, "Change Mode", 2);
-            Buttons.emplace_back(hwnd, WINDOW_WIDTH - 800 + 200, 420, 150, 40, "Caps Lock Toggle", 3);
+            Buttons.emplace_back(hwnd, WINDOW_WIDTH - 525, 570, 150, 40, "Toggle Recoil", 1);
+            Buttons.emplace_back(hwnd, WINDOW_WIDTH - 355, 570, 150, 40, "Change Mode", 2);
+            Buttons.emplace_back(hwnd, WINDOW_WIDTH - 180, 570, 150, 40, "Caps Lock Toggle", 3);
             Buttons.emplace_back(hwnd, 30, 550, 130, 40, "Attackers", 4);
             Buttons.emplace_back(hwnd, 180, 550, 130, 40, "Defenders", 5);
 
@@ -126,10 +126,10 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
                 BITMAP bm;
                 GetObject(bmp, sizeof(bm), &bm);
 
-                int x = 30 + (i % 7) * (140 + 1);
-                int y = 10 + (int)(i / 7) * (140 + 1);
+                int x = 30 + (i % 6) * (145 + 1);
+                int y = (int)(i / 6) * (145 + 1);
 
-                StretchBlt(memDC, x, y, 140, 140, hdcMem, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY);
+                StretchBlt(memDC, x, y, 145, 145, hdcMem, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY);
                 SelectObject(hdcMem, oldBmp);
             }
 
@@ -145,7 +145,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
 
                 SIZE textSize;
                 GetTextExtentPoint32(memDC, text, static_cast<int>(strlen(text)), &textSize);
-                int textX = rect.right - 450 + (400 - textSize.cx) / 2;
+                int textX = rect.right - 475 + (400 - textSize.cx) / 2;
 
                 TextOut(memDC, textX, yOffset, text, static_cast<int>(strlen(text)));
 

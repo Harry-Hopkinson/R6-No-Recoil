@@ -1,7 +1,7 @@
 #include "Globals.hpp"
 
 const int WINDOW_WIDTH = 1500;
-const int WINDOW_HEIGHT = 900;
+const int WINDOW_HEIGHT = 1050;
 
 std::vector<const char*> AttackerNames =
 {

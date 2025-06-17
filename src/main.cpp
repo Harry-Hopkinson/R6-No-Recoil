@@ -19,7 +19,6 @@ std::vector<HBITMAP>& GetCurrentBitmapList() { return IsAttackerView ? AttackerB
 
 HFONT FontLarge = nullptr;
 HFONT FontMedium = nullptr;
-HFONT FontSmall = nullptr;
 
 // Window Procedure for handling events
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
@@ -95,10 +94,6 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
                                      ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
                                      DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, "Segoe UI");
 
-            FontSmall = CreateFont(18, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
-                                    ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
-                                    DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, "Segoe UI");
-
         } break;
 
         case WM_PAINT:
@@ -144,10 +139,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
             auto DrawRightAlignedText = [&](LPCSTR text, int yOffset, int fontSize = 20)
             {
                 HFONT selectedFont = FontMedium;
-                if (fontSize >= 28)
-                    selectedFont = FontLarge;
-                else if (fontSize <= 18)
-                    selectedFont = FontSmall;
+                if (fontSize >= 28) selectedFont = FontLarge;
 
                 HFONT oldFont = (HFONT)SelectObject(memDC, selectedFont);
 
@@ -203,8 +195,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
             // Delete fonts
             if (FontLarge) DeleteObject(FontLarge);
             if (FontMedium) DeleteObject(FontMedium);
-            if (FontSmall) DeleteObject(FontSmall);
-            FontLarge = FontMedium = FontSmall = nullptr;
+            FontLarge = FontMedium = nullptr;
 
             Buttons.clear();
 

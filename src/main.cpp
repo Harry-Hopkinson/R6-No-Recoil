@@ -203,11 +203,6 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
             return 0;
         }
 
-        case WM_KEYDOWN:
-        {
-            if (wParam == VK_ESCAPE) PostMessage(hwnd, WM_CLOSE, 0, 0);  // Close the window
-        } break;
-
         default:
             return DefWindowProc(hwnd, uMsg, wParam, lParam);
     }
@@ -249,6 +244,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE,
     {
         while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
+            if (msg.message == WM_KEYDOWN && msg.wParam == VK_ESCAPE)
+            {
+                PostMessage(hwnd, WM_CLOSE, 0, 0);
+                continue;
+            }
             TranslateMessage(&msg);
             DispatchMessage(&msg);
         }

@@ -1,8 +1,12 @@
 #pragma once
 
+#include <vector>
 
 extern const int WINDOW_WIDTH;
 extern const int WINDOW_HEIGHT;
+
+extern std::vector<const char*> AttackerNames;
+extern std::vector<const char*> DefenderNames;
 
 struct RecoilPreset
 {

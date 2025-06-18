@@ -64,3 +64,10 @@ elseif(MSVC)
         /SUBSYSTEM:WINDOWS
     )
 endif()
+
+# Copy assets directory to the output directory after build
+add_custom_command(TARGET r6-no-recoil POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_SOURCE_DIR}/assets
+    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/assets
+)

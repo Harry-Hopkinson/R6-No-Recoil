@@ -1,7 +1,11 @@
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
+#include <windowsx.h>
 
 #include <thread>
+
+#include "core/File.hpp"
+#include "Globals.hpp"
 
 #include "config/Config.hpp"
 
@@ -9,15 +13,13 @@
 #include "recoil/ToggleRecoil.hpp"
 
 #include "ui/Button.hpp"
-#include "Globals.hpp"
 
-void DrawCenteredText(HDC hdc, LPCSTR text, int yOffset, int windowWidth)
-{
-    SIZE textSize;
-    GetTextExtentPoint32(hdc, text, static_cast<int>(strlen(text)), &textSize);
-    int textX = (windowWidth - textSize.cx) / 2;
-    TextOut(hdc, textX, yOffset, text, static_cast<int>(strlen(text)));
-}
+std::vector<HBITMAP> AttackerBitmaps;
+std::vector<HBITMAP> DefenderBitmaps;
+std::vector<HBITMAP>& GetCurrentBitmapList() { return IsAttackerView ? AttackerBitmaps : DefenderBitmaps; }
+
+HFONT FontMedium = nullptr;
+HFONT FontLarge = nullptr;
 
 // Window Procedure for handling events
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
@@ -28,7 +30,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
         case WM_CLOSE:
         {
             Running = false;
-            PostQuitMessage(0);
+            DestroyWindow(hwnd);
+            return 0;
         } break;
 
         case WM_COMMAND:
@@ -44,76 +47,184 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
                 CurrentRecoil = RecoilPresets[SelectedMode];
                 SaveConfig();
                 InvalidateRect(hwnd, NULL, TRUE);
-            } else if (LOWORD(wParam) == 3)  // Toggle Theme Button
-            {
-                DarkTheme = !DarkTheme;
-                SaveConfig();
-                InvalidateRect(hwnd, NULL, TRUE);
-            } else if (LOWORD(wParam) == 4)  // Toggle Caps Lock Feature Button
+            } else if (LOWORD(wParam) == 3)  // Toggle Caps Lock Feature Button
             {
                 UseToggleKey = !UseToggleKey;
                 SaveConfig();
+                InvalidateRect(hwnd, NULL, TRUE);
+            }
+            else if (LOWORD(wParam) == 4)  // Attackers Button
+            {
+                IsAttackerView = true;
+                InvalidateRect(hwnd, NULL, TRUE);
+            }
+            else if (LOWORD(wParam) == 5)  // Defenders Button
+            {
+                IsAttackerView = false;
                 InvalidateRect(hwnd, NULL, TRUE);
             }
         } break;
 
         case WM_CREATE:
         {
-            Buttons.emplace_back(hwnd, 30, 320, 130, 40, "Toggle Recoil", 1);
-            Buttons.emplace_back(hwnd, 30 + (130 + 20), 320, 130, 40, "Change Mode",
-                           2);
-            Buttons.emplace_back(hwnd, 30 + 2 * (130 + 20), 320, 130, 40,
-                           "Toggle Theme", 3);
-            Buttons.emplace_back(hwnd, 30 + 3 * (130 + 20), 320, 130, 40,
-                            "Caps Lock Toggle", 4);
+            Buttons.emplace_back(hwnd, WINDOW_WIDTH - 525, 570, 150, 40, "Toggle Recoil", 1);
+            Buttons.emplace_back(hwnd, WINDOW_WIDTH - 355, 570, 150, 40, "Change Mode", 2);
+            Buttons.emplace_back(hwnd, WINDOW_WIDTH - 180, 570, 150, 40, "Caps Lock Toggle", 3);
+            Buttons.emplace_back(hwnd, WINDOW_WIDTH - 450, 620, 150, 40, "Attackers", 4);
+            Buttons.emplace_back(hwnd, WINDOW_WIDTH - 275, 620, 150, 40, "Defenders", 5);
+
+            // Load attacker bitmaps
+            for (const auto& name : AttackerNames)
+            {
+                HBITMAP bmp = LoadBitmap(GetImagePath(name));
+                AttackerBitmaps.push_back(bmp);
+            }
+
+            // Load defender bitmaps
+            for (const auto& name : DefenderNames)
+            {
+                HBITMAP bmp = LoadBitmap(GetImagePath(name));
+                DefenderBitmaps.push_back(bmp);
+            }
+
+            FontLarge = CreateFont(28, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
+                                    ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+                                    DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, "Segoe UI");
+
+            FontMedium = CreateFont(20, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
+                                     ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+                                     DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, "Segoe UI");
+
         } break;
 
         case WM_PAINT:
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hwnd, &ps);
-
             RECT rect;
             GetClientRect(hwnd, &rect);
 
-            // Set colors based on theme
-            COLORREF bgColor = DarkTheme ? RGB(0, 0, 0) : RGB(255, 255, 255);
-            COLORREF textColor = DarkTheme ? RGB(255, 255, 255) : RGB(0, 0, 0);
+            // Create a memory DC compatible with the screen
+            HDC memDC = CreateCompatibleDC(hdc);
+            HBITMAP memBitmap = CreateCompatibleBitmap(hdc, rect.right, rect.bottom);
+            HGDIOBJ oldBitmap = SelectObject(memDC, memBitmap);
 
-            // Set background
-            HBRUSH hBrush = CreateSolidBrush(bgColor);
-            FillRect(hdc, &rect, hBrush);
-            DeleteObject(hBrush);
+            // Fill the background
+            FillRect(memDC, &rect, (HBRUSH)(COLOR_WINDOW + 1));
 
-            // Set text color
-            SetTextColor(hdc, textColor);
-            SetBkMode(hdc, TRANSPARENT);
+            // Draw bitmaps
+            HDC hdcMem = CreateCompatibleDC(memDC);
+            HGDIOBJ oldBmp = nullptr;
 
-            DrawCenteredText(hdc, "Recoil Control", 30, rect.right);
-            DrawCenteredText(hdc, "Enable:", 70, rect.right);
-            DrawCenteredText(hdc, EnableRC ? "ON" : "OFF", 90, rect.right);
-            DrawCenteredText(hdc, "Mode:", 130, rect.right);
-            DrawCenteredText(hdc, Modes[SelectedMode], 150, rect.right);
-            DrawCenteredText(hdc, ModeDescriptions[SelectedMode], 170, rect.right);
+            const auto& bitmaps = GetCurrentBitmapList();
+            for (size_t i = 0; i < bitmaps.size(); ++i)
+            {
+                HBITMAP bmp = bitmaps[i];
+                if (!bmp) continue;
 
-            DrawCenteredText(hdc, "Caps Lock Toggle:", 200, rect.right);
-            DrawCenteredText(hdc, UseToggleKey ? "ENABLED" : "DISABLED", 220,
-                            rect.right);
+                oldBmp = SelectObject(hdcMem, bmp);
 
-            // Display current recoil values
+                BITMAP bm;
+                GetObject(bmp, sizeof(bm), &bm);
+
+                int x = 30 + (i % 6) * (145 + 1);
+                int y = (int)(i / 6) * (145 + 1);
+
+                StretchBlt(memDC, x, y, 145, 145, hdcMem, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY);
+                SelectObject(hdcMem, oldBmp);
+            }
+
+            DeleteDC(hdcMem);
+
+            SetBkMode(memDC, TRANSPARENT);
+            auto DrawRightAlignedText = [&](LPCSTR text, int yOffset, int fontSize = 20)
+            {
+                HFONT selectedFont = FontMedium;
+                if (fontSize >= 28) selectedFont = FontLarge;
+
+                HFONT oldFont = (HFONT)SelectObject(memDC, selectedFont);
+
+                SIZE textSize;
+                GetTextExtentPoint32(memDC, text, static_cast<int>(strlen(text)), &textSize);
+                int textX = rect.right - 475 + (400 - textSize.cx) / 2;
+
+                TextOut(memDC, textX, yOffset, text, static_cast<int>(strlen(text)));
+
+                SelectObject(memDC, oldFont);
+            };
+
+            DrawRightAlignedText("Recoil Control", 280, 28);
+            DrawRightAlignedText("Enable:", 320, 20);
+            DrawRightAlignedText(EnableRC ? "ON" : "OFF", 342, 20);
+            DrawRightAlignedText("Mode:", 380, 20);
+            DrawRightAlignedText(Modes[SelectedMode], 402, 20);
+            DrawRightAlignedText("Caps Lock Toggle:", 440, 20);
+            DrawRightAlignedText(UseToggleKey ? "ENABLED" : "DISABLED", 462, 20);
+
             char recoilInfo[40];
-            wsprintfA(recoilInfo, "Vertical: %d  |  Horizontal: %d",
-                      CurrentRecoil.Vertical, CurrentRecoil.Horizontal);
-            DrawCenteredText(hdc, "Current Recoil Settings:", 260, rect.right);
-            DrawCenteredText(hdc, recoilInfo, 280, rect.right);
+            wsprintfA(recoilInfo, "Vertical: %d  |  Horizontal: %d", CurrentRecoil.Vertical, CurrentRecoil.Horizontal);
+            DrawRightAlignedText("Current Recoil Settings:", 500, 20);
+            DrawRightAlignedText(recoilInfo, 522, 20);
+
+            // Blit the entire memory DC to the screen at once
+            BitBlt(hdc, 0, 0, rect.right, rect.bottom, memDC, 0, 0, SRCCOPY);
+
+            // Cleanup
+            SelectObject(memDC, oldBitmap);
+            DeleteObject(memBitmap);
+            DeleteDC(memDC);
 
             EndPaint(hwnd, &ps);
         } break;
 
-        case WM_KEYDOWN:
+        case WM_LBUTTONDOWN:
         {
-            if (wParam == VK_ESCAPE) PostMessage(hwnd, WM_CLOSE, 0, 0);  // Close the window
+            int mouseX = GET_X_LPARAM(lParam);
+            int mouseY = GET_Y_LPARAM(lParam);
+
+            const auto& bitmaps = GetCurrentBitmapList();
+            const auto& names = IsAttackerView ? AttackerNames : DefenderNames;
+
+            for (size_t i = 0; i < bitmaps.size(); ++i)
+            {
+                int x = 30 + (i % 6) * (145 + 1);
+                int y = (int)(i / 6) * (145 + 1);
+
+                if (mouseX >= x && mouseX <= x + 145 &&
+                        mouseY >= y && mouseY <= y + 145)
+                {
+
+                    return 0;
+                }
+            }
         } break;
+
+        case WM_DESTROY:
+        {
+            // Delete loaded attacker bitmaps
+            for (HBITMAP bmp : AttackerBitmaps)
+            {
+                if (bmp) DeleteObject(bmp);
+            }
+            AttackerBitmaps.clear();
+
+            // Delete loaded defender bitmaps
+            for (HBITMAP bmp : DefenderBitmaps)
+            {
+                if (bmp) DeleteObject(bmp);
+            }
+            DefenderBitmaps.clear();
+
+            // Delete fonts
+            if (FontLarge) DeleteObject(FontLarge);
+            if (FontMedium) DeleteObject(FontMedium);
+            FontLarge = FontMedium = nullptr;
+
+            Buttons.clear();
+
+            PostQuitMessage(0);
+            return 0;
+        }
 
         default:
             return DefWindowProc(hwnd, uMsg, wParam, lParam);
@@ -125,20 +236,22 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE,
                    LPSTR, int nCmdShow)
 {
     // Register Window Class
-    WNDCLASS wc = {};
-    wc.lpfnWndProc = WindowProc;
-    wc.hInstance = hInstance;
+    WNDCLASS wc = {0};
+
+    wc.style         =  CS_HREDRAW | CS_VREDRAW;
     wc.lpszClassName = "NoRecoilWindow";
+    wc.hInstance     = hInstance;
+    wc.lpfnWndProc   = WindowProc;
     RegisterClass(&wc);
 
     LoadConfig();
 
     // Create Window
     HWND hwnd =
-        CreateWindowEx(0, "NoRecoilWindow", "R6 No Recoil",
+        CreateWindowEx(0, wc.lpszClassName, "R6 No Recoil",
                        WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX,
-                       CW_USEDEFAULT, CW_USEDEFAULT, WINDOW_WIDTH, WINDOW_HEIGHT,
-                       nullptr, nullptr, hInstance, nullptr);
+                       CW_USEDEFAULT, CW_USEDEFAULT, WINDOW_WIDTH,
+                       WINDOW_HEIGHT, nullptr, nullptr, hInstance, nullptr);
 
     if (!hwnd) return 0;
 
@@ -154,6 +267,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE,
     {
         while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
+            if (msg.message == WM_KEYDOWN && msg.wParam == VK_ESCAPE)
+            {
+                PostMessage(hwnd, WM_CLOSE, 0, 0);
+                continue;
+            }
             TranslateMessage(&msg);
             DispatchMessage(&msg);
         }

@@ -1,42 +1,74 @@
 #include "File.hpp"
 
-std::string GetExecutableDir()
+const char* GetExecutableDir()
 {
-    char buffer[MAX_PATH];
-    GetModuleFileNameA(NULL, buffer, MAX_PATH);
-    return std::string(buffer);
+    static char exePath[MAX_PATH] = {};
+    GetModuleFileNameA(NULL, exePath, MAX_PATH);
+    return exePath;
 }
 
-std::wstring StringToWString(const std::string& str)
+const char* GetImagePath(const char* name)
 {
-    if (str.empty()) return std::wstring();
+    static char fullPath[MAX_PATH] = {};
+    const char* exePath = GetExecutableDir();
 
-    int size_needed = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, nullptr, 0);
-    std::wstring wstr(size_needed, 0);
-    MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, &wstr[0], size_needed);
-    return wstr;
-}
+    int lastSlash = -1;
+    for (int i = 0; exePath[i] != '\0'; ++i)
+    {
+        if (exePath[i] == '\\' || exePath[i] == '/')
+        {
+            lastSlash = i;
+        }
+    }
 
-std::string GetImagePath(const std::string& name)
-{
-    std::string fullPath = GetExecutableDir();
-    size_t pos = fullPath.find_last_of("\\/");
-    if (pos != std::string::npos)
-        fullPath = fullPath.substr(0, pos);
-    fullPath += "\\assets\\" + name + ".bmp";
+    int j = 0;
+    for (int i = 0; i <= lastSlash && j < MAX_PATH - 1; ++i)
+    {
+        fullPath[j++] = exePath[i];
+    }
+
+    // Append "\assets\"
+    const char* assets = "\\assets\\";
+    for (int i = 0; assets[i] != '\0' && j < MAX_PATH - 1; ++i)
+    {
+        fullPath[j++] = assets[i];
+    }
+
+    // Append name
+    for (int i = 0; name[i] != '\0' && j < MAX_PATH - 1; ++i)
+    {
+        fullPath[j++] = name[i];
+    }
+
+    // Append ".bmp"
+    const char* ext = ".bmp";
+    for (int i = 0; ext[i] != '\0' && j < MAX_PATH - 1; ++i)
+    {
+        fullPath[j++] = ext[i];
+    }
+
+    fullPath[j] = '\0';
     return fullPath;
 }
 
-HBITMAP LoadBitmap(const std::string& path)
+HBITMAP LoadBitmap(const char* path)
 {
-    std::wstring wpath = StringToWString(path);
+    wchar_t wpath[MAX_PATH] = {};
+    int i = 0;
+    for (; path[i] != '\0' && i < MAX_PATH - 1; ++i)
+    {
+        wpath[i] = (wchar_t)path[i];
+    }
+    wpath[i] = L'\0';
+
     HBITMAP bitmap = (HBITMAP)LoadImageW(
         NULL,
-        wpath.c_str(),
+        wpath,
         IMAGE_BITMAP,
         0, 0,
         LR_LOADFROMFILE | LR_CREATEDIBSECTION
     );
-    if (!bitmap) MessageBox(NULL, ("Cannot load bitmap" + path).c_str(), "Error", MB_OK);
+
+    if (!bitmap) MessageBoxA(NULL, "Failed to load bitmap", "Error", MB_OK);
     return bitmap;
 }

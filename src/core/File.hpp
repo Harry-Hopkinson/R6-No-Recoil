@@ -2,9 +2,6 @@
 
 #include <windows.h>
 
-#include <string>
+const char* GetImagePath(const char* name);
 
-std::string GetExecutableDir();
-std::string GetImagePath(const std::string& name);
-
-HBITMAP LoadBitmap(const std::string& path);
+HBITMAP LoadBitmap(const char* path);

@@ -75,14 +75,14 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
             // Load attacker bitmaps
             for (const auto& name : AttackerNames)
             {
-                HBITMAP bmp = LoadBitmap(GetImagePath(name).c_str());
+                HBITMAP bmp = LoadBitmap(GetImagePath(name));
                 AttackerBitmaps.push_back(bmp);
             }
 
             // Load defender bitmaps
             for (const auto& name : DefenderNames)
             {
-                HBITMAP bmp = LoadBitmap(GetImagePath(name).c_str());
+                HBITMAP bmp = LoadBitmap(GetImagePath(name));
                 DefenderBitmaps.push_back(bmp);
             }
 

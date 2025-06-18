@@ -1,5 +1,6 @@
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
+#include <windowsx.h>
 
 #include <thread>
 
@@ -17,8 +18,8 @@ std::vector<HBITMAP> AttackerBitmaps;
 std::vector<HBITMAP> DefenderBitmaps;
 std::vector<HBITMAP>& GetCurrentBitmapList() { return IsAttackerView ? AttackerBitmaps : DefenderBitmaps; }
 
-HFONT FontLarge = nullptr;
 HFONT FontMedium = nullptr;
+HFONT FontLarge = nullptr;
 
 // Window Procedure for handling events
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
@@ -69,8 +70,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
             Buttons.emplace_back(hwnd, WINDOW_WIDTH - 525, 570, 150, 40, "Toggle Recoil", 1);
             Buttons.emplace_back(hwnd, WINDOW_WIDTH - 355, 570, 150, 40, "Change Mode", 2);
             Buttons.emplace_back(hwnd, WINDOW_WIDTH - 180, 570, 150, 40, "Caps Lock Toggle", 3);
-            Buttons.emplace_back(hwnd, 30, 550, 130, 40, "Attackers", 4);
-            Buttons.emplace_back(hwnd, 180, 550, 130, 40, "Defenders", 5);
+            Buttons.emplace_back(hwnd, WINDOW_WIDTH - 450, 620, 150, 40, "Attackers", 4);
+            Buttons.emplace_back(hwnd, WINDOW_WIDTH - 275, 620, 150, 40, "Defenders", 5);
 
             // Load attacker bitmaps
             for (const auto& name : AttackerNames)
@@ -174,6 +175,28 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
             DeleteDC(memDC);
 
             EndPaint(hwnd, &ps);
+        } break;
+
+        case WM_LBUTTONDOWN:
+        {
+            int mouseX = GET_X_LPARAM(lParam);
+            int mouseY = GET_Y_LPARAM(lParam);
+
+            const auto& bitmaps = GetCurrentBitmapList();
+            const auto& names = IsAttackerView ? AttackerNames : DefenderNames;
+
+            for (size_t i = 0; i < bitmaps.size(); ++i)
+            {
+                int x = 30 + (i % 6) * (145 + 1);
+                int y = (int)(i / 6) * (145 + 1);
+
+                if (mouseX >= x && mouseX <= x + 145 &&
+                        mouseY >= y && mouseY <= y + 145)
+                {
+
+                    return 0;
+                }
+            }
         } break;
 
         case WM_DESTROY:

@@ -8,6 +8,9 @@ extern const int WINDOW_HEIGHT;
 extern std::vector<const char*> AttackerNames;
 extern std::vector<const char*> DefenderNames;
 
+extern std::vector<const char*> AttackerPrimaryWeapons;
+extern std::vector<const char*> DefenderPrimaryWeapons;
+
 struct RecoilPreset
 {
     int Vertical;

@@ -53,22 +53,6 @@ const char* GetImagePath(const char* name)
 
 HBITMAP LoadBitmap(const char* path)
 {
-    wchar_t wpath[MAX_PATH] = {};
-    int i = 0;
-    for (; path[i] != '\0' && i < MAX_PATH - 1; ++i)
-    {
-        wpath[i] = (wchar_t)path[i];
-    }
-    wpath[i] = L'\0';
-
-    HBITMAP bitmap = (HBITMAP)LoadImageW(
-        NULL,
-        wpath,
-        IMAGE_BITMAP,
-        0, 0,
-        LR_LOADFROMFILE | LR_CREATEDIBSECTION
-    );
-
-    if (!bitmap) MessageBoxA(NULL, "Failed to load bitmap", "Error", MB_OK);
-    return bitmap;
+    HBITMAP hBmp = (HBITMAP)LoadImageA(NULL, path, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+    return hBmp;
 }

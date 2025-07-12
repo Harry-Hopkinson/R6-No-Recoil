@@ -3,7 +3,6 @@
 #include <windowsx.h>
 
 #include <thread>
-#include <string>
 #include <vector>
 
 #include "core/File.hpp"
@@ -22,48 +21,100 @@ std::vector<HBITMAP>& GetCurrentBitmapList() { return IsAttackerView ? AttackerB
 
 struct WeaponBitmapEntry
 {
-    std::string name;
+    const char* name;
     HBITMAP bitmap;
 };
 std::vector<WeaponBitmapEntry> WeaponBitmaps;
 
-std::string RemoveSpaces(const std::string& input)
+char* RemoveSpaces(const char* input)
 {
-    std::string result;
-    for (char c : input)
+    if (!input) return nullptr;
+
+    int len = strlen(input);
+    char* result = new char[len + 1]; // +1 for null terminator
+    int j = 0;
+
+    for (int i = 0; i < len; i++)
     {
-        if (c != ' ') result += c;
+        if (input[i] != ' ')
+        {
+            result[j++] = input[i];
+        }
     }
+    result[j] = '\0'; // Null terminate
+
     return result;
 }
 
-HBITMAP LoadWeaponBitmap(const std::string& weaponName)
+// Concatenate path and filename
+char* BuildPath(const char* dir, const char* filename)
 {
-    std::string cleanName = RemoveSpaces(weaponName);
+    int len1 = strlen(dir);
+    int len2 = strlen(filename);
+    int len3 = strlen(".bmp");
 
-    std::string path = "assets/weapons/" + cleanName + ".bmp";
-    HBITMAP bitmap = LoadBitmap(path.c_str());
+    char* result = new char[len1 + len2 + len3 + 1]; // +1 for null terminator
+    strcpy_s(result, len1 + len2 + len3 + 1, dir);
+    strcat_s(result, len1 + len2 + len3 + 1, filename);
+    strcat_s(result, len1 + len2 + len3 + 1, ".bmp");
+
+    return result;
+}
+
+HBITMAP LoadWeaponBitmap(const char* weaponName)
+{
+    char* cleanName = RemoveSpaces(weaponName);
+    if (!cleanName) return nullptr;
+
+    char* path = BuildPath("assets/weapons/", cleanName);
+    HBITMAP bitmap = LoadBitmap(path);
 
     if (!bitmap)
     {
         char debugMsg[256];
-        sprintf_s(debugMsg, "Failed to load weapon bitmap: %s", path.c_str());
+        sprintf_s(debugMsg, "Failed to load weapon bitmap: %s", path);
         OutputDebugStringA(debugMsg);
     }
+
+    // Free the allocated strings
+    delete[] cleanName;
+    delete[] path;
 
     return bitmap;
 }
 
-HBITMAP GetWeaponBitmap(const std::string& weaponName)
+HBITMAP GetWeaponBitmap(const char* weaponName)
 {
+    // Search the cache first
     for (const auto& entry : WeaponBitmaps)
     {
-        if (entry.name == weaponName) return entry.bitmap;
+        if (strcmp(entry.name, weaponName) == 0)
+            return entry.bitmap;
     }
 
+    // Not found in cache, load the bitmap
     HBITMAP bmp = LoadWeaponBitmap(weaponName);
-    if (bmp) WeaponBitmaps.push_back({weaponName, bmp});
+    if (bmp)
+    {
+        // Make a copy of the name to store in our cache
+        int len = strlen(weaponName);
+        char* nameCopy = new char[len + 1];
+        strcpy_s(nameCopy, len + 1, weaponName);
+
+        WeaponBitmapEntry entry;
+        entry.name = nameCopy;
+        entry.bitmap = bmp;
+        WeaponBitmaps.push_back(entry);
+    }
     return bmp;
+}
+
+void ShowAllButtons(bool show)
+{
+    for (const auto& button : Buttons)
+    {
+        ShowWindow(button.GetHWND(), show ? SW_SHOW : SW_HIDE);
+    }
 }
 
 HFONT FontMedium = nullptr;
@@ -132,7 +183,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             for (const auto& name : DefenderNames)
                 DefenderBitmaps.push_back(LoadBitmap(GetImagePath(name)));
 
-            FontLarge = CreateFont(28, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
+            FontLarge = CreateFont(32, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
                                     ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
                                     DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, "Segoe UI");
 
@@ -219,29 +270,50 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
                 // Display instruction
                 oldFont = (HFONT)SelectObject(memDC, FontMedium);
-                const char* instruction = "Select a weapon:";
+                const char* instruction = "Select a primary weapon:";
                 GetTextExtentPoint32(memDC, instruction, static_cast<int>(strlen(instruction)), &textSize);
                 TextOut(memDC, (rect.right - textSize.cx) / 2, 100, instruction, static_cast<int>(strlen(instruction)));
                 SelectObject(memDC, oldFont);
 
-                std::vector<std::string> weapons;
+                // Parse weapon list
+                const char* weapons[3] = {NULL, NULL, NULL};
+                int weaponCount = 0;
+
                 const char* ptr = weaponStr;
-                while (*ptr)
+                while (*ptr && weaponCount < 3)
                 {
                     // Skip leading spaces
                     while (*ptr == ' ') ++ptr;
 
+                    // Save start of this weapon name
                     const char* start = ptr;
+
+                    // Find end of weapon name (comma or end of string)
                     while (*ptr && *ptr != ',') ++ptr;
 
-                    std::string weapon(start, ptr);
-                    while (!weapon.empty() && weapon.back() == ' ')
-                        weapon.pop_back();
+                    // Calculate length of this weapon name
+                    int len = (int)(ptr - start);
 
-                    if (!weapon.empty())
-                        weapons.push_back(weapon);
+                    // If we found a non-empty name, store it
+                    if (len > 0)
+                    {
+                        // Allocate memory for the weapon name
+                        char* weaponName = new char[len + 1];
+                        strncpy_s(weaponName, len + 1, start, len);
 
-                    if (*ptr == ',') ++ptr; // Skip the comma
+                        // Trim trailing spaces
+                        while (len > 0 && weaponName[len - 1] == ' ')
+                            weaponName[--len] = '\0';
+
+                        // Store in our array if it's not empty
+                        if (len > 0)
+                            weapons[weaponCount++] = weaponName;
+                        else
+                            delete[] weaponName;
+                    }
+
+                    // Skip comma if present
+                    if (*ptr == ',') ++ptr;
                 }
 
                 int y = 150;
@@ -249,16 +321,14 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 // Create weapon bitmap display
                 HDC hdcMem = CreateCompatibleDC(memDC);
 
-                // Increase image dimensions
-                int imgWidth = 300;  // Increased from 200
-                int imgHeight = 180; // Increased from 120
+                int imgWidth = 500;
+                int imgHeight = 160;
 
-                // Adjust spacing for larger images
                 int spacing = 40;
-                int totalWidth = weapons.size() * (imgWidth + spacing) - spacing;
+                int totalWidth = weaponCount * (imgWidth + spacing) - spacing;
                 int startX = (rect.right - totalWidth) / 2;
 
-                for (size_t i = 0; i < weapons.size() && i < 3; ++i)
+                for (int i = 0; i < weaponCount; ++i)
                 {
                     int x = startX + i * (imgWidth + spacing);
 
@@ -273,6 +343,10 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                         // Draw a border around the image area
                         RECT imgRect = {x, y, x + imgWidth, y + imgHeight};
                         FrameRect(memDC, &imgRect, (HBRUSH)GetStockObject(BLACK_BRUSH));
+
+                        // Display the image
+                        SetStretchBltMode(memDC, HALFTONE);  // Use HALFTONE for better quality
+                        SetBrushOrgEx(memDC, 0, 0, NULL);
 
                         // Display the image
                         StretchBlt(memDC, x, y, imgWidth, imgHeight,
@@ -294,9 +368,16 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     // Display weapon name below the image
                     RECT nameRect = {x, y + imgHeight + 10, x + imgWidth, y + imgHeight + 40};
                     oldFont = (HFONT)SelectObject(memDC, FontMedium);
-                    DrawText(memDC, weapons[i].c_str(), -1, &nameRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+                    DrawText(memDC, weapons[i], -1, &nameRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
                     SelectObject(memDC, oldFont);
                 }
+
+                // Free weapon name memory
+                for (int i = 0; i < weaponCount; i++)
+                {
+                    if (weapons[i]) delete[] (char*)weapons[i];
+                }
+
                 DeleteDC(hdcMem);
 
                 // Back button at the bottom
@@ -335,6 +416,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     {
                         SelectedOperatorIndex = static_cast<int>(i);
                         CurrentUIState = UIState::WeaponDisplay;
+                        for (const auto& button : Buttons) ShowWindow(button.GetHWND(), SW_HIDE);
                         InvalidateRect(hwnd, NULL, TRUE);
                         return 0;
                     }
@@ -346,34 +428,55 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                                         ? AttackerPrimaryWeapons[SelectedOperatorIndex]
                                         : DefenderPrimaryWeapons[SelectedOperatorIndex];
 
-                std::vector<std::string> weapons;
+                // Parse weapon list again for click detection
+                const char* weapons[3] = {NULL, NULL, NULL};
+                int weaponCount = 0;
+
                 const char* ptr = weaponStr;
-                while (*ptr)
+                while (*ptr && weaponCount < 3)
                 {
                     // Skip leading spaces
                     while (*ptr == ' ') ++ptr;
 
+                    // Save start of this weapon name
                     const char* start = ptr;
+
+                    // Find end of weapon name (comma or end of string)
                     while (*ptr && *ptr != ',') ++ptr;
 
-                    std::string weapon(start, ptr);
-                    while (!weapon.empty() && weapon.back() == ' ')
-                        weapon.pop_back();
+                    // Calculate length of this weapon name
+                    int len = (int)(ptr - start);
 
-                    if (!weapon.empty())
-                        weapons.push_back(weapon);
+                    // If we found a non-empty name, store it
+                    if (len > 0)
+                    {
+                        // Allocate memory for the weapon name
+                        char* weaponName = new char[len + 1];
+                        strncpy_s(weaponName, len + 1, start, len);
 
-                    if (*ptr == ',') ++ptr; // Skip the comma
+                        // Trim trailing spaces
+                        while (len > 0 && weaponName[len - 1] == ' ')
+                            weaponName[--len] = '\0';
+
+                        // Store in our array if it's not empty
+                        if (len > 0)
+                            weapons[weaponCount++] = weaponName;
+                        else
+                            delete[] weaponName;
+                    }
+
+                    // Skip comma if present
+                    if (*ptr == ',') ++ptr;
                 }
 
                 int y = 150;
-                int imgWidth = 300;
-                int imgHeight = 180;
+                int imgWidth = 500;
+                int imgHeight = 160;
                 int spacing = 40;
-                int totalWidth = weapons.size() * (imgWidth + spacing) - spacing;
+                int totalWidth = weaponCount * (imgWidth + spacing) - spacing;
                 int startX = (rect.right - totalWidth) / 2;
 
-                for (size_t i = 0; i < weapons.size() && i < 3; ++i)
+                for (int i = 0; i < weaponCount; ++i)
                 {
                     int x = startX + i * (imgWidth + spacing);
                     RECT clickRect = {x, y, x + imgWidth, y + imgHeight + 40}; // Include name area in clickable region
@@ -383,9 +486,25 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     {
                         // Weapon selected - do something with selection if needed
                         CurrentUIState = UIState::OperatorSelection;
+                        for (const auto& button : Buttons)
+                        {
+                            ShowWindow(button.GetHWND(), SW_SHOW);
+                        }
                         InvalidateRect(hwnd, NULL, TRUE);
+
+                        // Free weapon name memory before returning
+                        for (int j = 0; j < weaponCount; j++)
+                        {
+                            if (weapons[j]) delete[] (char*)weapons[j];
+                        }
                         return 0;
                     }
+                }
+
+                // Free weapon name memory
+                for (int i = 0; i < weaponCount; i++)
+                {
+                    if (weapons[i]) delete[] (char*)weapons[i];
                 }
 
                 // Back button detection
@@ -407,8 +526,11 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             AttackerBitmaps.clear();
             DefenderBitmaps.clear();
 
-            // Clean up weapon bitmaps
-            for (auto& entry : WeaponBitmaps) if (entry.bitmap) DeleteObject(entry.bitmap);
+            // Clean up weapon bitmaps and allocated names
+            for (auto& entry : WeaponBitmaps) {
+                if (entry.bitmap) DeleteObject(entry.bitmap);
+                if (entry.name) delete[] entry.name;
+            }
             WeaponBitmaps.clear();
 
             if (FontLarge) DeleteObject(FontLarge);

@@ -3,6 +3,8 @@
 #include <windowsx.h>
 
 #include <thread>
+#include <string>
+#include <vector>
 
 #include "core/File.hpp"
 #include "Globals.hpp"
@@ -25,7 +27,8 @@ struct WeaponBitmapEntry
 };
 std::vector<WeaponBitmapEntry> WeaponBitmaps;
 
-std::string RemoveSpaces(const std::string& input) {
+std::string RemoveSpaces(const std::string& input)
+{
     std::string result;
     for (char c : input)
     {
@@ -34,7 +37,8 @@ std::string RemoveSpaces(const std::string& input) {
     return result;
 }
 
-HBITMAP LoadWeaponBitmap(const std::string& weaponName) {
+HBITMAP LoadWeaponBitmap(const std::string& weaponName)
+{
     std::string cleanName = RemoveSpaces(weaponName);
 
     std::string path = "assets/weapons/" + cleanName + ".bmp";
@@ -50,7 +54,8 @@ HBITMAP LoadWeaponBitmap(const std::string& weaponName) {
     return bitmap;
 }
 
-HBITMAP GetWeaponBitmap(const std::string& weaponName) {
+HBITMAP GetWeaponBitmap(const std::string& weaponName)
+{
     for (const auto& entry : WeaponBitmaps)
     {
         if (entry.name == weaponName) return entry.bitmap;

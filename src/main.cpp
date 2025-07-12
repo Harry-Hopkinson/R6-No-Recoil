@@ -3,7 +3,6 @@
 #include <windowsx.h>
 
 #include <thread>
-#include <vector>
 
 #include "core/File.hpp"
 #include "Globals.hpp"

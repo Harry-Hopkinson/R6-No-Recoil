@@ -18,6 +18,49 @@ std::vector<HBITMAP> AttackerBitmaps;
 std::vector<HBITMAP> DefenderBitmaps;
 std::vector<HBITMAP>& GetCurrentBitmapList() { return IsAttackerView ? AttackerBitmaps : DefenderBitmaps; }
 
+struct WeaponBitmapEntry
+{
+    std::string name;
+    HBITMAP bitmap;
+};
+std::vector<WeaponBitmapEntry> WeaponBitmaps;
+
+std::string RemoveSpaces(const std::string& input) {
+    std::string result;
+    for (char c : input)
+    {
+        if (c != ' ') result += c;
+    }
+    return result;
+}
+
+HBITMAP LoadWeaponBitmap(const std::string& weaponName) {
+    std::string cleanName = RemoveSpaces(weaponName);
+
+    std::string path = "assets/weapons/" + cleanName + ".bmp";
+    HBITMAP bitmap = LoadBitmap(path.c_str());
+
+    if (!bitmap)
+    {
+        char debugMsg[256];
+        sprintf_s(debugMsg, "Failed to load weapon bitmap: %s", path.c_str());
+        OutputDebugStringA(debugMsg);
+    }
+
+    return bitmap;
+}
+
+HBITMAP GetWeaponBitmap(const std::string& weaponName) {
+    for (const auto& entry : WeaponBitmaps)
+    {
+        if (entry.name == weaponName) return entry.bitmap;
+    }
+
+    HBITMAP bmp = LoadWeaponBitmap(weaponName);
+    if (bmp) WeaponBitmaps.push_back({weaponName, bmp});
+    return bmp;
+}
+
 HFONT FontMedium = nullptr;
 HFONT FontLarge = nullptr;
 
@@ -162,8 +205,19 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 const char* operatorName = IsAttackerView ? AttackerNames[SelectedOperatorIndex] : DefenderNames[SelectedOperatorIndex];
                 const char* weaponStr = IsAttackerView ? AttackerPrimaryWeapons[SelectedOperatorIndex] : DefenderPrimaryWeapons[SelectedOperatorIndex];
 
-                DrawRightAlignedText(operatorName, 100, 28);
-                DrawRightAlignedText("Select a weapon:", 150);
+                // Display operator name at the top
+                HFONT oldFont = (HFONT)SelectObject(memDC, FontLarge);
+                SIZE textSize;
+                GetTextExtentPoint32(memDC, operatorName, static_cast<int>(strlen(operatorName)), &textSize);
+                TextOut(memDC, (rect.right - textSize.cx) / 2, 50, operatorName, static_cast<int>(strlen(operatorName)));
+                SelectObject(memDC, oldFont);
+
+                // Display instruction
+                oldFont = (HFONT)SelectObject(memDC, FontMedium);
+                const char* instruction = "Select a weapon:";
+                GetTextExtentPoint32(memDC, instruction, static_cast<int>(strlen(instruction)), &textSize);
+                TextOut(memDC, (rect.right - textSize.cx) / 2, 100, instruction, static_cast<int>(strlen(instruction)));
+                SelectObject(memDC, oldFont);
 
                 std::vector<std::string> weapons;
                 const char* ptr = weaponStr;
@@ -185,26 +239,62 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     if (*ptr == ',') ++ptr; // Skip the comma
                 }
 
-                int centerX = rect.right / 2;
-                int y = 400;
-                int width = 300, height = 60;
+                int y = 150;
 
-                RECT weaponRects[3] = {};
+                // Create weapon bitmap display
+                HDC hdcMem = CreateCompatibleDC(memDC);
+
+                // Increase image dimensions
+                int imgWidth = 300;  // Increased from 200
+                int imgHeight = 180; // Increased from 120
+
+                // Adjust spacing for larger images
+                int spacing = 40;
+                int totalWidth = weapons.size() * (imgWidth + spacing) - spacing;
+                int startX = (rect.right - totalWidth) / 2;
+
                 for (size_t i = 0; i < weapons.size() && i < 3; ++i)
                 {
-                    RECT buttonRect = {0};
-                    if (weapons.size() == 1)
-                        buttonRect = { centerX - width / 2, y, centerX + width / 2, y + height };
-                    else if (weapons.size() == 2)
-                        buttonRect = { centerX + (i == 0 ? -width - 10 : 10), y, centerX + (i == 0 ? -10 : width + 10), y + height };
-                    else if (weapons.size() == 3)
-                        buttonRect = { centerX - width + static_cast<int>(i) * (width + 10), y, centerX - width + static_cast<int>(i) * (width + 10) + width, y + height };
+                    int x = startX + i * (imgWidth + spacing);
 
-                    DrawText(memDC, weapons[i].c_str(), -1, &buttonRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-                    FrameRect(memDC, &buttonRect, (HBRUSH)GetStockObject(BLACK_BRUSH));
-                    weaponRects[i] = buttonRect;
+                    // Load and display weapon image first
+                    HBITMAP weaponBmp = GetWeaponBitmap(weapons[i]);
+                    if (weaponBmp)
+                    {
+                        HGDIOBJ oldBmp = SelectObject(hdcMem, weaponBmp);
+                        BITMAP bm;
+                        GetObject(weaponBmp, sizeof(bm), &bm);
+
+                        // Draw a border around the image area
+                        RECT imgRect = {x, y, x + imgWidth, y + imgHeight};
+                        FrameRect(memDC, &imgRect, (HBRUSH)GetStockObject(BLACK_BRUSH));
+
+                        // Display the image
+                        StretchBlt(memDC, x, y, imgWidth, imgHeight,
+                                  hdcMem, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY);
+                        SelectObject(hdcMem, oldBmp);
+                    }
+                    else
+                    {
+                        // If no image, draw placeholder
+                        RECT imgRect = {x, y, x + imgWidth, y + imgHeight};
+                        FrameRect(memDC, &imgRect, (HBRUSH)GetStockObject(BLACK_BRUSH));
+                        FillRect(memDC, &imgRect, (HBRUSH)GetStockObject(LTGRAY_BRUSH));
+
+                        // Display "No Image" text
+                        RECT textRect = imgRect;
+                        DrawText(memDC, "No Image", -1, &textRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+                    }
+
+                    // Display weapon name below the image
+                    RECT nameRect = {x, y + imgHeight + 10, x + imgWidth, y + imgHeight + 40};
+                    oldFont = (HFONT)SelectObject(memDC, FontMedium);
+                    DrawText(memDC, weapons[i].c_str(), -1, &nameRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+                    SelectObject(memDC, oldFont);
                 }
+                DeleteDC(hdcMem);
 
+                // Back button at the bottom
                 RECT backBtn = { 30, rect.bottom - 80, 130, rect.bottom - 30 };
                 DrawText(memDC, "Back", -1, &backBtn, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
                 FrameRect(memDC, &backBtn, (HBRUSH)GetStockObject(BLACK_BRUSH));
@@ -212,6 +302,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             BitBlt(hdc, 0, 0, rect.right, rect.bottom, memDC, 0, 0, SRCCOPY);
 
+            // Clean up
             SelectObject(memDC, oldBitmap);
             DeleteObject(memBitmap);
             DeleteDC(memDC);
@@ -254,46 +345,45 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 const char* ptr = weaponStr;
                 while (*ptr)
                 {
-                        // Skip leading spaces
-                        while (*ptr == ' ') ++ptr;
+                    // Skip leading spaces
+                    while (*ptr == ' ') ++ptr;
 
-                        const char* start = ptr;
-                        while (*ptr && *ptr != ',') ++ptr;
+                    const char* start = ptr;
+                    while (*ptr && *ptr != ',') ++ptr;
 
-                        std::string weapon(start, ptr);
-                        while (!weapon.empty() && weapon.back() == ' ')
-                            weapon.pop_back();
+                    std::string weapon(start, ptr);
+                    while (!weapon.empty() && weapon.back() == ' ')
+                        weapon.pop_back();
 
-                        if (!weapon.empty())
-                            weapons.push_back(weapon);
+                    if (!weapon.empty())
+                        weapons.push_back(weapon);
 
-                        if (*ptr == ',') ++ptr; // Skip the comma
+                    if (*ptr == ',') ++ptr; // Skip the comma
                 }
 
-                int centerX = rect.right / 2;
-                int y = 400;
-                int width = 300, height = 60;
+                int y = 150;
+                int imgWidth = 300;
+                int imgHeight = 180;
+                int spacing = 40;
+                int totalWidth = weapons.size() * (imgWidth + spacing) - spacing;
+                int startX = (rect.right - totalWidth) / 2;
 
-                for (size_t i = 0; i < weapons.size(); ++i)
+                for (size_t i = 0; i < weapons.size() && i < 3; ++i)
                 {
-                    RECT r;
-                    if (weapons.size() == 1)
-                        r = { centerX - width / 2, y, centerX + width / 2, y + height };
-                    else if (weapons.size() == 2)
-                        r = { centerX + (i == 0 ? -width - 10 : 10), y, centerX + (i == 0 ? -10 : width + 10), y + height };
-                    else
-                        r = { centerX - width + static_cast<int>(i) * (width + 10), y,
-                              centerX - width + static_cast<int>(i) * (width + 10) + width, y + height };
+                    int x = startX + i * (imgWidth + spacing);
+                    RECT clickRect = {x, y, x + imgWidth, y + imgHeight + 40}; // Include name area in clickable region
 
-                    if (mouseX >= r.left && mouseX <= r.right && mouseY >= r.top && mouseY <= r.bottom)
+                    if (mouseX >= clickRect.left && mouseX <= clickRect.right &&
+                        mouseY >= clickRect.top && mouseY <= clickRect.bottom)
                     {
+                        // Weapon selected - do something with selection if needed
                         CurrentUIState = UIState::OperatorSelection;
                         InvalidateRect(hwnd, NULL, TRUE);
                         return 0;
                     }
                 }
 
-                // Back button detection using client rect
+                // Back button detection
                 if (mouseX >= 30 && mouseX <= 130 &&
                     mouseY >= rect.bottom - 80 && mouseY <= rect.bottom - 30)
                 {
@@ -311,6 +401,10 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             for (HBITMAP bmp : DefenderBitmaps) if (bmp) DeleteObject(bmp);
             AttackerBitmaps.clear();
             DefenderBitmaps.clear();
+
+            // Clean up weapon bitmaps
+            for (auto& entry : WeaponBitmaps) if (entry.bitmap) DeleteObject(entry.bitmap);
+            WeaponBitmaps.clear();
 
             if (FontLarge) DeleteObject(FontLarge);
             if (FontMedium) DeleteObject(FontMedium);

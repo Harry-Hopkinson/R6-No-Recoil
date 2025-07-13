@@ -5,6 +5,8 @@
 #include <thread>
 
 #include "core/File.hpp"
+#include "core/utils/String.hpp"
+
 #include "Globals.hpp"
 
 #include "config/Config.hpp"
@@ -25,47 +27,12 @@ struct WeaponBitmapEntry
 };
 std::vector<WeaponBitmapEntry> WeaponBitmaps;
 
-char* RemoveSpaces(const char* input)
-{
-    if (!input) return nullptr;
-
-    int len = strlen(input);
-    char* result = new char[len + 1]; // +1 for null terminator
-    int j = 0;
-
-    for (int i = 0; i < len; i++)
-    {
-        if (input[i] != ' ')
-        {
-            result[j++] = input[i];
-        }
-    }
-    result[j] = '\0'; // Null terminate
-
-    return result;
-}
-
-// Concatenate path and filename
-char* BuildPath(const char* dir, const char* filename)
-{
-    int len1 = strlen(dir);
-    int len2 = strlen(filename);
-    int len3 = strlen(".bmp");
-
-    char* result = new char[len1 + len2 + len3 + 1]; // +1 for null terminator
-    strcpy_s(result, len1 + len2 + len3 + 1, dir);
-    strcat_s(result, len1 + len2 + len3 + 1, filename);
-    strcat_s(result, len1 + len2 + len3 + 1, ".bmp");
-
-    return result;
-}
-
 HBITMAP LoadWeaponBitmap(const char* weaponName)
 {
-    char* cleanName = RemoveSpaces(weaponName);
+    char* cleanName = StringUtils::RemoveSpaces(weaponName);
     if (!cleanName) return nullptr;
 
-    char* path = BuildPath("assets/weapons/", cleanName);
+    char* path = StringUtils::BuildPath("assets/weapons/", cleanName);
     HBITMAP bitmap = LoadBitmap(path);
 
     if (!bitmap)
@@ -96,14 +63,14 @@ HBITMAP GetWeaponBitmap(const char* weaponName)
     if (bmp)
     {
         // Make a copy of the name to store in our cache
-        int len = strlen(weaponName);
-        char* nameCopy = new char[len + 1];
-        strcpy_s(nameCopy, len + 1, weaponName);
-
-        WeaponBitmapEntry entry;
-        entry.name = nameCopy;
-        entry.bitmap = bmp;
-        WeaponBitmaps.push_back(entry);
+        char* nameCopy = StringUtils::CreateStringCopy(weaponName);
+        if (nameCopy)
+        {
+            WeaponBitmapEntry entry;
+            entry.name = nameCopy;
+            entry.bitmap = bmp;
+            WeaponBitmaps.push_back(entry);
+        }
     }
     return bmp;
 }
@@ -276,44 +243,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
                 // Parse weapon list
                 const char* weapons[3] = {NULL, NULL, NULL};
-                int weaponCount = 0;
-
-                const char* ptr = weaponStr;
-                while (*ptr && weaponCount < 3)
-                {
-                    // Skip leading spaces
-                    while (*ptr == ' ') ++ptr;
-
-                    // Save start of this weapon name
-                    const char* start = ptr;
-
-                    // Find end of weapon name (comma or end of string)
-                    while (*ptr && *ptr != ',') ++ptr;
-
-                    // Calculate length of this weapon name
-                    int len = (int)(ptr - start);
-
-                    // If we found a non-empty name, store it
-                    if (len > 0)
-                    {
-                        // Allocate memory for the weapon name
-                        char* weaponName = new char[len + 1];
-                        strncpy_s(weaponName, len + 1, start, len);
-
-                        // Trim trailing spaces
-                        while (len > 0 && weaponName[len - 1] == ' ')
-                            weaponName[--len] = '\0';
-
-                        // Store in our array if it's not empty
-                        if (len > 0)
-                            weapons[weaponCount++] = weaponName;
-                        else
-                            delete[] weaponName;
-                    }
-
-                    // Skip comma if present
-                    if (*ptr == ',') ++ptr;
-                }
+                int weaponCount = StringUtils::ParseWeaponList(weaponStr, weapons, 3);
 
                 int y = 150;
 
@@ -372,10 +302,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 }
 
                 // Free weapon name memory
-                for (int i = 0; i < weaponCount; i++)
-                {
-                    if (weapons[i]) delete[] (char*)weapons[i];
-                }
+                StringUtils::FreeWeaponList(weapons, weaponCount);
 
                 DeleteDC(hdcMem);
 
@@ -429,44 +356,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
                 // Parse weapon list again for click detection
                 const char* weapons[3] = {NULL, NULL, NULL};
-                int weaponCount = 0;
-
-                const char* ptr = weaponStr;
-                while (*ptr && weaponCount < 3)
-                {
-                    // Skip leading spaces
-                    while (*ptr == ' ') ++ptr;
-
-                    // Save start of this weapon name
-                    const char* start = ptr;
-
-                    // Find end of weapon name (comma or end of string)
-                    while (*ptr && *ptr != ',') ++ptr;
-
-                    // Calculate length of this weapon name
-                    int len = (int)(ptr - start);
-
-                    // If we found a non-empty name, store it
-                    if (len > 0)
-                    {
-                        // Allocate memory for the weapon name
-                        char* weaponName = new char[len + 1];
-                        strncpy_s(weaponName, len + 1, start, len);
-
-                        // Trim trailing spaces
-                        while (len > 0 && weaponName[len - 1] == ' ')
-                            weaponName[--len] = '\0';
-
-                        // Store in our array if it's not empty
-                        if (len > 0)
-                            weapons[weaponCount++] = weaponName;
-                        else
-                            delete[] weaponName;
-                    }
-
-                    // Skip comma if present
-                    if (*ptr == ',') ++ptr;
-                }
+                int weaponCount = StringUtils::ParseWeaponList(weaponStr, weapons, 3);
 
                 int y = 150;
                 int imgWidth = 500;
@@ -492,19 +382,13 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                         InvalidateRect(hwnd, NULL, TRUE);
 
                         // Free weapon name memory before returning
-                        for (int j = 0; j < weaponCount; j++)
-                        {
-                            if (weapons[j]) delete[] (char*)weapons[j];
-                        }
+                        StringUtils::FreeWeaponList(weapons, weaponCount);
                         return 0;
                     }
                 }
 
                 // Free weapon name memory
-                for (int i = 0; i < weaponCount; i++)
-                {
-                    if (weapons[i]) delete[] (char*)weapons[i];
-                }
+                StringUtils::FreeWeaponList(weapons, weaponCount);
 
                 // Back button detection
                 if (mouseX >= 30 && mouseX <= 130 &&

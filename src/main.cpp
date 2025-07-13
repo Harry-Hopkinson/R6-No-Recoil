@@ -89,7 +89,6 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             Buttons.emplace_back(hwnd, WINDOW_WIDTH - 450, 620, 150, 40, "Attackers", 4);
             Buttons.emplace_back(hwnd, WINDOW_WIDTH - 275, 620, 150, 40, "Defenders", 5);
 
-            // Load operator bitmaps using the new utility
             AttackerBitmaps = BitmapLoader::LoadOperatorBitmaps(AttackerNames, GetImagePath);
             DefenderBitmaps = BitmapLoader::LoadOperatorBitmaps(DefenderNames, GetImagePath);
 

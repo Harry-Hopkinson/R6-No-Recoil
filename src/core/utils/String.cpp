@@ -59,22 +59,13 @@ int ParseWeaponList(const char* weaponStr, const char* weapons[], int maxWeapons
 
     while (*ptr && weaponCount < maxWeapons)
     {
-        // Skip leading spaces
         while (*ptr == ' ') ++ptr;
-
-        // Save start of this weapon name
         const char* start = ptr;
-
-        // Find end of weapon name (comma or end of string)
         while (*ptr && *ptr != ',') ++ptr;
-
-        // Calculate length of this weapon name
         int len = (int)(ptr - start);
 
-        // If we found a non-empty name, store it
         if (len > 0)
         {
-            // Allocate memory for the weapon name
             char* weaponName = new char[len + 1];
             strncpy_s(weaponName, len + 1, start, len);
 

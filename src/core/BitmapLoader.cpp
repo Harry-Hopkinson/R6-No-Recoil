@@ -9,7 +9,6 @@
 namespace BitmapLoader
 {
 
-// Static cache for weapon bitmaps
 static std::vector<WeaponBitmapEntry> WeaponBitmaps;
 
 HBITMAP LoadBitmap(const char* path)

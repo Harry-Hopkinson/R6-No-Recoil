@@ -27,7 +27,6 @@ const char* GetImagePath(const char* name)
         fullPath[j++] = exePath[i];
     }
 
-    // Append "\assets\build\"
     const char* assets = "\\assets\\operators\\";
     for (int i = 0; assets[i] != '\0' && j < MAX_PATH - 1; ++i)
     {

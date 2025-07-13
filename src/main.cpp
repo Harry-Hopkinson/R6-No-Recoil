@@ -19,10 +19,6 @@
 #include "ui/UI.hpp"
 #include "ui/Button.hpp"
 
-std::vector<HBITMAP> AttackerBitmaps;
-std::vector<HBITMAP> DefenderBitmaps;
-std::vector<HBITMAP>& GetCurrentBitmapList() { return IsAttackerView ? AttackerBitmaps : DefenderBitmaps; }
-
 void ShowAllButtons(bool show)
 {
     for (const auto& button : Buttons)
@@ -79,8 +75,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             Buttons.emplace_back(hwnd, WINDOW_WIDTH - 450, 620, 150, 40, "Attackers", 4);
             Buttons.emplace_back(hwnd, WINDOW_WIDTH - 275, 620, 150, 40, "Defenders", 5);
 
-            AttackerBitmaps = Bitmap::LoadOperatorBitmaps(AttackerNames, GetImagePath);
-            DefenderBitmaps = Bitmap::LoadOperatorBitmaps(DefenderNames, GetImagePath);
+            Bitmap::AttackerBitmaps = Bitmap::LoadOperatorBitmaps(AttackerNames, GetImagePath);
+            Bitmap::DefenderBitmaps = Bitmap::LoadOperatorBitmaps(DefenderNames, GetImagePath);
 
             Font::CreateFonts();
         }
@@ -101,7 +97,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             if (CurrentUIState == UIState::OperatorSelection)
             {
-                const auto& bitmaps = GetCurrentBitmapList();
+                const auto& bitmaps = Bitmap::GetCurrentBitmapList();
                 for (size_t i = 0; i < bitmaps.size(); ++i)
                 {
                     int x = 30 + (i % 6) * (145 + 1);
@@ -191,7 +187,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             if (CurrentUIState == UIState::OperatorSelection)
             {
-                const auto& bitmaps = GetCurrentBitmapList();
+                const auto& bitmaps = Bitmap::GetCurrentBitmapList();
                 for (size_t i = 0; i < bitmaps.size(); ++i)
                 {
                     int x = 30 + (i % 6) * (145 + 1);
@@ -264,8 +260,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         case WM_DESTROY:
         {
-            Bitmap::CleanupBitmaps(AttackerBitmaps);
-            Bitmap::CleanupBitmaps(DefenderBitmaps);
+            Bitmap::CleanupBitmaps(Bitmap::AttackerBitmaps);
+            Bitmap::CleanupBitmaps(Bitmap::DefenderBitmaps);
             Bitmap::CleanupWeaponBitmaps();
 
             Font::Cleanup();

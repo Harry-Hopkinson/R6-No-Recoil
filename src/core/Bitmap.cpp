@@ -1,5 +1,6 @@
 #include "Bitmap.hpp"
 
+#include "../Globals.hpp"
 #include "utils/String.hpp"
 
 #include <vector>
@@ -9,7 +10,15 @@
 namespace Bitmap
 {
 
+std::vector<HBITMAP> AttackerBitmaps;
+std::vector<HBITMAP> DefenderBitmaps;
+
 static std::vector<WeaponBitmapEntry> WeaponBitmaps;
+
+std::vector<HBITMAP>& GetCurrentBitmapList()
+{
+    return IsAttackerView ? AttackerBitmaps : DefenderBitmaps;
+}
 
 HBITMAP LoadBitmap(const char* path)
 {

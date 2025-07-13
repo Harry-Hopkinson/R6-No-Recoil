@@ -72,4 +72,9 @@ namespace Bitmap
      * @param text Optional text to display (default: "No Image")
      */
     void DrawPlaceholder(HDC hdc, int x, int y, int width, int height, const char* text = "No Image");
+
+    extern std::vector<HBITMAP> AttackerBitmaps;
+    extern std::vector<HBITMAP> DefenderBitmaps;
+
+    std::vector<HBITMAP>& GetCurrentBitmapList();
 }

@@ -119,35 +119,49 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 const char* operatorName = IsAttackerView ? AttackerNames[SelectedOperatorIndex] : DefenderNames[SelectedOperatorIndex];
                 const char* weaponStr = IsAttackerView ? AttackerPrimaryWeapons[SelectedOperatorIndex] : DefenderPrimaryWeapons[SelectedOperatorIndex];
 
-                // Display operator name at the top
-                Font::DrawCenteredText(memDC, operatorName, 0, 50, rect.right, Font::GetLargeFont());
+                Font::DrawCenteredText(memDC, operatorName, 0, 360, rect.right, Font::GetLargeFont());
 
-                // Display instruction
                 const char* instruction = "Select a primary weapon:";
-                Font::DrawCenteredText(memDC, instruction, 0, 100, rect.right, Font::GetMediumFont());
+                Font::DrawCenteredText(memDC, instruction, 0, 400, rect.right, Font::GetMediumFont());
 
-                // Parse weapon list
                 const char* weapons[3] = {NULL, NULL, NULL};
                 int weaponCount = StringUtils::ParseWeaponList(weaponStr, weapons, 3);
 
-                int y = 150;
-                int imgWidth = 500;
-                int imgHeight = 160;
-                int spacing = 40;
-                int totalWidth = weaponCount * (imgWidth + spacing) - spacing;
+                int imgWidth = 400;
+                int imgHeight = 150;
+                int spacing = 60;
+
+                int totalWidth = weaponCount * imgWidth + (weaponCount - 1) * spacing;
+
                 int startX = (rect.right - totalWidth) / 2;
+
+                int availableHeight = rect.bottom - 120;
+                int contentHeight = imgHeight + 50;
+                int startY = 120 + (availableHeight - contentHeight) / 2;
+
+                SetStretchBltMode(memDC, HALFTONE);
+                SetBrushOrgEx(memDC, 0, 0, NULL);
 
                 for (int i = 0; i < weaponCount; ++i)
                 {
                     int x = startX + i * (imgWidth + spacing);
+                    int y = startY;
 
                     HBITMAP weaponBmp = Bitmap::GetWeaponBitmap(weapons[i]);
+
                     Bitmap::DrawBitmap(memDC, weaponBmp, x, y, imgWidth, imgHeight, true);
 
-                    // Display weapon name below the image
-                    RECT nameRect = {x, y + imgHeight + 10, x + imgWidth, y + imgHeight + 40};
-                    HFONT oldFont = (HFONT)SelectObject(memDC, Font::GetMediumFont());
+                    RECT nameRect = {x, y + imgHeight + 15, x + imgWidth, y + imgHeight + 45};
+                    HFONT oldFont = (HFONT)SelectObject(memDC, Font::GetLargeFont());
+
+                    // Add background for better text visibility
+                    SetBkMode(memDC, OPAQUE);
+                    SetBkColor(memDC, RGB(240, 240, 240));
+                    SetTextColor(memDC, RGB(0, 0, 0));
+
                     DrawText(memDC, weapons[i], -1, &nameRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+
+                    SetBkMode(memDC, TRANSPARENT);
                     SelectObject(memDC, oldFont);
                 }
 
@@ -202,26 +216,30 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                                         ? AttackerPrimaryWeapons[SelectedOperatorIndex]
                                         : DefenderPrimaryWeapons[SelectedOperatorIndex];
 
-                // Parse weapon list again for click detection
                 const char* weapons[3] = {NULL, NULL, NULL};
                 int weaponCount = StringUtils::ParseWeaponList(weaponStr, weapons, 3);
 
-                int y = 150;
-                int imgWidth = 500;
-                int imgHeight = 160;
-                int spacing = 40;
-                int totalWidth = weaponCount * (imgWidth + spacing) - spacing;
+                int imgWidth = 400;
+                int imgHeight = 150;
+                int spacing = 60;
+
+                int totalWidth = weaponCount * imgWidth + (weaponCount - 1) * spacing;
                 int startX = (rect.right - totalWidth) / 2;
+
+                int availableHeight = rect.bottom - 120;
+                int contentHeight = imgHeight + 50;
+                int startY = 120 + (availableHeight - contentHeight) / 2;
 
                 for (int i = 0; i < weaponCount; ++i)
                 {
                     int x = startX + i * (imgWidth + spacing);
-                    RECT clickRect = {x, y, x + imgWidth, y + imgHeight + 40}; // Include name area in clickable region
+                    int y = startY;
+
+                    RECT clickRect = {x, y, x + imgWidth, y + imgHeight + 45};
 
                     if (mouseX >= clickRect.left && mouseX <= clickRect.right &&
                         mouseY >= clickRect.top && mouseY <= clickRect.bottom)
                     {
-                        // Weapon selected - do something with selection if needed
                         CurrentUIState = UIState::OperatorSelection;
                         for (const auto& button : Buttons)
                         {
@@ -229,13 +247,11 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                         }
                         InvalidateRect(hwnd, NULL, TRUE);
 
-                        // Free weapon name memory before returning
                         StringUtils::FreeWeaponList(weapons, weaponCount);
                         return 0;
                     }
                 }
 
-                // Free weapon name memory
                 StringUtils::FreeWeaponList(weapons, weaponCount);
 
                 // Back button detection

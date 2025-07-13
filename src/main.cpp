@@ -19,14 +19,6 @@
 #include "ui/UI.hpp"
 #include "ui/Button.hpp"
 
-void ShowAllButtons(bool show)
-{
-    for (const auto& button : Buttons)
-    {
-        ShowWindow(button.GetHWND(), show ? SW_SHOW : SW_HIDE);
-    }
-}
-
 // Window Procedure for handling events
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {

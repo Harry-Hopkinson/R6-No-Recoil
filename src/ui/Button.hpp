@@ -21,3 +21,11 @@ class Button
         int id;
 };
 std::vector<Button> Buttons;
+
+void ShowAllButtons(bool show)
+{
+    for (const auto& button : Buttons)
+    {
+        ShowWindow(button.GetHWND(), show ? SW_SHOW : SW_HIDE);
+    }
+}

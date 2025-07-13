@@ -6,5 +6,5 @@ enum class UIState
     WeaponDisplay
 };
 
-UIState CurrentUIState = UIState::OperatorSelection;
-int SelectedOperatorIndex = -1;
+extern UIState CurrentUIState;
+extern int SelectedOperatorIndex;

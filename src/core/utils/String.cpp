@@ -10,7 +10,7 @@ char* RemoveSpaces(const char* input)
 {
     if (!input) return nullptr;
 
-    int len = strlen(input);
+    int len = static_cast<int>(strlen(input));
     char* result = new char[len + 1]; // +1 for null terminator
     int j = 0;
 
@@ -28,9 +28,9 @@ char* RemoveSpaces(const char* input)
 
 char* BuildPath(const char* dir, const char* filename)
 {
-    int len1 = strlen(dir);
-    int len2 = strlen(filename);
-    int len3 = strlen(".bmp");
+    int len1 = static_cast<int>(strlen(dir));
+    int len2 = static_cast<int>(strlen(filename));
+    int len3 = static_cast<int>(strlen(".bmp"));
 
     char* result = new char[len1 + len2 + len3 + 1]; // +1 for null terminator
     strcpy_s(result, len1 + len2 + len3 + 1, dir);
@@ -44,7 +44,7 @@ char* CreateStringCopy(const char* input)
 {
     if (!input) return nullptr;
 
-    int len = strlen(input);
+    int len = static_cast<int>(strlen(input));
     char* result = new char[len + 1];
     strcpy_s(result, len + 1, input);
     return result;
@@ -62,7 +62,7 @@ int ParseWeaponList(const char* weaponStr, const char* weapons[], int maxWeapons
         while (*ptr == ' ') ++ptr;
         const char* start = ptr;
         while (*ptr && *ptr != ',') ++ptr;
-        int len = (int)(ptr - start);
+        int len = static_cast<int>(ptr - start);
 
         if (len > 0)
         {

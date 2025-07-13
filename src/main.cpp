@@ -4,9 +4,10 @@
 
 #include <thread>
 
-#include "core/BitmapLoader.hpp"
+#include "core/Bitmap.hpp"
 #include "core/File.hpp"
 #include "core/utils/String.hpp"
+#include "ui/Font.hpp"
 
 #include "Globals.hpp"
 
@@ -15,6 +16,7 @@
 #include "recoil/ApplyRecoil.hpp"
 #include "recoil/ToggleRecoil.hpp"
 
+#include "ui/UI.hpp"
 #include "ui/Button.hpp"
 
 std::vector<HBITMAP> AttackerBitmaps;
@@ -28,18 +30,6 @@ void ShowAllButtons(bool show)
         ShowWindow(button.GetHWND(), show ? SW_SHOW : SW_HIDE);
     }
 }
-
-HFONT FontMedium = nullptr;
-HFONT FontLarge = nullptr;
-
-enum class UIState
-{
-    OperatorSelection,
-    WeaponDisplay
-};
-
-UIState CurrentUIState = UIState::OperatorSelection;
-int SelectedOperatorIndex = -1;
 
 // Window Procedure for handling events
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -89,16 +79,10 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             Buttons.emplace_back(hwnd, WINDOW_WIDTH - 450, 620, 150, 40, "Attackers", 4);
             Buttons.emplace_back(hwnd, WINDOW_WIDTH - 275, 620, 150, 40, "Defenders", 5);
 
-            AttackerBitmaps = BitmapLoader::LoadOperatorBitmaps(AttackerNames, GetImagePath);
-            DefenderBitmaps = BitmapLoader::LoadOperatorBitmaps(DefenderNames, GetImagePath);
+            AttackerBitmaps = Bitmap::LoadOperatorBitmaps(AttackerNames, GetImagePath);
+            DefenderBitmaps = Bitmap::LoadOperatorBitmaps(DefenderNames, GetImagePath);
 
-            FontLarge = CreateFont(32, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
-                                    ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
-                                    DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, "Segoe UI");
-
-            FontMedium = CreateFont(20, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
-                                     ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
-                                     DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, "Segoe UI");
+            Font::CreateFonts();
         }
         break;
 
@@ -115,19 +99,6 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             FillRect(memDC, &rect, (HBRUSH)(COLOR_WINDOW + 1));
 
-            auto DrawRightAlignedText = [&](LPCSTR text, int yOffset, int fontSize = 20)
-            {
-                HFONT selectedFont = (fontSize >= 28) ? FontLarge : FontMedium;
-                HFONT oldFont = (HFONT)SelectObject(memDC, selectedFont);
-
-                SIZE textSize;
-                GetTextExtentPoint32(memDC, text, static_cast<int>(strlen(text)), &textSize);
-                int textX = rect.right - 475 + (400 - textSize.cx) / 2;
-
-                TextOut(memDC, textX, yOffset, text, static_cast<int>(strlen(text)));
-                SelectObject(memDC, oldFont);
-            };
-
             if (CurrentUIState == UIState::OperatorSelection)
             {
                 const auto& bitmaps = GetCurrentBitmapList();
@@ -136,22 +107,22 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     int x = 30 + (i % 6) * (145 + 1);
                     int y = (int)(i / 6) * (145 + 1);
 
-                    BitmapLoader::DrawBitmap(memDC, bitmaps[i], x, y, 145, 145, true);
+                    Bitmap::DrawBitmap(memDC, bitmaps[i], x, y, 145, 145, true);
                 }
 
                 SetBkMode(memDC, TRANSPARENT);
-                DrawRightAlignedText("Recoil Control", 280, 28);
-                DrawRightAlignedText("Enable:", 320);
-                DrawRightAlignedText(EnableRC ? "ON" : "OFF", 342);
-                DrawRightAlignedText("Mode:", 380);
-                DrawRightAlignedText(Modes[SelectedMode], 402);
-                DrawRightAlignedText("Caps Lock Toggle:", 440);
-                DrawRightAlignedText(UseToggleKey ? "ENABLED" : "DISABLED", 462);
+                Font::DrawRightAlignedText(memDC, "Recoil Control", 280, 28, rect);
+                Font::DrawRightAlignedText(memDC, "Enable:", 320, 20, rect);
+                Font::DrawRightAlignedText(memDC, EnableRC ? "ON" : "OFF", 342, 20, rect);
+                Font::DrawRightAlignedText(memDC, "Mode:", 380, 20, rect);
+                Font::DrawRightAlignedText(memDC, Modes[SelectedMode], 402, 20, rect);
+                Font::DrawRightAlignedText(memDC, "Caps Lock Toggle:", 440, 20, rect);
+                Font::DrawRightAlignedText(memDC, UseToggleKey ? "ENABLED" : "DISABLED", 462, 20, rect);
 
                 char recoilInfo[40];
                 wsprintfA(recoilInfo, "Vertical: %d  |  Horizontal: %d", CurrentRecoil.Vertical, CurrentRecoil.Horizontal);
-                DrawRightAlignedText("Current Recoil Settings:", 500);
-                DrawRightAlignedText(recoilInfo, 522);
+                Font::DrawRightAlignedText(memDC, "Current Recoil Settings:", 500, 20, rect);
+                Font::DrawRightAlignedText(memDC, recoilInfo, 522, 20, rect);
             }
             else if (CurrentUIState == UIState::WeaponDisplay)
             {
@@ -161,18 +132,11 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 const char* weaponStr = IsAttackerView ? AttackerPrimaryWeapons[SelectedOperatorIndex] : DefenderPrimaryWeapons[SelectedOperatorIndex];
 
                 // Display operator name at the top
-                HFONT oldFont = (HFONT)SelectObject(memDC, FontLarge);
-                SIZE textSize;
-                GetTextExtentPoint32(memDC, operatorName, static_cast<int>(strlen(operatorName)), &textSize);
-                TextOut(memDC, (rect.right - textSize.cx) / 2, 50, operatorName, static_cast<int>(strlen(operatorName)));
-                SelectObject(memDC, oldFont);
+                Font::DrawCenteredText(memDC, operatorName, 0, 50, rect.right, Font::GetLargeFont());
 
                 // Display instruction
-                oldFont = (HFONT)SelectObject(memDC, FontMedium);
                 const char* instruction = "Select a primary weapon:";
-                GetTextExtentPoint32(memDC, instruction, static_cast<int>(strlen(instruction)), &textSize);
-                TextOut(memDC, (rect.right - textSize.cx) / 2, 100, instruction, static_cast<int>(strlen(instruction)));
-                SelectObject(memDC, oldFont);
+                Font::DrawCenteredText(memDC, instruction, 0, 100, rect.right, Font::GetMediumFont());
 
                 // Parse weapon list
                 const char* weapons[3] = {NULL, NULL, NULL};
@@ -189,12 +153,12 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 {
                     int x = startX + i * (imgWidth + spacing);
 
-                    HBITMAP weaponBmp = BitmapLoader::GetWeaponBitmap(weapons[i]);
-                    BitmapLoader::DrawBitmap(memDC, weaponBmp, x, y, imgWidth, imgHeight, true);
+                    HBITMAP weaponBmp = Bitmap::GetWeaponBitmap(weapons[i]);
+                    Bitmap::DrawBitmap(memDC, weaponBmp, x, y, imgWidth, imgHeight, true);
 
                     // Display weapon name below the image
                     RECT nameRect = {x, y + imgHeight + 10, x + imgWidth, y + imgHeight + 40};
-                    oldFont = (HFONT)SelectObject(memDC, FontMedium);
+                    HFONT oldFont = (HFONT)SelectObject(memDC, Font::GetMediumFont());
                     DrawText(memDC, weapons[i], -1, &nameRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
                     SelectObject(memDC, oldFont);
                 }
@@ -300,13 +264,11 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         case WM_DESTROY:
         {
-            BitmapLoader::CleanupBitmaps(AttackerBitmaps);
-            BitmapLoader::CleanupBitmaps(DefenderBitmaps);
-            BitmapLoader::CleanupWeaponBitmaps();
+            Bitmap::CleanupBitmaps(AttackerBitmaps);
+            Bitmap::CleanupBitmaps(DefenderBitmaps);
+            Bitmap::CleanupWeaponBitmaps();
 
-            if (FontLarge) DeleteObject(FontLarge);
-            if (FontMedium) DeleteObject(FontMedium);
-            FontLarge = FontMedium = nullptr;
+            Font::Cleanup();
 
             Buttons.clear();
             PostQuitMessage(0);

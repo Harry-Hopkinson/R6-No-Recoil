@@ -1,4 +1,4 @@
-#include "BitmapLoader.hpp"
+#include "Bitmap.hpp"
 
 #include "utils/String.hpp"
 
@@ -6,7 +6,7 @@
 #include <cstring>
 #include <cstdio>
 
-namespace BitmapLoader
+namespace Bitmap
 {
 
 static std::vector<WeaponBitmapEntry> WeaponBitmaps;
@@ -177,4 +177,4 @@ void DrawPlaceholder(HDC hdc, int x, int y, int width, int height, const char* t
     }
 }
 
-} // namespace BitmapLoader
+} // namespace Bitmap

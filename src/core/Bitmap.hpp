@@ -3,7 +3,7 @@
 #include <windows.h>
 #include <vector>
 
-namespace BitmapLoader
+namespace Bitmap
 {
 
     /**

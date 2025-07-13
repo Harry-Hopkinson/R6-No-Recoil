@@ -4,6 +4,7 @@
 
 #include <thread>
 
+#include "core/BitmapLoader.hpp"
 #include "core/File.hpp"
 #include "core/utils/String.hpp"
 
@@ -19,61 +20,6 @@
 std::vector<HBITMAP> AttackerBitmaps;
 std::vector<HBITMAP> DefenderBitmaps;
 std::vector<HBITMAP>& GetCurrentBitmapList() { return IsAttackerView ? AttackerBitmaps : DefenderBitmaps; }
-
-struct WeaponBitmapEntry
-{
-    const char* name;
-    HBITMAP bitmap;
-};
-std::vector<WeaponBitmapEntry> WeaponBitmaps;
-
-HBITMAP LoadWeaponBitmap(const char* weaponName)
-{
-    char* cleanName = StringUtils::RemoveSpaces(weaponName);
-    if (!cleanName) return nullptr;
-
-    char* path = StringUtils::BuildPath("assets/weapons/", cleanName);
-    HBITMAP bitmap = LoadBitmap(path);
-
-    if (!bitmap)
-    {
-        char debugMsg[256];
-        sprintf_s(debugMsg, "Failed to load weapon bitmap: %s", path);
-        OutputDebugStringA(debugMsg);
-    }
-
-    // Free the allocated strings
-    delete[] cleanName;
-    delete[] path;
-
-    return bitmap;
-}
-
-HBITMAP GetWeaponBitmap(const char* weaponName)
-{
-    // Search the cache first
-    for (const auto& entry : WeaponBitmaps)
-    {
-        if (strcmp(entry.name, weaponName) == 0)
-            return entry.bitmap;
-    }
-
-    // Not found in cache, load the bitmap
-    HBITMAP bmp = LoadWeaponBitmap(weaponName);
-    if (bmp)
-    {
-        // Make a copy of the name to store in our cache
-        char* nameCopy = StringUtils::CreateStringCopy(weaponName);
-        if (nameCopy)
-        {
-            WeaponBitmapEntry entry;
-            entry.name = nameCopy;
-            entry.bitmap = bmp;
-            WeaponBitmaps.push_back(entry);
-        }
-    }
-    return bmp;
-}
 
 void ShowAllButtons(bool show)
 {
@@ -143,11 +89,9 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             Buttons.emplace_back(hwnd, WINDOW_WIDTH - 450, 620, 150, 40, "Attackers", 4);
             Buttons.emplace_back(hwnd, WINDOW_WIDTH - 275, 620, 150, 40, "Defenders", 5);
 
-            for (const auto& name : AttackerNames)
-                AttackerBitmaps.push_back(LoadBitmap(GetImagePath(name)));
-
-            for (const auto& name : DefenderNames)
-                DefenderBitmaps.push_back(LoadBitmap(GetImagePath(name)));
+            // Load operator bitmaps using the new utility
+            AttackerBitmaps = BitmapLoader::LoadOperatorBitmaps(AttackerNames, GetImagePath);
+            DefenderBitmaps = BitmapLoader::LoadOperatorBitmaps(DefenderNames, GetImagePath);
 
             FontLarge = CreateFont(32, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
                                     ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
@@ -187,24 +131,14 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             if (CurrentUIState == UIState::OperatorSelection)
             {
-                HDC hdcMem = CreateCompatibleDC(memDC);
                 const auto& bitmaps = GetCurrentBitmapList();
                 for (size_t i = 0; i < bitmaps.size(); ++i)
                 {
-                    HBITMAP bmp = bitmaps[i];
-                    if (!bmp) continue;
-
-                    HGDIOBJ oldBmp = SelectObject(hdcMem, bmp);
-                    BITMAP bm;
-                    GetObject(bmp, sizeof(bm), &bm);
-
                     int x = 30 + (i % 6) * (145 + 1);
                     int y = (int)(i / 6) * (145 + 1);
 
-                    StretchBlt(memDC, x, y, 145, 145, hdcMem, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY);
-                    SelectObject(hdcMem, oldBmp);
+                    BitmapLoader::DrawBitmap(memDC, bitmaps[i], x, y, 145, 145, true);
                 }
-                DeleteDC(hdcMem);
 
                 SetBkMode(memDC, TRANSPARENT);
                 DrawRightAlignedText("Recoil Control", 280, 28);
@@ -246,13 +180,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 int weaponCount = StringUtils::ParseWeaponList(weaponStr, weapons, 3);
 
                 int y = 150;
-
-                // Create weapon bitmap display
-                HDC hdcMem = CreateCompatibleDC(memDC);
-
                 int imgWidth = 500;
                 int imgHeight = 160;
-
                 int spacing = 40;
                 int totalWidth = weaponCount * (imgWidth + spacing) - spacing;
                 int startX = (rect.right - totalWidth) / 2;
@@ -261,38 +190,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 {
                     int x = startX + i * (imgWidth + spacing);
 
-                    // Load and display weapon image first
-                    HBITMAP weaponBmp = GetWeaponBitmap(weapons[i]);
-                    if (weaponBmp)
-                    {
-                        HGDIOBJ oldBmp = SelectObject(hdcMem, weaponBmp);
-                        BITMAP bm;
-                        GetObject(weaponBmp, sizeof(bm), &bm);
-
-                        // Draw a border around the image area
-                        RECT imgRect = {x, y, x + imgWidth, y + imgHeight};
-                        FrameRect(memDC, &imgRect, (HBRUSH)GetStockObject(BLACK_BRUSH));
-
-                        // Display the image
-                        SetStretchBltMode(memDC, HALFTONE);  // Use HALFTONE for better quality
-                        SetBrushOrgEx(memDC, 0, 0, NULL);
-
-                        // Display the image
-                        StretchBlt(memDC, x, y, imgWidth, imgHeight,
-                                  hdcMem, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY);
-                        SelectObject(hdcMem, oldBmp);
-                    }
-                    else
-                    {
-                        // If no image, draw placeholder
-                        RECT imgRect = {x, y, x + imgWidth, y + imgHeight};
-                        FrameRect(memDC, &imgRect, (HBRUSH)GetStockObject(BLACK_BRUSH));
-                        FillRect(memDC, &imgRect, (HBRUSH)GetStockObject(LTGRAY_BRUSH));
-
-                        // Display "No Image" text
-                        RECT textRect = imgRect;
-                        DrawText(memDC, "No Image", -1, &textRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-                    }
+                    HBITMAP weaponBmp = BitmapLoader::GetWeaponBitmap(weapons[i]);
+                    BitmapLoader::DrawBitmap(memDC, weaponBmp, x, y, imgWidth, imgHeight, true);
 
                     // Display weapon name below the image
                     RECT nameRect = {x, y + imgHeight + 10, x + imgWidth, y + imgHeight + 40};
@@ -303,8 +202,6 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
                 // Free weapon name memory
                 StringUtils::FreeWeaponList(weapons, weaponCount);
-
-                DeleteDC(hdcMem);
 
                 // Back button at the bottom
                 RECT backBtn = { 30, rect.bottom - 80, 130, rect.bottom - 30 };
@@ -404,17 +301,9 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         case WM_DESTROY:
         {
-            for (HBITMAP bmp : AttackerBitmaps) if (bmp) DeleteObject(bmp);
-            for (HBITMAP bmp : DefenderBitmaps) if (bmp) DeleteObject(bmp);
-            AttackerBitmaps.clear();
-            DefenderBitmaps.clear();
-
-            // Clean up weapon bitmaps and allocated names
-            for (auto& entry : WeaponBitmaps) {
-                if (entry.bitmap) DeleteObject(entry.bitmap);
-                if (entry.name) delete[] entry.name;
-            }
-            WeaponBitmaps.clear();
+            BitmapLoader::CleanupBitmaps(AttackerBitmaps);
+            BitmapLoader::CleanupBitmaps(DefenderBitmaps);
+            BitmapLoader::CleanupWeaponBitmaps();
 
             if (FontLarge) DeleteObject(FontLarge);
             if (FontMedium) DeleteObject(FontMedium);

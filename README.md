@@ -77,7 +77,7 @@ ToggleKey = 20
 - **Improved GUI** – A cleaner, more user-friendly interface is being developed with Operator Images.
 - **Customisation Options** – Ability to fine-tune settings via a UI panel.
 
-## Support Development
+## 💸 Support Development
 
 Any form of donation is greatly appreciated and will help keep me motivated to keep working on this project and developing it further with new features and improvements.
 

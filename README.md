@@ -70,15 +70,18 @@ UltraSensHorizontal = 0
 
 # Toggle Key (e.g. 20 = CAPS LOCK)
 ToggleKey = 20
-
-[UI]
-DarkTheme = true
 ```
 
 ## 🚧 Currently in Development
 
 - **Improved GUI** – A cleaner, more user-friendly interface is being developed with Operator Images.
 - **Customisation Options** – Ability to fine-tune settings via a UI panel.
+
+## Support Development
+
+Any form of donation is greatly appreciated and will help keep me motivated to keep working on this project and developing it further with new features and improvements.
+
+[![Buy Me a Coffee](https://img.shields.io/badge/buymeacoffee-donate-yellow)](https://www.buymeacoffee.com/HarryHopkinson)
 
 ## ⚠️ Disclaimer
 

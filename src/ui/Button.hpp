@@ -14,8 +14,18 @@ class Button
                 x, y, width, height,
                 parent, (HMENU)(uintptr_t)id, GetModuleHandle(NULL), NULL);
         }
+
+        HWND GetHWND() const { return hwndButton; }
     private:
         HWND hwndButton;
         int id;
 };
 std::vector<Button> Buttons;
+
+void ShowAllButtons(bool show)
+{
+    for (const auto& button : Buttons)
+    {
+        ShowWindow(button.GetHWND(), show ? SW_SHOW : SW_HIDE);
+    }
+}

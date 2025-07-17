@@ -2,8 +2,9 @@
 
 #include <windows.h>
 #include "../Globals.hpp"
+#include "../recoil/Recoil.hpp"
 
-#include "../core/clamp.hpp"
+#include "../core/utils/clamp.hpp"
 
 void SaveConfig()
 {
@@ -36,9 +37,6 @@ void SaveConfig()
 
     len += wsprintfA(buffer + len, "# Toggle Key (e.g. 20 = CAPS LOCK)\r\n");
     len += wsprintfA(buffer + len, "ToggleKey = %d\r\n\r\n", ToggleKey);
-
-    len += wsprintfA(buffer + len, "[UI]\r\n");
-    len += wsprintfA(buffer + len, "DarkTheme = %s\r\n", DarkTheme ? "true" : "false");
 
     DWORD written;
     WriteFile(file, buffer, len, &written, NULL);
@@ -130,10 +128,6 @@ void LoadConfig()
             else if (strcmp(key, "UltraSensVertical") == 0) RecoilPresets[3].Vertical = atoi(value);
             else if (strcmp(key, "UltraSensHorizontal") == 0) RecoilPresets[3].Horizontal = atoi(value);
             else if (strcmp(key, "ToggleKey") == 0) ToggleKey = atoi(value);
-        }
-        else if (strcmp(section, "UI") == 0)
-        {
-            if (strcmp(key, "DarkTheme") == 0) DarkTheme = (strcmp(value, "true") == 0 || strcmp(value, "1") == 0);
         }
 
         line = strtok(NULL, "\r\n");

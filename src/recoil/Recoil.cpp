@@ -109,7 +109,7 @@ std::vector<const char*> DefenderPrimaryWeapons =
     "SPAS-12, T-5",                  // Oryx
     "MP5, Super-90",                 // Melusi
     "P10-RONI, Mk_14_EBR",           // Aruni
-    "Spear-308, SPAS-15",           // Thunderbird
+    "Spear-308, SPAS-15",            // Thunderbird
     "UZK50GI",                       // Thorn
     "9x19VSN, ACS12",                // Azami
     "P90",                           // Solis

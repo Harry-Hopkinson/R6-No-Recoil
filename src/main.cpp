@@ -14,8 +14,8 @@
 #include "config/Config.hpp"
 
 #include "recoil/Recoil.hpp"
-#include "recoil/ApplyRecoil.hpp"
-#include "recoil/ToggleRecoil.hpp"
+#include "recoil/threads/ApplyRecoil.hpp"
+#include "recoil/threads/ToggleRecoil.hpp"
 
 #include "ui/Button.hpp"
 #include "ui/UI.hpp"

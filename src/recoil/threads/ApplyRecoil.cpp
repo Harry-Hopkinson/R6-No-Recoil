@@ -1,8 +1,8 @@
-#include "../Globals.hpp"
-#include "../recoil/Recoil.hpp"
+#include "../../Globals.hpp"
+#include "../../recoil/Recoil.hpp"
 
 #include "ApplyRecoil.hpp"
-#include "../core/utils/random.hpp"
+#include "../../core/utils/random.hpp"
 
 #include <windows.h>
 #include <thread>

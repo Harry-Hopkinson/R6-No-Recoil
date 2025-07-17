@@ -229,7 +229,6 @@ int GetWeaponRecoil(const char* weaponName)
 {
     if (!weaponName) return 3; // Default medium recoil
 
-    // Loop through the weapon array to find matching weapon
     for (int i = 0; i < WEAPON_COUNT; i++)
     {
         if (StringCompare(WeaponRecoilData[i].name, weaponName) == 0)

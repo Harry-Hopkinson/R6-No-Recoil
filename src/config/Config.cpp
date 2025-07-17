@@ -2,6 +2,7 @@
 
 #include <windows.h>
 #include "../Globals.hpp"
+#include "../recoil/Recoil.hpp"
 
 #include "../core/utils/clamp.hpp"
 

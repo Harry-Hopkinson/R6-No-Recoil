@@ -13,11 +13,12 @@
 
 #include "config/Config.hpp"
 
+#include "recoil/Recoil.hpp"
 #include "recoil/ApplyRecoil.hpp"
 #include "recoil/ToggleRecoil.hpp"
 
-#include "ui/UI.hpp"
 #include "ui/Button.hpp"
+#include "ui/UI.hpp"
 
 // Window Procedure for handling events
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -25,11 +26,15 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
     switch (uMsg)
     {
         case WM_CLOSE:
+        {
             Running = false;
             DestroyWindow(hwnd);
             return 0;
+        }
+        break;
 
         case WM_COMMAND:
+        {
             switch (LOWORD(wParam))
             {
                 case 1:
@@ -57,7 +62,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
             }
-            break;
+        }
+        break;
 
         case WM_CREATE:
         {
@@ -92,10 +98,10 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 const auto& bitmaps = Bitmap::GetCurrentBitmapList();
                 for (size_t i = 0; i < bitmaps.size(); ++i)
                 {
-                    int x = 30 + (i % 6) * (145 + 1);
-                    int y = (int)(i / 6) * (145 + 1);
+                    int x = 30 + (i % 6) * (160 + 1);
+                    int y = (int)(i / 6) * (160 + 1);
 
-                    Bitmap::DrawBitmap(memDC, bitmaps[i], x, y, 145, 145, true);
+                    Bitmap::DrawBitmap(memDC, bitmaps[i], x, y, 160, 160, true);
                 }
 
                 SetBkMode(memDC, TRANSPARENT);
@@ -154,14 +160,12 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     RECT nameRect = {x, y + imgHeight + 15, x + imgWidth, y + imgHeight + 45};
                     HFONT oldFont = (HFONT)SelectObject(memDC, Font::GetLargeFont());
 
-                    // Add background for better text visibility
-                    SetBkMode(memDC, OPAQUE);
-                    SetBkColor(memDC, RGB(240, 240, 240));
+                    // Remove background - make text transparent
+                    SetBkMode(memDC, TRANSPARENT);
                     SetTextColor(memDC, RGB(0, 0, 0));
 
                     DrawText(memDC, weapons[i], -1, &nameRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
-                    SetBkMode(memDC, TRANSPARENT);
                     SelectObject(memDC, oldFont);
                 }
 
@@ -196,11 +200,11 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 const auto& bitmaps = Bitmap::GetCurrentBitmapList();
                 for (size_t i = 0; i < bitmaps.size(); ++i)
                 {
-                    int x = 30 + (i % 6) * (145 + 1);
-                    int y = (int)(i / 6) * (145 + 1);
+                    int x = 30 + (i % 6) * (160 + 1);
+                    int y = (int)(i / 6) * (160 + 1);
 
-                    if (mouseX >= x && mouseX <= x + 145 &&
-                        mouseY >= y && mouseY <= y + 145)
+                    if (mouseX >= x && mouseX <= x + 160 &&
+                        mouseY >= y && mouseY <= y + 160)
                     {
                         SelectedOperatorIndex = static_cast<int>(i);
                         CurrentUIState = UIState::WeaponDisplay;
@@ -240,6 +244,9 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     if (mouseX >= clickRect.left && mouseX <= clickRect.right &&
                         mouseY >= clickRect.top && mouseY <= clickRect.bottom)
                     {
+                        SetRecoilModeFromWeapon(weapons[i]);
+                        SaveConfig();
+
                         CurrentUIState = UIState::OperatorSelection;
                         for (const auto& button : Buttons)
                         {
@@ -259,6 +266,10 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     mouseY >= rect.bottom - 80 && mouseY <= rect.bottom - 30)
                 {
                     CurrentUIState = UIState::OperatorSelection;
+                    for (const auto& button : Buttons)
+                    {
+                        ShowWindow(button.GetHWND(), SW_SHOW);
+                    }
                     InvalidateRect(hwnd, NULL, TRUE);
                     return 0;
                 }

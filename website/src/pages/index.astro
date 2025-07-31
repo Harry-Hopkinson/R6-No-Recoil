@@ -277,6 +277,11 @@
               class="btn secondary"
               >📖 Wiki (Github)
             </a>
+            <a
+              href="https://www.buymeacoffee.com/HarryHopkinson"
+              class="btn secondary"
+              >💸 Support
+            </a>
           </div>
           <a
             href="https://github.com/Harry-Hopkinson/R6-No-Recoil"
@@ -384,7 +389,8 @@
         version +
         "/r6-no-recoil.exe";
       document.addEventListener("DOMContentLoaded", () => {
-        const downloadBtn = document.getElementById("download-btn");
+        const downloadBtn: HTMLElement | any =
+          document.getElementById("download-btn");
         if (downloadBtn) downloadBtn.href = exePath;
       });
     </script>

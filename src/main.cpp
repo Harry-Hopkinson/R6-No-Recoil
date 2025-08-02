@@ -192,7 +192,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     rightCurrentY += 28;
                 }
 
-                int ctaY = max(leftCurrentY, rightCurrentY) + 40;
+                int ctaY = maximum(leftCurrentY, rightCurrentY) + 40;
 
                 RECT ctaBoxRect = {rect.right / 4, ctaY - 10, (rect.right * 3) / 4, ctaY + 70};
                 HBRUSH ctaBrush = CreateSolidBrush(RGB(245, 245, 245));

@@ -12,7 +12,7 @@ void SaveConfig()
                               CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
     if (file == INVALID_HANDLE_VALUE) return;
 
-    char buffer[512];
+    char buffer[1024];
     int len = 0;
 
     len += wsprintfA(buffer + len, "[RecoilPresets]\r\n");
@@ -35,6 +35,8 @@ void SaveConfig()
     len += wsprintfA(buffer + len, "UltraSensHorizontal = %d\r\n", RecoilPresets[3].Horizontal);
     len += wsprintfA(buffer + len, "\r\n");
 
+    len += wsprintfA(buffer + len, "# Use https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes\n");
+    len += wsprintfA(buffer + len, "# And then convert the key code to decimal\n");
     len += wsprintfA(buffer + len, "# Toggle Key (e.g. 20 = CAPS LOCK)\r\n");
     len += wsprintfA(buffer + len, "ToggleKey = %d\r\n\r\n", ToggleKey);
 

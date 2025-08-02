@@ -9,11 +9,13 @@ class Button
         Button(HWND parent, int x, int y, int width, int height, const char* text, int id)
             : hwndButton(nullptr), id(id)
         {
-            hwndButton = CreateWindow(
+            hwndButton = CreateWindow
+            (
                 "BUTTON", text,
                 WS_VISIBLE | WS_CHILD | BS_PUSHBUTTON,
                 x, y, width, height,
-                parent, (HMENU)(uintptr_t)id, GetModuleHandle(NULL), NULL);
+                parent, (HMENU)(uintptr_t)id, GetModuleHandle(NULL), NULL
+            );
         }
 
         HWND GetHWND() const { return hwndButton; }
@@ -48,7 +50,7 @@ void CreateOperatorSelectionButtons(HWND hwnd)
     Buttons.clear();
     Buttons.emplace_back(hwnd, WINDOW_WIDTH - 525, 570, 150, 40, "Toggle Recoil", 1);
     Buttons.emplace_back(hwnd, WINDOW_WIDTH - 355, 570, 150, 40, "Change Mode", 2);
-    Buttons.emplace_back(hwnd, WINDOW_WIDTH - 180, 570, 150, 40, "Caps Lock Toggle", 3);
+    Buttons.emplace_back(hwnd, WINDOW_WIDTH - 180, 570, 150, 40, "Toggle Key", 3);
 
     // Change the existing buttons to switch teams instead of setting the view
     Buttons.emplace_back(hwnd, WINDOW_WIDTH - 450 , 620, 150, 40, IsAttackerView ? "Switch to Defenders" : "Switch to Attackers", IsAttackerView ? 5 : 4);

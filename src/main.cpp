@@ -133,7 +133,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     "Automatically compensates for weapon recoil patterns",
                     "Supports all Rainbow Six Siege operators and weapons",
                     "Customizable recoil modes and sensitivity settings",
-                    "Toggle on/off with Caps Lock or mouse click",
+                    "Toggle on/off with a desired toggle key or mouse click",
                     "Lightweight and efficient background operation",
                     "",
                     "How it works:",
@@ -185,7 +185,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 Font::DrawRightAlignedText(memDC, EnableRC ? "ON" : "OFF", 342, 20, rect);
                 Font::DrawRightAlignedText(memDC, "Mode:", 380, 20, rect);
                 Font::DrawRightAlignedText(memDC, Modes[SelectedMode], 402, 20, rect);
-                Font::DrawRightAlignedText(memDC, "Caps Lock Toggle:", 440, 20, rect);
+                Font::DrawRightAlignedText(memDC, "Toggle Key Enabled:", 440, 20, rect);
                 Font::DrawRightAlignedText(memDC, UseToggleKey ? "ENABLED" : "DISABLED", 462, 20, rect);
 
                 char recoilInfo[40];

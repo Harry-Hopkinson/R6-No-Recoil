@@ -2,6 +2,7 @@
 
 enum class UIState
 {
+    LandingPage,
     OperatorSelection,
     WeaponDisplay
 };

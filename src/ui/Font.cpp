@@ -2,6 +2,9 @@
 
 HFONT Font::FontMedium = nullptr;
 HFONT Font::FontLarge = nullptr;
+HFONT Font::FontTitle = nullptr;
+HFONT Font::FontSubtitle = nullptr;
+HFONT Font::FontDesc = nullptr;
 
 void Font::CreateFonts()
 {
@@ -12,6 +15,18 @@ void Font::CreateFonts()
     FontMedium = CreateFont(20, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
                            ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
                            DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, "Segoe UI");
+
+    FontTitle = CreateFont(72, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
+                          DEFAULT_CHARSET, OUT_OUTLINE_PRECIS, CLIP_DEFAULT_PRECIS,
+                          CLEARTYPE_QUALITY, VARIABLE_PITCH, TEXT("Arial"));
+
+    FontSubtitle = CreateFont(28, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
+                             DEFAULT_CHARSET, OUT_OUTLINE_PRECIS, CLIP_DEFAULT_PRECIS,
+                             CLEARTYPE_QUALITY, VARIABLE_PITCH, TEXT("Arial"));
+
+    FontDesc = CreateFont(18, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
+                         DEFAULT_CHARSET, OUT_OUTLINE_PRECIS, CLIP_DEFAULT_PRECIS,
+                         CLEARTYPE_QUALITY, VARIABLE_PITCH, TEXT("Arial"));
 }
 
 void Font::Cleanup()
@@ -27,6 +42,24 @@ void Font::Cleanup()
         DeleteObject(FontMedium);
         FontMedium = nullptr;
     }
+
+    if (FontTitle)
+    {
+        DeleteObject(FontTitle);
+        FontTitle = nullptr;
+    }
+
+    if (FontSubtitle)
+    {
+        DeleteObject(FontSubtitle);
+        FontSubtitle = nullptr;
+    }
+
+    if (FontDesc)
+    {
+        DeleteObject(FontDesc);
+        FontDesc = nullptr;
+    }
 }
 
 HFONT Font::GetMediumFont()
@@ -37,6 +70,21 @@ HFONT Font::GetMediumFont()
 HFONT Font::GetLargeFont()
 {
     return FontLarge;
+}
+
+HFONT Font::GetTitleFont()
+{
+    return FontTitle;
+}
+
+HFONT Font::GetSubtitleFont()
+{
+    return FontSubtitle;
+}
+
+HFONT Font::GetDescFont()
+{
+    return FontDesc;
 }
 
 void Font::DrawRightAlignedText(HDC hdc, LPCSTR text, int yOffset, int fontSize, const RECT& rect)

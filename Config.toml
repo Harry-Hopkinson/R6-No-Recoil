@@ -1,0 +1,20 @@
+[RecoilPresets]
+# 0 = LOW, 1 = MEDIUM, 2 = HIGH, 3 = ULTRA
+Mode = 1
+Enabled = true
+
+# Vertical recoil amounts for each preset
+LowSensVertical = 2
+MediumSensVertical = 3
+HighSensVertical = 4
+UltraSensVertical = 5
+
+# Horizontal recoil amounts for each preset
+LowSensHorizontal = 0
+MediumSensHorizontal = 0
+HighSensHorizontal = 0
+UltraSensHorizontal = 0
+
+# Toggle Key (e.g. 20 = CAPS LOCK)
+ToggleKey = 20
+

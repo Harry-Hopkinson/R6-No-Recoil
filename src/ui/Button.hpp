@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include "../Globals.hpp"
 
 class Button
 {
@@ -28,4 +29,28 @@ void ShowAllButtons(bool show)
     {
         ShowWindow(button.GetHWND(), show ? SW_SHOW : SW_HIDE);
     }
+}
+
+void CreateLandingPageButtons(HWND hwnd)
+{
+    Buttons.clear();
+    int centerX = WINDOW_WIDTH / 2;
+    int centerY = WINDOW_HEIGHT / 2 + 160;
+
+    Buttons.emplace_back(hwnd, centerX - 250, centerY, 180, 60, "ATTACKERS", 4);
+    Buttons.emplace_back(hwnd, centerX + 70, centerY, 180, 60, "DEFENDERS", 5);
+
+    Buttons.emplace_back(hwnd, WINDOW_WIDTH - 200, WINDOW_HEIGHT - 100, 160, 40, "View on GitHub", 7);
+}
+
+void CreateOperatorSelectionButtons(HWND hwnd)
+{
+    Buttons.clear();
+    Buttons.emplace_back(hwnd, WINDOW_WIDTH - 525, 570, 150, 40, "Toggle Recoil", 1);
+    Buttons.emplace_back(hwnd, WINDOW_WIDTH - 355, 570, 150, 40, "Change Mode", 2);
+    Buttons.emplace_back(hwnd, WINDOW_WIDTH - 180, 570, 150, 40, "Caps Lock Toggle", 3);
+
+    // Change the existing buttons to switch teams instead of setting the view
+    Buttons.emplace_back(hwnd, WINDOW_WIDTH - 450, 620, 150, 40, IsAttackerView ? "Switch to Defenders" : "Switch to Attackers", IsAttackerView ? 5 : 4);
+    Buttons.emplace_back(hwnd, WINDOW_WIDTH - 275, 620, 150, 40, "Back to Menu", 6);
 }

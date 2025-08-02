@@ -9,11 +9,16 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 # Gather all source files
 file(GLOB_RECURSE files src/*.cpp src/core/*.cpp src/recoil/*.cpp)
 
+# Add the resource file
+set(RESOURCE_FILES src/resource/resource.rc)
+
 # Include headers from the root directory
 include_directories(${CMAKE_SOURCE_DIR})
 
 # Define the executable target for Windows GUI app
-add_executable(r6-no-recoil WIN32 ${files})
+add_executable(r6-no-recoil WIN32 ${files} ${RESOURCE_FILES})
+
+file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR})
 
 # Platform-specific compile and link options
 if(MINGW)
@@ -65,7 +70,7 @@ elseif(MSVC)
     )
 endif()
 
-# Copy assets directory to the output directory after build
+# Keep the post-build copy as well for runtime
 add_custom_command(TARGET r6-no-recoil POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
     ${CMAKE_SOURCE_DIR}/assets

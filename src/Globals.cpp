@@ -1,7 +1,7 @@
 #include "Globals.hpp"
 
-const int WINDOW_WIDTH = 1500;
-const int WINDOW_HEIGHT = 1050;
+const int WINDOW_WIDTH = 1200;
+const int WINDOW_HEIGHT = 800;
 
 bool EnableRC = true;
 bool UseToggleKey = false;

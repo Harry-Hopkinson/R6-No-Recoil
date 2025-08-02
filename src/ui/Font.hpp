@@ -10,6 +10,9 @@ public:
 
     static HFONT GetMediumFont();
     static HFONT GetLargeFont();
+    static HFONT GetTitleFont();
+    static HFONT GetSubtitleFont();
+    static HFONT GetDescFont();
 
     static void DrawRightAlignedText(HDC hdc, LPCSTR text, int yOffset, int fontSize, const RECT& rect);
     static void DrawCenteredText(HDC hdc, LPCSTR text, int x, int y, int width, HFONT font);
@@ -17,4 +20,7 @@ public:
 private:
     static HFONT FontMedium;
     static HFONT FontLarge;
+    static HFONT FontTitle;
+    static HFONT FontSubtitle;
+    static HFONT FontDesc;
 };

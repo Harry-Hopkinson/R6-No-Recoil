@@ -178,7 +178,7 @@ WeaponData WeaponRecoilData[] =
     {"AUG-A2", 4},
     {"AUG-A3", 4},
     {"552-Commando", 4},
-    {"L85A2", 4},
+    {"L85A2", 2},
     {"V308", 4},
     {"Spear-308", 5},
     {"416-C", 4},

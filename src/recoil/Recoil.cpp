@@ -2,17 +2,18 @@
 
 #include "../Globals.hpp"
 
-RecoilPreset RecoilPresets[4] =
+RecoilPreset RecoilPresets[5] =
 {
     {2, 0},  // LOW
     {3, 0},  // MEDIUM
     {4, 0},  // HIGH
-    {5, 0}   // ULTRA
+    {5, 0},  // ULTRA
+    {6, 0},  // EXTREME
 };
 
 RecoilPreset CurrentRecoil = RecoilPresets[SelectedMode];
 
-const char* Modes[4] = {"LOW", "MEDIUM", "HIGH", "ULTRA"};
+const char* Modes[5] = {"LOW", "MEDIUM", "HIGH", "ULTRA", "EXTREME"};
 
 std::vector<const char*> AttackerNames =
 {
@@ -42,20 +43,20 @@ std::vector<const char*> AttackerPrimaryWeapons =
 {
     "M4, M249",                      // Striker
     "L85A2, M590A1",                 // Sledge
-    "AR33, L85A2, M590A1",           // Thatcher
-    "G36C, R4-C",                    // Ash
+    "L85A2, AR33, M590A1",           // Thatcher
+    "R4-C, G36C",                    // Ash
     "556XI, M1014",                  // Thermite
     "F2, 417, SG-CQB",               // Twitch
     "OTs-03",                        // Glaz
     "AK-12, 6P41",                   // Fuze
-    "AUG-A2, 552-Commando, G8A1",    // IQ
+    "G8A1, 552-Commando, AUG-A2",    // IQ
     "C8-SFW, CAMRS",                 // Buck
     "MK17-CQB, SR-25",               // Blackbeard
     "PARA-308, M249",                // Capitao
     "Type-89, SUPERNOVA",            // Hibana
     "C7E, PDW9, ITA12L",             // Jackal
     "T-95-LSW, SIX12",               // Ying
-    "LMG-E, M762",                   // Zofia
+    "M762, LMG-E",                   // Zofia
     "Mk-14-EBR, BOSG.12.2",          // Dokkaebi
     "V308, 417, SG-CQB",             // Lion
     "Spear-308, 6P41, SASG-12",      // Finka
@@ -65,14 +66,14 @@ std::vector<const char*> AttackerPrimaryWeapons =
     "FMG-9, SIX12-SD",               // Nokk
     "G8A1, SUPERNOVA",               // Amaru
     "CSRX-300",                      // Kali
-    "ARX200, G36C",                  // Iana
+    "G36C, ARX200",                  // Iana
     "AK-12, M1014",                  // Ace
     "SC3000K, MP7",                  // Zero
     "AR33",                          // Flores
     "556XI",                         // Osa
     "POF-9, 417",                    // Sens
     "552-Commando",                  // Grim
-    "PARA-308",                      // Brava
+    "PARA-308, CAMRS",               // Brava
     "R4-C, LMG-E",                   // Ram
     "AK-74M, M590A1",                // Deimos
     "417, M249",                     // Rauora
@@ -89,7 +90,7 @@ std::vector<const char*> DefenderPrimaryWeapons =
     "MP5, P90, SG-CQB",              // Rook
     "9x19VSN, SASG-12",              // Kapkan
     "DP27, 9x19VSN",                 // Tachanka
-    "M870, 416-Carbine",             // Jager
+    "M870, 416-C",                   // Jager
     "MP7, M870",                     // Bandit
     "9mm-C1, Super-90",              // Frost
     "MPX, SPAS-12",                  // Valkyrie
@@ -108,7 +109,7 @@ std::vector<const char*> DefenderPrimaryWeapons =
     "AUG-A2, MP5K",                  // Wamai
     "SPAS-12, T-5",                  // Oryx
     "MP5, Super-90",                 // Melusi
-    "P10-RONI, Mk_14_EBR",           // Aruni
+    "P10-RONI, Mk-14-EBR",           // Aruni
     "Spear-308, SPAS-15",            // Thunderbird
     "UZK50GI",                       // Thorn
     "9x19VSN, ACS12",                // Azami
@@ -133,7 +134,7 @@ int StringCompare(const char* str1, const char* str2)
 
 WeaponData WeaponRecoilData[] =
 {
-    // SMGs (Low recoil - value 2)
+    // SMGs (Low recoil)
     {"P90", 2},
     {"MP5", 2},
     {"MP5K", 2},
@@ -141,7 +142,7 @@ WeaponData WeaponRecoilData[] =
     {"UMP45", 2},
     {"MP7", 2},
     {"9x19VSN", 2},
-    {"FMG-9", 2},
+    {"FMG-9", 5},
     {"Mx4-Storm", 2},
     {"MPX", 2},
     {"MPX-SD", 2},
@@ -150,65 +151,65 @@ WeaponData WeaponRecoilData[] =
     {"K1A", 2},
     {"Vector", 2},
     {"P10-RONI", 2},
-    {"Commando 9", 2},
-    {"9mm C1", 2},
+    {"Commando-9", 2},
+    {"9mm-C1", 2},
     {"M12", 2},
-    {"PDW9", 2},
-    {"POF-9", 2},
-    {"SC3000K", 2},
+    {"PDW9", 4},
+    {"POF-9", 4},
+    {"SC3000K", 5},
     {"UZK50GI", 2},
     {"CSRX PDW", 2},
 
-    // Assault Rifles (High recoil - value 4)
+    // Assault Rifles (High recoil)
     {"AK-12", 5},
-    {"F2", 4},
+    {"F2", 6},
     {"AR33", 4},
-    {"556XI", 4},
-    {"G36C", 4},
-    {"R4-C", 5},
-    {"C8-SFW", 4},
-    {"MK17 CQB", 4},
+    {"556XI", 3},
+    {"G36C", 5},
+    {"R4-C", 6},
+    {"C8-SFW", 5},
+    {"MK17-CQB", 2},
     {"PARA-308", 4},
-    {"Type-89", 4},
-    {"C7E", 4},
-    {"M762", 4},
-    {"AK-74M", 4},
+    {"Type-89", 5},
+    {"C7E", 5},
+    {"M762", 5},
+    {"AK-74M", 3},
     {"ARX200", 4},
     {"F90", 4},
-    {"AUG-A2", 4},
+    {"AUG-A2", 5},
     {"AUG-A3", 4},
     {"552-Commando", 4},
-    {"L85A2", 2},
+    {"L85A2", 3},
     {"V308", 4},
     {"Spear-308", 5},
     {"416-C", 4},
-    {"M4", 4},
+    {"M4", 5},
     {"AR-W", 4},
     {"DP27", 4},
 
-    // LMGs (Low recoil - value 2)
-    {"6P41", 2},
-    {"G8A1", 2},
+    // LMGs (Low recoil)
+    {"6P41", 5},
+    {"G8A1", 4},
     {"ALDA", 2},
-    {"T-95 LSW", 2},
-    {"LMG-E", 2},
-    {"M249", 2},
-    {"M249-SAW", 2},
+    {"T-95-LSW", 4},
+    {"LMG-E", 5},
+    {"M249", 3},
+    {"M249-SAW", 4},
 
-    // Marksman Rifles (Medium recoil - value 3)
-    {"OTs-03", 3},
-    {"417", 3},
+    // Marksman Rifles (Medium recoil)
+    {"OTs-03", 4},
+    {"417", 2},
     {"SR-25", 3},
-    {"Mk_14_EBR", 3},
-    {"CAMRS", 3},
+    {"Mk-14-EBR", 4},
+    {"CAMRS", 2},
     {"AR-15.50", 3},
     {"CSRX-300", 3},
 
-    // Shotguns (Low recoil - value 2)
+    // Shotguns (Low recoil)
     {"M590A1", 2},
     {"M1014", 2},
     {"SG-CQB", 2},
-    {"SASG-12", 2},
+    {"SASG-12", 6},
     {"M870", 2},
     {"Super-90", 2},
     {"SPAS-12", 2},
@@ -260,6 +261,9 @@ void SetRecoilModeFromWeapon(const char* weaponName)
             break;
         case 5:
             SelectedMode = 3; // ULTRA
+            break;
+        case 6:
+            SelectedMode = 4; // EXTREME
             break;
         default:
             SelectedMode = 1; // Default to MEDIUM

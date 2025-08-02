@@ -16,7 +16,7 @@ void SaveConfig()
     int len = 0;
 
     len += wsprintfA(buffer + len, "[RecoilPresets]\r\n");
-    len += wsprintfA(buffer + len, "# 0 = LOW, 1 = MEDIUM, 2 = HIGH, 3 = ULTRA\r\n");
+    len += wsprintfA(buffer + len, "# 0 = LOW, 1 = MEDIUM, 2 = HIGH, 3 = ULTRA, 4 = EXTREME\r\n");
     len += wsprintfA(buffer + len, "Mode = %d\r\n", SelectedMode);
     len += wsprintfA(buffer + len, "Enabled = %s\r\n", EnableRC ? "true" : "false");
     len += wsprintfA(buffer + len, "\r\n");
@@ -26,6 +26,7 @@ void SaveConfig()
     len += wsprintfA(buffer + len, "MediumSensVertical = %d\r\n", RecoilPresets[1].Vertical);
     len += wsprintfA(buffer + len, "HighSensVertical = %d\r\n", RecoilPresets[2].Vertical);
     len += wsprintfA(buffer + len, "UltraSensVertical = %d\r\n", RecoilPresets[3].Vertical);
+    len += wsprintfA(buffer + len, "ExtremeSensVertical = %d\r\n", RecoilPresets[4].Vertical);
     len += wsprintfA(buffer + len, "\r\n");
 
     len += wsprintfA(buffer + len, "# Horizontal recoil amounts for each preset\r\n");
@@ -33,6 +34,7 @@ void SaveConfig()
     len += wsprintfA(buffer + len, "MediumSensHorizontal = %d\r\n", RecoilPresets[1].Horizontal);
     len += wsprintfA(buffer + len, "HighSensHorizontal = %d\r\n", RecoilPresets[2].Horizontal);
     len += wsprintfA(buffer + len, "UltraSensHorizontal = %d\r\n", RecoilPresets[3].Horizontal);
+    len += wsprintfA(buffer + len, "ExtremeSensHorizontal = %d\r\n", RecoilPresets[4].Horizontal);
     len += wsprintfA(buffer + len, "\r\n");
 
     len += wsprintfA(buffer + len, "# Use https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes\n");
@@ -129,6 +131,8 @@ void LoadConfig()
             else if (strcmp(key, "HighSensHorizontal") == 0) RecoilPresets[2].Horizontal = atoi(value);
             else if (strcmp(key, "UltraSensVertical") == 0) RecoilPresets[3].Vertical = atoi(value);
             else if (strcmp(key, "UltraSensHorizontal") == 0) RecoilPresets[3].Horizontal = atoi(value);
+            else if (strcmp(key, "ExtremeSensVertical") == 0) RecoilPresets[4].Vertical = atoi(value);
+            else if (strcmp(key, "ExtremeSensHorizontal") == 0) RecoilPresets[4].Horizontal = atoi(value);
             else if (strcmp(key, "ToggleKey") == 0) ToggleKey = atoi(value);
         }
 
@@ -137,6 +141,6 @@ void LoadConfig()
 
     delete[] buffer;
 
-    SelectedMode = clamp(SelectedMode, 0, 3);
+    SelectedMode = clamp(SelectedMode, 0, 4);
     CurrentRecoil = RecoilPresets[SelectedMode];
 }

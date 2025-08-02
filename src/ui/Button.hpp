@@ -51,6 +51,6 @@ void CreateOperatorSelectionButtons(HWND hwnd)
     Buttons.emplace_back(hwnd, WINDOW_WIDTH - 180, 570, 150, 40, "Caps Lock Toggle", 3);
 
     // Change the existing buttons to switch teams instead of setting the view
-    Buttons.emplace_back(hwnd, WINDOW_WIDTH - 450, 620, 150, 40, IsAttackerView ? "Switch to Defenders" : "Switch to Attackers", IsAttackerView ? 5 : 4);
-    Buttons.emplace_back(hwnd, WINDOW_WIDTH - 275, 620, 150, 40, "Back to Menu", 6);
+    Buttons.emplace_back(hwnd, WINDOW_WIDTH - 450 , 620, 150, 40, IsAttackerView ? "Switch to Defenders" : "Switch to Attackers", IsAttackerView ? 5 : 4);
+    Buttons.emplace_back(hwnd, WINDOW_WIDTH - 1156, 715, 150, 40, "Back to Menu", 6);
 }

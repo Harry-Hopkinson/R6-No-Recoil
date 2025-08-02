@@ -115,10 +115,9 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 SetBkMode(memDC, TRANSPARENT);
                 SetTextColor(memDC, RGB(30, 30, 30));
 
-                // Main title - centered horizontally, positioned relative to window height
                 HFONT oldFont = (HFONT)SelectObject(memDC, Font::GetTitleFont());
-                SetTextColor(memDC, RGB(220, 50, 50)); // R6 Siege red color
-                RECT titleRect = {0, rect.bottom / 10, rect.right, rect.bottom / 10 + 80};
+                SetTextColor(memDC, RGB(220, 50, 50)); // R6 Siege red colour
+                RECT titleRect = {0, rect.bottom / 10, rect.right + 30, rect.bottom / 10 + 80};
                 DrawText(memDC, "R6 NO RECOIL", -1, &titleRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
                 // Subtitle
@@ -144,9 +143,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     "4. Toggle the feature on/off as needed during gameplay"
                 };
 
-                // Calculate starting position relative to window size
-                int margin = rect.right / 8;  // 12.5% margin on each side
-                int startY = rect.bottom / 4; // Start at 25% down the window
+                int margin = rect.right / 8;
+                int startY = rect.bottom / 4;
                 const size_t descCount = sizeof(descriptions) / sizeof(descriptions[0]);
 
                 for (size_t i = 0; i < descCount; i++)

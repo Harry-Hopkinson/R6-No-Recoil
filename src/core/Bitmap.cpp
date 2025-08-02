@@ -3,8 +3,6 @@
 #include "../Globals.hpp"
 #include "utils/String.hpp"
 
-#include <vector>
-#include <cstring>
 #include <cstdio>
 
 namespace Bitmap

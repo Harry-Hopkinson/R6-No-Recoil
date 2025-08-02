@@ -147,11 +147,11 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
                 const char* features[] =
                 {
-                    "- Auto weapon recoil compensation",
                     "- All R6 operators supported",
                     "- Multiple sensitivity presets",
                     "- Customisable toggle controls",
-                    "- Minimal system impact"
+                    "- Minimal system impact",
+                    "- Powerful config support"
                 };
 
                 const size_t featureCount = sizeof(features) / sizeof(features[0]);

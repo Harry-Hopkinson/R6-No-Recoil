@@ -1,7 +1,6 @@
 #include "String.hpp"
 
 #include <cstring>
-#include <cstdlib>
 
 namespace StringUtils
 {

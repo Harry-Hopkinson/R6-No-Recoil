@@ -47,7 +47,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
                 case 2: // Mode Selection
-                    SelectedMode = (SelectedMode + 1) % 5;
+                    SelectedMode = (SelectedMode + 1) % 6;
                     CurrentRecoil = RecoilPresets[SelectedMode];
                     SaveConfig();
                     InvalidateRect(hwnd, NULL, TRUE);

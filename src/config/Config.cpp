@@ -141,6 +141,6 @@ void LoadConfig()
 
     delete[] buffer;
 
-    SelectedMode = clamp(SelectedMode, 0, 4);
+    SelectedMode = clamp(SelectedMode, 0, 5);
     CurrentRecoil = RecoilPresets[SelectedMode];
 }

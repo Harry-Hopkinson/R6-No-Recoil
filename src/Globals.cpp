@@ -8,5 +8,5 @@ bool UseToggleKey = false;
 bool Running = true;
 bool IsAttackerView = true;
 
-int SelectedMode = 1;
+int SelectedMode = 2;
 int ToggleKey = 20;

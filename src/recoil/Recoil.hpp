@@ -20,10 +20,10 @@ extern std::vector<const char*> DefenderNames;
 extern std::vector<const char*> AttackerPrimaryWeapons;
 extern std::vector<const char*> DefenderPrimaryWeapons;
 
-extern RecoilPreset RecoilPresets[5];
+extern RecoilPreset RecoilPresets[6];
 extern RecoilPreset CurrentRecoil;
 
-extern const char* Modes[5];
+extern const char* Modes[6];
 
 extern WeaponData WeaponRecoilData[];
 

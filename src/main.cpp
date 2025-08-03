@@ -13,8 +13,6 @@
 
 #include "ui/Font.hpp"
 
-#include "Globals.hpp"
-
 #include "config/Config.hpp"
 
 #include "recoil/Recoil.hpp"

@@ -16,7 +16,7 @@ void SaveConfig()
     int len = 0;
 
     len += wsprintfA(buffer + len, "[RecoilPresets]\r\n");
-    len += wsprintfA(buffer + len, "# 0 = LOW, 1 = MEDIUM, 2 = HIGH, 3 = ULTRA, 4 = EXTREME\r\n");
+    len += wsprintfA(buffer + len, "# 0 = VERY LOW, 1 = LOW, 2 = MEDIUM, 3 = HIGH, 4 = ULTRA, 5 = EXTREME\r\n");
     len += wsprintfA(buffer + len, "Mode = %d\r\n", SelectedMode);
     len += wsprintfA(buffer + len, "Enabled = %s\r\n", EnableRC ? "true" : "false");
     len += wsprintfA(buffer + len, "\r\n");

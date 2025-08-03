@@ -12,7 +12,7 @@ A lightweight, efficient **no-recoil tool** for Rainbow Six Siege. Designed for 
 
 ## 🧠 Why I Made This
 
-Most recoil tools like Logitech G Hub are bloated, heavy, and come with a ton of unnecessary overhead just to perform a simple task. I built this tool to be **clean**, **compact**, and **laser-focused** on one thing: **removing recoil with minimal system impact**. No drivers, no background bloat—just raw utility.
+Most recoil tools like Logitech G Hub (now detectable) are bloated, heavy, and come with a ton of unnecessary overhead just to perform a simple task. I built this tool to be **clean**, **compact**, and **laser-focused** on one thing: **removing recoil with minimal system impact**. No drivers, no background bloat—just raw utility.
 
 ## 🚀 Why Use This Tool?
 

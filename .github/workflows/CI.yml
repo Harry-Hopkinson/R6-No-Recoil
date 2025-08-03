@@ -1,4 +1,4 @@
-name: Build and Upload Project, Lint and Build Website
+name: Build and Upload Application, Lint and Build Website
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  build:
+  application:
     runs-on: windows-latest
 
     steps:

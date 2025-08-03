@@ -1,4 +1,4 @@
-name: Build, Upload and Lint
+name: Build and Upload Project, Lint and Build Website
 
 on:
   push:
@@ -16,7 +16,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Configure project with MSVC CMake generator
+      - name: Configure project with CMake
         run: |
           mkdir build
           cd build
@@ -47,7 +47,7 @@ jobs:
           name: r6-no-recoil-msvc
           path: r6-no-recoil.zip
 
-  formatter:
+  website:
     runs-on: ubuntu-latest
 
     steps:
@@ -57,6 +57,11 @@ jobs:
       - name: Yarn Install 📦
         run: |
           cd website && yarn
+
       - name: Linting 🧹
         run: |
           cd website && yarn lint
+
+      - name: Build website
+        run: |
+          cd website && yarn build

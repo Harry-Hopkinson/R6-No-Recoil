@@ -39,8 +39,8 @@ void CreateLandingPageButtons(HWND hwnd)
     int centerX = WINDOW_WIDTH / 2;
     int centerY = WINDOW_HEIGHT / 2 + 80;
 
-    Buttons.emplace_back(hwnd, centerX - 250, centerY, 180, 60, "ATTACKERS", 4);
-    Buttons.emplace_back(hwnd, centerX + 70 , centerY, 180, 60, "DEFENDERS", 5);
+    Buttons.emplace_back(hwnd, centerX - 250, centerY, 200, 80, "ATTACKERS", 4);
+    Buttons.emplace_back(hwnd, centerX + 50 , centerY, 200, 80, "DEFENDERS", 5);
 
     Buttons.emplace_back(hwnd, WINDOW_WIDTH - 375, WINDOW_HEIGHT - 100, 160, 40, "Support the Project", 7);
     Buttons.emplace_back(hwnd, WINDOW_WIDTH - 200, WINDOW_HEIGHT - 100, 160, 40, "View on GitHub", 8);

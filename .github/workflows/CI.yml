@@ -26,10 +26,10 @@ jobs:
         run: |
           cmake --build build --config Release
 
-      - name: Strip symbols from the executable
-        run: |
-          cd build/Release
-          strip r6-no-recoil.exe
+      # - name: Strip symbols from the executable
+      #   run: |
+      #     cd build/Release
+      #     strip r6-no-recoil.exe
 
       - name: Prepare release folder with binary and assets
         run: |

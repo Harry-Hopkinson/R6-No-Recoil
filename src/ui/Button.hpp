@@ -49,11 +49,15 @@ void CreateLandingPageButtons(HWND hwnd)
 void CreateOperatorSelectionButtons(HWND hwnd)
 {
     Buttons.clear();
-    Buttons.emplace_back(hwnd, WINDOW_WIDTH - 525, 570, 150, 40, "Toggle Recoil", 1);
-    Buttons.emplace_back(hwnd, WINDOW_WIDTH - 355, 570, 150, 40, "Change Mode", 2);
-    Buttons.emplace_back(hwnd, WINDOW_WIDTH - 180, 570, 150, 40, "Toggle Key", 3);
 
-    // Change the existing buttons to switch teams instead of setting the view
-    Buttons.emplace_back(hwnd, WINDOW_WIDTH - 450 , 620, 150, 40, IsAttackerView ? "Switch to Defenders" : "Switch to Attackers", IsAttackerView ? 5 : 4);
-    Buttons.emplace_back(hwnd, WINDOW_WIDTH - 1156, 715, 150, 40, "Back to Menu", 6);
+    int startX = WINDOW_WIDTH - 200 - (350 / 2);
+    int startY = (WINDOW_HEIGHT - 90) / 2;
+
+    Buttons.emplace_back(hwnd, startX, startY, 170, 40, "Toggle Recoil", 1);
+    Buttons.emplace_back(hwnd, startX + 170 + 10, startY, 170, 40, "Change Mode", 2);
+
+    Buttons.emplace_back(hwnd, startX, startY + 40 + 10, 170, 40, "Toggle Key", 3);
+    Buttons.emplace_back(hwnd, startX + 170 + 10, startY + 40 + 10, 170, 40, IsAttackerView ? "Switch to Defenders" : "Switch to Attackers", IsAttackerView ? 5 : 4);
+
+    Buttons.emplace_back(hwnd, WINDOW_WIDTH - 175, WINDOW_HEIGHT - 75, 160, 40, "Back to Menu", 6);
 }

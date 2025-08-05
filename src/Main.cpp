@@ -117,7 +117,6 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             {
                 SetBkMode(memDC, TRANSPARENT);
 
-                int leftColumnX = 320;
                 int leftColumnWidth = (rect.right / 2) - 340;
                 int rightColumnX = (rect.right / 2) + 20;
                 int rightColumnWidth = (rect.right / 2) - 60;
@@ -133,15 +132,14 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 DrawText(memDC, "Advanced Recoil Compensation System", -1, &subtitleRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
                 // Left Column - Features
-                int leftStartY = 140;
                 SelectObject(memDC, Font::GetSubtitleFont());
                 SetTextColor(memDC, RGB(50, 50, 50));
-                RECT featuresHeaderRect = {leftColumnX, leftStartY, leftColumnX + leftColumnWidth, leftStartY + 30};
+                RECT featuresHeaderRect = {320, 140, 320 + leftColumnWidth, 170};
                 DrawText(memDC, "Key Features", -1, &featuresHeaderRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
                 SelectObject(memDC, Font::GetDescFont());
                 SetTextColor(memDC, RGB(70, 70, 70));
-                int leftCurrentY = leftStartY + 45;
+                int leftCurrentY = 185;
 
                 const char* features[] =
                 {
@@ -156,7 +154,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
                 for (size_t i = 0; i < featureCount; i++)
                 {
-                    RECT featureRect = {leftColumnX + 10, leftCurrentY, leftColumnX + leftColumnWidth, leftCurrentY + 25};
+                    RECT featureRect = {330, leftCurrentY, 320 + leftColumnWidth, leftCurrentY + 25};
                     DrawText(memDC, features[i], -1, &featureRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
                     leftCurrentY += 28;
                 }
@@ -246,24 +244,67 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 for (size_t i = 0; i < bitmaps.size(); ++i)
                 {
                     int x = 30 + (i % 6) * (110 + 10);
-                    int y = (int)(i / 6) * (110 + 10);
+                    int y = 50 + (int)(i / 6) * (110 + 10);
 
                     Bitmap::DrawBitmap(memDC, bitmaps[i], x, y, 110, 110, true);
                 }
 
                 SetBkMode(memDC, TRANSPARENT);
-                Font::DrawRightAlignedText(memDC, "Recoil Control", 280, 28, rect);
-                Font::DrawRightAlignedText(memDC, "Enable:", 320, 20, rect);
-                Font::DrawRightAlignedText(memDC, EnableRC ? "ON" : "OFF", 342, 20, rect);
-                Font::DrawRightAlignedText(memDC, "Mode:", 380, 20, rect);
-                Font::DrawRightAlignedText(memDC, Modes[SelectedMode], 402, 20, rect);
-                Font::DrawRightAlignedText(memDC, "Toggle Key Enabled:", 440, 20, rect);
-                Font::DrawRightAlignedText(memDC, UseToggleKey ? "ENABLED" : "DISABLED", 462, 20, rect);
 
-                char recoilInfo[40];
-                wsprintfA(recoilInfo, "Vertical: %d  |  Horizontal: %d", CurrentRecoil.Vertical, CurrentRecoil.Horizontal);
-                Font::DrawRightAlignedText(memDC, "Current Recoil Settings:", 500, 20, rect);
-                Font::DrawRightAlignedText(memDC, recoilInfo, 522, 20, rect);
+                RECT infoBoxRect = {20, 10, rect.right - 400, 40};
+
+                // Draw info box background
+                HBRUSH infoBrush = CreateSolidBrush(RGB(248, 249, 250));
+                FillRect(memDC, &infoBoxRect, infoBrush);
+                DeleteObject(infoBrush);
+
+                // Draw info box border
+                HPEN infoPen = CreatePen(PS_SOLID, 1, RGB(220, 220, 220));
+                HPEN oldPen = (HPEN)SelectObject(memDC, infoPen);
+                Rectangle(memDC, infoBoxRect.left, infoBoxRect.top, infoBoxRect.right, infoBoxRect.bottom);
+                SelectObject(memDC, oldPen);
+                DeleteObject(infoPen);
+
+                // Draw info text in the box
+                HFONT oldFont = (HFONT)SelectObject(memDC, Font::GetDescFont());
+                SetTextColor(memDC, RGB(60, 60, 60));
+
+                // Create sections within the info box
+                int sectionWidth = (infoBoxRect.right - infoBoxRect.left) / 4;
+
+                // Status section
+                RECT statusRect = {infoBoxRect.left + 15, infoBoxRect.top + 5, infoBoxRect.left + sectionWidth, infoBoxRect.bottom - 5};
+                char statusText[50];
+                wsprintfA(statusText, "Status: %s", EnableRC ? "ENABLED" : "DISABLED");
+                DrawText(memDC, statusText, -1, &statusRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
+
+                // Mode section
+                RECT modeRect = {infoBoxRect.left + sectionWidth + 10, infoBoxRect.top + 5, infoBoxRect.left + 2 * sectionWidth, infoBoxRect.bottom - 5};
+                char modeText[50];
+                wsprintfA(modeText, "Mode: %s", Modes[SelectedMode]);
+                DrawText(memDC, modeText, -1, &modeRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
+
+                // Toggle key section
+                RECT toggleRect = {infoBoxRect.left + 2 * sectionWidth + 10, infoBoxRect.top + 5, infoBoxRect.left + 3 * sectionWidth, infoBoxRect.bottom - 5};
+                char toggleText[50];
+                wsprintfA(toggleText, "Toggle: %s", UseToggleKey ? "ON" : "OFF");
+                DrawText(memDC, toggleText, -1, &toggleRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
+
+                // Recoil settings section
+                RECT recoilRect = {infoBoxRect.left + 3 * sectionWidth + 10, infoBoxRect.top + 5, infoBoxRect.right - 15, infoBoxRect.bottom - 5};
+                char recoilText[60];
+                wsprintfA(recoilText, "Recoil: V:%d H:%d", CurrentRecoil.Vertical, CurrentRecoil.Horizontal);
+                DrawText(memDC, recoilText, -1, &recoilRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
+
+                // Add a vertical separator line
+                HPEN separatorPen = CreatePen(PS_SOLID, 3, RGB(180, 180, 180));
+                HPEN oldSepPen = (HPEN)SelectObject(memDC, separatorPen);
+                MoveToEx(memDC, 760, 60, NULL);
+                LineTo(memDC, 760, rect.bottom - 20);
+                SelectObject(memDC, oldSepPen);
+                DeleteObject(separatorPen);
+
+                SelectObject(memDC, oldFont);
             }
             else if (CurrentUIState == UIState::WeaponDisplay)
             {

@@ -60,7 +60,7 @@ std::vector<const char*> AttackerPrimaryWeapons =
     "M762, LMG-E",                        // Zofia
     "Mk-14-EBR, BOSG.12.2",               // Dokkaebi
     "V308, 417, SG-CQB",                  // Lion
-    "Spear-308, 6P41, SASG-12",           // Finka
+    "Spear-308-Acog, 6P41, SASG-12",      // Finka
     "M4, AR-15.50",                       // Maverick
     "AK-74M, ARX200",                     // Nomad
     "F90, M249-SAW",                      // Gridlock
@@ -87,8 +87,8 @@ std::vector<const char*> DefenderPrimaryWeapons =
     "M590A1, MP5K",                  // Mute
     "UMP45-Acog, M1014",             // Castle
     "UMP45, M1014",                  // Pulse
-    "P90, MP5, SG-CQB",              // Doc
-    "MP5, P90, SG-CQB",              // Rook
+    "P90-Acog, MP5-Acog, SG-CQB",    // Doc
+    "MP5-Acog, P90-Acog, SG-CQB",    // Rook
     "9x19VSN, SASG-12",              // Kapkan
     "DP27, 9x19VSN",                 // Tachanka
     "416-carbine, M870",             // Jager
@@ -108,16 +108,16 @@ std::vector<const char*> DefenderPrimaryWeapons =
     "MPX, M590A1",                   // Warden
     "Vector-Acog, TCSG12",           // Goyo
     "AUG-A2, MP5K",                  // Wamai
-    "SPAS-12, T-5",                  // Oryx
+    "T-5, SPAS-12",                  // Oryx
     "MP5, Super-90",                 // Melusi
     "P10-RONI, Mk-14-EBR",           // Aruni
     "Spear-308, SPAS-15",            // Thunderbird
-    "UZK50GI",                       // Thorn
+    "UZK50GI, M870",                 // Thorn
     "9x19VSN, ACS12",                // Azami
-    "P90",                           // Solis
+    "P90, ITA12L",                   // Solis
     "MP7, SASG-12",                  // Fenrir
-    "MPX, M590A1",                   // Tubarao
-    "CSRX PDW"                       // Skopos
+    "MPX, AR-15.50",                 // Tubarao
+    "PCX-33"                         // Skopos
 };
 
 int StringCompare(const char* str1, const char* str2)
@@ -136,12 +136,14 @@ int StringCompare(const char* str1, const char* str2)
 WeaponData WeaponRecoilData[] =
 {
     // SMGs
-    {"P90", 5},
-    {"MP5", 5},
+    {"P90", 2},
+    {"P90-Acog", 5},
+    {"MP5", 2},
+    {"MP5-Acog", 5},
     {"MP5K", 2},
     {"MP5SD", 4},
-    {"UMP45-acog", 4},
     {"UMP45", 1},
+    {"UMP45-acog", 4},
     {"MP7", 2},
     {"9x19VSN", 2},
     {"FMG-9", 2},
@@ -151,8 +153,8 @@ WeaponData WeaponRecoilData[] =
     {"T-5", 2},
     {"Scorpion-EVO", 3},
     {"K1A", 2},
-    {"Vector-Acog", 6},
     {"Vector", 2},
+    {"Vector-Acog", 6},
     {"P10-RONI", 2},
     {"Commando-9", 2},
     {"9mm-C1", 3},
@@ -161,7 +163,6 @@ WeaponData WeaponRecoilData[] =
     {"POF-9", 4},
     {"SC3000K", 5},
     {"UZK50GI", 2},
-    {"CSRX PDW", 2},
 
     // Assault Rifles (High recoil)
     {"AK-12", 5},
@@ -179,17 +180,19 @@ WeaponData WeaponRecoilData[] =
     {"AK-74M", 3},
     {"ARX200", 4},
     {"F90", 4},
-    {"AUG-A2-Acog", 5},
     {"AUG-A2", 2},
+    {"AUG-A2-Acog", 5},
     {"AUG-A3", 2},
     {"552-Commando", 4},
     {"L85A2", 3},
     {"V308", 4},
-    {"Spear-308", 5},
+    {"Spear-308", 2},
+    {"Spear-308-Acog", 5},
     {"416-carbine", 2},
     {"M4", 5},
     {"AR-W", 4},
     {"DP27", 1},
+    {"PCX-33", 1},
 
     // LMGs (Low recoil)
     {"6P41", 5},
@@ -222,7 +225,7 @@ WeaponData WeaponRecoilData[] =
     {"SIX12-SD", 2},
     {"TCSG12", 6},
     {"FO-12", 2},
-    {"ACS12", 2},
+    {"ACS12", 4},
     {"BOSG.12.2", 2},
     {"ITA12L", 2},
     {"SUPERNOVA", 2},

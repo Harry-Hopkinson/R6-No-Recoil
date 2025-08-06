@@ -387,7 +387,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 for (size_t i = 0; i < bitmaps.size(); ++i)
                 {
                     int x = 30 + (i % 6) * (110 + 10);
-                    int y = (int)(i / 6) * (110 + 10);
+                    int y = 50 + (int)(i / 6) * (110 + 10);
 
                     if (mouseX >= x && mouseX <= x + 110 &&
                         mouseY >= y && mouseY <= y + 110)

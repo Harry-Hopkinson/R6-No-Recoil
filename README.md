@@ -27,10 +27,14 @@ Most recoil tools like Logitech G Hub (now detectable) are bloated, heavy, and c
 
 1. **Download** `r6-no-recoil.exe` from the [Github Release Page](https://github.com/Harry-Hopkinson/R6-No-Recoil/releases/latest).
 2. **Run the Program** (double-click `r6-no-recoil.exe`).
-3. **Controls:**
+3. **Choose whether attacking or defending**.
+4. **Choose your operator and their primary weapon**.
+5. **Controls:**
    - **Press `Toggle Recoil`** → Toggle the no-recoil effect on/off.
    - **Press `Change Mode`** → Adjust the strength of the recoil compensation.
-4. **Enjoy Smoother Aim!**
+   - **Press `Toggle Key`** -> Enable/Disable toggle key activating/deactivating recoil. Default CapsLock.
+   - **Switch to Defenders/Attackers** -> Change operator type.
+6. **Enjoy Smoother Aim!**
 
 ## ⚠️ Important Setup Note
 
@@ -74,7 +78,6 @@ ToggleKey = 20
 
 ## 🚧 Currently in Development
 
-- **Improved GUI** – A cleaner, more user-friendly interface is being developed with Operator Images.
 - **Customisation Options** – Ability to fine-tune settings via a UI panel.
 
 ## 💸 Support Development

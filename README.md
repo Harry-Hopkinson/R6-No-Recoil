@@ -41,7 +41,7 @@ Most recoil tools like Logitech G Hub (now detectable) are bloated, heavy, and c
 To ensure the recoil compensation behaves consistently across all systems, you must disable Windows mouse acceleration:
 🔧 How to disable **Enhance Pointer Precision**
 
-## Method 1: Using Control Panel
+### Method 1: Using Control Panel
 1. **Open the Control Panel.**  
    - Press **Windows + R**, type `control`, and press **Enter**.
 
@@ -54,7 +54,7 @@ To ensure the recoil compensation behaves consistently across all systems, you m
 
 4. **Click Apply and OK.**
 
-## Method 2: Using Windows Settings
+### Method 2: Using Windows Settings
 1. **Open Settings.**  
    - Press **Windows + I** to open the Settings app.
 

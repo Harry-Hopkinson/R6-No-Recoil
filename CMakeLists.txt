@@ -51,7 +51,6 @@ elseif(MSVC)
         /W4
         /WX-
         /O2
-        /GL
         /Gy
         /Zc:inline
         /Zc:preprocessor
@@ -76,3 +75,4 @@ add_custom_command(TARGET r6-no-recoil POST_BUILD
     ${CMAKE_SOURCE_DIR}/assets
     ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/assets
 )
+

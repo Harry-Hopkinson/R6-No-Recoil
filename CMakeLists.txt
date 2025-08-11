@@ -59,7 +59,6 @@ elseif(MSVC)
         /utf-8
     )
     target_link_options(r6-no-recoil PRIVATE
-        /LTCG
         /INCREMENTAL:NO
         /OPT:REF
         /OPT:ICF
@@ -75,4 +74,5 @@ add_custom_command(TARGET r6-no-recoil POST_BUILD
     ${CMAKE_SOURCE_DIR}/assets
     ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/assets
 )
+
 

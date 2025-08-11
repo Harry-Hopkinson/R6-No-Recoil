@@ -211,7 +211,7 @@ WeaponData WeaponRecoilData[] =
     {"CSRX-300", 3},
 
     // Shotguns (Low recoil)
-    {"M590A1", 2},
+    {"M590A1", 3},
     {"M1014", 2},
     {"SG-CQB", 2},
     {"SASG-12", 6},

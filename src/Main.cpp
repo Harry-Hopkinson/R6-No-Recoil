@@ -81,6 +81,12 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 case 8: // GitHub button
                     system("start https://github.com/Harry-Hopkinson/R6-No-Recoil");
                     break;
+                case 9: // Info Screen button
+                    CurrentUIState = UIState::InfoScreen;
+                    for (const auto& button : Buttons) ShowWindow(button.GetHWND(), SW_HIDE);
+                    CreateInfoScreenButtons(hwnd);
+                    InvalidateRect(hwnd, NULL, TRUE);
+                    break;
             }
         }
         break;
@@ -123,12 +129,12 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
                 HFONT oldFont = (HFONT)SelectObject(memDC, Font::GetTitleFont());
                 SetTextColor(memDC, RGB(220, 50, 50));
-                RECT titleRect = {0, 25, rect.right, 75};
+                RECT titleRect = {5, 25, rect.right + 5, 75};
                 DrawText(memDC, "R6 NO RECOIL", -1, &titleRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
                 SelectObject(memDC, Font::GetSubtitleFont());
                 SetTextColor(memDC, RGB(100, 100, 100));
-                RECT subtitleRect = {0, 80, rect.right, 110};
+                RECT subtitleRect = {5, 80, rect.right + 5, 110};
                 DrawText(memDC, "Advanced Recoil Compensation System", -1, &subtitleRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
                 // Left Column - Features
@@ -230,7 +236,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 DrawText(memDC, "Created by Harry Hopkinson", -1, &creatorRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
                 RECT versionRect = {rect.right / 2, bottomY + 15, rect.right - 60, bottomY + 35};
-                DrawText(memDC, "Version 2.0 | Open Source", -1, &versionRect, DT_RIGHT | DT_VCENTER | DT_SINGLELINE);
+                DrawText(memDC, "Version 2.1 | Open Source", -1, &versionRect, DT_RIGHT | DT_VCENTER | DT_SINGLELINE);
 
                 // GitHub link
                 RECT githubRect = {0, bottomY + 40, rect.right + 15, bottomY + 60};
@@ -362,6 +368,55 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 RECT backBtn = { 30, rect.bottom - 80, 130, rect.bottom - 30 };
                 DrawText(memDC, "Back", -1, &backBtn, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
                 FrameRect(memDC, &backBtn, (HBRUSH)GetStockObject(BLACK_BRUSH));
+            }
+            else if (CurrentUIState == UIState::InfoScreen)
+            {
+                SetBkMode(memDC, TRANSPARENT);
+
+                // Title
+                HFONT oldFont = (HFONT)SelectObject(memDC, Font::GetTitleFont());
+                SetTextColor(memDC, RGB(220, 50, 50));
+                RECT infoTitleRect = {60, 30, rect.right - 60, 80};
+                DrawText(memDC, "IMPORTANT SETUP", -1, &infoTitleRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+
+                // Subtitle
+                SelectObject(memDC, Font::GetSubtitleFont());
+                SetTextColor(memDC, RGB(100, 100, 100));
+                RECT infoSubRect = {60, 80, rect.right - 60, 120};
+                DrawText(memDC, "For best performance and accuracy, follow these steps:", -1, &infoSubRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+
+                // Helper lambda for drawing lines
+                auto DrawLine = [&](const wchar_t* text, int x, int& y, int right, HFONT font = nullptr, COLORREF color = RGB(60, 60, 60))
+                {
+                    if (font) SelectObject(memDC, font);
+                    SetTextColor(memDC, color);
+                    RECT r = {x, y, right, y + 28};
+                    DrawTextW(memDC, text, -1, &r, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
+                    y += 40;
+                };
+
+                SelectObject(memDC, Font::GetSubtitleFont());
+                int y = 140;
+                int left = 80;
+                int right = rect.right - 80;
+
+                DrawLine(L"1. Disable Windows mouse acceleration (Enhance Pointer Precision):", left, y, right);
+
+                DrawLine(L"• Open Control Panel > Mouse > Pointer Options.", left + 20, y, right);
+                DrawLine(L"• Uncheck 'Enhance pointer precision'. Click Apply.", left + 20, y, right);
+
+                y += 10;
+                DrawLine(L"2. Enable raw mouse input in Rainbow Six Siege:", left, y, right);
+
+                DrawLine(L"• Close the game.", left + 20, y, right);
+                DrawLine(L"• Open GameSettings.ini in Documents\\My Games\\Rainbow Six - Siege\\RandomNumber", left + 20, y, right);
+                DrawLine(L"• Set RawInputMouseKeyboard=1 and save.", left + 20, y, right);
+                DrawLine(L"• Restart the game.", left + 20, y, right);
+
+                y += 100;
+                DrawLine(L"These steps are required for consistent recoil compensation.", rect.right / 2 - 350, y, right, Font::GetSubtitleFont(), RGB(220, 50, 50));
+
+                SelectObject(memDC, oldFont);
             }
 
             BitBlt(hdc, 0, 0, rect.right, rect.bottom, memDC, 0, 0, SRCCOPY);

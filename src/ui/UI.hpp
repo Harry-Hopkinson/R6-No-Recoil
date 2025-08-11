@@ -4,7 +4,8 @@ enum class UIState
 {
     LandingPage,
     OperatorSelection,
-    WeaponDisplay
+    WeaponDisplay,
+    InfoScreen
 };
 
 extern UIState CurrentUIState;

@@ -48,10 +48,10 @@ if(MINGW)
 elseif(MSVC)
     target_compile_definitions(r6-no-recoil PRIVATE _CRT_SECURE_NO_WARNINGS)
     target_compile_options(r6-no-recoil PRIVATE
-        /MD
         /W4
         /WX-
         /O2
+        /GL
         /Gy
         /Zc:inline
         /Zc:preprocessor
@@ -69,6 +69,7 @@ elseif(MSVC)
     )
 endif()
 
+# Keep the post-build copy as well for runtime
 add_custom_command(TARGET r6-no-recoil POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
     ${CMAKE_SOURCE_DIR}/assets

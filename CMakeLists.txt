@@ -60,6 +60,7 @@ elseif(MSVC)
         /utf-8
     )
     target_link_options(r6-no-recoil PRIVATE
+        /LTCG
         /INCREMENTAL:NO
         /OPT:REF
         /OPT:ICF

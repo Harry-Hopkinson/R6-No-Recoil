@@ -44,7 +44,7 @@ jobs:
       - name: Upload zipped artifact (MSVC)
         uses: actions/upload-artifact@v4
         with:
-          name: r6-no-recoil-msvc
+          name: r6-no-recoil
           path: r6-no-recoil.zip
 
   website:

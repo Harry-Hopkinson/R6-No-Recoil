@@ -42,7 +42,7 @@ std::vector<const char*> DefenderNames =
 
 std::vector<const char*> AttackerPrimaryWeapons =
 {
-    "M4, M249",                           // Striker
+    "M4, M249, SR-25",                    // Striker
     "L85A2, M590A1",                      // Sledge
     "L85A2, AR33, M590A1",                // Thatcher
     "R4-C, G36C",                         // Ash
@@ -82,13 +82,13 @@ std::vector<const char*> AttackerPrimaryWeapons =
 
 std::vector<const char*> DefenderPrimaryWeapons =
 {
-    "Commando-9, M870",              // Sentry
+    "Commando-9, M870, TCSG12",      // Sentry
     "FMG-9, M590A1",                 // Smoke
     "M590A1, MP5K",                  // Mute
-    "UMP45-Acog, M1014",             // Castle
+    "UMP45, M1014",             	 // Castle
     "UMP45, M1014",                  // Pulse
-    "P90-Acog, MP5-Acog, SG-CQB",    // Doc
-    "MP5-Acog, P90-Acog, SG-CQB",    // Rook
+    "P90, MP5, SG-CQB",    			 // Doc
+    "MP5, P90, SG-CQB",    			 // Rook
     "9x19VSN, SASG-12",              // Kapkan
     "DP27, 9x19VSN",                 // Tachanka
     "416-carbine, M870",             // Jager
@@ -106,7 +106,7 @@ std::vector<const char*> DefenderPrimaryWeapons =
     "AUG-A3, TCSG12",                // Kaid
     "Commando-9, P10-RONI",          // Mozzie
     "MPX, M590A1",                   // Warden
-    "Vector-Acog, TCSG12",           // Goyo
+    "Vector, TCSG12",           	 // Goyo
     "AUG-A2, MP5K",                  // Wamai
     "T-5, SPAS-12",                  // Oryx
     "MP5, Super-90",                 // Melusi
@@ -137,13 +137,10 @@ WeaponData WeaponRecoilData[] =
 {
     // SMGs
     {"P90", 2},
-    {"P90-Acog", 5},
     {"MP5", 2},
-    {"MP5-Acog", 5},
     {"MP5K", 2},
     {"MP5SD", 4},
     {"UMP45", 1},
-    {"UMP45-Acog", 4},
     {"MP7", 2},
     {"9x19VSN", 2},
     {"FMG-9", 2},
@@ -153,10 +150,9 @@ WeaponData WeaponRecoilData[] =
     {"Scorpion-EVO", 3},
     {"K1A", 2},
     {"Vector", 2},
-    {"Vector-Acog", 6},
     {"P10-RONI", 2},
     {"Commando-9", 2},
-    {"9mm-C1", 3},
+    {"9mm-C1", 1},
     {"M12", 1},
     {"PDW9", 4},
     {"POF-9", 4},
@@ -224,7 +220,7 @@ WeaponData WeaponRecoilData[] =
     {"TCSG12", 6},
     {"FO-12", 2},
     {"ACS12", 4},
-    {"BOSG.12.2", 2},
+    {"BOSG.12.2", 4},
     {"ITA12L", 2},
     {"SUPERNOVA", 2},
 };

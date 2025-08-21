@@ -185,14 +185,20 @@
         align-items: center;
       }
 
-      .content .text,
+      .content .text {
+        margin-left: 9rem;
+        flex: 1;
+        min-width: 0;
+      }
+
       .content .image {
+        margin-left: -2rem;
         flex: 1;
         min-width: 0;
       }
 
       .content .image img {
-        width: 100%;
+        width: 128%;
         max-height: 800px;
         object-fit: cover;
         border-radius: 20px;
@@ -329,7 +335,7 @@
       <div class="text">
         <h2>🎯 What is R6 No Recoil?</h2>
         <p>
-          A lightweight, efficient no-recoil tool for Rainbow Six Siege.
+          A lightweight, efficient no-recoil tool for Rainbow Six Siege. <br />
           Designed for smooth performance and ease of use.
         </p>
 
@@ -362,16 +368,12 @@
           </li>
         </ol>
 
-        <h2>🚧 Currently in Development</h2>
-        <ul>
-          <li>Advanced customisation options</li>
-        </ul>
-
         <h2>⚠️ Disclaimer</h2>
-        <p>
-          This tool is for <strong>educational purposes only</strong>. Windows
-          Defender may show a false positive — check using VirusTotal if unsure.
-        </p>
+        <ul>
+          <li>This tool is for <strong>educational purposes only.</strong></li>
+          <li>Windows Defender may show a false positive.</li>
+          <li>Check using VirusTotal if unsure.</li>
+        </ul>
       </div>
     </section>
 

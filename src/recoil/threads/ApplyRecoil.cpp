@@ -1,14 +1,13 @@
 #include "../../Globals.hpp"
+#include "../../core/utils/random.hpp"
 #include "../../recoil/Recoil.hpp"
 
-#include "../../core/utils/random.hpp"
-
-#include <windows.h>
 #include <thread>
+#include <windows.h>
 
 void MoveMouseRaw(int dx, int dy)
 {
-    INPUT input = {0};
+    INPUT input = { 0 };
     input.type = INPUT_MOUSE;
     input.mi.dx = dx;
     input.mi.dy = dy;
@@ -22,9 +21,9 @@ void ApplyRecoil()
 
     while (Running)
     {
-        if (EnableRC && (GetAsyncKeyState(VK_RBUTTON) & 0x8000))  // ADS
+        if (EnableRC && (GetAsyncKeyState(VK_RBUTTON) & 0x8000)) // ADS
         {
-            while (GetAsyncKeyState(VK_LBUTTON) & 0x8000)  // Firing
+            while (GetAsyncKeyState(VK_LBUTTON) & 0x8000) // Firing
             {
                 int baseX = CurrentRecoil.Horizontal;
                 int baseY = CurrentRecoil.Vertical * 2;

@@ -1,7 +1,7 @@
 #pragma once
 
-#include <windows.h>
 #include <vector>
+#include <windows.h>
 
 namespace Bitmap
 {
@@ -35,8 +35,8 @@ namespace Bitmap
      * @param getImagePathFunc Function to get image path from name
      * @return Vector of loaded bitmap handles
      */
-    std::vector<HBITMAP> LoadOperatorBitmaps(const std::vector<const char*>& names,
-                                           const char* (*getImagePathFunc)(const char*));
+    std::vector<HBITMAP> LoadOperatorBitmaps(
+        const std::vector<const char*>& names, const char* (*getImagePathFunc)(const char*));
 
     /**
      * @brief Cleans up all cached weapon bitmaps
@@ -77,4 +77,4 @@ namespace Bitmap
     extern std::vector<HBITMAP> DefenderBitmaps;
 
     std::vector<HBITMAP>& GetCurrentBitmapList();
-}
+} // namespace Bitmap

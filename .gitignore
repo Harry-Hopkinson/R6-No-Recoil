@@ -30,7 +30,7 @@
 *.exe
 *.out
 *.app
-build
+build/
 
 .xmake
 .DS_Store

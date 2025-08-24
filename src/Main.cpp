@@ -129,38 +129,36 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
                 HFONT oldFont = (HFONT)SelectObject(memDC, Font::GetTitleFont());
                 SetTextColor(memDC, RGB(220, 50, 50));
-                RECT titleRect = {5, 25, rect.right + 5, 75};
+                RECT titleRect = { 5, 25, rect.right + 5, 75 };
                 DrawText(memDC, "R6 NO RECOIL", -1, &titleRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
                 SelectObject(memDC, Font::GetSubtitleFont());
                 SetTextColor(memDC, RGB(100, 100, 100));
-                RECT subtitleRect = {5, 80, rect.right + 5, 110};
-                DrawText(memDC, "Advanced Recoil Compensation System", -1, &subtitleRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+                RECT subtitleRect = { 5, 80, rect.right + 5, 110 };
+                DrawText(
+                    memDC, "Advanced Recoil Compensation System", -1, &subtitleRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
                 // Left Column - Features
                 SelectObject(memDC, Font::GetSubtitleFont());
                 SetTextColor(memDC, RGB(50, 50, 50));
-                RECT featuresHeaderRect = {320, 140, 320 + leftColumnWidth, 170};
+                RECT featuresHeaderRect = { 320, 140, 320 + leftColumnWidth, 170 };
                 DrawText(memDC, "Key Features", -1, &featuresHeaderRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
                 SelectObject(memDC, Font::GetDescFont());
                 SetTextColor(memDC, RGB(70, 70, 70));
                 int leftCurrentY = 185;
 
-                const char* features[] =
-                {
-                    "- All R6 operators supported",
-                    "- Multiple sensitivity presets",
-                    "- Customisable toggle controls",
-                    "- Minimal system impact",
-                    "- Powerful config support"
-                };
+                const char* features[] = { "- All R6 operators supported",
+                                           "- Multiple sensitivity presets",
+                                           "- Customisable toggle controls",
+                                           "- Minimal system impact",
+                                           "- Powerful config support" };
 
                 const size_t featureCount = sizeof(features) / sizeof(features[0]);
 
                 for (size_t i = 0; i < featureCount; i++)
                 {
-                    RECT featureRect = {330, leftCurrentY, 320 + leftColumnWidth, leftCurrentY + 25};
+                    RECT featureRect = { 330, leftCurrentY, 320 + leftColumnWidth, leftCurrentY + 25 };
                     DrawText(memDC, features[i], -1, &featureRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
                     leftCurrentY += 28;
                 }
@@ -169,34 +167,31 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 int rightStartY = 140;
                 SelectObject(memDC, Font::GetSubtitleFont());
                 SetTextColor(memDC, RGB(50, 50, 50));
-                RECT stepsHeaderRect = {rightColumnX, rightStartY, rightColumnX + rightColumnWidth, rightStartY + 30};
+                RECT stepsHeaderRect = { rightColumnX, rightStartY, rightColumnX + rightColumnWidth, rightStartY + 30 };
                 DrawText(memDC, "Quick Start Guide", -1, &stepsHeaderRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
                 SelectObject(memDC, Font::GetDescFont());
                 SetTextColor(memDC, RGB(70, 70, 70));
                 int rightCurrentY = rightStartY + 45;
 
-                const char* steps[] =
-                {
-                    "1. Choose Attacker or Defender",
-                    "2. Select your operator",
-                    "3. Pick your primary weapon",
-                    "4. Start playing - it's automatic!",
-                    "5. Use toggle key to enable/disable"
-                };
+                const char* steps[] = { "1. Choose Attacker or Defender",
+                                        "2. Select your operator",
+                                        "3. Pick your primary weapon",
+                                        "4. Start playing - it's automatic!",
+                                        "5. Use toggle key to enable/disable" };
 
                 const size_t stepCount = sizeof(steps) / sizeof(steps[0]);
 
                 for (size_t i = 0; i < stepCount; i++)
                 {
-                    RECT stepRect = {rightColumnX + 10, rightCurrentY, rightColumnX + rightColumnWidth, rightCurrentY + 25};
+                    RECT stepRect = { rightColumnX + 10, rightCurrentY, rightColumnX + rightColumnWidth, rightCurrentY + 25 };
                     DrawText(memDC, steps[i], -1, &stepRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
                     rightCurrentY += 28;
                 }
 
                 int ctaY = maximum(leftCurrentY, rightCurrentY) + 40;
 
-                RECT ctaBoxRect = {rect.right / 4, ctaY - 10, (rect.right * 3) / 4, ctaY + 70};
+                RECT ctaBoxRect = { rect.right / 4, ctaY - 10, (rect.right * 3) / 4, ctaY + 70 };
                 HBRUSH ctaBrush = CreateSolidBrush(RGB(245, 245, 245));
                 FillRect(memDC, &ctaBoxRect, ctaBrush);
                 DeleteObject(ctaBrush);
@@ -209,13 +204,15 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
                 SelectObject(memDC, Font::GetSubtitleFont());
                 SetTextColor(memDC, RGB(220, 50, 50));
-                RECT ctaHeaderRect = {0, ctaY + 5, rect.right, ctaY + 30};
+                RECT ctaHeaderRect = { 0, ctaY + 5, rect.right, ctaY + 30 };
                 DrawText(memDC, "Ready to Get Started?", -1, &ctaHeaderRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
                 SelectObject(memDC, Font::GetDescFont());
                 SetTextColor(memDC, RGB(70, 70, 70));
-                RECT ctaTextRect = {0, ctaY + 32, rect.right, ctaY + 55};
-                DrawText(memDC, "Select your team below to begin configuration", -1, &ctaTextRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+                RECT ctaTextRect = { 0, ctaY + 32, rect.right, ctaY + 55 };
+                DrawText(
+                    memDC, "Select your team below to begin configuration", -1, &ctaTextRect,
+                    DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
                 // Bottom section - Credits and links
                 int bottomY = rect.bottom - 120;
@@ -232,15 +229,16 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 SelectObject(memDC, Font::GetDescFont());
                 SetTextColor(memDC, RGB(120, 120, 120));
 
-                RECT creatorRect = {60, bottomY + 15, rect.right / 2, bottomY + 35};
+                RECT creatorRect = { 60, bottomY + 15, rect.right / 2, bottomY + 35 };
                 DrawText(memDC, "Created by Harry Hopkinson", -1, &creatorRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
-                RECT versionRect = {rect.right / 2, bottomY + 15, rect.right - 60, bottomY + 35};
+                RECT versionRect = { rect.right / 2, bottomY + 15, rect.right - 60, bottomY + 35 };
                 DrawText(memDC, "Version 2.1 | Open Source", -1, &versionRect, DT_RIGHT | DT_VCENTER | DT_SINGLELINE);
 
                 // GitHub link
-                RECT githubRect = {0, bottomY + 40, rect.right + 15, bottomY + 60};
-                DrawText(memDC, "Visit GitHub for updates and source code", -1, &githubRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+                RECT githubRect = { 0, bottomY + 40, rect.right + 15, bottomY + 60 };
+                DrawText(
+                    memDC, "Visit GitHub for updates and source code", -1, &githubRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
                 SelectObject(memDC, oldFont);
             }
@@ -257,7 +255,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
                 SetBkMode(memDC, TRANSPARENT);
 
-                RECT infoBoxRect = {20, 10, rect.right - 400, 40};
+                RECT infoBoxRect = { 20, 10, rect.right - 400, 40 };
 
                 // Draw info box background
                 HBRUSH infoBrush = CreateSolidBrush(RGB(248, 249, 250));
@@ -279,25 +277,29 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 int sectionWidth = (infoBoxRect.right - infoBoxRect.left) / 4;
 
                 // Status section
-                RECT statusRect = {infoBoxRect.left + 15, infoBoxRect.top + 5, infoBoxRect.left + sectionWidth, infoBoxRect.bottom - 5};
+                RECT statusRect = { infoBoxRect.left + 15, infoBoxRect.top + 5, infoBoxRect.left + sectionWidth,
+                                    infoBoxRect.bottom - 5 };
                 char statusText[50];
                 wsprintfA(statusText, "Status: %s", EnableRC ? "ENABLED" : "DISABLED");
                 DrawText(memDC, statusText, -1, &statusRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
                 // Mode section
-                RECT modeRect = {infoBoxRect.left + sectionWidth + 10, infoBoxRect.top + 5, infoBoxRect.left + 2 * sectionWidth, infoBoxRect.bottom - 5};
+                RECT modeRect = { infoBoxRect.left + sectionWidth + 10, infoBoxRect.top + 5,
+                                  infoBoxRect.left + 2 * sectionWidth, infoBoxRect.bottom - 5 };
                 char modeText[50];
                 wsprintfA(modeText, "Mode: %s", Modes[SelectedMode]);
                 DrawText(memDC, modeText, -1, &modeRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
                 // Toggle key section
-                RECT toggleRect = {infoBoxRect.left + 2 * sectionWidth + 10, infoBoxRect.top + 5, infoBoxRect.left + 3 * sectionWidth, infoBoxRect.bottom - 5};
+                RECT toggleRect = { infoBoxRect.left + 2 * sectionWidth + 10, infoBoxRect.top + 5,
+                                    infoBoxRect.left + 3 * sectionWidth, infoBoxRect.bottom - 5 };
                 char toggleText[50];
                 wsprintfA(toggleText, "Toggle: %s", UseToggleKey ? "ON" : "OFF");
                 DrawText(memDC, toggleText, -1, &toggleRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
                 // Recoil settings section
-                RECT recoilRect = {infoBoxRect.left + 3 * sectionWidth + 10, infoBoxRect.top + 5, infoBoxRect.right - 15, infoBoxRect.bottom - 5};
+                RECT recoilRect = { infoBoxRect.left + 3 * sectionWidth + 10, infoBoxRect.top + 5, infoBoxRect.right - 15,
+                                    infoBoxRect.bottom - 5 };
                 char recoilText[60];
                 wsprintfA(recoilText, "Recoil: V:%d H:%d", CurrentRecoil.Vertical, CurrentRecoil.Horizontal);
                 DrawText(memDC, recoilText, -1, &recoilRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
@@ -316,15 +318,17 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             {
                 SetBkMode(memDC, TRANSPARENT);
 
-                const char* operatorName = IsAttackerView ? AttackerNames[SelectedOperatorIndex] : DefenderNames[SelectedOperatorIndex];
-                const char* weaponStr = IsAttackerView ? AttackerPrimaryWeapons[SelectedOperatorIndex] : DefenderPrimaryWeapons[SelectedOperatorIndex];
+                const char* operatorName = IsAttackerView ? AttackerNames[SelectedOperatorIndex]
+                                                          : DefenderNames[SelectedOperatorIndex];
+                const char* weaponStr = IsAttackerView ? AttackerPrimaryWeapons[SelectedOperatorIndex]
+                                                       : DefenderPrimaryWeapons[SelectedOperatorIndex];
 
                 Font::DrawCenteredText(memDC, operatorName, 0, 260, rect.right, Font::GetLargeFont());
 
                 const char* instruction = "Select a primary weapon:";
                 Font::DrawCenteredText(memDC, instruction, 0, 300, rect.right, Font::GetMediumFont());
 
-                const char* weapons[3] = {NULL, NULL, NULL};
+                const char* weapons[3] = { NULL, NULL, NULL };
                 int weaponCount = StringUtils::ParseWeaponList(weaponStr, weapons, 3);
 
                 int imgWidth = 400;
@@ -350,7 +354,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
                     Bitmap::DrawBitmap(memDC, weaponBmp, x, y, imgWidth, imgHeight, true);
 
-                    RECT nameRect = {x, y + imgHeight + 15, x + imgWidth, y + imgHeight + 45};
+                    RECT nameRect = { x, y + imgHeight + 15, x + imgWidth, y + imgHeight + 45 };
                     HFONT oldFont = (HFONT)SelectObject(memDC, Font::GetLargeFont());
 
                     // Remove background - make text transparent
@@ -376,21 +380,24 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 // Title
                 HFONT oldFont = (HFONT)SelectObject(memDC, Font::GetTitleFont());
                 SetTextColor(memDC, RGB(220, 50, 50));
-                RECT infoTitleRect = {60, 30, rect.right - 60, 80};
+                RECT infoTitleRect = { 60, 30, rect.right - 60, 80 };
                 DrawText(memDC, "IMPORTANT SETUP", -1, &infoTitleRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
                 // Subtitle
                 SelectObject(memDC, Font::GetSubtitleFont());
                 SetTextColor(memDC, RGB(100, 100, 100));
-                RECT infoSubRect = {60, 80, rect.right - 60, 120};
-                DrawText(memDC, "For best performance and accuracy, follow these steps:", -1, &infoSubRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+                RECT infoSubRect = { 60, 80, rect.right - 60, 120 };
+                DrawText(
+                    memDC, "For best performance and accuracy, follow these steps:", -1, &infoSubRect,
+                    DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
                 // Helper lambda for drawing lines
-                auto DrawLine = [&](const wchar_t* text, int x, int& y, int right, HFONT font = nullptr, COLORREF color = RGB(60, 60, 60))
-                {
-                    if (font) SelectObject(memDC, font);
+                auto DrawLine = [&](const wchar_t* text, int x, int& y, int right, HFONT font = nullptr,
+                                    COLORREF color = RGB(60, 60, 60)) {
+                    if (font)
+                        SelectObject(memDC, font);
                     SetTextColor(memDC, color);
-                    RECT r = {x, y, right, y + 28};
+                    RECT r = { x, y, right, y + 28 };
                     DrawTextW(memDC, text, -1, &r, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
                     y += 40;
                 };
@@ -409,12 +416,15 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 DrawLine(L"2. Enable raw mouse input in Rainbow Six Siege:", left, y, right);
 
                 DrawLine(L"• Close the game.", left + 20, y, right);
-                DrawLine(L"• Open GameSettings.ini in Documents\\My Games\\Rainbow Six - Siege\\RandomNumber", left + 20, y, right);
+                DrawLine(
+                    L"• Open GameSettings.ini in Documents\\My Games\\Rainbow Six - Siege\\RandomNumber", left + 20, y, right);
                 DrawLine(L"• Set RawInputMouseKeyboard=1 and save.", left + 20, y, right);
                 DrawLine(L"• Restart the game.", left + 20, y, right);
 
                 y += 100;
-                DrawLine(L"These steps are required for consistent recoil compensation.", rect.right / 2 - 350, y, right, Font::GetSubtitleFont(), RGB(220, 50, 50));
+                DrawLine(
+                    L"These steps are required for consistent recoil compensation.", rect.right / 2 - 350, y, right,
+                    Font::GetSubtitleFont(), RGB(220, 50, 50));
 
                 SelectObject(memDC, oldFont);
             }
@@ -444,8 +454,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     int x = 30 + (i % 6) * (110 + 10);
                     int y = 50 + (int)(i / 6) * (110 + 10);
 
-                    if (mouseX >= x && mouseX <= x + 110 &&
-                        mouseY >= y && mouseY <= y + 110)
+                    if (mouseX >= x && mouseX <= x + 110 && mouseY >= y && mouseY <= y + 110)
                     {
                         SelectedOperatorIndex = static_cast<int>(i);
                         CurrentUIState = UIState::WeaponDisplay;
@@ -457,11 +466,10 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             }
             else if (CurrentUIState == UIState::WeaponDisplay)
             {
-                const char* weaponStr = IsAttackerView
-                                        ? AttackerPrimaryWeapons[SelectedOperatorIndex]
-                                        : DefenderPrimaryWeapons[SelectedOperatorIndex];
+                const char* weaponStr = IsAttackerView ? AttackerPrimaryWeapons[SelectedOperatorIndex]
+                                                       : DefenderPrimaryWeapons[SelectedOperatorIndex];
 
-                const char* weapons[3] = {NULL, NULL, NULL};
+                const char* weapons[3] = { NULL, NULL, NULL };
                 int weaponCount = StringUtils::ParseWeaponList(weaponStr, weapons, 3);
 
                 int imgWidth = 400;
@@ -480,10 +488,10 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     int x = startX + i * (imgWidth + spacing);
                     int y = startY;
 
-                    RECT clickRect = {x, y, x + imgWidth, y + imgHeight + 45};
+                    RECT clickRect = { x, y, x + imgWidth, y + imgHeight + 45 };
 
-                    if (mouseX >= clickRect.left && mouseX <= clickRect.right &&
-                        mouseY >= clickRect.top && mouseY <= clickRect.bottom)
+                    if (mouseX >= clickRect.left && mouseX <= clickRect.right && mouseY >= clickRect.top
+                        && mouseY <= clickRect.bottom)
                     {
                         SetRecoilModeFromWeapon(weapons[i]);
                         SaveConfig();
@@ -500,8 +508,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 StringUtils::FreeWeaponList(weapons, weaponCount);
 
                 // Back button detection
-                if (mouseX >= 30 && mouseX <= 130 &&
-                    mouseY >= rect.bottom - 80 && mouseY <= rect.bottom - 30)
+                if (mouseX >= 30 && mouseX <= 130 && mouseY >= rect.bottom - 80 && mouseY <= rect.bottom - 30)
                 {
                     CurrentUIState = UIState::OperatorSelection;
                     CreateOperatorSelectionButtons(hwnd);
@@ -545,12 +552,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
 
     LoadConfig();
 
-    HWND hwnd = CreateWindowEx(0, wc.lpszClassName, "R6 No Recoil",
-        WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX,
-        CW_USEDEFAULT, CW_USEDEFAULT, WINDOW_WIDTH, WINDOW_HEIGHT,
-        nullptr, nullptr, hInstance, nullptr);
+    HWND hwnd = CreateWindowEx(
+        0, wc.lpszClassName, "R6 No Recoil", WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX, CW_USEDEFAULT,
+        CW_USEDEFAULT, WINDOW_WIDTH, WINDOW_HEIGHT, nullptr, nullptr, hInstance, nullptr);
 
-    if (!hwnd) return 0;
+    if (!hwnd)
+        return 0;
 
     ShowWindow(hwnd, nCmdShow);
     UpdateWindow(hwnd);
@@ -573,7 +580,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
         std::this_thread::sleep_for(std::chrono::milliseconds(16));
     }
 
-    if (recoilThread.joinable()) recoilThread.join();
-    if (toggleThread.joinable()) toggleThread.join();
+    if (recoilThread.joinable())
+        recoilThread.join();
+    if (toggleThread.joinable())
+        toggleThread.join();
     return 0;
 }

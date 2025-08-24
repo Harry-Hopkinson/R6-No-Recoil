@@ -29,7 +29,7 @@ jobs:
 
       - name: Prepare release folder
         run: |
-          mkdir -p release
+          mkdir release
           copy build/Release/r6-no-recoil.exe release/
           xcopy assets release/assets /E /I /Y
 

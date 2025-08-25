@@ -118,10 +118,6 @@ UltraSensHorizontal = 0
 ToggleKey = 20
 ```
 
-## 🚧 Currently in Development
-
-- **Customisation Options** – Ability to fine-tune settings via a UI panel.
-
 ## 💸 Support Development
 
 Any form of donation is greatly appreciated and will help keep me motivated to keep working on this project and developing it further with new features and improvements.

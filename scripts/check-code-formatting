@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+set -e
+
+basedir="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$basedir"
+
+find src -type f \( -name "*.cpp" -o -name "*.h" -o -name "*.hpp" -o -name "*.cxx" \) \
+  -exec clang-format -style=file -n -Werror {} +

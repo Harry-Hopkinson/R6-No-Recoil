@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+set -e
+
+basedir="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$basedir"
+
+mkdir build
+cd build
+cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Release
+ninja

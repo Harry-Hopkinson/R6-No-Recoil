@@ -1,9 +1,9 @@
-#include <windows.h>
-#include "../../Globals.hpp"
-
 #include "ToggleRecoil.hpp"
 
+#include "../../Globals.hpp"
+
 #include <thread>
+#include <windows.h>
 
 void ToggleRecoilListener()
 {

@@ -18,30 +18,25 @@ jobs:
 
       - name: Configure project with CMake
         run: |
-          mkdir build
-          cd build
-          cmake .. -G "Visual Studio 17 2022" -A x64
+          mkdir -p build
+          cmake -S . -B build -G "Visual Studio 17 2022" -A x64
 
-      - name: Build the project using MSVC
-        run: |
-          cmake --build build --config Release
+      - name: Build the project (Release)
+        run: cmake --build build --config Release --target r6-no-recoil
 
-      - name: Strip symbols from the executable
-        run: |
-          cd build/Release
-          strip r6-no-recoil.exe
+      - name: Strip symbols from executable
+        run: strip build/Release/r6-no-recoil.exe
 
-      - name: Prepare release folder with binary and assets
+      - name: Prepare release folder
         run: |
-          mkdir release
+          mkdir -p release
           copy build\Release\r6-no-recoil.exe release\
           xcopy assets release\assets /E /I /Y
 
       - name: Zip release folder
-        run: |
-          powershell Compress-Archive -Path release\* -DestinationPath r6-no-recoil.zip
+        run: powershell Compress-Archive -Path release/* -DestinationPath r6-no-recoil.zip
 
-      - name: Upload zipped artifact (MSVC)
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: r6-no-recoil
@@ -54,14 +49,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Yarn Install 📦
-        run: |
-          cd website && yarn
+      - name: Yarn install
+        run: cd website && yarn
 
-      - name: Linting 🧹
-        run: |
-          cd website && yarn lint
+      - name: Lint website
+        run: cd website && yarn lint
 
       - name: Build website
-        run: |
-          cd website && yarn build
+        run: cd website && yarn build

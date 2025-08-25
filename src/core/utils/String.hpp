@@ -39,4 +39,4 @@ namespace StringUtils
      * @param count Number of weapons in the array
      */
     void FreeWeaponList(const char* weapons[], int count);
-}
+} // namespace StringUtils

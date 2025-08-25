@@ -1,0 +1,6 @@
+[submodule "external/operators"]
+	path = external/operators
+	url = https://github.com/marcopixel/r6operators
+[submodule "external/weapons"]
+	path = external/weapons
+	url = https://github.com/danielwerg/r6data

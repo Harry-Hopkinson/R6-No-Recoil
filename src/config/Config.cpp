@@ -1,6 +1,7 @@
 #include "Config.hpp"
 
 #include <windows.h>
+
 #include "../Globals.hpp"
 #include "../recoil/Recoil.hpp"
 
@@ -8,9 +9,9 @@
 
 void SaveConfig()
 {
-    HANDLE file = CreateFileA("Config.toml", GENERIC_WRITE, 0, NULL,
-                              CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-    if (file == INVALID_HANDLE_VALUE) return;
+    HANDLE file = CreateFileA("Config.toml", GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+    if (file == INVALID_HANDLE_VALUE)
+        return;
 
     char buffer[1024];
     int len = 0;
@@ -49,11 +50,11 @@ void SaveConfig()
 
 void LoadConfig()
 {
-    HANDLE file = CreateFileA("Config.toml", GENERIC_READ, FILE_SHARE_READ, NULL,
-                              OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+    HANDLE file = CreateFileA("Config.toml", GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+
     if (file == INVALID_HANDLE_VALUE)
     {
-        SaveConfig();  // Create default config file
+        SaveConfig(); // Create default config file
         return;
     }
 
@@ -76,11 +77,12 @@ void LoadConfig()
     buffer[bytesRead] = '\0';
     CloseHandle(file);
 
-    char section[32] = {0};
+    char section[32] = { 0 };
     char* line = strtok(buffer, "\r\n");
     while (line)
     {
-        while (*line == ' ' || *line == '\t') ++line;
+        while (*line == ' ' || *line == '\t')
+            ++line;
         if (*line == '\0' || *line == '#')
         {
             line = strtok(NULL, "\r\n");
@@ -111,29 +113,46 @@ void LoadConfig()
         char* value = equal + 1;
 
         // Trim whitespace
-        while (*key == ' ' || *key == '\t') ++key;
+        while (*key == ' ' || *key == '\t')
+            ++key;
         char* keyEnd = key + strlen(key) - 1;
-        while (keyEnd > key && (*keyEnd == ' ' || *keyEnd == '\t')) *keyEnd-- = '\0';
+        while (keyEnd > key && (*keyEnd == ' ' || *keyEnd == '\t'))
+            *keyEnd-- = '\0';
 
-        while (*value == ' ' || *value == '\t') ++value;
+        while (*value == ' ' || *value == '\t')
+            ++value;
         char* valueEnd = value + strlen(value) - 1;
-        while (valueEnd > value && (*valueEnd == ' ' || *valueEnd == '\t')) *valueEnd-- = '\0';
+        while (valueEnd > value && (*valueEnd == ' ' || *valueEnd == '\t'))
+            *valueEnd-- = '\0';
 
         if (strcmp(section, "RecoilPresets") == 0)
         {
-            if (strcmp(key, "Mode") == 0) SelectedMode = atoi(value);
-            else if (strcmp(key, "Enabled") == 0) EnableRC = (strcmp(value, "true") == 0 || strcmp(value, "1") == 0);
-            else if (strcmp(key, "LowSensVertical") == 0) RecoilPresets[0].Vertical = atoi(value);
-            else if (strcmp(key, "LowSensHorizontal") == 0) RecoilPresets[0].Horizontal = atoi(value);
-            else if (strcmp(key, "MediumSensVertical") == 0) RecoilPresets[1].Vertical = atoi(value);
-            else if (strcmp(key, "MediumSensHorizontal") == 0) RecoilPresets[1].Horizontal = atoi(value);
-            else if (strcmp(key, "HighSensVertical") == 0) RecoilPresets[2].Vertical = atoi(value);
-            else if (strcmp(key, "HighSensHorizontal") == 0) RecoilPresets[2].Horizontal = atoi(value);
-            else if (strcmp(key, "UltraSensVertical") == 0) RecoilPresets[3].Vertical = atoi(value);
-            else if (strcmp(key, "UltraSensHorizontal") == 0) RecoilPresets[3].Horizontal = atoi(value);
-            else if (strcmp(key, "ExtremeSensVertical") == 0) RecoilPresets[4].Vertical = atoi(value);
-            else if (strcmp(key, "ExtremeSensHorizontal") == 0) RecoilPresets[4].Horizontal = atoi(value);
-            else if (strcmp(key, "ToggleKey") == 0) ToggleKey = atoi(value);
+            if (strcmp(key, "Mode") == 0)
+                SelectedMode = atoi(value);
+            else if (strcmp(key, "Enabled") == 0)
+                EnableRC = (strcmp(value, "true") == 0 || strcmp(value, "1") == 0);
+            else if (strcmp(key, "LowSensVertical") == 0)
+                RecoilPresets[0].Vertical = atoi(value);
+            else if (strcmp(key, "LowSensHorizontal") == 0)
+                RecoilPresets[0].Horizontal = atoi(value);
+            else if (strcmp(key, "MediumSensVertical") == 0)
+                RecoilPresets[1].Vertical = atoi(value);
+            else if (strcmp(key, "MediumSensHorizontal") == 0)
+                RecoilPresets[1].Horizontal = atoi(value);
+            else if (strcmp(key, "HighSensVertical") == 0)
+                RecoilPresets[2].Vertical = atoi(value);
+            else if (strcmp(key, "HighSensHorizontal") == 0)
+                RecoilPresets[2].Horizontal = atoi(value);
+            else if (strcmp(key, "UltraSensVertical") == 0)
+                RecoilPresets[3].Vertical = atoi(value);
+            else if (strcmp(key, "UltraSensHorizontal") == 0)
+                RecoilPresets[3].Horizontal = atoi(value);
+            else if (strcmp(key, "ExtremeSensVertical") == 0)
+                RecoilPresets[4].Vertical = atoi(value);
+            else if (strcmp(key, "ExtremeSensHorizontal") == 0)
+                RecoilPresets[4].Horizontal = atoi(value);
+            else if (strcmp(key, "ToggleKey") == 0)
+                ToggleKey = atoi(value);
         }
 
         line = strtok(NULL, "\r\n");

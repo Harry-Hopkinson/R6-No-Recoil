@@ -26,7 +26,7 @@ target_compile_definitions(r6-no-recoil PRIVATE _CRT_SECURE_NO_WARNINGS)
 target_compile_options(r6-no-recoil PRIVATE
     /W4
     /WX-
-    /O3
+    /O2
     /GL
     /Gy
     /Zc:inline

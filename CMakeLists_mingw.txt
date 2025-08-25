@@ -23,7 +23,7 @@ file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR})
 
 # MinGW-specific compile and link options
 target_compile_options(r6-no-recoil PRIVATE
-    -O3
+    -O2
     -Wall
     -Wextra
     -Wno-missing-field-initializers

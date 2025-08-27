@@ -21,9 +21,9 @@ void ApplyRecoil()
 
     while (Running)
     {
-        if (EnableRC && (GetAsyncKeyState(VK_RBUTTON) & 0x8000)) // ADS
+        if (EnableRC && (GetAsyncKeyState(VK_LBUTTON) & 0x8000))
         {
-            while (GetAsyncKeyState(VK_LBUTTON) & 0x8000) // Firing
+            while (GetAsyncKeyState(VK_LBUTTON) & 0x8000)
             {
                 int baseX = CurrentRecoil.Horizontal;
                 int baseY = CurrentRecoil.Vertical * 2;

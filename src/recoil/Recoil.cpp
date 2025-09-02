@@ -21,14 +21,17 @@ std::vector<const char*> AttackerNames = { "Striker", "Sledge",   "Thatcher", "A
                                            "Hibana",  "Jackal",   "Ying",     "Zofia",    "Dokkaebi",   "Lion",
                                            "Finka",   "Maverick", "Nomad",    "Gridlock", "Nokk",       "Amaru",
                                            "Kali",    "Iana",     "Ace",      "Zero",     "Flores",     "Osa",
-                                           "Sens",    "Grim",     "Brava",    "Ram",      "Deimos",     "Rauora" };
+                                           "Sens",    "Grim",     "Brava",    "Ram",      "Deimos",     "Rauora"
+					 };
 
 std::vector<const char*> DefenderNames = { "Sentry",   "Smoke",   "Mute",     "Castle", "Pulse",   "Doc",
                                            "Rook",     "Kapkan",  "Tachanka", "Jager",  "Bandit",  "Frost",
                                            "Valkyrie", "Caveira", "Echo",     "Mira",   "Lesion",  "Ela",
                                            "Vigil",    "Maestro", "Alibi",    "Kaid",   "Mozzie",  "Warden",
                                            "Goyo",     "Wamai",   "Oryx",     "Melusi", "Aruni",   "Thunderbird",
-                                           "Thorn",    "Azami",   "Solis",    "Fenrir", "Tubarao", "Skopos" };
+                                           "Thorn",    "Azami",   "Solis",    "Fenrir", "Tubarao", "Skopos",
+                                           "Denari"
+					 };
 
 std::vector<const char*> AttackerPrimaryWeapons =
 {
@@ -107,7 +110,8 @@ std::vector<const char*> DefenderPrimaryWeapons =
     "P90, ITA12L",              // Solis
     "MP7, SASG-12",             // Fenrir
     "MPX, AR-15.50",            // Tubarao
-    "PCX-33"                    // Skopos
+    "PCX-33",                   // Skopos
+    "Scorpion-EVO, FMG-9"       // Denari
 };
 
 int StringCompare(const char* str1, const char* str2)

@@ -217,6 +217,25 @@
         }
       }
 
+      @media (max-width: 768px) {
+        section.content {
+          flex-direction: column;
+          padding: 2rem 1rem;
+        }
+
+        .content .text,
+        .content .image {
+          margin-left: 0;
+          flex: unset;
+          width: 100%;
+        }
+
+        .content .image img {
+          max-width: 100%;
+          height: auto;
+        }
+      }
+
       h2 {
         font-size: 2rem;
         color: #111;

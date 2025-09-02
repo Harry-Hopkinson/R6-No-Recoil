@@ -63,10 +63,10 @@ std::vector<const char*> AttackerPrimaryWeapons =
     "G36C, ARX200",                    // Iana
     "AK-12, M1014",                    // Ace
     "SC3000K, MP7",                    // Zero
-    "AR33",                            // Flores
-    "556XI",                           // Osa
+    "AR33, SR-25",                     // Flores
+    "556XI, PDW9",                     // Osa
     "POF-9, 417",                      // Sens
-    "552-Commando",                    // Grim
+    "552-Commando, SG-CQB",            // Grim
     "PARA-308, CAMRS",                 // Brava
     "R4-C, LMG-E",                     // Ram
     "AK-74M, M590A1",                  // Deimos

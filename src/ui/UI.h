@@ -8,5 +8,5 @@ enum class UIState
     InfoScreen
 };
 
-extern UIState CurrentUIState;
-extern int SelectedOperatorIndex;
+UIState CurrentUIState;
+int SelectedOperatorIndex = -1;

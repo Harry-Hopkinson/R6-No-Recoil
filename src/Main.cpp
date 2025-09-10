@@ -6,21 +6,20 @@
 
 #include "resource/resource.h"
 
-#include "core/Bitmap.hpp"
-#include "core/File.hpp"
-#include "core/utils/String.hpp"
-#include "core/utils/max.hpp"
+#include "core/Bitmap.h"
+#include "core/File.h"
+#include "core/utils/String.h"
+#include "core/utils/max.h"
 
-#include "ui/Font.hpp"
+#include "ui/Font.h"
 
-#include "config/Config.hpp"
+#include "config/Config.h"
 
-#include "recoil/Recoil.hpp"
-#include "recoil/threads/ApplyRecoil.hpp"
-#include "recoil/threads/ToggleRecoil.hpp"
+#include "recoil/Recoil.h"
+#include "recoil/Threads.h"
 
-#include "ui/Button.hpp"
-#include "ui/UI.hpp"
+#include "ui/Button.h"
+#include "ui/UI.h"
 
 // Window Procedure for handling events
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -563,7 +562,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
     UpdateWindow(hwnd);
 
     std::thread recoilThread(ApplyRecoil);
-    std::thread toggleThread(ToggleRecoilListener);
+    std::thread toggleThread(ToggleRecoil);
 
     MSG msg = {};
     while (Running)

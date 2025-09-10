@@ -1,6 +1,6 @@
-#include "../../Globals.hpp"
-#include "../../core/utils/random.hpp"
-#include "../../recoil/Recoil.hpp"
+#include "../Globals.h"
+#include "../core/utils/random.h"
+#include "../recoil/Recoil.h"
 
 #include <thread>
 #include <windows.h>
@@ -43,5 +43,19 @@ void ApplyRecoil()
             }
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
+    }
+}
+
+void ToggleRecoil()
+{
+    while (Running)
+    {
+        if (UseToggleKey && (GetAsyncKeyState(ToggleKey) & 0x8000))
+        {
+            EnableRC = !EnableRC;
+            InvalidateRect(FindWindow(NULL, "R6 No Recoil"), NULL, TRUE);
+            std::this_thread::sleep_for(std::chrono::milliseconds(300));
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
 }

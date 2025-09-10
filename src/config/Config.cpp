@@ -1,11 +1,11 @@
-#include "Config.hpp"
+#include "Config.h"
 
 #include <windows.h>
 
-#include "../Globals.hpp"
-#include "../recoil/Recoil.hpp"
+#include "../Globals.h"
+#include "../recoil/Recoil.h"
 
-#include "../core/utils/clamp.hpp"
+#include "../core/utils/clamp.h"
 
 void SaveConfig()
 {

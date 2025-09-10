@@ -1,6 +1,6 @@
-#include "Recoil.hpp"
+#include "Recoil.h"
 
-#include "../Globals.hpp"
+#include "../Globals.h"
 
 RecoilPreset RecoilPresets[6] =
 {

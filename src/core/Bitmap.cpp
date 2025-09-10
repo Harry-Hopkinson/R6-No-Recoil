@@ -1,7 +1,7 @@
-#include "Bitmap.hpp"
+#include "Bitmap.h"
 
-#include "../Globals.hpp"
-#include "utils/String.hpp"
+#include "../Globals.h"
+#include "utils/String.h"
 
 #include <cstdio>
 

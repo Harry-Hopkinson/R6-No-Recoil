@@ -1,7 +1,7 @@
 #include "Bitmap.h"
 
 #include "../Globals.h"
-#include "utils/String.h"
+#include "../core/String.h"
 
 #include <cstdio>
 

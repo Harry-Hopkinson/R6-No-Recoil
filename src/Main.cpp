@@ -6,9 +6,8 @@
 
 #include "resource/resource.h"
 
-#include "core/Bitmap.h"
-#include "core/utils/String.h"
-#include "core/utils/max.h"
+#include "core/String.h"
+#include "core/max.h"
 
 #include "ui/Font.h"
 
@@ -17,6 +16,7 @@
 #include "recoil/Recoil.h"
 #include "recoil/Threads.h"
 
+#include "ui/Bitmap.h"
 #include "ui/Button.h"
 #include "ui/UI.h"
 

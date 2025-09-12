@@ -15,7 +15,9 @@ namespace Files
 	
 	/**
      * @brief Loads the weapon recoil data from the data.json file
+	 * @param char* The name of the weapon that recoil value will be fetched
+	 * @return The weapons's recoil value
      */
-	void LoadRecoilValues();
+	int GetWeaponData(const char* weaponName);
 	
 } // namespace Files

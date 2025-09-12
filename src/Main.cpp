@@ -97,8 +97,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             CurrentUIState = UIState::LandingPage;
             CreateLandingPageButtons(hwnd);
 
-            Bitmap::AttackerBitmaps = Bitmap::LoadOperatorBitmaps(AttackerNames, Files::GetImagePath);
-            Bitmap::DefenderBitmaps = Bitmap::LoadOperatorBitmaps(DefenderNames, Files::GetImagePath);
+            Bitmap::AttackerBitmaps = Bitmap::LoadOperatorBitmaps(AttackerNames);
+            Bitmap::DefenderBitmaps = Bitmap::LoadOperatorBitmaps(DefenderNames);
 
             Font::CreateFonts();
         }

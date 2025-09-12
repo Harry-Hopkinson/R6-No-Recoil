@@ -32,11 +32,9 @@ namespace Bitmap
     /**
      * @brief Loads all operator bitmaps for a given list of names
      * @param names Vector of operator names
-     * @param getImagePathFunc Function to get image path from name
      * @return Vector of loaded bitmap handles
      */
-    std::vector<HBITMAP> LoadOperatorBitmaps(
-        const std::vector<const char*>& names, const char* (*getImagePathFunc)(const char*));
+    std::vector<HBITMAP> LoadOperatorBitmaps(const std::vector<const char*>& names);
 
     /**
      * @brief Cleans up all cached weapon bitmaps

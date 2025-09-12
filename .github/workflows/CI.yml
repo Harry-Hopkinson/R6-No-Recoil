@@ -29,10 +29,10 @@ jobs:
 
       - name: Prepare release folder
         run: |
-          ls
           mkdir -p release
           copy build\Release\r6-no-recoil.exe release\
           xcopy assets release\assets /E /I /Y
+          copy build\WeaponData.json release\
 
       - name: Zip release folder
         run: powershell Compress-Archive -Path release/* -DestinationPath r6-no-recoil.zip

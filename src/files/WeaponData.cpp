@@ -19,14 +19,26 @@ namespace Files
         char line[128];
         while (fgets(line, sizeof(line), file))
         {
-            if (strstr(line, "\"name\"") && strstr(line, weaponName))
+            char* namePos = strstr(line, "\"name\"");
+            if (namePos)
             {
-                while (fgets(line, sizeof(line), file))
+                char* quote1 = strchr(namePos, '"');
+                if (!quote1) continue;
+                char* quote2 = strchr(quote1 + 1, '"');
+                if (!quote2) continue;
+                char* quote3 = strchr(quote2 + 1, '"');
+                if (!quote3) continue;
+                char* quote4 = strchr(quote3 + 1, '"');
+                if (!quote4) continue;
+
+                int len = quote4 - quote3 - 1;
+                if (len == (int)strlen(weaponName) &&
+                    strncmp(weaponName, quote3 + 1, len) == 0)
                 {
-                    char* pos = strstr(line, "\"recoil\"");
-                    if (pos)
+                    char* recoilPos = strstr(line, "\"recoil\"");
+                    if (recoilPos)
                     {
-                        char* colon = strchr(pos, ':');
+                        char* colon = strchr(recoilPos, ':');
                         if (colon)
                         {
                             int recoil = atoi(colon + 1);

@@ -1,0 +1,24 @@
+[RecoilPresets]
+# 0 = VERY LOW, 1 = LOW, 2 = MEDIUM, 3 = HIGH, 4 = ULTRA, 5 = EXTREME
+Mode = 2
+Enabled = true
+
+# Vertical recoil amounts for each preset
+LowSensVertical = 1
+MediumSensVertical = 2
+HighSensVertical = 3
+UltraSensVertical = 4
+ExtremeSensVertical = 5
+
+# Horizontal recoil amounts for each preset
+LowSensHorizontal = 0
+MediumSensHorizontal = 0
+HighSensHorizontal = 0
+UltraSensHorizontal = 0
+ExtremeSensHorizontal = 0
+
+# Use https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
+# And then convert the key code to decimal
+# Toggle Key (e.g. 20 = CAPS LOCK)
+ToggleKey = 20
+

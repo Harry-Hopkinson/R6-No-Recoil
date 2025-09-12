@@ -2,6 +2,8 @@
 
 #include "../Globals.h"
 
+#include "../files/Files.h"
+
 RecoilPreset RecoilPresets[6] =
 {
     { 1, 0 }, // VERY LOW
@@ -129,123 +131,12 @@ int StringCompare(const char* str1, const char* str2)
     return *str1 - *str2;
 }
 
-WeaponData WeaponRecoilData[] =
-{
-    // SMGs
-    { "P90", 2 },
-    { "MP5", 2 },
-    { "MP5K", 2 },
-    { "MP5SD", 4 },
-    { "UMP45", 1 },
-    { "MP7", 2 },
-    { "9x19VSN", 2 },
-    { "FMG-9", 2 },
-    { "Mx4-Storm", 2 },
-    { "MPX", 2 },
-    { "T-5", 2 },
-    { "Scorpion-EVO", 3 },
-    { "K1A", 2 },
-    { "Vector", 2 },
-    { "P10-RONI", 2 },
-    { "Commando-9", 2 },
-    { "9mm-C1", 1 },
-    { "M12", 1 },
-    { "PDW9", 4 },
-    { "POF-9", 4 },
-    { "SC3000K", 5 },
-    { "UZK50GI", 2 },
-
-    // Assault Rifles (High recoil)
-    { "AK-12", 5 },
-    { "F2", 6 },
-    { "AR33", 4 },
-    { "556XI", 3 },
-    { "G36C", 5 },
-    { "R4-C", 6 },
-    { "C8-SFW", 5 },
-    { "MK17-CQB", 2 },
-    { "PARA-308", 4 },
-    { "Type-89", 5 },
-    { "C7E", 5 },
-    { "M762", 5 },
-    { "AK-74M", 3 },
-    { "ARX200", 4 },
-    { "F90", 4 },
-    { "AUG-A2", 2 },
-    { "AUG-A2-Acog", 5 },
-    { "AUG-A3", 2 },
-    { "552-Commando", 4 },
-    { "L85A2", 3 },
-    { "V308", 4 },
-    { "Spear-308", 2 },
-    { "Spear-308-Acog", 5 },
-    { "416-carbine", 2 },
-    { "M4", 5 },
-    { "DP27", 1 },
-    { "PCX-33", 1 },
-
-    // LMGs (Low recoil)
-    { "6P41", 5 },
-    { "G8A1", 4 },
-    { "ALDA", 2 },
-    { "T-95-LSW", 4 },
-    { "LMG-E", 5 },
-    { "M249", 3 },
-    { "M249-SAW", 4 },
-
-    // Marksman Rifles (Medium recoil)
-    { "OTs-03", 4 },
-    { "417", 2 },
-    { "SR-25", 3 },
-    { "Mk-14-EBR", 4 },
-    { "CAMRS", 2 },
-    { "AR-15.50", 3 },
-    { "CSRX-300", 3 },
-
-    // Shotguns (Low recoil)
-    { "M590A1", 3 },
-    { "M1014", 2 },
-    { "SG-CQB", 2 },
-    { "SASG-12", 6 },
-    { "M870", 2 },
-    { "Super-90", 2 },
-    { "SPAS-12", 2 },
-    { "SPAS-15", 2 },
-    { "SIX12", 2 },
-    { "SIX12-SD", 2 },
-    { "TCSG12", 6 },
-    { "FO-12", 2 },
-    { "ACS12", 4 },
-    { "BOSG.12.2", 4 },
-    { "ITA12L", 2 },
-    { "SUPERNOVA", 2 },
-};
-
-int GetWeaponRecoil(const char* weaponName)
-{
-    if (!weaponName)
-        return 3; // Default medium recoil
-
-    const int WEAPON_COUNT = sizeof(WeaponRecoilData) / sizeof(WeaponData);
-
-    for (int i = 0; i < WEAPON_COUNT; i++)
-    {
-        if (StringCompare(WeaponRecoilData[i].name, weaponName) == 0)
-        {
-            return WeaponRecoilData[i].recoil;
-        }
-    }
-
-    // Default medium recoil if weapon not found
-    return 3;
-}
-
 void SetRecoilModeFromWeapon(const char* weaponName)
 {
     if (!weaponName)
         return;
 
-    int weaponRecoil = GetWeaponRecoil(weaponName);
+    int weaponRecoil = Files::GetWeaponData(weaponName);
 
     switch (weaponRecoil)
     {

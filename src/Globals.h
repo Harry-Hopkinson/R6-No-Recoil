@@ -1,12 +1,12 @@
 #pragma once
 
-const int WINDOW_WIDTH = 1200;
-const int WINDOW_HEIGHT = 900;
+extern const int WINDOW_WIDTH;
+extern const int WINDOW_HEIGHT;
 
-bool EnableRC = true;
-bool UseToggleKey = false;
-bool Running = true;
-bool IsAttackerView = true;
+extern bool EnableRC;
+extern bool UseToggleKey;
+extern bool Running;
+extern bool IsAttackerView;
 
-int SelectedMode = 2;
-int ToggleKey = 20;
+extern int SelectedMode;
+extern int ToggleKey;

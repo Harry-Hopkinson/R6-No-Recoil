@@ -13,7 +13,7 @@
 
 #include "ui/Font.h"
 
-#include "config/Config.h"
+#include "files/Files.h"
 
 #include "recoil/Recoil.h"
 #include "recoil/Threads.h"
@@ -40,18 +40,18 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             {
                 case 1: // Enable/Disable Recoil
                     EnableRC = !EnableRC;
-                    SaveConfig();
+                    Files::SaveConfig();
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
                 case 2: // Mode Selection
                     SelectedMode = (SelectedMode + 1) % 6;
                     CurrentRecoil = RecoilPresets[SelectedMode];
-                    SaveConfig();
+                    Files::SaveConfig();
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
                 case 3: // Toggle Key
                     UseToggleKey = !UseToggleKey;
-                    SaveConfig();
+                    Files::SaveConfig();
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
                 case 4: // Attacker Selection
@@ -493,7 +493,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                         && mouseY <= clickRect.bottom)
                     {
                         SetRecoilModeFromWeapon(weapons[i]);
-                        SaveConfig();
+                        Files::SaveConfig();
 
                         CurrentUIState = UIState::OperatorSelection;
                         CreateOperatorSelectionButtons(hwnd);
@@ -549,7 +549,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
 
     RegisterClass(&wc);
 
-    LoadConfig();
+    Files::LoadConfig();
 
     HWND hwnd = CreateWindowEx(
         0, wc.lpszClassName, "R6 No Recoil", WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX, CW_USEDEFAULT,

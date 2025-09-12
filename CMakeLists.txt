@@ -76,3 +76,9 @@ add_custom_command(TARGET r6-no-recoil POST_BUILD
     ${CMAKE_SOURCE_DIR}/assets
     ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/assets
 )
+
+add_custom_command(TARGET r6-no-recoil POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+        ${CMAKE_SOURCE_DIR}/data/WeaponData.json
+        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/WeaponData.json
+)

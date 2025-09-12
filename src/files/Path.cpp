@@ -1,6 +1,6 @@
 #include "Files.h"
 
-// #include <windows.h>
+#include <windows.h>
 
 const char* GetExecutableDir()
 {

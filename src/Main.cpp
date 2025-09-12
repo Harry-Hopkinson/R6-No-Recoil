@@ -7,7 +7,6 @@
 #include "resource/resource.h"
 
 #include "core/Bitmap.h"
-#include "core/File.h"
 #include "core/utils/String.h"
 #include "core/utils/max.h"
 

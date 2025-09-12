@@ -1,7 +1,9 @@
 #include "Bitmap.h"
 
 #include "../Globals.h"
-#include "utils/String.h"
+#include "../core/String.h"
+
+#include "../files/Files.h"
 
 #include <cstdio>
 
@@ -78,17 +80,14 @@ namespace Bitmap
         return bmp;
     }
 
-    std::vector<HBITMAP> LoadOperatorBitmaps(
-        const std::vector<const char*>& names, const char* (*getImagePathFunc)(const char*))
+    std::vector<HBITMAP> LoadOperatorBitmaps(const std::vector<const char*>& names)
     {
         std::vector<HBITMAP> bitmaps;
-        if (!getImagePathFunc)
-            return bitmaps;
 
         bitmaps.reserve(names.size());
         for (const auto& name : names)
         {
-            const char* path = getImagePathFunc(name);
+            const char* path = Files::GetImagePath(name);
             HBITMAP bitmap = LoadBitmap(path);
             bitmaps.push_back(bitmap);
 

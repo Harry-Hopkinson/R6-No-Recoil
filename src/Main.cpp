@@ -6,10 +6,8 @@
 
 #include "resource/resource.h"
 
-#include "core/Bitmap.h"
-#include "core/File.h"
-#include "core/utils/String.h"
-#include "core/utils/max.h"
+#include "core/String.h"
+#include "core/max.h"
 
 #include "ui/Font.h"
 
@@ -18,6 +16,7 @@
 #include "recoil/Recoil.h"
 #include "recoil/Threads.h"
 
+#include "ui/Bitmap.h"
 #include "ui/Button.h"
 #include "ui/UI.h"
 
@@ -98,8 +97,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             CurrentUIState = UIState::LandingPage;
             CreateLandingPageButtons(hwnd);
 
-            Bitmap::AttackerBitmaps = Bitmap::LoadOperatorBitmaps(AttackerNames, GetImagePath);
-            Bitmap::DefenderBitmaps = Bitmap::LoadOperatorBitmaps(DefenderNames, GetImagePath);
+            Bitmap::AttackerBitmaps = Bitmap::LoadOperatorBitmaps(AttackerNames);
+            Bitmap::DefenderBitmaps = Bitmap::LoadOperatorBitmaps(DefenderNames);
 
             Font::CreateFonts();
         }

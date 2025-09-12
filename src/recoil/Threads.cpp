@@ -1,7 +1,7 @@
 #include "Threads.h"
 
 #include "../Globals.h"
-#include "../core/utils/random.h"
+#include "../core/random.h"
 #include "../recoil/Recoil.h"
 
 #include <thread>

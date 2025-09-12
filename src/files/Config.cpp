@@ -5,7 +5,7 @@
 #include "../Globals.h"
 #include "../recoil/Recoil.h"
 
-#include "../core/utils/clamp.h"
+#include "../core/clamp.h"
 
 namespace Files
 {
@@ -156,7 +156,7 @@ namespace Files
 					RecoilPresets[4].Horizontal = atoi(value);
 				else if (strcmp(key, "ToggleKey") == 0)
 					ToggleKey = atoi(value);
-			}	
+			}
 
 			line = strtok(NULL, "\r\n");
 		}

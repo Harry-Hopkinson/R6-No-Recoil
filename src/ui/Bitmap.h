@@ -75,5 +75,5 @@ namespace Bitmap
     extern std::vector<HBITMAP> DefenderBitmaps;
 
     std::vector<HBITMAP>& GetCurrentBitmapList();
-	
+
 } // namespace Bitmap

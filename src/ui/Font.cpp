@@ -87,19 +87,6 @@ HFONT Font::GetDescFont()
     return FontDesc;
 }
 
-void Font::DrawRightAlignedText(HDC hdc, LPCSTR text, int yOffset, int fontSize, const RECT& rect)
-{
-    HFONT selectedFont = (fontSize >= 28) ? FontLarge : FontMedium;
-    HFONT oldFont = (HFONT)SelectObject(hdc, selectedFont);
-
-    SIZE textSize;
-    GetTextExtentPoint32(hdc, text, static_cast<int>(strlen(text)), &textSize);
-    int textX = rect.right - 475 + (400 - textSize.cx) / 2;
-
-    TextOut(hdc, textX, yOffset, text, static_cast<int>(strlen(text)));
-    SelectObject(hdc, oldFont);
-}
-
 void Font::DrawCenteredText(HDC hdc, LPCSTR text, int x, int y, int width, HFONT font)
 {
     HFONT oldFont = (HFONT)SelectObject(hdc, font);

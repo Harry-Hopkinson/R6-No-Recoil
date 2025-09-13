@@ -24,7 +24,7 @@ std::vector<const char*> AttackerNames = { "Striker", "Sledge",   "Thatcher", "A
                                            "Finka",   "Maverick", "Nomad",    "Gridlock", "Nokk",       "Amaru",
                                            "Kali",    "Iana",     "Ace",      "Zero",     "Flores",     "Osa",
                                            "Sens",    "Grim",     "Brava",    "Ram",      "Deimos",     "Rauora"
-					 };
+					                     };
 
 std::vector<const char*> DefenderNames = { "Sentry",   "Smoke",   "Mute",     "Castle", "Pulse",   "Doc",
                                            "Rook",     "Kapkan",  "Tachanka", "Jager",  "Bandit",  "Frost",
@@ -33,7 +33,7 @@ std::vector<const char*> DefenderNames = { "Sentry",   "Smoke",   "Mute",     "C
                                            "Goyo",     "Wamai",   "Oryx",     "Melusi", "Aruni",   "Thunderbird",
                                            "Thorn",    "Azami",   "Solis",    "Fenrir", "Tubarao", "Skopos",
                                            "Denari"
-					 };
+					                     };
 
 std::vector<const char*> AttackerPrimaryWeapons =
 {
@@ -115,21 +115,6 @@ std::vector<const char*> DefenderPrimaryWeapons =
     "PCX-33",                   // Skopos
     "Scorpion-EVO, FMG-9"       // Denari
 };
-
-int StringCompare(const char* str1, const char* str2)
-{
-    if (!str1 || !str2)
-        return -1;
-
-    while (*str1 && *str2)
-    {
-        if (*str1 != *str2)
-            return *str1 - *str2;
-        str1++;
-        str2++;
-    }
-    return *str1 - *str2;
-}
 
 void SetRecoilModeFromWeapon(const char* weaponName)
 {

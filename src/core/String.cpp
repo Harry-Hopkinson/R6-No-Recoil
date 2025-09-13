@@ -2,7 +2,7 @@
 
 #include <cstring>
 
-namespace StringUtils
+namespace String
 {
 
     char* RemoveSpaces(const char* input)
@@ -106,4 +106,4 @@ namespace StringUtils
         }
     }
 
-} // namespace StringUtils
+} // namespace String

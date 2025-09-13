@@ -327,7 +327,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 Font::DrawCenteredText(memDC, instruction, 0, 300, rect.right, Font::GetMediumFont());
 
                 const char* weapons[3] = { NULL, NULL, NULL };
-                int weaponCount = StringUtils::ParseWeaponList(weaponStr, weapons, 3);
+                int weaponCount = String::ParseWeaponList(weaponStr, weapons, 3);
 
                 int imgWidth = 400;
                 int imgHeight = 150;
@@ -364,7 +364,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     SelectObject(memDC, oldFont);
                 }
 
-                StringUtils::FreeWeaponList(weapons, weaponCount);
+                String::FreeWeaponList(weapons, weaponCount);
 
                 // Back button at the bottom
                 RECT backBtn = { 30, rect.bottom - 80, 130, rect.bottom - 30 };
@@ -468,7 +468,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                                                        : DefenderPrimaryWeapons[SelectedOperatorIndex];
 
                 const char* weapons[3] = { NULL, NULL, NULL };
-                int weaponCount = StringUtils::ParseWeaponList(weaponStr, weapons, 3);
+                int weaponCount = String::ParseWeaponList(weaponStr, weapons, 3);
 
                 int imgWidth = 400;
                 int imgHeight = 150;
@@ -498,12 +498,12 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                         CreateOperatorSelectionButtons(hwnd);
                         InvalidateRect(hwnd, NULL, TRUE);
 
-                        StringUtils::FreeWeaponList(weapons, weaponCount);
+                        String::FreeWeaponList(weapons, weaponCount);
                         return 0;
                     }
                 }
 
-                StringUtils::FreeWeaponList(weapons, weaponCount);
+                String::FreeWeaponList(weapons, weaponCount);
 
                 // Back button detection
                 if (mouseX >= 30 && mouseX <= 130 && mouseY >= rect.bottom - 80 && mouseY <= rect.bottom - 30)

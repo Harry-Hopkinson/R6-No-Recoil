@@ -1,7 +1,8 @@
 #pragma once
 
-namespace StringUtils
+namespace String
 {
+
     /**
      * @brief Removes all spaces from the input string
      * @param input The input string to process
@@ -39,4 +40,5 @@ namespace StringUtils
      * @param count Number of weapons in the array
      */
     void FreeWeaponList(const char* weapons[], int count);
-} // namespace StringUtils
+
+} // namespace String

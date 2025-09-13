@@ -30,11 +30,11 @@ namespace Bitmap
 
     HBITMAP LoadWeaponBitmap(const char* weaponName)
     {
-        char* cleanName = StringUtils::RemoveSpaces(weaponName);
+        char* cleanName = String::RemoveSpaces(weaponName);
         if (!cleanName)
             return nullptr;
 
-        char* path = StringUtils::BuildPath("assets/weapons/", cleanName);
+        char* path = String::BuildPath("assets/weapons/", cleanName);
         HBITMAP bitmap = LoadBitmap(path);
 
         if (!bitmap)
@@ -68,7 +68,7 @@ namespace Bitmap
         if (bmp)
         {
             // Make a copy of the name to store in our cache
-            char* nameCopy = StringUtils::CreateStringCopy(weaponName);
+            char* nameCopy = String::CreateStringCopy(weaponName);
             if (nameCopy)
             {
                 WeaponBitmapEntry entry;

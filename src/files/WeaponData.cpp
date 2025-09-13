@@ -6,7 +6,7 @@
 
 namespace Files
 {
-	
+
     int GetWeaponData(const char* weaponName)
     {
         if (!weaponName)
@@ -31,8 +31,8 @@ namespace Files
                 char* quote4 = strchr(quote3 + 1, '"');
                 if (!quote4) continue;
 
-                int len = quote4 - quote3 - 1;
-                if (len == (int)strlen(weaponName) &&
+                ptrdiff_t len = quote4 - quote3 - 1;
+                if (len == (ptrdiff_t)strlen(weaponName) &&
                     strncmp(weaponName, quote3 + 1, len) == 0)
                 {
                     char* recoilPos = strstr(line, "\"recoil\"");
@@ -53,5 +53,5 @@ namespace Files
         fclose(file);
         return 3; // Default if not found
     }
-	
+
 } // namespace Files

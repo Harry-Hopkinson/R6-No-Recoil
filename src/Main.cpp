@@ -2,14 +2,12 @@
 #include <windows.h>
 #include <windowsx.h>
 
-#include <thread>
-
 #include "resource/resource.h"
 
 #include "core/String.h"
 #include "core/max.h"
 
-#include "ui/Font.h"
+#include "ui/widgets/Font.h"
 
 #include "files/Files.h"
 
@@ -17,9 +15,9 @@
 #include "recoil/Threads.h"
 
 #include "ui/Bitmap.h"
-#include "ui/Button.h"
 #include "ui/UI.h"
 #include "ui/views/Views.h"
+#include "ui/widgets/Button.h"
 
 // Window Procedure for handling events
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)

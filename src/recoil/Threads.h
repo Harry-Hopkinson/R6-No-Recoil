@@ -13,4 +13,9 @@ namespace Threads
      */
     void StopThreads();
 
+    /**
+     * @brief Updates the threads for recoil and toggle functionality
+     */
+    void Update();
+
 } // namespace Threads

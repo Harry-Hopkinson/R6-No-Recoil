@@ -279,7 +279,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
             DispatchMessage(&msg);
         }
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(16));
+        Threads::Update();
     }
 
     Threads::StopThreads();

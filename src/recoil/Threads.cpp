@@ -82,4 +82,8 @@ namespace Threads
             toggleThread.join();
     }
 
+    void Update()
+    {
+        std::this_thread::sleep_for(std::chrono::milliseconds(16));
+    }
 } // namespace Threads

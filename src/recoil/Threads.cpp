@@ -7,6 +7,9 @@
 #include <thread>
 #include <windows.h>
 
+static std::thread recoilThread;
+static std::thread toggleThread;
+
 void MoveMouseRaw(int dx, int dy)
 {
     INPUT input = { 0 };
@@ -61,3 +64,22 @@ void ToggleRecoil()
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
 }
+
+namespace Threads
+{
+
+    void StartThreads()
+    {
+        recoilThread = std::thread(ApplyRecoil);
+        toggleThread = std::thread(ToggleRecoil);
+    }
+
+    void StopThreads()
+    {
+        if (recoilThread.joinable())
+            recoilThread.join();
+        if (toggleThread.joinable())
+            toggleThread.join();
+    }
+
+} // namespace Threads

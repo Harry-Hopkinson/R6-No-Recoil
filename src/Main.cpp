@@ -265,8 +265,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
     ShowWindow(hwnd, nCmdShow);
     UpdateWindow(hwnd);
 
-    std::thread recoilThread(ApplyRecoil);
-    std::thread toggleThread(ToggleRecoil);
+    Threads::StartThreads();
 
     MSG msg = {};
     while (Running)
@@ -283,9 +282,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
         std::this_thread::sleep_for(std::chrono::milliseconds(16));
     }
 
-    if (recoilThread.joinable())
-        recoilThread.join();
-    if (toggleThread.joinable())
-        toggleThread.join();
+    Threads::StopThreads();
     return 0;
 }

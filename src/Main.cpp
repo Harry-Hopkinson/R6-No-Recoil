@@ -2,6 +2,8 @@
 #include <windows.h>
 #include <windowsx.h>
 
+#include <thread>
+
 #include "resource/resource.h"
 
 #include "core/String.h"
@@ -558,7 +560,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
     ShowWindow(hwnd, nCmdShow);
     UpdateWindow(hwnd);
 
-    Threads::StartThreads();
+    std::thread recoilThread(ApplyRecoil);
+    std::thread toggleThread(ToggleRecoil);
 
     MSG msg = {};
     while (Running)
@@ -572,9 +575,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
             DispatchMessage(&msg);
         }
 
-        Threads::Update();
+        std::this_thread::sleep_for(std::chrono::milliseconds(16));
     }
 
-    Threads::StopThreads();
+    if (recoilThread.joinable())
+        recoilThread.join();
+    if (toggleThread.joinable())
+        toggleThread.join();
     return 0;
 }

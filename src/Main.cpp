@@ -7,7 +7,7 @@
 #include "resource/resource.h"
 
 #include "core/String.h"
-#include "core/max.h"
+#include "core/max.hpp"
 
 #include "ui/widgets/Font.h"
 

@@ -5,7 +5,7 @@
 #include "../Globals.h"
 #include "../recoil/Recoil.h"
 
-#include "../core/clamp.h"
+#include "../core/clamp.hpp"
 
 namespace Files
 {

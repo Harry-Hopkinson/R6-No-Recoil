@@ -118,6 +118,28 @@ UltraSensHorizontal = 0
 ToggleKey = 20
 ```
 
+## 🔫 WeaponData.json Explained
+
+The app uses a `WeaponData.json` file to store **recoil compensation values** for each weapon. This allows you to fine-tune how much recoil reduction is applied for every primary gun in Rainbow Six Siege.
+
+### Example Structure
+
+```json
+[
+  { "name": "ARX200", "recoil": 2 },
+  { "name": "F2", "recoil": 6 },
+  { "name": "M12", "recoil": 1 }
+]
+```
+
+### Fields Explained
+
+- **name:** The exact name of the weapon as recognised by the app.
+- **recoil:** The amount of vertical recoil compensation applied.
+  - **Higher values = stronger recoil reduction**
+  - **Lower values = lighter recoil reduction**
+  - **Typical range:** 1 (low recoil SMGs) to 6 (high recoil assault rifles), but you can experiment.
+
 ## 💸 Support Development
 
 Any form of donation is greatly appreciated and will help keep me motivated to keep working on this project and developing it further with new features and improvements.

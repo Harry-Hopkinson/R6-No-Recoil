@@ -1,19 +1,7 @@
 [RecoilPresets]
-# 0 = LOW, 1 = MEDIUM, 2 = HIGH, 3 = ULTRA
-Mode = 1
+VerticalRecoil = 3
+HorizontalRecoil = 0
 Enabled = true
-
-# Vertical recoil amounts for each preset
-LowSensVertical = 2
-MediumSensVertical = 3
-HighSensVertical = 4
-UltraSensVertical = 5
-
-# Horizontal recoil amounts for each preset
-LowSensHorizontal = 0
-MediumSensHorizontal = 0
-HighSensHorizontal = 0
-UltraSensHorizontal = 0
 
 # Use https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
 # And then convert the key code to decimal

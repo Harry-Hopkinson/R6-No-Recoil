@@ -58,8 +58,8 @@ void CreateOperatorSelectionButtons(HWND hwnd)
     int startY = (WINDOW_HEIGHT - 90) / 2;
 
     Buttons.emplace_back(hwnd, startX, startY, 170, 40, "Toggle Recoil", 1);
-    Buttons.emplace_back(hwnd, startX + 170 + 10 + 80 + 10, startY, 80, 40, "+", 10);
-    Buttons.emplace_back(hwnd, startX + 170 + 10, startY, 80, 40, "-", 11);
+    Buttons.emplace_back(hwnd, startX + 170 + 10 + 80 + 10, startY, 80, 40, "+", 9);
+    Buttons.emplace_back(hwnd, startX + 170 + 10, startY, 80, 40, "-", 10);
 
     Buttons.emplace_back(hwnd, startX, startY + 40 + 10, 170, 40, "Toggle Key", 2);
     Buttons.emplace_back(

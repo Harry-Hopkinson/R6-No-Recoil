@@ -85,7 +85,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     InvalidateRect(hwnd, NULL, TRUE);
                      break;
                 case 10: // "-" button
-                    CurrentRecoil.Vertical = max(CurrentRecoil.Vertical - 1, 0);
+                    CurrentRecoil.Vertical = maximum(CurrentRecoil.Vertical - 1, 0);
                     Files::SaveConfig();
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;

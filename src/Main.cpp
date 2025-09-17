@@ -235,7 +235,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 DrawText(memDC, "Created by Harry Hopkinson", -1, &creatorRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
                 RECT versionRect = { rect.right / 2, bottomY + 15, rect.right - 60, bottomY + 35 };
-                DrawText(memDC, "Version 2.3 | Open Source", -1, &versionRect, DT_RIGHT | DT_VCENTER | DT_SINGLELINE);
+                DrawText(memDC, "Version 2.4 | Open Source", -1, &versionRect, DT_RIGHT | DT_VCENTER | DT_SINGLELINE);
 
                 // GitHub link
                 RECT githubRect = { 0, bottomY + 40, rect.right + 15, bottomY + 60 };

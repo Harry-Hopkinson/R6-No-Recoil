@@ -102,22 +102,12 @@ The app automatically creates a `Config.toml` file on first run. You can manuall
 
 ```toml
 [RecoilPresets]
-# 0 = LOW, 1 = MEDIUM, 2 = HIGH, 3 = ULTRA
-Mode = 1
+VerticalRecoil = 3
+HorizontalRecoil = 0
 Enabled = true
 
-# Vertical recoil amounts for each preset
-LowSensVertical = 2
-MediumSensVertical = 3
-HighSensVertical = 4
-UltraSensVertical = 5
-
-# Horizontal recoil amounts for each preset
-LowSensHorizontal = 0
-MediumSensHorizontal = 0
-HighSensHorizontal = 0
-UltraSensHorizontal = 0
-
+# Use https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
+# And then convert the key code to decimal
 # Toggle Key (e.g. 20 = CAPS LOCK)
 ToggleKey = 20
 ```
@@ -130,19 +120,21 @@ The app uses a `WeaponData.json` file to store **recoil compensation values** fo
 
 ```json
 [
-  { "name": "ARX200", "recoil": 2 },
-  { "name": "F2", "recoil": 6 },
-  { "name": "M12", "recoil": 1 }
+  { "name": "ARX200", "vertical": 2, "horizontal": 0 },
+  { "name": "F2", "vertical": 6, "horizontal": 0 },
+  { "name": "M12", "vertical": 1, "horizontal": 0 }
 ]
 ```
 
 ### Fields Explained
 
 - **name:** The exact name of the weapon as recognised by the app.
-- **recoil:** The amount of vertical recoil compensation applied.
+- **vertical:** The amount of vertical recoil compensation applied.
   - **Higher values = stronger recoil reduction**
   - **Lower values = lighter recoil reduction**
   - **Typical range:** 1 (low recoil SMGs) to 6 (high recoil assault rifles), but you can experiment.
+- **horizontal:** The amount of horizontal recoil compensation applied.
+  - **Typical range:** Between 1 and 2.
 
 ## 💸 Support Development
 

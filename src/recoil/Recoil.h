@@ -2,6 +2,8 @@
 
 #include <vector>
 
+#include "../files/Files.h"
+
 struct WeaponData
 {
     const char* name;
@@ -14,7 +16,7 @@ extern std::vector<const char*> DefenderNames;
 extern std::vector<const char*> AttackerPrimaryWeapons;
 extern std::vector<const char*> DefenderPrimaryWeapons;
 
-extern int CurrentRecoil;
+extern WeaponRecoil CurrentRecoil;
 
 extern WeaponData WeaponRecoilData[];
 

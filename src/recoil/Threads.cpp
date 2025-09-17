@@ -26,8 +26,10 @@ void ApplyRecoil()
         {
             while (GetAsyncKeyState(VK_LBUTTON) & 0x8000) // Firing
             {
-                int baseX = CurrentRecoil * 2;
-                MoveMouseRaw(baseX, 0);
+                int baseX = CurrentRecoil.Horizontal;
+                int baseY = CurrentRecoil.Vertical * 2;
+
+                MoveMouseRaw(baseX, baseY);
                 std::this_thread::sleep_for(std::chrono::milliseconds(5));
             }
         }

@@ -2,7 +2,7 @@
 
 #include "../files/Files.h"
 
-int CurrentRecoil = 3;
+WeaponRecoil CurrentRecoil = { 3, 0 };
 
 std::vector<const char*> AttackerNames = { "Striker", "Sledge",   "Thatcher", "Ash",      "Thermite",   "Twitch",
                                            "Glaz",    "Fuze",     "IQ",       "Buck",     "Blackbeard", "Capitao",
@@ -107,5 +107,5 @@ void SetRecoilModeFromWeapon(const char* weaponName)
     if (!weaponName)
         return;
 
-    CurrentRecoil = Files::GetWeaponData(weaponName);;
+    CurrentRecoil = Files::GetWeaponData(weaponName);
 }

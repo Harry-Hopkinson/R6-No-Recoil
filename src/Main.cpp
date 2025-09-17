@@ -9,8 +9,6 @@
 #include "core/String.h"
 #include "core/max.hpp"
 
-#include "ui/widgets/Font.h"
-
 #include "files/Files.h"
 
 #include "recoil/Recoil.h"
@@ -19,6 +17,7 @@
 #include "ui/Bitmap.h"
 #include "ui/UI.h"
 #include "ui/widgets/Button.h"
+#include "ui/widgets/Font.h"
 
 // Window Procedure for handling events
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)

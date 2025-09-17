@@ -16,28 +16,12 @@ namespace Files
 		if (file == INVALID_HANDLE_VALUE)
 			return;
 
-		char buffer[1024];
+		char buffer[512];
 		int len = 0;
 
 		len += wsprintfA(buffer + len, "[RecoilPresets]\r\n");
 		len += wsprintfA(buffer + len, "CurrentRecoil = %d\r\n", CurrentRecoil);
 		len += wsprintfA(buffer + len, "Enabled = %s\r\n", EnableRC ? "true" : "false");
-		len += wsprintfA(buffer + len, "\r\n");
-
-		len += wsprintfA(buffer + len, "# Vertical recoil amounts for each preset\r\n");
-		len += wsprintfA(buffer + len, "LowSensVertical = %d\r\n", RecoilPresets[0].Vertical);
-		len += wsprintfA(buffer + len, "MediumSensVertical = %d\r\n", RecoilPresets[1].Vertical);
-		len += wsprintfA(buffer + len, "HighSensVertical = %d\r\n", RecoilPresets[2].Vertical);
-		len += wsprintfA(buffer + len, "UltraSensVertical = %d\r\n", RecoilPresets[3].Vertical);
-		len += wsprintfA(buffer + len, "ExtremeSensVertical = %d\r\n", RecoilPresets[4].Vertical);
-		len += wsprintfA(buffer + len, "\r\n");
-
-		len += wsprintfA(buffer + len, "# Horizontal recoil amounts for each preset\r\n");
-		len += wsprintfA(buffer + len, "LowSensHorizontal = %d\r\n", RecoilPresets[0].Horizontal);
-		len += wsprintfA(buffer + len, "MediumSensHorizontal = %d\r\n", RecoilPresets[1].Horizontal);
-		len += wsprintfA(buffer + len, "HighSensHorizontal = %d\r\n", RecoilPresets[2].Horizontal);
-		len += wsprintfA(buffer + len, "UltraSensHorizontal = %d\r\n", RecoilPresets[3].Horizontal);
-		len += wsprintfA(buffer + len, "ExtremeSensHorizontal = %d\r\n", RecoilPresets[4].Horizontal);
 		len += wsprintfA(buffer + len, "\r\n");
 
 		len += wsprintfA(buffer + len, "# Use https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes\n");
@@ -133,26 +117,6 @@ namespace Files
 					CurrentRecoil = atoi(value);
 				else if (strcmp(key, "Enabled") == 0)
 					EnableRC = (strcmp(value, "true") == 0 || strcmp(value, "1") == 0);
-				else if (strcmp(key, "LowSensVertical") == 0)
-					RecoilPresets[0].Vertical = atoi(value);
-				else if (strcmp(key, "LowSensHorizontal") == 0)
-					RecoilPresets[0].Horizontal = atoi(value);
-				else if (strcmp(key, "MediumSensVertical") == 0)
-					RecoilPresets[1].Vertical = atoi(value);
-				else if (strcmp(key, "MediumSensHorizontal") == 0)
-					RecoilPresets[1].Horizontal = atoi(value);
-				else if (strcmp(key, "HighSensVertical") == 0)
-					RecoilPresets[2].Vertical = atoi(value);
-				else if (strcmp(key, "HighSensHorizontal") == 0)
-					RecoilPresets[2].Horizontal = atoi(value);
-				else if (strcmp(key, "UltraSensVertical") == 0)
-					RecoilPresets[3].Vertical = atoi(value);
-				else if (strcmp(key, "UltraSensHorizontal") == 0)
-					RecoilPresets[3].Horizontal = atoi(value);
-				else if (strcmp(key, "ExtremeSensVertical") == 0)
-					RecoilPresets[4].Vertical = atoi(value);
-				else if (strcmp(key, "ExtremeSensHorizontal") == 0)
-					RecoilPresets[4].Horizontal = atoi(value);
 				else if (strcmp(key, "ToggleKey") == 0)
 					ToggleKey = atoi(value);
 			}

@@ -9,5 +9,4 @@ bool IsAttackerView = true;
 
 bool UseToggleKey = false;
 
-int SelectedMode = 2;
 int ToggleKey = 20;

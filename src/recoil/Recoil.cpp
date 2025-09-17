@@ -1,22 +1,8 @@
 #include "Recoil.h"
 
-#include "../Globals.h"
-
 #include "../files/Files.h"
 
-RecoilPreset RecoilPresets[6] =
-{
-    { 1, 0 }, // VERY LOW
-    { 2, 0 }, // LOW
-    { 3, 0 }, // MEDIUM
-    { 4, 0 }, // HIGH
-    { 5, 0 }, // ULTRA
-    { 6, 0 }, // EXTREME
-};
-
-RecoilPreset CurrentRecoil = RecoilPresets[SelectedMode];
-
-const char* Modes[6] = { "VERY LOW", "LOW", "MEDIUM", "HIGH", "ULTRA", "EXTREME" };
+int CurrentRecoil = 3;
 
 std::vector<const char*> AttackerNames = { "Striker", "Sledge",   "Thatcher", "Ash",      "Thermite",   "Twitch",
                                            "Glaz",    "Fuze",     "IQ",       "Buck",     "Blackbeard", "Capitao",
@@ -121,32 +107,5 @@ void SetRecoilModeFromWeapon(const char* weaponName)
     if (!weaponName)
         return;
 
-    int weaponRecoil = Files::GetWeaponData(weaponName);
-
-    switch (weaponRecoil)
-    {
-        case 1:
-            SelectedMode = 0; // VERY LOW
-            break;
-        case 2:
-            SelectedMode = 1; // LOW
-            break;
-        case 3:
-            SelectedMode = 2; // MEDIUM
-            break;
-        case 4:
-            SelectedMode = 3; // HIGH
-            break;
-        case 5:
-            SelectedMode = 4; // ULTRA
-            break;
-        case 6:
-            SelectedMode = 5; // EXTREME
-            break;
-        default:
-            SelectedMode = 2; // Default to MEDIUM
-            break;
-    }
-
-    CurrentRecoil = RecoilPresets[SelectedMode];
+    CurrentRecoil = Files::GetWeaponData(weaponName);;
 }

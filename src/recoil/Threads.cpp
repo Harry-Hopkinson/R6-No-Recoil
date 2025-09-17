@@ -1,7 +1,6 @@
 #include "Threads.h"
 
 #include "../Globals.h"
-#include "../core/random.h"
 #include "../recoil/Recoil.h"
 
 #include <thread>
@@ -27,20 +26,8 @@ void ApplyRecoil()
         {
             while (GetAsyncKeyState(VK_LBUTTON) & 0x8000) // Firing
             {
-                int baseX = CurrentRecoil.Horizontal;
-                int baseY = CurrentRecoil.Vertical * 2;
-
-                int finalX = baseX;
-                int finalY = baseY + GetRandomInt(-1, 1);
-
-                if (baseX != 0)
-                {
-                    finalX += GetRandomInt(-1, 1);
-                    finalX *= (horizontalFlip ? -1 : 1);
-                    horizontalFlip = !horizontalFlip;
-                }
-
-                MoveMouseRaw(finalX, finalY);
+                int baseX = CurrentRecoil * 2;
+                MoveMouseRaw(baseX, 0);
                 std::this_thread::sleep_for(std::chrono::milliseconds(5));
             }
         }

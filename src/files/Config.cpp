@@ -20,8 +20,7 @@ namespace Files
 		int len = 0;
 
 		len += wsprintfA(buffer + len, "[RecoilPresets]\r\n");
-		len += wsprintfA(buffer + len, "# 0 = VERY LOW, 1 = LOW, 2 = MEDIUM, 3 = HIGH, 4 = ULTRA, 5 = EXTREME\r\n");
-		len += wsprintfA(buffer + len, "Mode = %d\r\n", SelectedMode);
+		len += wsprintfA(buffer + len, "CurrentRecoil = %d\r\n", CurrentRecoil);
 		len += wsprintfA(buffer + len, "Enabled = %s\r\n", EnableRC ? "true" : "false");
 		len += wsprintfA(buffer + len, "\r\n");
 
@@ -130,8 +129,8 @@ namespace Files
 
 			if (strcmp(section, "RecoilPresets") == 0)
 			{
-				if (strcmp(key, "Mode") == 0)
-					SelectedMode = atoi(value);
+				if (strcmp(key, "CurrentRecoil") == 0)
+					CurrentRecoil = atoi(value);
 				else if (strcmp(key, "Enabled") == 0)
 					EnableRC = (strcmp(value, "true") == 0 || strcmp(value, "1") == 0);
 				else if (strcmp(key, "LowSensVertical") == 0)
@@ -162,9 +161,6 @@ namespace Files
 		}
 
 		delete[] buffer;
-
-		SelectedMode = clamp(SelectedMode, 0, 5);
-		CurrentRecoil = RecoilPresets[SelectedMode];
 	}
 
 } // namespace Files

@@ -1,5 +1,11 @@
 #pragma once
 
+struct WeaponRecoil
+{
+    int Vertical;
+    int Horizontal;
+};
+
 namespace Files
 {
 
@@ -18,7 +24,7 @@ namespace Files
 	 * @param char* The name of the weapon that recoil value will be fetched
 	 * @return The weapons's recoil value
      */
-	int GetWeaponData(const char* weaponName);
+	WeaponRecoil GetWeaponData(const char* weaponName);
 
     /**
      * @brief Constructs the path for the operator bitmap based off the name

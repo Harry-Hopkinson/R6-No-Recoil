@@ -6,6 +6,10 @@
     <a href="https://github.com/Harry-Hopkinson/R6-No-Recoil/releases/latest">
         <img src="https://raw.githubusercontent.com/Harry-Hopkinson/R6-No-Recoil/master/website/public/app.png" alt="App Preview" width="750px">
     </a>
+
+| Release Build | Development Build |
+|---------------|-------------------|
+| [![Release](https://img.shields.io/badge/Release%20Build-Download-blue?style=for-the-badge&logo=github)](https://github.com/Harry-Hopkinson/R6-No-Recoil/releases/latest/download/r6-no-recoil.zip) | [![Development](https://img.shields.io/badge/Development%20Build-Download-yellow?style=for-the-badge&logo=github)](https://nightly.link/Harry-Hopkinson/R6-No-Recoil/workflows/CI/main/r6-no-recoil.zip) |
 </div>
 
 A lightweight, efficient **no-recoil tool** for Rainbow Six Siege. Designed for smooth performance and ease of use.

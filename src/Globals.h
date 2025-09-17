@@ -9,5 +9,4 @@ extern bool IsAttackerView;
 
 extern bool UseToggleKey;
 
-extern int SelectedMode;
 extern int ToggleKey;

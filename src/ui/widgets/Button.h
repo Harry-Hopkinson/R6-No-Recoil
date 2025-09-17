@@ -41,13 +41,13 @@ void CreateLandingPageButtons(HWND hwnd)
     int centerX = WINDOW_WIDTH / 2;
     int centerY = WINDOW_HEIGHT / 2 + 80;
 
-    Buttons.emplace_back(hwnd, centerX - 250, centerY, 200, 80, "ATTACKERS", 4);
-    Buttons.emplace_back(hwnd, centerX + 50, centerY, 200, 80, "DEFENDERS", 5);
+    Buttons.emplace_back(hwnd, centerX - 250, centerY, 200, 80, "ATTACKERS", 3);
+    Buttons.emplace_back(hwnd, centerX + 50, centerY, 200, 80, "DEFENDERS", 4);
 
-    Buttons.emplace_back(hwnd, WINDOW_WIDTH - 375, WINDOW_HEIGHT - 100, 160, 40, "Support the Project", 7);
-    Buttons.emplace_back(hwnd, WINDOW_WIDTH - 200, WINDOW_HEIGHT - 100, 160, 40, "View on GitHub", 8);
+    Buttons.emplace_back(hwnd, WINDOW_WIDTH - 375, WINDOW_HEIGHT - 100, 160, 40, "Support the Project", 6);
+    Buttons.emplace_back(hwnd, WINDOW_WIDTH - 200, WINDOW_HEIGHT - 100, 160, 40, "View on GitHub", 7);
 
-    Buttons.emplace_back(hwnd, 60, WINDOW_HEIGHT - 100, 160, 40, "Important Setup", 9);
+    Buttons.emplace_back(hwnd, 60, WINDOW_HEIGHT - 100, 160, 40, "Important Setup", 8);
 }
 
 void CreateOperatorSelectionButtons(HWND hwnd)
@@ -58,19 +58,20 @@ void CreateOperatorSelectionButtons(HWND hwnd)
     int startY = (WINDOW_HEIGHT - 90) / 2;
 
     Buttons.emplace_back(hwnd, startX, startY, 170, 40, "Toggle Recoil", 1);
-    Buttons.emplace_back(hwnd, startX + 170 + 10, startY, 170, 40, "Change Mode", 2);
+    Buttons.emplace_back(hwnd, startX + 170 + 10 + 80 + 10, startY, 80, 40, "+", 9);
+    Buttons.emplace_back(hwnd, startX + 170 + 10, startY, 80, 40, "-", 10);
 
-    Buttons.emplace_back(hwnd, startX, startY + 40 + 10, 170, 40, "Toggle Key", 3);
+    Buttons.emplace_back(hwnd, startX, startY + 40 + 10, 170, 40, "Toggle Key", 2);
     Buttons.emplace_back(
         hwnd, startX + 170 + 10, startY + 40 + 10, 170, 40, IsAttackerView ? "Switch to Defenders" : "Switch to Attackers",
-        IsAttackerView ? 5 : 4);
+        IsAttackerView ? 4 : 3);
 
-    Buttons.emplace_back(hwnd, WINDOW_WIDTH - 175, WINDOW_HEIGHT - 75, 160, 40, "Back to Menu", 6);
+    Buttons.emplace_back(hwnd, WINDOW_WIDTH - 175, WINDOW_HEIGHT - 75, 160, 40, "Back to Menu", 5);
 }
 
 void CreateInfoScreenButtons(HWND hwnd)
 {
     Buttons.clear();
 
-    Buttons.emplace_back(hwnd, WINDOW_WIDTH - 175, WINDOW_HEIGHT - 75, 160, 40, "Back to Menu", 6);
+    Buttons.emplace_back(hwnd, WINDOW_WIDTH - 175, WINDOW_HEIGHT - 75, 160, 40, "Back to Menu", 5);
 }

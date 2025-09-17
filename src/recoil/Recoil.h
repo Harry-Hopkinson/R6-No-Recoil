@@ -2,11 +2,7 @@
 
 #include <vector>
 
-struct RecoilPreset
-{
-    int Vertical;
-    int Horizontal;
-};
+#include "../files/Files.h"
 
 struct WeaponData
 {
@@ -20,10 +16,7 @@ extern std::vector<const char*> DefenderNames;
 extern std::vector<const char*> AttackerPrimaryWeapons;
 extern std::vector<const char*> DefenderPrimaryWeapons;
 
-extern RecoilPreset RecoilPresets[6];
-extern RecoilPreset CurrentRecoil;
-
-extern const char* Modes[6];
+extern WeaponRecoil CurrentRecoil;
 
 extern WeaponData WeaponRecoilData[];
 

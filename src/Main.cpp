@@ -42,47 +42,51 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     Files::SaveConfig();
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
-                case 2: // Mode Selection
-                    SelectedMode = (SelectedMode + 1) % 6;
-                    CurrentRecoil = RecoilPresets[SelectedMode];
-                    Files::SaveConfig();
-                    InvalidateRect(hwnd, NULL, TRUE);
-                    break;
-                case 3: // Toggle Key
+                case 2: // Toggle Key
                     UseToggleKey = !UseToggleKey;
                     Files::SaveConfig();
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
-                case 4: // Attacker Selection
+                case 3: // Attacker Selection
                     IsAttackerView = true;
                     CurrentUIState = UIState::OperatorSelection;
                     for (const auto& button : Buttons) ShowWindow(button.GetHWND(), SW_HIDE);
                     CreateOperatorSelectionButtons(hwnd);
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
-                case 5: // Defender Selection
+                case 4: // Defender Selection
                     IsAttackerView = false;
                     CurrentUIState = UIState::OperatorSelection;
                     for (const auto& button : Buttons) ShowWindow(button.GetHWND(), SW_HIDE);
                     CreateOperatorSelectionButtons(hwnd);
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
-                case 6: // Back to Menu
+                case 5: // Back to Menu
                     CurrentUIState = UIState::LandingPage;
                     for (const auto& button : Buttons) ShowWindow(button.GetHWND(), SW_HIDE);
                     CreateLandingPageButtons(hwnd);
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
-                case 7: // Support the Project button
+                case 6: // Support the Project button
                     system("start https://buymeacoffee.com/harryhopkinson");
                     break;
-                case 8: // GitHub button
+                case 7: // GitHub button
                     system("start https://github.com/Harry-Hopkinson/R6-No-Recoil");
                     break;
-                case 9: // Info Screen button
+                case 8: // Info Screen button
                     CurrentUIState = UIState::InfoScreen;
                     for (const auto& button : Buttons) ShowWindow(button.GetHWND(), SW_HIDE);
                     CreateInfoScreenButtons(hwnd);
+                    InvalidateRect(hwnd, NULL, TRUE);
+                    break;
+                case 9: // "+" button
+                    CurrentRecoil.Vertical++;
+                    Files::SaveConfig();
+                    InvalidateRect(hwnd, NULL, TRUE);
+                     break;
+                case 10: // "-" button
+                    CurrentRecoil.Vertical = maximum(CurrentRecoil.Vertical - 1, 0);
+                    Files::SaveConfig();
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
             }
@@ -281,23 +285,16 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 wsprintfA(statusText, "Status: %s", EnableRC ? "ENABLED" : "DISABLED");
                 DrawText(memDC, statusText, -1, &statusRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
-                // Mode section
-                RECT modeRect = { infoBoxRect.left + sectionWidth + 10, infoBoxRect.top + 5,
-                                  infoBoxRect.left + 2 * sectionWidth, infoBoxRect.bottom - 5 };
-                char modeText[50];
-                wsprintfA(modeText, "Mode: %s", Modes[SelectedMode]);
-                DrawText(memDC, modeText, -1, &modeRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
-
                 // Toggle key section
-                RECT toggleRect = { infoBoxRect.left + 2 * sectionWidth + 10, infoBoxRect.top + 5,
-                                    infoBoxRect.left + 3 * sectionWidth, infoBoxRect.bottom - 5 };
+                RECT toggleRect = { infoBoxRect.left + sectionWidth + 10, infoBoxRect.top + 5,
+                                    infoBoxRect.left + 2 * sectionWidth, infoBoxRect.bottom - 5 };
                 char toggleText[50];
                 wsprintfA(toggleText, "Toggle: %s", UseToggleKey ? "ON" : "OFF");
                 DrawText(memDC, toggleText, -1, &toggleRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
                 // Recoil settings section
-                RECT recoilRect = { infoBoxRect.left + 3 * sectionWidth + 10, infoBoxRect.top + 5, infoBoxRect.right - 15,
-                                    infoBoxRect.bottom - 5 };
+                RECT recoilRect = { infoBoxRect.left + 2 * sectionWidth + 10, infoBoxRect.top + 5,
+                                    infoBoxRect.left + 3 * sectionWidth, infoBoxRect.bottom - 5 };
                 char recoilText[60];
                 wsprintfA(recoilText, "Recoil: V:%d H:%d", CurrentRecoil.Vertical, CurrentRecoil.Horizontal);
                 DrawText(memDC, recoilText, -1, &recoilRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);

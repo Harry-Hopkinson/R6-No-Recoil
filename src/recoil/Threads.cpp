@@ -18,8 +18,6 @@ void MoveMouseRaw(int dx, int dy)
 
 void ApplyRecoil()
 {
-    bool horizontalFlip = false;
-
     while (Running)
     {
         if (EnableRC && (GetAsyncKeyState(VK_RBUTTON) & 0x8000)) // ADS

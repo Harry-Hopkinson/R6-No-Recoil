@@ -7,8 +7,7 @@
 
 #include <thread>
 
-#include "core/String.h"
-#include "core/max.hpp"
+#include "utils/String.h"
 
 #include "files/Files.h"
 
@@ -20,7 +19,7 @@
 #include "ui/widgets/Button.h"
 #include "ui/widgets/Font.h"
 
-
+#define max(a, b) ((a) > (b) ? (a) : (b))
 
 // Window Procedure for handling events
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -91,7 +90,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
                 case 10: // "-" button
-                    CurrentRecoil.Vertical = maximum(CurrentRecoil.Vertical - 1, 0);
+                    CurrentRecoil.Vertical = max(CurrentRecoil.Vertical - 1, 0);
                     Files::SaveConfig();
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
@@ -193,7 +192,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     rightCurrentY += 28;
                 }
 
-                int ctaY = maximum(leftCurrentY, rightCurrentY) + 80;
+                int ctaY = max(leftCurrentY, rightCurrentY) + 80;
 
                 RECT ctaBoxRect = { rect.right / 4, ctaY - 10, (rect.right * 3) / 4, ctaY + 70 };
                 HBRUSH ctaBrush = CreateSolidBrush(RGB(245, 245, 245));

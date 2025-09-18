@@ -1,7 +1,7 @@
 #include "Bitmap.h"
 
 #include "../Globals.h"
-#include "../core/String.h"
+#include "../utils/String.h"
 #include "../files/Files.h"
 
 namespace Bitmap
@@ -35,7 +35,7 @@ namespace Bitmap
         HBITMAP bitmap = LoadBitmap(path);
 
         if (!bitmap)
-            return bitmap;
+            MessageBoxA(NULL, "Error loading weapon bitmap", "Error", MB_OK | MB_ICONERROR);
 
         // Free the allocated strings
         delete[] cleanName;
@@ -85,7 +85,7 @@ namespace Bitmap
             bitmaps.push_back(bitmap);
 
             if (!bitmap)
-                return bitmaps;
+                MessageBoxA(NULL, "Error loading operator bitmap", "Error", MB_OK | MB_ICONERROR);
         }
         return bitmaps;
     }

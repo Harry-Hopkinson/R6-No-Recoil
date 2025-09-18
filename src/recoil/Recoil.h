@@ -1,8 +1,8 @@
 #pragma once
 
-#include <vector>
-
 #include "../files/Files.h"
+
+#include <vector>
 
 struct WeaponData
 {

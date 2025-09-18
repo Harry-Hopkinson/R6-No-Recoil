@@ -9,17 +9,14 @@ std::vector<const char*> AttackerNames = { "Striker", "Sledge",   "Thatcher", "A
                                            "Hibana",  "Jackal",   "Ying",     "Zofia",    "Dokkaebi",   "Lion",
                                            "Finka",   "Maverick", "Nomad",    "Gridlock", "Nokk",       "Amaru",
                                            "Kali",    "Iana",     "Ace",      "Zero",     "Flores",     "Osa",
-                                           "Sens",    "Grim",     "Brava",    "Ram",      "Deimos",     "Rauora"
-					                     };
+                                           "Sens",    "Grim",     "Brava",    "Ram",      "Deimos",     "Rauora" };
 
-std::vector<const char*> DefenderNames = { "Sentry",   "Smoke",   "Mute",     "Castle", "Pulse",   "Doc",
-                                           "Rook",     "Kapkan",  "Tachanka", "Jager",  "Bandit",  "Frost",
-                                           "Valkyrie", "Caveira", "Echo",     "Mira",   "Lesion",  "Ela",
-                                           "Vigil",    "Maestro", "Alibi",    "Kaid",   "Mozzie",  "Warden",
-                                           "Goyo",     "Wamai",   "Oryx",     "Melusi", "Aruni",   "Thunderbird",
-                                           "Thorn",    "Azami",   "Solis",    "Fenrir", "Tubarao", "Skopos",
-                                           "Denari"
-					                     };
+std::vector<const char*> DefenderNames = { "Sentry", "Smoke",       "Mute",   "Castle", "Pulse", "Doc",      "Rook",
+                                           "Kapkan", "Tachanka",    "Jager",  "Bandit", "Frost", "Valkyrie", "Caveira",
+                                           "Echo",   "Mira",        "Lesion", "Ela",    "Vigil", "Maestro",  "Alibi",
+                                           "Kaid",   "Mozzie",      "Warden", "Goyo",   "Wamai", "Oryx",     "Melusi",
+                                           "Aruni",  "Thunderbird", "Thorn",  "Azami",  "Solis", "Fenrir",   "Tubarao",
+                                           "Skopos", "Denari" };
 
 std::vector<const char*> AttackerPrimaryWeapons =
 {

@@ -1,10 +1,11 @@
 #define WIN32_LEAN_AND_MEAN
+
 #include <windows.h>
 #include <windowsx.h>
 
-#include <thread>
-
 #include "resource/resource.h"
+
+#include <thread>
 
 #include "core/String.h"
 #include "core/max.hpp"
@@ -18,6 +19,8 @@
 #include "ui/UI.h"
 #include "ui/widgets/Button.h"
 #include "ui/widgets/Font.h"
+
+
 
 // Window Procedure for handling events
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -49,20 +52,23 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 case 3: // Attacker Selection
                     IsAttackerView = true;
                     CurrentUIState = UIState::OperatorSelection;
-                    for (const auto& button : Buttons) ShowWindow(button.GetHWND(), SW_HIDE);
+                    for (const auto& button : Buttons)
+                        ShowWindow(button.GetHWND(), SW_HIDE);
                     CreateOperatorSelectionButtons(hwnd);
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
                 case 4: // Defender Selection
                     IsAttackerView = false;
                     CurrentUIState = UIState::OperatorSelection;
-                    for (const auto& button : Buttons) ShowWindow(button.GetHWND(), SW_HIDE);
+                    for (const auto& button : Buttons)
+                        ShowWindow(button.GetHWND(), SW_HIDE);
                     CreateOperatorSelectionButtons(hwnd);
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
                 case 5: // Back to Menu
                     CurrentUIState = UIState::LandingPage;
-                    for (const auto& button : Buttons) ShowWindow(button.GetHWND(), SW_HIDE);
+                    for (const auto& button : Buttons)
+                        ShowWindow(button.GetHWND(), SW_HIDE);
                     CreateLandingPageButtons(hwnd);
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
@@ -74,7 +80,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     break;
                 case 8: // Info Screen button
                     CurrentUIState = UIState::InfoScreen;
-                    for (const auto& button : Buttons) ShowWindow(button.GetHWND(), SW_HIDE);
+                    for (const auto& button : Buttons)
+                        ShowWindow(button.GetHWND(), SW_HIDE);
                     CreateInfoScreenButtons(hwnd);
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
@@ -82,7 +89,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     CurrentRecoil.Vertical++;
                     Files::SaveConfig();
                     InvalidateRect(hwnd, NULL, TRUE);
-                     break;
+                    break;
                 case 10: // "-" button
                     CurrentRecoil.Vertical = maximum(CurrentRecoil.Vertical - 1, 0);
                     Files::SaveConfig();
@@ -149,10 +156,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 SetTextColor(memDC, RGB(70, 70, 70));
                 int leftCurrentY = 185;
 
-                const char* features[] = { "- All R6 operators supported",
-                                           "- Multiple sensitivity presets",
-                                           "- Customisable toggle controls",
-                                           "- Minimal system impact",
+                const char* features[] = { "- All R6 operators supported", "- Multiple sensitivity presets",
+                                           "- Customisable toggle controls", "- Minimal system impact",
                                            "- Powerful config support" };
 
                 const size_t featureCount = sizeof(features) / sizeof(features[0]);
@@ -175,10 +180,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 SetTextColor(memDC, RGB(70, 70, 70));
                 int rightCurrentY = rightStartY + 45;
 
-                const char* steps[] = { "1. Choose Attacker or Defender",
-                                        "2. Select your operator",
-                                        "3. Pick your primary weapon",
-                                        "4. Start playing - it's automatic!",
+                const char* steps[] = { "1. Choose Attacker or Defender", "2. Select your operator",
+                                        "3. Pick your primary weapon", "4. Start playing - it's automatic!",
                                         "5. Use toggle key to enable/disable" };
 
                 const size_t stepCount = sizeof(steps) / sizeof(steps[0]);
@@ -452,7 +455,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     {
                         SelectedOperatorIndex = static_cast<int>(i);
                         CurrentUIState = UIState::WeaponDisplay;
-                        for (const auto& button : Buttons) ShowWindow(button.GetHWND(), SW_HIDE);
+                        for (const auto& button : Buttons)
+                            ShowWindow(button.GetHWND(), SW_HIDE);
                         InvalidateRect(hwnd, NULL, TRUE);
                         return 0;
                     }

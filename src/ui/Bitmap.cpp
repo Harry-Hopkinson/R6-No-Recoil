@@ -2,10 +2,7 @@
 
 #include "../Globals.h"
 #include "../core/String.h"
-
 #include "../files/Files.h"
-
-#include <cstdio>
 
 namespace Bitmap
 {
@@ -38,11 +35,7 @@ namespace Bitmap
         HBITMAP bitmap = LoadBitmap(path);
 
         if (!bitmap)
-        {
-            char debugMsg[256];
-            sprintf_s(debugMsg, "Failed to load weapon bitmap: %s", path);
-            OutputDebugStringA(debugMsg);
-        }
+            return bitmap;
 
         // Free the allocated strings
         delete[] cleanName;
@@ -92,11 +85,7 @@ namespace Bitmap
             bitmaps.push_back(bitmap);
 
             if (!bitmap)
-            {
-                char debugMsg[256];
-                sprintf_s(debugMsg, "Failed to load operator bitmap: %s", path ? path : "NULL");
-                OutputDebugStringA(debugMsg);
-            }
+                return bitmaps;
         }
         return bitmaps;
     }

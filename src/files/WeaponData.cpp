@@ -10,10 +10,12 @@ namespace Files
     WeaponRecoil GetWeaponData(const char* weaponName)
     {
         WeaponRecoil recoil = { 3, 0 };
-        if (!weaponName) return recoil; // Default medium recoil
+        if (!weaponName)
+            return recoil; // Default medium recoil
 
         FILE* file = fopen("WeaponData.json", "r");
-        if (!file) return recoil; // Failed to open file
+        if (!file)
+            return recoil; // Failed to open file
 
         char line[256];
         while (fgets(line, sizeof(line), file))
@@ -22,13 +24,17 @@ namespace Files
             if (namePos)
             {
                 char* quote1 = strchr(namePos, '"');
-                if (!quote1) continue;
+                if (!quote1)
+                    continue;
                 char* quote2 = strchr(quote1 + 1, '"');
-                if (!quote2) continue;
+                if (!quote2)
+                    continue;
                 char* quote3 = strchr(quote2 + 1, '"');
-                if (!quote3) continue;
+                if (!quote3)
+                    continue;
                 char* quote4 = strchr(quote3 + 1, '"');
-                if (!quote4) continue;
+                if (!quote4)
+                    continue;
 
                 ptrdiff_t len = quote4 - quote3 - 1;
                 if (len == (ptrdiff_t)strlen(weaponName) && strncmp(weaponName, quote3 + 1, len) == 0)
@@ -38,14 +44,16 @@ namespace Files
                     if (verticalPos)
                     {
                         char* colon = strchr(verticalPos, ':');
-                        if (colon) recoil.Vertical = atoi(colon + 1);
+                        if (colon)
+                            recoil.Vertical = atoi(colon + 1);
                     }
                     // Find horizontal
                     char* horizontalPos = strstr(line, "\"horizontal\"");
                     if (horizontalPos)
                     {
                         char* colon = strchr(horizontalPos, ':');
-                        if (colon) recoil.Horizontal = atoi(colon + 1);
+                        if (colon)
+                            recoil.Horizontal = atoi(colon + 1);
                     }
                     fclose(file);
                     return recoil;

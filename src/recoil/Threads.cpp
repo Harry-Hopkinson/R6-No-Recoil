@@ -6,6 +6,8 @@
 #include <thread>
 #include <windows.h>
 
+#include "../files/Files.h"
+
 void MoveMouseRaw(int dx, int dy)
 {
     INPUT input = { 0 };
@@ -42,6 +44,7 @@ void ToggleRecoil()
         if (UseToggleKey && (GetAsyncKeyState(ToggleKey) & 0x8000))
         {
             EnableRC = !EnableRC;
+            Files::SaveConfig();
             InvalidateRect(FindWindow(NULL, "R6 No Recoil"), NULL, TRUE);
             std::this_thread::sleep_for(std::chrono::milliseconds(300));
         }

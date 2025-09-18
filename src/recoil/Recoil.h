@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../files/Files.h"
+#include "Struct.h"
 
 #include <vector>
 

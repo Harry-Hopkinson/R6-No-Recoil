@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+set -e
+
+basedir="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$basedir"
+
+cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=cmake/mingw-toolchain.cmake
+cmake --build build

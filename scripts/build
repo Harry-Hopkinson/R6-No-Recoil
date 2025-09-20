@@ -4,7 +4,16 @@ set -e
 basedir="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$basedir"
 
-mkdir build
-cd build
-cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Release
-ninja
+UNAME_OUT="$(uname -s)"
+
+if [ "$UNAME_OUT" = "Darwin" ] || [ "$UNAME_OUT" = "Linux" ]; then
+    echo "⚙️  Building with mingw-w64 cross toolchain..."
+    cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=cmake/mingw-toolchain.cmake
+    cmake --build build
+else
+    echo "⚙️  Building natively (likely Windows/MSYS)..."
+    mkdir -p build
+    cd build
+    cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Release
+    ninja
+fi

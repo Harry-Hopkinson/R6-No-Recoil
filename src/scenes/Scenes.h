@@ -1,6 +1,6 @@
 #pragma once
 
-enum class UIState
+enum class Scenes
 {
     LandingPage,
     OperatorSelection,
@@ -8,5 +8,6 @@ enum class UIState
     InfoScreen
 };
 
-UIState CurrentUIState;
+Scenes CurrentScene;
+
 int SelectedOperatorIndex = -1;

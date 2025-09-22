@@ -33,7 +33,8 @@ namespace Buttons
 
     void CreateLandingPageButtons(HWND hwnd)
     {
-        GetButtons().clear();
+        ButtonsVector.clear();
+        
         int centerX = WINDOW_WIDTH / 2;
         int centerY = WINDOW_HEIGHT / 2 + 80;
 
@@ -48,7 +49,7 @@ namespace Buttons
 
     void CreateOperatorSelectionButtons(HWND hwnd)
     {
-        GetButtons().clear();
+        ButtonsVector.clear();
 
         int startX = WINDOW_WIDTH - 200 - (350 / 2);
         int startY = (WINDOW_HEIGHT - 90) / 2;
@@ -67,7 +68,7 @@ namespace Buttons
 
     void CreateInfoScreenButtons(HWND hwnd)
     {
-        GetButtons().clear();
+        ButtonsVector.clear();
 
         ButtonsVector.emplace_back(hwnd, WINDOW_WIDTH - 175, WINDOW_HEIGHT - 75, 160, 40, "Back to Menu", 5);
     }

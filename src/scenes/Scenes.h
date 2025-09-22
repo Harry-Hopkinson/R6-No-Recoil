@@ -1,29 +1,6 @@
 #pragma once
 
-namespace Scenes
-{
-
-    /**
-     * @brief Paints landing page contents to the screen
-     */
-    void DrawLandingPage();
-
-    /**
-     * @brief Paints operator selection contents to the screen
-     */
-    void DrawOperatorSelection();
-
-    /**
-     * @brief Paints weapon selection contents to the screen
-     */
-    void DrawWeaponDisplay();
-
-    /**
-     * @brief Paints the info screen page contents to the screen
-     */
-    void DrawInfoScreen();
-
-} // namespace Scenes
+#include <windows.h>
 
 enum class SceneType
 {
@@ -33,6 +10,32 @@ enum class SceneType
     InfoScreen
 };
 
-extern SceneType CurrentScene;
+namespace Scenes
+{
+
+    /**
+     * @brief Paints landing page contents to the screen
+     */
+    void DrawLandingPage(HDC memDC, const RECT& rect);
+
+    /**
+     * @brief Paints operator selection contents to the screen
+     */
+    void DrawOperatorSelection(HDC memDC, const RECT& rect);
+
+    /**
+     * @brief Paints weapon selection contents to the screen
+     */
+    void DrawWeaponDisplay(HDC memDC, const RECT& rect);
+
+    /**
+     * @brief Paints the info screen page contents to the screen
+     */
+    void DrawInfoScreen(HDC memDC, const RECT& rect);
+
+    SceneType GetCurrentScene();
+    void ChangeCurrentScene(SceneType newScene);
+
+} // namespace Scenes
 
 extern int SelectedOperatorIndex;

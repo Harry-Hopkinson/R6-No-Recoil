@@ -21,7 +21,6 @@ HWND Button::GetHWND() const
     return hwndButton;
 }
 
-
 namespace
 {
     std::vector<Button> ButtonsVector;

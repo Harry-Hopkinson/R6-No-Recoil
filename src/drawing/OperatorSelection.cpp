@@ -1,9 +1,9 @@
-#include "../Scenes.h"
+#include "../scenes/Scenes.h"
 
-#include "../../Globals.h"
-#include "../../recoil/Recoil.h"
-#include "../../ui/Bitmap.h"
-#include "../../ui/widgets/Font.h"
+#include "../Globals.h"
+#include "../recoil/Recoil.h"
+#include "../ui/Bitmap.h"
+#include "../ui/widgets/Font.h"
 
 namespace Scenes
 {

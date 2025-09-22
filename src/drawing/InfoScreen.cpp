@@ -1,6 +1,6 @@
-#include "../Scenes.h"
+#include "../scenes/Scenes.h"
 
-#include "../../ui/widgets/Font.h"
+#include "../ui/widgets/Font.h"
 
 namespace Scenes
 {

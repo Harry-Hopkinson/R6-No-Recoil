@@ -51,7 +51,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     break;
                 case 3: // Attacker Selection
                     IsAttackerView = true;
-                    CurrentScene = Scenes::OperatorSelection;
+                    CurrentScene = SceneType::OperatorSelection;
                     for (const auto& button : Buttons)
                         ShowWindow(button.GetHWND(), SW_HIDE);
                     CreateOperatorSelectionButtons(hwnd);
@@ -59,14 +59,14 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     break;
                 case 4: // Defender Selection
                     IsAttackerView = false;
-                    CurrentScene = Scenes::OperatorSelection;
+                    CurrentScene = SceneType::OperatorSelection;
                     for (const auto& button : Buttons)
                         ShowWindow(button.GetHWND(), SW_HIDE);
                     CreateOperatorSelectionButtons(hwnd);
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
                 case 5: // Back to Menu
-                    CurrentScene = Scenes::LandingPage;
+                    CurrentScene = SceneType::LandingPage;
                     for (const auto& button : Buttons)
                         ShowWindow(button.GetHWND(), SW_HIDE);
                     CreateLandingPageButtons(hwnd);
@@ -79,7 +79,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     system("start https://github.com/Harry-Hopkinson/R6-No-Recoil");
                     break;
                 case 8: // Info Screen button
-                    CurrentScene = Scenes::InfoScreen;
+                    CurrentScene = SceneType::InfoScreen;
                     for (const auto& button : Buttons)
                         ShowWindow(button.GetHWND(), SW_HIDE);
                     CreateInfoScreenButtons(hwnd);
@@ -104,7 +104,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             HICON hIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON1));
             SendMessage(hwnd, WM_SETICON, ICON_BIG, (LPARAM)hIcon);
 
-            CurrentScene = Scenes::LandingPage;
+            CurrentScene = SceneType::LandingPage;
             CreateLandingPageButtons(hwnd);
 
             Bitmap::AttackerBitmaps = Bitmap::LoadOperatorBitmaps(AttackerNames);
@@ -127,7 +127,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             FillRect(memDC, &rect, (HBRUSH)(COLOR_WINDOW + 1));
 
-            if (CurrentScene == Scenes::LandingPage)
+            if (CurrentScene == SceneType::LandingPage)
             {
                 SetBkMode(memDC, TRANSPARENT);
 
@@ -246,7 +246,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
                 SelectObject(memDC, oldFont);
             }
-            else if (CurrentScene == Scenes::OperatorSelection)
+            else if (CurrentScene == SceneType::OperatorSelection)
             {
                 const auto& bitmaps = Bitmap::GetCurrentBitmapList();
                 for (size_t i = 0; i < bitmaps.size(); ++i)
@@ -311,7 +311,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
                 SelectObject(memDC, oldFont);
             }
-            else if (CurrentScene == Scenes::WeaponDisplay)
+            else if (CurrentScene == SceneType::WeaponDisplay)
             {
                 SetBkMode(memDC, TRANSPARENT);
 
@@ -370,7 +370,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 DrawText(memDC, "Back", -1, &backBtn, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
                 FrameRect(memDC, &backBtn, (HBRUSH)GetStockObject(BLACK_BRUSH));
             }
-            else if (CurrentScene == Scenes::InfoScreen)
+            else if (CurrentScene == SceneType::InfoScreen)
             {
                 SetBkMode(memDC, TRANSPARENT);
 
@@ -443,7 +443,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             RECT rect;
             GetClientRect(hwnd, &rect);
 
-            if (CurrentScene == Scenes::OperatorSelection)
+            if (CurrentScene == SceneType::OperatorSelection)
             {
                 const auto& bitmaps = Bitmap::GetCurrentBitmapList();
                 for (size_t i = 0; i < bitmaps.size(); ++i)
@@ -454,7 +454,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     if (mouseX >= x && mouseX <= x + 110 && mouseY >= y && mouseY <= y + 110)
                     {
                         SelectedOperatorIndex = static_cast<int>(i);
-                        CurrentScene = Scenes::WeaponDisplay;
+                        CurrentScene = SceneType::WeaponDisplay;
                         for (const auto& button : Buttons)
                             ShowWindow(button.GetHWND(), SW_HIDE);
                         InvalidateRect(hwnd, NULL, TRUE);
@@ -462,7 +462,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     }
                 }
             }
-            else if (CurrentScene == Scenes::WeaponDisplay)
+            else if (CurrentScene == SceneType::WeaponDisplay)
             {
                 const char* weaponStr = IsAttackerView ? AttackerPrimaryWeapons[SelectedOperatorIndex]
                                                        : DefenderPrimaryWeapons[SelectedOperatorIndex];
@@ -494,7 +494,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                         SetRecoilModeFromWeapon(weapons[i]);
                         Files::SaveConfig();
 
-                        CurrentScene = Scenes::OperatorSelection;
+                        CurrentScene = SceneType::OperatorSelection;
                         CreateOperatorSelectionButtons(hwnd);
                         InvalidateRect(hwnd, NULL, TRUE);
 
@@ -508,7 +508,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 // Back button detection
                 if (mouseX >= 30 && mouseX <= 130 && mouseY >= rect.bottom - 80 && mouseY <= rect.bottom - 30)
                 {
-                    CurrentScene = Scenes::OperatorSelection;
+                    CurrentScene = SceneType::OperatorSelection;
                     CreateOperatorSelectionButtons(hwnd);
                     InvalidateRect(hwnd, NULL, TRUE);
                     return 0;

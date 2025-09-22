@@ -1,6 +1,6 @@
 #pragma once
 
-#include <windows.h>
+typedef struct HDC__* HDC;
 
 enum class SceneType
 {
@@ -16,22 +16,22 @@ namespace Scenes
     /**
      * @brief Paints landing page contents to the screen
      */
-    void DrawLandingPage(HDC memDC, const RECT& rect);
+    void DrawLandingPage(HDC memDC, int right, int bottom);
 
     /**
      * @brief Paints operator selection contents to the screen
      */
-    void DrawOperatorSelection(HDC memDC, const RECT& rect);
+    void DrawOperatorSelection(HDC memDC, int right, int bottom);
 
     /**
      * @brief Paints weapon selection contents to the screen
      */
-    void DrawWeaponDisplay(HDC memDC, const RECT& rect);
+    void DrawWeaponDisplay(HDC memDC, int right, int bottom);
 
     /**
      * @brief Paints the info screen page contents to the screen
      */
-    void DrawInfoScreen(HDC memDC, const RECT& rect);
+    void DrawInfoScreen(HDC memDC, int right);
 
     SceneType GetCurrentScene();
     void ChangeCurrentScene(SceneType newScene);

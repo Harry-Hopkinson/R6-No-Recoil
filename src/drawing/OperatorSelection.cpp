@@ -1,4 +1,4 @@
-#include "../scenes/Scenes.h"
+#include <windows.h>
 
 #include "../Globals.h"
 #include "../recoil/Recoil.h"
@@ -8,7 +8,7 @@
 namespace Scenes
 {
 
-    void DrawOperatorSelection(HDC memDC, const RECT& rect)
+    void DrawOperatorSelection(HDC memDC, int right, int bottom)
     {
         const auto& bitmaps = Bitmap::GetCurrentBitmapList();
         for (size_t i = 0; i < bitmaps.size(); ++i)
@@ -21,7 +21,7 @@ namespace Scenes
 
         SetBkMode(memDC, TRANSPARENT);
 
-        RECT infoBoxRect = { 20, 10, rect.right - 400, 40 };
+        RECT infoBoxRect = { 20, 10, right - 400, 40 };
 
         // Draw info box background
         HBRUSH infoBrush = CreateSolidBrush(RGB(248, 249, 250));
@@ -67,7 +67,7 @@ namespace Scenes
         HPEN separatorPen = CreatePen(PS_SOLID, 3, RGB(180, 180, 180));
         HPEN oldSepPen = (HPEN)SelectObject(memDC, separatorPen);
         MoveToEx(memDC, 760, 60, NULL);
-        LineTo(memDC, 760, rect.bottom - 20);
+        LineTo(memDC, 760, bottom - 20);
         SelectObject(memDC, oldSepPen);
         DeleteObject(separatorPen);
 

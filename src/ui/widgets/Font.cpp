@@ -1,5 +1,7 @@
 #include "Font.h"
 
+#include <windows.h>
+
 HFONT Font::FontMedium = nullptr;
 HFONT Font::FontLarge = nullptr;
 HFONT Font::FontTitle = nullptr;

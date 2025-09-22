@@ -1,15 +1,17 @@
+#include <windows.h>
+
 #include "../scenes/Scenes.h"
 
 #include "../Globals.h"
+#include "../core/String.h"
 #include "../recoil/Recoil.h"
 #include "../ui/Bitmap.h"
 #include "../ui/widgets/Font.h"
-#include "../utils/String.h"
 
 namespace Scenes
 {
 
-    void DrawWeaponDisplay(HDC memDC, const RECT& rect)
+    void DrawWeaponDisplay(HDC memDC, int right, int bottom)
     {
         SetBkMode(memDC, TRANSPARENT);
 
@@ -18,10 +20,10 @@ namespace Scenes
         const char* weaponStr = IsAttackerView ? AttackerPrimaryWeapons[SelectedOperatorIndex]
                                                : DefenderPrimaryWeapons[SelectedOperatorIndex];
 
-        Font::DrawCenteredText(memDC, operatorName, 0, 260, rect.right, Font::GetLargeFont());
+        Font::DrawCenteredText(memDC, operatorName, 0, 260, right, Font::GetLargeFont());
 
         const char* instruction = "Select a primary weapon:";
-        Font::DrawCenteredText(memDC, instruction, 0, 300, rect.right, Font::GetMediumFont());
+        Font::DrawCenteredText(memDC, instruction, 0, 300, right, Font::GetMediumFont());
 
         const char* weapons[3] = { NULL, NULL, NULL };
         int weaponCount = String::ParseWeaponList(weaponStr, weapons, 3);
@@ -31,9 +33,9 @@ namespace Scenes
 
         int totalWidth = weaponCount * imgWidth + (weaponCount - 1);
 
-        int startX = (rect.right - totalWidth) / 2;
+        int startX = (right - totalWidth) / 2;
 
-        int availableHeight = rect.bottom - 120;
+        int availableHeight = bottom - 120;
         int contentHeight = imgHeight + 50;
         int startY = 120 + (availableHeight - contentHeight) / 2;
 
@@ -64,7 +66,7 @@ namespace Scenes
         String::FreeWeaponList(weapons, weaponCount);
 
         // Back button at the bottom
-        RECT backBtn = { 30, rect.bottom - 80, 130, rect.bottom - 30 };
+        RECT backBtn = { 30, bottom - 80, 130, bottom - 30 };
         DrawText(memDC, "Back", -1, &backBtn, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
         FrameRect(memDC, &backBtn, (HBRUSH)GetStockObject(BLACK_BRUSH));
     }

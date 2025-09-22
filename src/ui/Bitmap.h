@@ -1,7 +1,9 @@
 #pragma once
 
 #include <vector>
-#include <windows.h>
+
+typedef struct HBITMAP__* HBITMAP;
+typedef struct HDC__* HDC;
 
 namespace Bitmap
 {

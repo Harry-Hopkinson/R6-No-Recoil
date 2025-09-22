@@ -18,36 +18,40 @@ void MoveMouseRaw(int dx, int dy)
     SendInput(1, &input, sizeof(INPUT));
 }
 
-void ApplyRecoil()
+namespace Threads
 {
-    while (Running)
+    void ApplyRecoil()
     {
-        if (EnableRC && (GetAsyncKeyState(VK_RBUTTON) & 0x8000)) // ADS
+        while (Running)
         {
-            while (GetAsyncKeyState(VK_LBUTTON) & 0x8000) // Firing
+            if (EnableRC && (GetAsyncKeyState(VK_RBUTTON) & 0x8000)) // ADS
             {
-                int baseX = CurrentRecoil.Horizontal;
-                int baseY = CurrentRecoil.Vertical * 2;
+                while (GetAsyncKeyState(VK_LBUTTON) & 0x8000) // Firing
+                {
+                    int baseX = CurrentRecoil.Horizontal;
+                    int baseY = CurrentRecoil.Vertical * 2;
 
-                MoveMouseRaw(baseX, baseY);
-                std::this_thread::sleep_for(std::chrono::milliseconds(5));
+                    MoveMouseRaw(baseX, baseY);
+                    std::this_thread::sleep_for(std::chrono::milliseconds(5));
+                }
             }
+            std::this_thread::sleep_for(std::chrono::milliseconds(1));
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
-}
 
-void ToggleRecoil()
-{
-    while (Running)
+    void ToggleRecoil()
     {
-        if (UseToggleKey && (GetAsyncKeyState(ToggleKey) & 0x8000))
+        while (Running)
         {
-            EnableRC = !EnableRC;
-            Files::SaveConfig();
-            InvalidateRect(FindWindow(NULL, "R6 No Recoil"), NULL, TRUE);
-            std::this_thread::sleep_for(std::chrono::milliseconds(300));
+            if (UseToggleKey && (GetAsyncKeyState(ToggleKey) & 0x8000))
+            {
+                EnableRC = !EnableRC;
+                Files::SaveConfig();
+                InvalidateRect(FindWindow(NULL, "R6 No Recoil"), NULL, TRUE);
+                std::this_thread::sleep_for(std::chrono::milliseconds(300));
+            }
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
-}
+
+} // namespace Threads

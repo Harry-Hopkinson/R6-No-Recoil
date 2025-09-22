@@ -6,7 +6,7 @@
 
 #include <thread>
 
-#include "utils/String.h"
+#include "detection/ClickDetection.h"
 
 #include "files/Files.h"
 
@@ -50,24 +50,24 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 case 3: // Attacker Selection
                     IsAttackerView = true;
                     Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
-                    for (const auto& button : Buttons)
+                    for (const auto& button : Buttons::GetButtons())
                         ShowWindow(button.GetHWND(), SW_HIDE);
-                    CreateOperatorSelectionButtons(hwnd);
+                    Buttons::CreateOperatorSelectionButtons(hwnd);
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
                 case 4: // Defender Selection
                     IsAttackerView = false;
                     Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
-                    for (const auto& button : Buttons)
+                    for (const auto& button : Buttons::GetButtons())
                         ShowWindow(button.GetHWND(), SW_HIDE);
-                    CreateOperatorSelectionButtons(hwnd);
+                    Buttons::CreateOperatorSelectionButtons(hwnd);
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
                 case 5: // Back to Menu
                     Scenes::ChangeCurrentScene(SceneType::LandingPage);
-                    for (const auto& button : Buttons)
+                    for (const auto& button : Buttons::GetButtons())
                         ShowWindow(button.GetHWND(), SW_HIDE);
-                    CreateLandingPageButtons(hwnd);
+                    Buttons::CreateLandingPageButtons(hwnd);
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
                 case 6: // Support the Project button
@@ -78,9 +78,9 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     break;
                 case 8: // Info Screen button
                     Scenes::ChangeCurrentScene(SceneType::InfoScreen);
-                    for (const auto& button : Buttons)
+                    for (const auto& button : Buttons::GetButtons())
                         ShowWindow(button.GetHWND(), SW_HIDE);
-                    CreateInfoScreenButtons(hwnd);
+                    Buttons::CreateInfoScreenButtons(hwnd);
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
                 case 9: // "+" button
@@ -102,7 +102,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             HICON hIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON1));
             SendMessage(hwnd, WM_SETICON, ICON_BIG, (LPARAM)hIcon);
 
-            CreateLandingPageButtons(hwnd);
+            Buttons::CreateLandingPageButtons(hwnd);
 
             Bitmap::AttackerBitmaps = Bitmap::LoadOperatorBitmaps(AttackerNames);
             Bitmap::DefenderBitmaps = Bitmap::LoadOperatorBitmaps(DefenderNames);
@@ -127,19 +127,19 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             switch (Scenes::GetCurrentScene())
             {
                 case SceneType::LandingPage:
-                    Scenes::DrawLandingPage(memDC, rect);
+                    Scenes::DrawLandingPage(memDC, rect.right, rect.bottom);
                     break;
 
                 case SceneType::OperatorSelection:
-                    Scenes::DrawOperatorSelection(memDC, rect);
+                    Scenes::DrawOperatorSelection(memDC, rect.right, rect.bottom);
                     break;
 
                 case SceneType::WeaponDisplay:
-                    Scenes::DrawWeaponDisplay(memDC, rect);
+                    Scenes::DrawWeaponDisplay(memDC, rect.right, rect.bottom);
                     break;
 
                 case SceneType::InfoScreen:
-                    Scenes::DrawInfoScreen(memDC, rect);
+                    Scenes::DrawInfoScreen(memDC, rect.right);
                     break;
             }
 
@@ -160,77 +160,9 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             RECT rect;
             GetClientRect(hwnd, &rect);
 
-            if (Scenes::GetCurrentScene() == SceneType::OperatorSelection)
-            {
-                const auto& bitmaps = Bitmap::GetCurrentBitmapList();
-                for (size_t i = 0; i < bitmaps.size(); ++i)
-                {
-                    int x = 30 + (i % 6) * (110 + 10);
-                    int y = 50 + (int)(i / 6) * (110 + 10);
-
-                    if (mouseX >= x && mouseX <= x + 110 && mouseY >= y && mouseY <= y + 110)
-                    {
-                        SelectedOperatorIndex = static_cast<int>(i);
-                        Scenes::ChangeCurrentScene(SceneType::WeaponDisplay);
-                        for (const auto& button : Buttons)
-                            ShowWindow(button.GetHWND(), SW_HIDE);
-                        InvalidateRect(hwnd, NULL, TRUE);
-                        return 0;
-                    }
-                }
-            }
-            else if (Scenes::GetCurrentScene() == SceneType::WeaponDisplay)
-            {
-                const char* weaponStr = IsAttackerView ? AttackerPrimaryWeapons[SelectedOperatorIndex]
-                                                       : DefenderPrimaryWeapons[SelectedOperatorIndex];
-
-                const char* weapons[3] = { NULL, NULL, NULL };
-                int weaponCount = String::ParseWeaponList(weaponStr, weapons, 3);
-
-                int imgWidth = 400;
-                int imgHeight = 150;
-                int spacing = 60;
-
-                int totalWidth = weaponCount * imgWidth + (weaponCount - 1) * spacing;
-                int startX = (rect.right - totalWidth) / 2;
-
-                int availableHeight = rect.bottom - 120;
-                int contentHeight = imgHeight + 50;
-                int startY = 120 + (availableHeight - contentHeight) / 2;
-
-                for (int i = 0; i < weaponCount; ++i)
-                {
-                    int x = startX + i * (imgWidth + spacing);
-                    int y = startY;
-
-                    RECT clickRect = { x, y, x + imgWidth, y + imgHeight + 45 };
-
-                    if (mouseX >= clickRect.left && mouseX <= clickRect.right && mouseY >= clickRect.top
-                        && mouseY <= clickRect.bottom)
-                    {
-                        SetRecoilModeFromWeapon(weapons[i]);
-                        Files::SaveConfig();
-
-                        Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
-                        CreateOperatorSelectionButtons(hwnd);
-                        InvalidateRect(hwnd, NULL, TRUE);
-
-                        String::FreeWeaponList(weapons, weaponCount);
-                        return 0;
-                    }
-                }
-
-                String::FreeWeaponList(weapons, weaponCount);
-
-                // Back button detection
-                if (mouseX >= 30 && mouseX <= 130 && mouseY >= rect.bottom - 80 && mouseY <= rect.bottom - 30)
-                {
-                    Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
-                    CreateOperatorSelectionButtons(hwnd);
-                    InvalidateRect(hwnd, NULL, TRUE);
-                    return 0;
-                }
-            }
+            if (Scenes::GetCurrentScene() == SceneType::OperatorSelection) ClickDetection::OperatorSelection(hwnd, mouseX, mouseY);
+            else if (Scenes::GetCurrentScene() == SceneType::WeaponDisplay) ClickDetection::WeaponDisplay(hwnd, rect.right, rect.bottom,
+                                                                                                          mouseX, mouseY);
         }
         break;
 
@@ -242,7 +174,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             Font::Cleanup();
 
-            Buttons.clear();
+            Buttons::GetButtons().clear();
             PostQuitMessage(0);
             return 0;
         }
@@ -271,14 +203,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
         0, wc.lpszClassName, "R6 No Recoil", WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX, CW_USEDEFAULT,
         CW_USEDEFAULT, WINDOW_WIDTH, WINDOW_HEIGHT, nullptr, nullptr, hInstance, nullptr);
 
-    if (!hwnd)
-        return 0;
+    if (!hwnd) return 0;
 
     ShowWindow(hwnd, nCmdShow);
     UpdateWindow(hwnd);
 
-    std::thread recoilThread(ApplyRecoil);
-    std::thread toggleThread(ToggleRecoil);
+    std::thread recoilThread(Threads::ApplyRecoil);
+    std::thread toggleThread(Threads::ToggleRecoil);
 
     MSG msg = {};
     while (Running)
@@ -299,5 +230,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
         recoilThread.join();
     if (toggleThread.joinable())
         toggleThread.join();
+
     return 0;
 }

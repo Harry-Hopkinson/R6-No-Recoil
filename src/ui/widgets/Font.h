@@ -1,6 +1,8 @@
 #pragma once
 
-#include <windows.h>
+typedef struct HFONT__* HFONT;
+typedef struct HDC__* HDC;
+typedef const char* LPCSTR;
 
 class Font
 {

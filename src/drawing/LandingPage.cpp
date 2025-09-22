@@ -1,4 +1,4 @@
-#include "../scenes/Scenes.h"
+#include <windows.h>
 
 #include "../ui/widgets/Font.h"
 
@@ -7,24 +7,24 @@
 namespace Scenes
 {
 
-    void DrawLandingPage(HDC memDC, const RECT& rect)
+    void DrawLandingPage(HDC memDC, int right, int bottom)
     {
         SetBkMode(memDC, TRANSPARENT);
 
-        int leftColumnWidth = (rect.right / 2) - 340;
-        int rightColumnX = (rect.right / 2) + 20;
-        int rightColumnWidth = (rect.right / 2) - 60;
+        int leftColumnWidth = (right / 2) - 340;
+        int rightColumnX = (right / 2) + 20;
+        int rightColumnWidth = (right / 2) - 60;
 
         // Title
         HFONT oldFont = (HFONT)SelectObject(memDC, Font::GetTitleFont());
         SetTextColor(memDC, RGB(220, 50, 50));
-        RECT titleRect = { 5, 25, rect.right + 5, 75 };
+        RECT titleRect = { 5, 25, right + 5, 75 };
         DrawText(memDC, "R6 NO RECOIL", -1, &titleRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
         // Subtitle
         SelectObject(memDC, Font::GetSubtitleFont());
         SetTextColor(memDC, RGB(100, 100, 100));
-        RECT subtitleRect = { 5, 80, rect.right + 5, 110 };
+        RECT subtitleRect = { 5, 80, right + 5, 110 };
         DrawText(memDC, "Advanced Recoil Compensation System", -1, &subtitleRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
         // Left Column - Features
@@ -84,7 +84,7 @@ namespace Scenes
         int ctaY = maximum(leftCurrentY, rightCurrentY) + 80;
 
         // CTA Box
-        RECT ctaBoxRect = { rect.right / 4, ctaY - 10, (rect.right * 3) / 4, ctaY + 70 };
+        RECT ctaBoxRect = { right / 4, ctaY - 10, (right * 3) / 4, ctaY + 70 };
         HBRUSH ctaBrush = CreateSolidBrush(RGB(245, 245, 245));
         FillRect(memDC, &ctaBoxRect, ctaBrush);
         DeleteObject(ctaBrush);
@@ -97,34 +97,34 @@ namespace Scenes
 
         SelectObject(memDC, Font::GetSubtitleFont());
         SetTextColor(memDC, RGB(220, 50, 50));
-        RECT ctaHeaderRect = { 0, ctaY + 5, rect.right, ctaY + 30 };
+        RECT ctaHeaderRect = { 0, ctaY + 5, right, ctaY + 30 };
         DrawText(memDC, "Ready to Get Started?", -1, &ctaHeaderRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
         SelectObject(memDC, Font::GetDescFont());
         SetTextColor(memDC, RGB(70, 70, 70));
-        RECT ctaTextRect = { 0, ctaY + 32, rect.right, ctaY + 55 };
+        RECT ctaTextRect = { 0, ctaY + 32, right, ctaY + 55 };
         DrawText(memDC, "Select your team below to begin configuration", -1, &ctaTextRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
         // Footer
-        int bottomY = rect.bottom - 120;
+        int bottomY = bottom - 120;
 
         HPEN dividerPen = CreatePen(PS_SOLID, 1, RGB(200, 200, 200));
         HPEN oldDividerPen = (HPEN)SelectObject(memDC, dividerPen);
         MoveToEx(memDC, 60, bottomY, NULL);
-        LineTo(memDC, rect.right - 60, bottomY);
+        LineTo(memDC, right - 60, bottomY);
         SelectObject(memDC, oldDividerPen);
         DeleteObject(dividerPen);
 
         SelectObject(memDC, Font::GetDescFont());
         SetTextColor(memDC, RGB(120, 120, 120));
 
-        RECT creatorRect = { 60, bottomY + 15, rect.right / 2, bottomY + 35 };
+        RECT creatorRect = { 60, bottomY + 15, right / 2, bottomY + 35 };
         DrawText(memDC, "Created by Harry Hopkinson", -1, &creatorRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
-        RECT versionRect = { rect.right / 2, bottomY + 15, rect.right - 60, bottomY + 35 };
+        RECT versionRect = { right / 2, bottomY + 15, right - 60, bottomY + 35 };
         DrawText(memDC, "Version 2.4 | Open Source", -1, &versionRect, DT_RIGHT | DT_VCENTER | DT_SINGLELINE);
 
-        RECT githubRect = { 0, bottomY + 40, rect.right + 15, bottomY + 60 };
+        RECT githubRect = { 0, bottomY + 40, right + 15, bottomY + 60 };
         DrawText(memDC, "Visit GitHub for updates and source code", -1, &githubRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
         SelectObject(memDC, oldFont);

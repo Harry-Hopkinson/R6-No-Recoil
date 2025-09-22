@@ -1,8 +1,10 @@
 #include "Bitmap.h"
 
+#include <windows.h>
+
 #include "../Globals.h"
+#include "../core/String.h"
 #include "../files/Files.h"
-#include "../utils/String.h"
 
 namespace Bitmap
 {

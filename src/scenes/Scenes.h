@@ -33,6 +33,6 @@ enum class SceneType
     InfoScreen
 };
 
-SceneType CurrentScene;
+extern SceneType CurrentScene;
 
-int SelectedOperatorIndex = -1;
+extern int SelectedOperatorIndex;

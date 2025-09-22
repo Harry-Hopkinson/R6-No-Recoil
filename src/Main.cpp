@@ -126,303 +126,315 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             FillRect(memDC, &rect, (HBRUSH)(COLOR_WINDOW + 1));
 
-            if (CurrentScene == SceneType::LandingPage)
+            switch (CurrentScene)
             {
-                SetBkMode(memDC, TRANSPARENT);
-
-                int leftColumnWidth = (rect.right / 2) - 340;
-                int rightColumnX = (rect.right / 2) + 20;
-                int rightColumnWidth = (rect.right / 2) - 60;
-
-                HFONT oldFont = (HFONT)SelectObject(memDC, Font::GetTitleFont());
-                SetTextColor(memDC, RGB(220, 50, 50));
-                RECT titleRect = { 5, 25, rect.right + 5, 75 };
-                DrawText(memDC, "R6 NO RECOIL", -1, &titleRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-
-                SelectObject(memDC, Font::GetSubtitleFont());
-                SetTextColor(memDC, RGB(100, 100, 100));
-                RECT subtitleRect = { 5, 80, rect.right + 5, 110 };
-                DrawText(
-                    memDC, "Advanced Recoil Compensation System", -1, &subtitleRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-
-                // Left Column - Features
-                SelectObject(memDC, Font::GetSubtitleFont());
-                SetTextColor(memDC, RGB(50, 50, 50));
-                RECT featuresHeaderRect = { 320, 140, 320 + leftColumnWidth, 170 };
-                DrawText(memDC, "Key Features", -1, &featuresHeaderRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
-
-                SelectObject(memDC, Font::GetDescFont());
-                SetTextColor(memDC, RGB(70, 70, 70));
-                int leftCurrentY = 185;
-
-                const char* features[] = { "- All R6 operators supported", "- Multiple sensitivity presets",
-                                           "- Customisable toggle controls", "- Minimal system impact",
-                                           "- Powerful config support" };
-
-                const size_t featureCount = sizeof(features) / sizeof(features[0]);
-
-                for (size_t i = 0; i < featureCount; i++)
+                case SceneType::LandingPage:
                 {
-                    RECT featureRect = { 330, leftCurrentY, 320 + leftColumnWidth, leftCurrentY + 25 };
-                    DrawText(memDC, features[i], -1, &featureRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
-                    leftCurrentY += 28;
-                }
-
-                // Right Column - How to Use
-                int rightStartY = 140;
-                SelectObject(memDC, Font::GetSubtitleFont());
-                SetTextColor(memDC, RGB(50, 50, 50));
-                RECT stepsHeaderRect = { rightColumnX, rightStartY, rightColumnX + rightColumnWidth, rightStartY + 30 };
-                DrawText(memDC, "Quick Start Guide", -1, &stepsHeaderRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
-
-                SelectObject(memDC, Font::GetDescFont());
-                SetTextColor(memDC, RGB(70, 70, 70));
-                int rightCurrentY = rightStartY + 45;
-
-                const char* steps[] = { "1. Choose Attacker or Defender", "2. Select your operator",
-                                        "3. Pick your primary weapon", "4. Start playing - it's automatic!",
-                                        "5. Use toggle key to enable/disable" };
-
-                const size_t stepCount = sizeof(steps) / sizeof(steps[0]);
-
-                for (size_t i = 0; i < stepCount; i++)
-                {
-                    RECT stepRect = { rightColumnX + 10, rightCurrentY, rightColumnX + rightColumnWidth, rightCurrentY + 25 };
-                    DrawText(memDC, steps[i], -1, &stepRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
-                    rightCurrentY += 28;
-                }
-
-                int ctaY = maximum(leftCurrentY, rightCurrentY) + 80;
-
-                RECT ctaBoxRect = { rect.right / 4, ctaY - 10, (rect.right * 3) / 4, ctaY + 70 };
-                HBRUSH ctaBrush = CreateSolidBrush(RGB(245, 245, 245));
-                FillRect(memDC, &ctaBoxRect, ctaBrush);
-                DeleteObject(ctaBrush);
-
-                HPEN ctaPen = CreatePen(PS_SOLID, 2, RGB(220, 50, 50));
-                HPEN oldPen = (HPEN)SelectObject(memDC, ctaPen);
-                Rectangle(memDC, ctaBoxRect.left, ctaBoxRect.top, ctaBoxRect.right, ctaBoxRect.bottom);
-                SelectObject(memDC, oldPen);
-                DeleteObject(ctaPen);
-
-                SelectObject(memDC, Font::GetSubtitleFont());
-                SetTextColor(memDC, RGB(220, 50, 50));
-                RECT ctaHeaderRect = { 0, ctaY + 5, rect.right, ctaY + 30 };
-                DrawText(memDC, "Ready to Get Started?", -1, &ctaHeaderRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-
-                SelectObject(memDC, Font::GetDescFont());
-                SetTextColor(memDC, RGB(70, 70, 70));
-                RECT ctaTextRect = { 0, ctaY + 32, rect.right, ctaY + 55 };
-                DrawText(
-                    memDC, "Select your team below to begin configuration", -1, &ctaTextRect,
-                    DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-
-                // Bottom section - Credits and links
-                int bottomY = rect.bottom - 120;
-
-                // Divider line
-                HPEN dividerPen = CreatePen(PS_SOLID, 1, RGB(200, 200, 200));
-                HPEN oldDividerPen = (HPEN)SelectObject(memDC, dividerPen);
-                MoveToEx(memDC, 60, bottomY, NULL);
-                LineTo(memDC, rect.right - 60, bottomY);
-                SelectObject(memDC, oldDividerPen);
-                DeleteObject(dividerPen);
-
-                // Footer info in two columns
-                SelectObject(memDC, Font::GetDescFont());
-                SetTextColor(memDC, RGB(120, 120, 120));
-
-                RECT creatorRect = { 60, bottomY + 15, rect.right / 2, bottomY + 35 };
-                DrawText(memDC, "Created by Harry Hopkinson", -1, &creatorRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
-
-                RECT versionRect = { rect.right / 2, bottomY + 15, rect.right - 60, bottomY + 35 };
-                DrawText(memDC, "Version 2.4 | Open Source", -1, &versionRect, DT_RIGHT | DT_VCENTER | DT_SINGLELINE);
-
-                // GitHub link
-                RECT githubRect = { 0, bottomY + 40, rect.right + 15, bottomY + 60 };
-                DrawText(
-                    memDC, "Visit GitHub for updates and source code", -1, &githubRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-
-                SelectObject(memDC, oldFont);
-            }
-            else if (CurrentScene == SceneType::OperatorSelection)
-            {
-                const auto& bitmaps = Bitmap::GetCurrentBitmapList();
-                for (size_t i = 0; i < bitmaps.size(); ++i)
-                {
-                    int x = 30 + (i % 6) * (110 + 10);
-                    int y = 50 + (int)(i / 6) * (110 + 10);
-
-                    Bitmap::DrawBitmap(memDC, bitmaps[i], x, y, 110, 110, true);
-                }
-
-                SetBkMode(memDC, TRANSPARENT);
-
-                RECT infoBoxRect = { 20, 10, rect.right - 400, 40 };
-
-                // Draw info box background
-                HBRUSH infoBrush = CreateSolidBrush(RGB(248, 249, 250));
-                FillRect(memDC, &infoBoxRect, infoBrush);
-                DeleteObject(infoBrush);
-
-                // Draw info box border
-                HPEN infoPen = CreatePen(PS_SOLID, 1, RGB(220, 220, 220));
-                HPEN oldPen = (HPEN)SelectObject(memDC, infoPen);
-                Rectangle(memDC, infoBoxRect.left, infoBoxRect.top, infoBoxRect.right, infoBoxRect.bottom);
-                SelectObject(memDC, oldPen);
-                DeleteObject(infoPen);
-
-                // Draw info text in the box
-                HFONT oldFont = (HFONT)SelectObject(memDC, Font::GetDescFont());
-                SetTextColor(memDC, RGB(60, 60, 60));
-
-                // Create sections within the info box
-                int sectionWidth = (infoBoxRect.right - infoBoxRect.left) / 4;
-
-                // Status section
-                RECT statusRect = { infoBoxRect.left + 15, infoBoxRect.top + 5, infoBoxRect.left + sectionWidth,
-                                    infoBoxRect.bottom - 5 };
-                char statusText[50];
-                wsprintfA(statusText, "Status: %s", EnableRC ? "ENABLED" : "DISABLED");
-                DrawText(memDC, statusText, -1, &statusRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
-
-                // Toggle key section
-                RECT toggleRect = { infoBoxRect.left + sectionWidth + 10, infoBoxRect.top + 5,
-                                    infoBoxRect.left + 2 * sectionWidth, infoBoxRect.bottom - 5 };
-                char toggleText[50];
-                wsprintfA(toggleText, "Toggle: %s", UseToggleKey ? "ON" : "OFF");
-                DrawText(memDC, toggleText, -1, &toggleRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
-
-                // Recoil settings section
-                RECT recoilRect = { infoBoxRect.left + 2 * sectionWidth + 10, infoBoxRect.top + 5,
-                                    infoBoxRect.left + 3 * sectionWidth, infoBoxRect.bottom - 5 };
-                char recoilText[60];
-                wsprintfA(recoilText, "Recoil: V:%d H:%d", CurrentRecoil.Vertical, CurrentRecoil.Horizontal);
-                DrawText(memDC, recoilText, -1, &recoilRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
-
-                // Add a vertical separator line
-                HPEN separatorPen = CreatePen(PS_SOLID, 3, RGB(180, 180, 180));
-                HPEN oldSepPen = (HPEN)SelectObject(memDC, separatorPen);
-                MoveToEx(memDC, 760, 60, NULL);
-                LineTo(memDC, 760, rect.bottom - 20);
-                SelectObject(memDC, oldSepPen);
-                DeleteObject(separatorPen);
-
-                SelectObject(memDC, oldFont);
-            }
-            else if (CurrentScene == SceneType::WeaponDisplay)
-            {
-                SetBkMode(memDC, TRANSPARENT);
-
-                const char* operatorName = IsAttackerView ? AttackerNames[SelectedOperatorIndex]
-                                                          : DefenderNames[SelectedOperatorIndex];
-                const char* weaponStr = IsAttackerView ? AttackerPrimaryWeapons[SelectedOperatorIndex]
-                                                       : DefenderPrimaryWeapons[SelectedOperatorIndex];
-
-                Font::DrawCenteredText(memDC, operatorName, 0, 260, rect.right, Font::GetLargeFont());
-
-                const char* instruction = "Select a primary weapon:";
-                Font::DrawCenteredText(memDC, instruction, 0, 300, rect.right, Font::GetMediumFont());
-
-                const char* weapons[3] = { NULL, NULL, NULL };
-                int weaponCount = String::ParseWeaponList(weaponStr, weapons, 3);
-
-                int imgWidth = 400;
-                int imgHeight = 150;
-
-                int totalWidth = weaponCount * imgWidth + (weaponCount - 1);
-
-                int startX = (rect.right - totalWidth) / 2;
-
-                int availableHeight = rect.bottom - 120;
-                int contentHeight = imgHeight + 50;
-                int startY = 120 + (availableHeight - contentHeight) / 2;
-
-                SetStretchBltMode(memDC, HALFTONE);
-                SetBrushOrgEx(memDC, 0, 0, NULL);
-
-                for (int i = 0; i < weaponCount; ++i)
-                {
-                    int x = startX + i * (imgWidth);
-                    int y = startY;
-
-                    HBITMAP weaponBmp = Bitmap::GetWeaponBitmap(weapons[i]);
-
-                    Bitmap::DrawBitmap(memDC, weaponBmp, x, y, imgWidth, imgHeight, true);
-
-                    RECT nameRect = { x, y + imgHeight + 15, x + imgWidth, y + imgHeight + 45 };
-                    HFONT oldFont = (HFONT)SelectObject(memDC, Font::GetLargeFont());
-
-                    // Remove background - make text transparent
                     SetBkMode(memDC, TRANSPARENT);
-                    SetTextColor(memDC, RGB(0, 0, 0));
 
-                    DrawText(memDC, weapons[i], -1, &nameRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+                    int leftColumnWidth = (rect.right / 2) - 340;
+                    int rightColumnX = (rect.right / 2) + 20;
+                    int rightColumnWidth = (rect.right / 2) - 60;
+
+                    HFONT oldFont = (HFONT)SelectObject(memDC, Font::GetTitleFont());
+                    SetTextColor(memDC, RGB(220, 50, 50));
+                    RECT titleRect = { 5, 25, rect.right + 5, 75 };
+                    DrawText(memDC, "R6 NO RECOIL", -1, &titleRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+
+                    SelectObject(memDC, Font::GetSubtitleFont());
+                    SetTextColor(memDC, RGB(100, 100, 100));
+                    RECT subtitleRect = { 5, 80, rect.right + 5, 110 };
+                    DrawText(
+                        memDC, "Advanced Recoil Compensation System", -1, &subtitleRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+
+                    // Left Column - Features
+                    SelectObject(memDC, Font::GetSubtitleFont());
+                    SetTextColor(memDC, RGB(50, 50, 50));
+                    RECT featuresHeaderRect = { 320, 140, 320 + leftColumnWidth, 170 };
+                    DrawText(memDC, "Key Features", -1, &featuresHeaderRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
+
+                    SelectObject(memDC, Font::GetDescFont());
+                    SetTextColor(memDC, RGB(70, 70, 70));
+                    int leftCurrentY = 185;
+
+                    const char* features[] = { "- All R6 operators supported",   "- Multiple sensitivity presets",
+                                               "- Customisable toggle controls", "- Minimal system impact",
+                                               "- Powerful config support"
+                                             };
+
+                    const size_t featureCount = sizeof(features) / sizeof(features[0]);
+
+                    for (size_t i = 0; i < featureCount; i++)
+                    {
+                        RECT featureRect = { 330, leftCurrentY, 320 + leftColumnWidth, leftCurrentY + 25 };
+                        DrawText(memDC, features[i], -1, &featureRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
+                        leftCurrentY += 28;
+                    }
+
+                    // Right Column - How to Use
+                    int rightStartY = 140;
+                    SelectObject(memDC, Font::GetSubtitleFont());
+                    SetTextColor(memDC, RGB(50, 50, 50));
+                    RECT stepsHeaderRect = { rightColumnX, rightStartY, rightColumnX + rightColumnWidth, rightStartY + 30 };
+                    DrawText(memDC, "Quick Start Guide", -1, &stepsHeaderRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
+
+                    SelectObject(memDC, Font::GetDescFont());
+                    SetTextColor(memDC, RGB(70, 70, 70));
+                    int rightCurrentY = rightStartY + 45;
+
+                    const char* steps[] = { "1. Choose Attacker or Defender", "2. Select your operator",
+                                            "3. Pick your primary weapon",    "4. Start playing - it's automatic!",
+                                            "5. Use toggle key to enable/disable"
+                                          };
+
+                    const size_t stepCount = sizeof(steps) / sizeof(steps[0]);
+
+                    for (size_t i = 0; i < stepCount; i++)
+                    {
+                        RECT stepRect = { rightColumnX + 10, rightCurrentY, rightColumnX + rightColumnWidth, rightCurrentY + 25 };
+                        DrawText(memDC, steps[i], -1, &stepRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
+                        rightCurrentY += 28;
+                    }
+
+                    int ctaY = maximum(leftCurrentY, rightCurrentY) + 80;
+
+                    RECT ctaBoxRect = { rect.right / 4, ctaY - 10, (rect.right * 3) / 4, ctaY + 70 };
+                    HBRUSH ctaBrush = CreateSolidBrush(RGB(245, 245, 245));
+                    FillRect(memDC, &ctaBoxRect, ctaBrush);
+                    DeleteObject(ctaBrush);
+
+                    HPEN ctaPen = CreatePen(PS_SOLID, 2, RGB(220, 50, 50));
+                    HPEN oldPen = (HPEN)SelectObject(memDC, ctaPen);
+                    Rectangle(memDC, ctaBoxRect.left, ctaBoxRect.top, ctaBoxRect.right, ctaBoxRect.bottom);
+                    SelectObject(memDC, oldPen);
+                    DeleteObject(ctaPen);
+
+                    SelectObject(memDC, Font::GetSubtitleFont());
+                    SetTextColor(memDC, RGB(220, 50, 50));
+                    RECT ctaHeaderRect = { 0, ctaY + 5, rect.right, ctaY + 30 };
+                    DrawText(memDC, "Ready to Get Started?", -1, &ctaHeaderRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+
+                    SelectObject(memDC, Font::GetDescFont());
+                    SetTextColor(memDC, RGB(70, 70, 70));
+                    RECT ctaTextRect = { 0, ctaY + 32, rect.right, ctaY + 55 };
+                    DrawText(
+                        memDC, "Select your team below to begin configuration", -1, &ctaTextRect,
+                        DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+
+                    // Bottom section - Credits and links
+                    int bottomY = rect.bottom - 120;
+
+                    // Divider line
+                    HPEN dividerPen = CreatePen(PS_SOLID, 1, RGB(200, 200, 200));
+                    HPEN oldDividerPen = (HPEN)SelectObject(memDC, dividerPen);
+                    MoveToEx(memDC, 60, bottomY, NULL);
+                    LineTo(memDC, rect.right - 60, bottomY);
+                    SelectObject(memDC, oldDividerPen);
+                    DeleteObject(dividerPen);
+
+                    // Footer info in two columns
+                    SelectObject(memDC, Font::GetDescFont());
+                    SetTextColor(memDC, RGB(120, 120, 120));
+
+                    RECT creatorRect = { 60, bottomY + 15, rect.right / 2, bottomY + 35 };
+                    DrawText(memDC, "Created by Harry Hopkinson", -1, &creatorRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
+
+                    RECT versionRect = { rect.right / 2, bottomY + 15, rect.right - 60, bottomY + 35 };
+                    DrawText(memDC, "Version 2.4 | Open Source", -1, &versionRect, DT_RIGHT | DT_VCENTER | DT_SINGLELINE);
+
+                    // GitHub link
+                    RECT githubRect = { 0, bottomY + 40, rect.right + 15, bottomY + 60 };
+                    DrawText(
+                        memDC, "Visit GitHub for updates and source code", -1, &githubRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
                     SelectObject(memDC, oldFont);
                 }
+                break;
 
-                String::FreeWeaponList(weapons, weaponCount);
+                case SceneType::OperatorSelection:
+                {
+                    const auto& bitmaps = Bitmap::GetCurrentBitmapList();
+                    for (size_t i = 0; i < bitmaps.size(); ++i)
+                    {
+                        int x = 30 + (i % 6) * (110 + 10);
+                        int y = 50 + (int)(i / 6) * (110 + 10);
 
-                // Back button at the bottom
-                RECT backBtn = { 30, rect.bottom - 80, 130, rect.bottom - 30 };
-                DrawText(memDC, "Back", -1, &backBtn, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-                FrameRect(memDC, &backBtn, (HBRUSH)GetStockObject(BLACK_BRUSH));
-            }
-            else if (CurrentScene == SceneType::InfoScreen)
-            {
-                SetBkMode(memDC, TRANSPARENT);
+                        Bitmap::DrawBitmap(memDC, bitmaps[i], x, y, 110, 110, true);
+                    }
 
-                // Title
-                HFONT oldFont = (HFONT)SelectObject(memDC, Font::GetTitleFont());
-                SetTextColor(memDC, RGB(220, 50, 50));
-                RECT infoTitleRect = { 60, 30, rect.right - 60, 80 };
-                DrawText(memDC, "IMPORTANT SETUP", -1, &infoTitleRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+                    SetBkMode(memDC, TRANSPARENT);
 
-                // Subtitle
-                SelectObject(memDC, Font::GetSubtitleFont());
-                SetTextColor(memDC, RGB(100, 100, 100));
-                RECT infoSubRect = { 60, 80, rect.right - 60, 120 };
-                DrawText(
-                    memDC, "For best performance and accuracy, follow these steps:", -1, &infoSubRect,
-                    DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+                    RECT infoBoxRect = { 20, 10, rect.right - 400, 40 };
 
-                // Helper lambda for drawing lines
-                auto DrawLine = [&](const wchar_t* text, int x, int& y, int right, HFONT font = nullptr,
-                                    COLORREF color = RGB(60, 60, 60)) {
-                    if (font)
-                        SelectObject(memDC, font);
-                    SetTextColor(memDC, color);
-                    RECT r = { x, y, right, y + 28 };
-                    DrawTextW(memDC, text, -1, &r, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
-                    y += 40;
-                };
+                    // Draw info box background
+                    HBRUSH infoBrush = CreateSolidBrush(RGB(248, 249, 250));
+                    FillRect(memDC, &infoBoxRect, infoBrush);
+                    DeleteObject(infoBrush);
 
-                SelectObject(memDC, Font::GetSubtitleFont());
-                int y = 140;
-                int left = 80;
-                int right = rect.right - 80;
+                    // Draw info box border
+                    HPEN infoPen = CreatePen(PS_SOLID, 1, RGB(220, 220, 220));
+                    HPEN oldPen = (HPEN)SelectObject(memDC, infoPen);
+                    Rectangle(memDC, infoBoxRect.left, infoBoxRect.top, infoBoxRect.right, infoBoxRect.bottom);
+                    SelectObject(memDC, oldPen);
+                    DeleteObject(infoPen);
 
-                DrawLine(L"1. Disable Windows mouse acceleration (Enhance Pointer Precision):", left, y, right);
+                    // Draw info text in the box
+                    HFONT oldFont = (HFONT)SelectObject(memDC, Font::GetDescFont());
+                    SetTextColor(memDC, RGB(60, 60, 60));
 
-                DrawLine(L"• Open Control Panel > Mouse > Pointer Options.", left + 20, y, right);
-                DrawLine(L"• Uncheck 'Enhance pointer precision'. Click Apply.", left + 20, y, right);
+                    // Create sections within the info box
+                    int sectionWidth = (infoBoxRect.right - infoBoxRect.left) / 4;
 
-                y += 10;
-                DrawLine(L"2. Enable raw mouse input in Rainbow Six Siege:", left, y, right);
+                    // Status section
+                    RECT statusRect = { infoBoxRect.left + 15, infoBoxRect.top + 5, infoBoxRect.left + sectionWidth,
+                                        infoBoxRect.bottom - 5 };
+                    char statusText[50];
+                    wsprintfA(statusText, "Status: %s", EnableRC ? "ENABLED" : "DISABLED");
+                    DrawText(memDC, statusText, -1, &statusRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
-                DrawLine(L"• Close the game.", left + 20, y, right);
-                DrawLine(
-                    L"• Open GameSettings.ini in Documents\\My Games\\Rainbow Six - Siege\\RandomNumber", left + 20, y, right);
-                DrawLine(L"• Set RawInputMouseKeyboard=1 and save.", left + 20, y, right);
-                DrawLine(L"• Restart the game.", left + 20, y, right);
+                    // Toggle key section
+                    RECT toggleRect = { infoBoxRect.left + sectionWidth + 10, infoBoxRect.top + 5,
+                                        infoBoxRect.left + 2 * sectionWidth, infoBoxRect.bottom - 5 };
+                    char toggleText[50];
+                    wsprintfA(toggleText, "Toggle: %s", UseToggleKey ? "ON" : "OFF");
+                    DrawText(memDC, toggleText, -1, &toggleRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
-                y += 100;
-                DrawLine(
-                    L"These steps are required for consistent recoil compensation.", rect.right / 2 - 350, y, right,
-                    Font::GetSubtitleFont(), RGB(220, 50, 50));
+                    // Recoil settings section
+                    RECT recoilRect = { infoBoxRect.left + 2 * sectionWidth + 10, infoBoxRect.top + 5,
+                                        infoBoxRect.left + 3 * sectionWidth, infoBoxRect.bottom - 5 };
+                    char recoilText[60];
+                    wsprintfA(recoilText, "Recoil: V:%d H:%d", CurrentRecoil.Vertical, CurrentRecoil.Horizontal);
+                    DrawText(memDC, recoilText, -1, &recoilRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
-                SelectObject(memDC, oldFont);
+                    // Add a vertical separator line
+                    HPEN separatorPen = CreatePen(PS_SOLID, 3, RGB(180, 180, 180));
+                    HPEN oldSepPen = (HPEN)SelectObject(memDC, separatorPen);
+                    MoveToEx(memDC, 760, 60, NULL);
+                    LineTo(memDC, 760, rect.bottom - 20);
+                    SelectObject(memDC, oldSepPen);
+                    DeleteObject(separatorPen);
+
+                    SelectObject(memDC, oldFont);
+                }
+                break;
+
+                case SceneType::WeaponDisplay:
+                {
+                    SetBkMode(memDC, TRANSPARENT);
+
+                    const char* operatorName = IsAttackerView ? AttackerNames[SelectedOperatorIndex]
+                                                              : DefenderNames[SelectedOperatorIndex];
+                    const char* weaponStr = IsAttackerView ? AttackerPrimaryWeapons[SelectedOperatorIndex]
+                                                           : DefenderPrimaryWeapons[SelectedOperatorIndex];
+
+                    Font::DrawCenteredText(memDC, operatorName, 0, 260, rect.right, Font::GetLargeFont());
+
+                    const char* instruction = "Select a primary weapon:";
+                    Font::DrawCenteredText(memDC, instruction, 0, 300, rect.right, Font::GetMediumFont());
+
+                    const char* weapons[3] = { NULL, NULL, NULL };
+                    int weaponCount = String::ParseWeaponList(weaponStr, weapons, 3);
+
+                    int imgWidth = 400;
+                    int imgHeight = 150;
+
+                    int totalWidth = weaponCount * imgWidth + (weaponCount - 1);
+
+                    int startX = (rect.right - totalWidth) / 2;
+
+                    int availableHeight = rect.bottom - 120;
+                    int contentHeight = imgHeight + 50;
+                    int startY = 120 + (availableHeight - contentHeight) / 2;
+
+                    SetStretchBltMode(memDC, HALFTONE);
+                    SetBrushOrgEx(memDC, 0, 0, NULL);
+
+                    for (int i = 0; i < weaponCount; ++i)
+                    {
+                        int x = startX + i * (imgWidth);
+                        int y = startY;
+
+                        HBITMAP weaponBmp = Bitmap::GetWeaponBitmap(weapons[i]);
+
+                        Bitmap::DrawBitmap(memDC, weaponBmp, x, y, imgWidth, imgHeight, true);
+
+                        RECT nameRect = { x, y + imgHeight + 15, x + imgWidth, y + imgHeight + 45 };
+                        HFONT oldFont = (HFONT)SelectObject(memDC, Font::GetLargeFont());
+
+                        // Remove background - make text transparent
+                        SetBkMode(memDC, TRANSPARENT);
+                        SetTextColor(memDC, RGB(0, 0, 0));
+
+                        DrawText(memDC, weapons[i], -1, &nameRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+
+                        SelectObject(memDC, oldFont);
+                    }
+
+                    String::FreeWeaponList(weapons, weaponCount);
+
+                    // Back button at the bottom
+                    RECT backBtn = { 30, rect.bottom - 80, 130, rect.bottom - 30 };
+                    DrawText(memDC, "Back", -1, &backBtn, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+                    FrameRect(memDC, &backBtn, (HBRUSH)GetStockObject(BLACK_BRUSH));
+                }
+                break;
+
+                case SceneType::InfoScreen:
+                {
+                    SetBkMode(memDC, TRANSPARENT);
+
+                    // Title
+                    HFONT oldFont = (HFONT)SelectObject(memDC, Font::GetTitleFont());
+                    SetTextColor(memDC, RGB(220, 50, 50));
+                    RECT infoTitleRect = { 60, 30, rect.right - 60, 80 };
+                    DrawText(memDC, "IMPORTANT SETUP", -1, &infoTitleRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+
+                    // Subtitle
+                    SelectObject(memDC, Font::GetSubtitleFont());
+                    SetTextColor(memDC, RGB(100, 100, 100));
+                    RECT infoSubRect = { 60, 80, rect.right - 60, 120 };
+                    DrawText(
+                        memDC, "For best performance and accuracy, follow these steps:", -1, &infoSubRect,
+                        DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+
+                    // Helper lambda for drawing lines
+                    auto DrawLine = [&](const wchar_t* text, int x, int& y, int right, HFONT font = nullptr,
+                                        COLORREF color = RGB(60, 60, 60))
+                    {
+                        if (font) SelectObject(memDC, font);
+                        SetTextColor(memDC, color);
+                        RECT r = { x, y, right, y + 28 };
+                        DrawTextW(memDC, text, -1, &r, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
+                        y += 40;
+                    };
+
+                    SelectObject(memDC, Font::GetSubtitleFont());
+                    int y = 140;
+                    int left = 80;
+                    int right = rect.right - 80;
+
+                    DrawLine(L"1. Disable Windows mouse acceleration (Enhance Pointer Precision):", left, y, right);
+
+                    DrawLine(L"• Open Control Panel > Mouse > Pointer Options.", left + 20, y, right);
+                    DrawLine(L"• Uncheck 'Enhance pointer precision'. Click Apply.", left + 20, y, right);
+
+                    y += 10;
+                    DrawLine(L"2. Enable raw mouse input in Rainbow Six Siege:", left, y, right);
+
+                    DrawLine(L"• Close the game.", left + 20, y, right);
+                    DrawLine(
+                        L"• Open GameSettings.ini in Documents\\My Games\\Rainbow Six - Siege\\RandomNumber", left + 20, y, right);
+                    DrawLine(L"• Set RawInputMouseKeyboard=1 and save.", left + 20, y, right);
+                    DrawLine(L"• Restart the game.", left + 20, y, right);
+
+                    y += 100;
+                    DrawLine(
+                        L"These steps are required for consistent recoil compensation.", rect.right / 2 - 350, y, right,
+                        Font::GetSubtitleFont(), RGB(220, 50, 50));
+
+                    SelectObject(memDC, oldFont);
+                }
+                break;
             }
 
             BitBlt(hdc, 0, 0, rect.right, rect.bottom, memDC, 0, 0, SRCCOPY);

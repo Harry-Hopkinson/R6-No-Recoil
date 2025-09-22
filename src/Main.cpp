@@ -11,9 +11,8 @@
 #include "files/Files.h"
 
 #include "recoil/Recoil.h"
-#include "recoil/Threads.h"
-
 #include "scenes/Scenes.h"
+#include "threads/Threads.h"
 
 #include "ui/Bitmap.h"
 #include "ui/widgets/Button.h"

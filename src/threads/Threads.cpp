@@ -1,6 +1,9 @@
 #include "Threads.h"
 
+#ifdef USE_CONTROLLER
 #include <Xinput.h>
+#endif
+
 #include <windows.h>
 #include <thread>
 
@@ -20,6 +23,7 @@ bool IsMouseFiring()
     return (GetAsyncKeyState(VK_LBUTTON) & 0x8000);
 }
 
+#ifdef USE_CONTROLLER
 // Controller: LT held and RT pressed = ADS + fire
 bool IsControllerADS(const XINPUT_STATE& state)
 {
@@ -39,6 +43,7 @@ bool IsControllerFiring(const XINPUT_STATE& state)
     const BYTE FIRE_THRESHOLD = 30;
     return (RT > FIRE_THRESHOLD);
 }
+#endif
 
 // Move mouse by (dx, dy)
 void MoveMouseRaw(int dx, int dy)
@@ -57,18 +62,28 @@ namespace Threads
     {
         while (Running)
         {
+#ifdef USE_CONTROLLER
             // Poll controller state
             XINPUT_STATE controllerState;
             ZeroMemory(&controllerState, sizeof(XINPUT_STATE));
             bool controllerConnected = (XInputGetState(0, &controllerState) == ERROR_SUCCESS);
+#else
+            bool controllerConnected = false;
+#endif
 
-            bool isADS = IsMouseADS() || (controllerConnected && IsControllerADS(controllerState));
+            bool isADS = IsMouseADS()
+#ifdef USE_CONTROLLER
+                || (controllerConnected && IsControllerADS(controllerState))
+#endif
+                ;
 
             if (EnableRC && isADS)
             {
                 while (
-                    IsMouseFiring() ||
-                    (controllerConnected && IsControllerFiring(controllerState))
+                    IsMouseFiring()
+#ifdef USE_CONTROLLER
+                    || (controllerConnected && IsControllerFiring(controllerState))
+#endif
                 )
                 {
                     int baseX = CurrentRecoil.Horizontal;
@@ -78,9 +93,11 @@ namespace Threads
 
                     std::this_thread::sleep_for(std::chrono::milliseconds(5));
 
+#ifdef USE_CONTROLLER
                     // Update controller state inside fire loop
                     if (controllerConnected)
                         XInputGetState(0, &controllerState);
+#endif
                 }
             }
 
@@ -97,7 +114,7 @@ namespace Threads
                 EnableRC = !EnableRC;
                 Files::SaveConfig();
                 InvalidateRect(FindWindow(NULL, "R6 No Recoil"), NULL, TRUE);
-                std::this_thread::sleep_for(std::chrono::milliseconds(300)); // Debounce
+                std::this_thread::sleep_for(std::chrono::milliseconds(300));
             }
 
             std::this_thread::sleep_for(std::chrono::milliseconds(10));

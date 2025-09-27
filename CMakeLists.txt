@@ -20,6 +20,8 @@ add_executable(r6-no-recoil WIN32 ${files} ${RESOURCE_FILES})
 
 file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR})
 
+target_link_libraries(r6-no-recoil PRIVATE xinput)
+
 # Platform-specific compile and link options
 if(MINGW)
     target_compile_options(r6-no-recoil PRIVATE
@@ -46,7 +48,7 @@ if(MINGW)
         -Wl,--dynamicbase
     )
 elseif(MSVC)
-    target_compile_definitions(r6-no-recoil PRIVATE _CRT_SECURE_NO_WARNINGS)
+    target_compile_definitions(r6-no-recoil PRIVATE _CRT_SECURE_NO_WARNINGS _AMD64_=1 _M_X64=100)
     target_compile_options(r6-no-recoil PRIVATE
         /W4
         /WX-

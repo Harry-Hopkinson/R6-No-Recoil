@@ -51,9 +51,6 @@ namespace ClickDetection
                 String::FreeWeaponList(weapons, weaponCount);
             }
         }
-
-        String::FreeWeaponList(weapons, weaponCount);
-
         // Back button detection
         if (mouseX >= 30 && mouseX <= 130 && mouseY >= bottom - 80 && mouseY <= bottom - 30)
         {

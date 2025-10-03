@@ -67,8 +67,6 @@ namespace Threads
             XINPUT_STATE controllerState;
             ZeroMemory(&controllerState, sizeof(XINPUT_STATE));
             bool controllerConnected = (XInputGetState(0, &controllerState) == ERROR_SUCCESS);
-#else
-            bool controllerConnected = false;
 #endif
 
             bool isADS = IsMouseADS()

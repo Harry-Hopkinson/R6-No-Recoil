@@ -1,6 +1,6 @@
 name: Bug report
 description: Report an issue you encountered when using the R6 No Recoil Tool.
-labels: 
+labels:
 - bug
 
 body:
@@ -37,7 +37,7 @@ body:
     placeholder: |
       Tell us the steps required to trigger your bug. Example:
       1. Change value in Config.toml.
-      2. Open R6-No-Recoil.
+      2. Open R6NoRecoil.
       3. Observe the Tool Crashing.
   validations:
     required: true

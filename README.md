@@ -9,7 +9,7 @@
 
 | Release Build | Development Build |
 |---------------|-------------------|
-| [![Release](https://img.shields.io/badge/Release%20Build-Download-blue?style=for-the-badge&logo=github)](https://github.com/Harry-Hopkinson/R6-No-Recoil/releases/latest/download/r6-no-recoil.zip) | [![Development](https://img.shields.io/badge/Development%20Build-Download-yellow?style=for-the-badge&logo=github)](https://nightly.link/Harry-Hopkinson/R6-No-Recoil/workflows/CI/main/r6-no-recoil.zip) |
+| [![Release](https://img.shields.io/badge/Release%20Build-Download-blue?style=for-the-badge&logo=github)](https://github.com/Harry-Hopkinson/R6-No-Recoil/releases/latest/download/R6NoRecoil.zip) | [![Development](https://img.shields.io/badge/Development%20Build-Download-yellow?style=for-the-badge&logo=github)](https://nightly.link/Harry-Hopkinson/R6-No-Recoil/workflows/CI/main/R6NoRecoil.zip) |
 </div>
 
 A lightweight, efficient **no-recoil tool** for Rainbow Six Siege. Designed for smooth performance and ease of use.
@@ -29,8 +29,8 @@ Most recoil tools like Logitech G Hub (now detectable) are bloated, heavy, and c
 
 ## 🎮 How to Use
 
-1. **Download** `r6-no-recoil.exe` from the [Github Release Page](https://github.com/Harry-Hopkinson/R6-No-Recoil/releases/latest).
-2. **Run the Program** (double-click `r6-no-recoil.exe`).
+1. **Download** `R6NoRecoil` from the [Github Release Page](https://github.com/Harry-Hopkinson/R6-No-Recoil/releases/latest).
+2. **Run the Program** (double-click `R6NoRecoil`).
 3. **Choose whether attacking or defending**.
 4. **Choose your operator and their primary weapon**.
 5. **Controls:**

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(r6-no-recoil)
+project(R6NoRecoil)
 
 set(CMAKE_CXX_STANDARD 20)
 
@@ -16,15 +16,15 @@ set(RESOURCE_FILES src/resource/resource.rc)
 include_directories(${CMAKE_SOURCE_DIR})
 
 # Define the executable target for Windows GUI app
-add_executable(r6-no-recoil WIN32 ${files} ${RESOURCE_FILES})
+add_executable(R6NoRecoil WIN32 ${files} ${RESOURCE_FILES})
 
 file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR})
 
-target_link_libraries(r6-no-recoil PRIVATE xinput)
+target_link_libraries(R6NoRecoil PRIVATE xinput)
 
 # Platform-specific compile and link options
 if(MINGW)
-    target_compile_options(r6-no-recoil PRIVATE
+    target_compile_options(R6NoRecoil PRIVATE
         -O2
         -Wall
         -Wextra
@@ -37,7 +37,7 @@ if(MINGW)
         -fstack-protector-strong
     )
 
-    target_link_options(r6-no-recoil PRIVATE
+    target_link_options(R6NoRecoil PRIVATE
         -static
         -static-libgcc
         -static-libstdc++
@@ -48,8 +48,8 @@ if(MINGW)
         -Wl,--dynamicbase
     )
 elseif(MSVC)
-    target_compile_definitions(r6-no-recoil PRIVATE _CRT_SECURE_NO_WARNINGS _AMD64_=1 _M_X64=100)
-    target_compile_options(r6-no-recoil PRIVATE
+    target_compile_definitions(R6NoRecoil PRIVATE _CRT_SECURE_NO_WARNINGS _AMD64_=1 _M_X64=100)
+    target_compile_options(R6NoRecoil PRIVATE
         /W4
         /WX-
         /O2
@@ -61,7 +61,7 @@ elseif(MSVC)
         /GS
         /utf-8
     )
-    target_link_options(r6-no-recoil PRIVATE
+    target_link_options(R6NoRecoil PRIVATE
         /LTCG
         /INCREMENTAL:NO
         /OPT:REF
@@ -73,13 +73,13 @@ elseif(MSVC)
 endif()
 
 # Keep the post-build copy as well for runtime
-add_custom_command(TARGET r6-no-recoil POST_BUILD
+add_custom_command(TARGET R6NoRecoil POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
     ${CMAKE_SOURCE_DIR}/assets
     ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/assets
 )
 
-add_custom_command(TARGET r6-no-recoil POST_BUILD
+add_custom_command(TARGET R6NoRecoil POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy
         ${CMAKE_SOURCE_DIR}/data/WeaponData.json
         ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/WeaponData.json

@@ -81,6 +81,12 @@ add_custom_command(TARGET R6NoRecoil POST_BUILD
 
 add_custom_command(TARGET R6NoRecoil POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy
+        ${CMAKE_SOURCE_DIR}/data/Config.toml
+        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Config.toml
+)
+
+add_custom_command(TARGET R6NoRecoil POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
         ${CMAKE_SOURCE_DIR}/data/WeaponData.json
         ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/WeaponData.json
 )

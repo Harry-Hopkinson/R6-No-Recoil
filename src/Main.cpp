@@ -137,6 +137,10 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 case SceneType::WeaponDisplay:
                     Scenes::DrawWeaponDisplay(memDC, rect.right, rect.bottom);
                     break;
+					
+				case SceneType::AttachmentDisplay:
+					Scenes::DrawAttachmentDisplay(memDC, rect.right, rect.bottom);
+					break;
 
                 case SceneType::InfoScreen:
                     Scenes::DrawInfoScreen(memDC, rect.right);

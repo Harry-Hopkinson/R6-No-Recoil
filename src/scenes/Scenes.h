@@ -7,6 +7,7 @@ enum class SceneType
     LandingPage,
     OperatorSelection,
     WeaponDisplay,
+	AttachmentDisplay,
     InfoScreen
 };
 
@@ -27,6 +28,11 @@ namespace Scenes
      * @brief Paints weapon selection contents to the screen
      */
     void DrawWeaponDisplay(HDC memDC, int right, int bottom);
+	
+	/**
+     * @brief Paints attachment selection contents to the screen
+     */
+    void DrawAttachmentDisplay(HDC memDC, int right, int bottom);
 
     /**
      * @brief Paints the info screen page contents to the screen

@@ -4,7 +4,7 @@
 
 #define maximum(a, b) ((a) > (b) ? (a) : (b))
 
-namespace Scenes
+namespace Drawing
 {
 
     void DrawLandingPage(HDC memDC, int right, int bottom)
@@ -130,4 +130,4 @@ namespace Scenes
         SelectObject(memDC, oldFont);
     }
 
-} // namespace Scenes
+} // namespace Drawing

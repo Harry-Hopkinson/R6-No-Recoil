@@ -7,6 +7,7 @@
 #include <thread>
 
 #include "detection/ClickDetection.h"
+#include "drawing/Drawing.h"
 
 #include "files/Files.h"
 
@@ -127,23 +128,23 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             switch (Scenes::GetCurrentScene())
             {
                 case SceneType::LandingPage:
-                    Scenes::DrawLandingPage(memDC, rect.right, rect.bottom);
+                    Drawing::DrawLandingPage(memDC, rect.right, rect.bottom);
                     break;
 
                 case SceneType::OperatorSelection:
-                    Scenes::DrawOperatorSelection(memDC, rect.right, rect.bottom);
+                    Drawing::DrawOperatorSelection(memDC, rect.right, rect.bottom);
                     break;
 
                 case SceneType::WeaponDisplay:
-                    Scenes::DrawWeaponDisplay(memDC, rect.right, rect.bottom);
+                    Drawing::DrawWeaponDisplay(memDC, rect.right, rect.bottom);
                     break;
-					
-				case SceneType::AttachmentDisplay:
-					Scenes::DrawAttachmentDisplay(memDC, rect.right, rect.bottom);
-					break;
+                    
+                case SceneType::AttachmentDisplay:
+                    Drawing::DrawAttachmentDisplay(memDC, rect.right, rect.bottom);
+                    break;
 
                 case SceneType::InfoScreen:
-                    Scenes::DrawInfoScreen(memDC, rect.right);
+                    Drawing::DrawInfoScreen(memDC, rect.right);
                     break;
             }
 

@@ -2,7 +2,7 @@
 
 #include "../scenes/Scenes.h"
 
-namespace Scenes
+namespace Drawing
 {
 
     void DrawAttachmentDisplay(HDC memDC, int right, int bottom)
@@ -15,4 +15,4 @@ namespace Scenes
         FrameRect(memDC, &backBtn, (HBRUSH)GetStockObject(BLACK_BRUSH));
     }
 
-} // namespace Scenes
+} // namespace Drawing

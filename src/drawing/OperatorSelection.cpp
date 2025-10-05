@@ -5,7 +5,7 @@
 #include "../ui/Bitmap.h"
 #include "../ui/widgets/Font.h"
 
-namespace Scenes
+namespace Drawing
 {
 
     void DrawOperatorSelection(HDC memDC, int right, int bottom)
@@ -74,4 +74,4 @@ namespace Scenes
         SelectObject(memDC, oldFont);
     }
 
-} // namespace Scenes
+} // namespace Drawing

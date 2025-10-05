@@ -2,7 +2,7 @@
 
 #include "../ui/widgets/Font.h"
 
-namespace Scenes
+namespace Drawing
 {
 
     void DrawInfoScreen(HDC memDC, int right)
@@ -63,4 +63,4 @@ namespace Scenes
         SelectObject(memDC, oldFont);
     }
 
-} // namespace Scenes
+} // namespace Drawing

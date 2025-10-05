@@ -8,7 +8,7 @@
 #include "../ui/Bitmap.h"
 #include "../ui/widgets/Font.h"
 
-namespace Scenes
+namespace Drawing
 {
 
     void DrawWeaponDisplay(HDC memDC, int right, int bottom)
@@ -71,4 +71,4 @@ namespace Scenes
         FrameRect(memDC, &backBtn, (HBRUSH)GetStockObject(BLACK_BRUSH));
     }
 
-} // namespace Scenes
+} // namespace Drawing

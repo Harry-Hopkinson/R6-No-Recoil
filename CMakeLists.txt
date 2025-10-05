@@ -39,6 +39,7 @@ if(MINGW)
     )
 
     target_link_options(R6NoRecoil PRIVATE
+        -static
         -static-libgcc
         -static-libstdc++
         -Wl,--gc-sections

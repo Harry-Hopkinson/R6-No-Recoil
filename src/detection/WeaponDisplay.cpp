@@ -44,8 +44,7 @@ namespace ClickDetection
                 SetRecoilModeFromWeapon(weapons[i]);
                 Files::SaveConfig();
 
-                Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
-                Buttons::CreateOperatorSelectionButtons(hwnd);
+                Scenes::ChangeCurrentScene(SceneType::AttachmentDisplay);
                 InvalidateRect(hwnd, NULL, TRUE);
 
                 String::FreeWeaponList(weapons, weaponCount);

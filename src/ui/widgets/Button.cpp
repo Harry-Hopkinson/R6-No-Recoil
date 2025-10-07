@@ -34,7 +34,7 @@ namespace Buttons
     void CreateLandingPageButtons(HWND hwnd)
     {
         ButtonsVector.clear();
-        
+
         int centerX = WINDOW_WIDTH / 2;
         int centerY = WINDOW_HEIGHT / 2 + 80;
 
@@ -43,8 +43,6 @@ namespace Buttons
 
         ButtonsVector.emplace_back(hwnd, WINDOW_WIDTH - 375, WINDOW_HEIGHT - 100, 160, 40, "Support the Project", 6);
         ButtonsVector.emplace_back(hwnd, WINDOW_WIDTH - 200, WINDOW_HEIGHT - 100, 160, 40, "View on GitHub", 7);
-
-        ButtonsVector.emplace_back(hwnd, 60, WINDOW_HEIGHT - 100, 160, 40, "Important Setup", 8);
     }
 
     void CreateOperatorSelectionButtons(HWND hwnd)
@@ -55,20 +53,13 @@ namespace Buttons
         int startY = (WINDOW_HEIGHT - 90) / 2;
 
         ButtonsVector.emplace_back(hwnd, startX, startY, 170, 40, "Toggle Recoil", 1);
-        ButtonsVector.emplace_back(hwnd, startX + 170 + 10 + 80 + 10, startY, 80, 40, "+", 9);
-        ButtonsVector.emplace_back(hwnd, startX + 170 + 10, startY, 80, 40, "-", 10);
+        ButtonsVector.emplace_back(hwnd, startX + 170 + 10 + 80 + 10, startY, 80, 40, "+", 8);
+        ButtonsVector.emplace_back(hwnd, startX + 170 + 10, startY, 80, 40, "-", 9);
 
         ButtonsVector.emplace_back(hwnd, startX, startY + 40 + 10, 170, 40, "Toggle Key", 2);
         ButtonsVector.emplace_back(
             hwnd, startX + 170 + 10, startY + 40 + 10, 170, 40, IsAttackerView ? "Switch to Defenders" : "Switch to Attackers",
             IsAttackerView ? 4 : 3);
-
-        ButtonsVector.emplace_back(hwnd, WINDOW_WIDTH - 175, WINDOW_HEIGHT - 75, 160, 40, "Back to Menu", 5);
-    }
-
-    void CreateInfoScreenButtons(HWND hwnd)
-    {
-        ButtonsVector.clear();
 
         ButtonsVector.emplace_back(hwnd, WINDOW_WIDTH - 175, WINDOW_HEIGHT - 75, 160, 40, "Back to Menu", 5);
     }

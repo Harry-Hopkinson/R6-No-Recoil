@@ -5,4 +5,3 @@ struct WeaponRecoil
     int Vertical;
     int Horizontal;
 };
-

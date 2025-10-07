@@ -25,5 +25,4 @@ namespace Buttons
 
     void CreateLandingPageButtons(HWND hwnd);
     void CreateOperatorSelectionButtons(HWND hwnd);
-    void CreateInfoScreenButtons(HWND hwnd);
 }

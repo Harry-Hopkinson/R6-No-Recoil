@@ -7,13 +7,8 @@ Button::Button(HWND parent, int x, int y, int width, int height, const char* tex
     , id(id)
 {
     hwndButton = CreateWindow(
-        "BUTTON", text, WS_VISIBLE | WS_CHILD | BS_PUSHBUTTON,
-        x, y, width, height,
-        parent,
-        reinterpret_cast<HMENU>(static_cast<uintptr_t>(id)),
-        GetModuleHandle(NULL),
-        NULL
-    );
+        "BUTTON", text, WS_VISIBLE | WS_CHILD | BS_PUSHBUTTON, x, y, width, height, parent,
+        reinterpret_cast<HMENU>(static_cast<uintptr_t>(id)), GetModuleHandle(NULL), NULL);
 }
 
 HWND Button::GetHWND() const
@@ -29,9 +24,12 @@ namespace
 namespace Buttons
 {
 
-    std::vector<Button> GetButtons() { return ButtonsVector; }
+    std::vector<Button> GetButtons()
+    {
+        return ButtonsVector;
+    }
 
-    void CreateLandingPageButtons(HWND hwnd)
+    void CreateMainMenuButtons(HWND hwnd)
     {
         ButtonsVector.clear();
 

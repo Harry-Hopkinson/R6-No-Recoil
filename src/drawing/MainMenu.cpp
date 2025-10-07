@@ -7,7 +7,7 @@
 namespace Drawing
 {
 
-    void DrawLandingPage(HDC memDC, int right, int bottom)
+    void DrawMainMenu(HDC memDC, int right, int bottom)
     {
         SetBkMode(memDC, TRANSPARENT);
 
@@ -37,13 +37,8 @@ namespace Drawing
         SetTextColor(memDC, RGB(70, 70, 70));
         int leftCurrentY = 185;
 
-        const char* features[] = {
-            "- All R6 operators supported",
-            "- Multiple sensitivity presets",
-            "- Customisable toggle controls",
-            "- Minimal system impact",
-            "- Powerful config support"
-        };
+        const char* features[] = { "- All R6 operators supported", "- Multiple sensitivity presets",
+                                   "- Customisable toggle controls", "- Minimal system impact", "- Powerful config support" };
         const size_t featureCount = sizeof(features) / sizeof(features[0]);
 
         for (size_t i = 0; i < featureCount; i++)
@@ -64,14 +59,8 @@ namespace Drawing
         SetTextColor(memDC, RGB(70, 70, 70));
         int rightCurrentY = rightStartY + 45;
 
-        const char* steps[] =
-        {
-            "1. Choose Attacker or Defender",
-            "2. Select your operator",
-            "3. Pick your primary weapon",
-            "4. Start playing - it's automatic!",
-            "5. Use toggle key to enable/disable"
-        };
+        const char* steps[] = { "1. Choose Attacker or Defender", "2. Select your operator", "3. Pick your primary weapon",
+                                "4. Start playing - it's automatic!", "5. Use toggle key to enable/disable" };
         const size_t stepCount = sizeof(steps) / sizeof(steps[0]);
 
         for (size_t i = 0; i < stepCount; i++)
@@ -103,7 +92,8 @@ namespace Drawing
         SelectObject(memDC, Font::GetDescFont());
         SetTextColor(memDC, RGB(70, 70, 70));
         RECT ctaTextRect = { 0, ctaY + 32, right, ctaY + 55 };
-        DrawText(memDC, "Select your team below to begin configuration", -1, &ctaTextRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+        DrawText(
+            memDC, "Select your team below to begin configuration", -1, &ctaTextRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
         // Footer
         int bottomY = bottom - 120;

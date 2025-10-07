@@ -65,10 +65,10 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
                 case 5: // Back to Menu
-                    Scenes::ChangeCurrentScene(SceneType::LandingPage);
+                    Scenes::ChangeCurrentScene(SceneType::MainMenu);
                     for (const auto& button : Buttons::GetButtons())
                         ShowWindow(button.GetHWND(), SW_HIDE);
-                    Buttons::CreateLandingPageButtons(hwnd);
+                    Buttons::CreateMainMenuButtons(hwnd);
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
                 case 6: // Support the Project button
@@ -96,7 +96,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             HICON hIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON1));
             SendMessage(hwnd, WM_SETICON, ICON_BIG, (LPARAM)hIcon);
 
-            Buttons::CreateLandingPageButtons(hwnd);
+            Buttons::CreateMainMenuButtons(hwnd);
 
             Bitmap::AttackerBitmaps = Bitmap::LoadOperatorBitmaps(AttackerNames);
             Bitmap::DefenderBitmaps = Bitmap::LoadOperatorBitmaps(DefenderNames);
@@ -120,8 +120,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             switch (Scenes::GetCurrentScene())
             {
-                case SceneType::LandingPage:
-                    Drawing::DrawLandingPage(memDC, rect.right, rect.bottom);
+                case SceneType::MainMenu:
+                    Drawing::DrawMainMenu(memDC, rect.right, rect.bottom);
                     break;
 
                 case SceneType::OperatorSelection:
@@ -166,6 +166,9 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
                 case SceneType::AttachmentDisplay:
                     ClickDetection::AttachmentDisplay(hwnd, rect.right, rect.bottom, mouseX, mouseY);
+                    break;
+
+                default:
                     break;
             }
         }

@@ -15,8 +15,7 @@ namespace Drawing
     {
         SetBkMode(memDC, TRANSPARENT);
 
-        const char* operatorName = IsAttackerView ? AttackerNames[SelectedOperatorIndex]
-                                                  : DefenderNames[SelectedOperatorIndex];
+        const char* operatorName = IsAttackerView ? AttackerNames[SelectedOperatorIndex] : DefenderNames[SelectedOperatorIndex];
         const char* weaponStr = IsAttackerView ? AttackerPrimaryWeapons[SelectedOperatorIndex]
                                                : DefenderPrimaryWeapons[SelectedOperatorIndex];
 

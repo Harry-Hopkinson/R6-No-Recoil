@@ -2,11 +2,10 @@
 
 enum class SceneType
 {
-    LandingPage,
+    MainMenu,
     OperatorSelection,
     WeaponDisplay,
-    AttachmentDisplay,
-    InfoScreen
+    AttachmentDisplay
 };
 
 namespace Scenes

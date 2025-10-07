@@ -23,6 +23,6 @@ namespace Buttons
 {
     std::vector<Button> GetButtons();
 
-    void CreateLandingPageButtons(HWND hwnd);
+    void CreateMainMenuButtons(HWND hwnd);
     void CreateOperatorSelectionButtons(HWND hwnd);
 }

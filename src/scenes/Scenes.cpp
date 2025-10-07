@@ -2,13 +2,16 @@
 
 namespace
 {
-    SceneType CurrentScene = SceneType::LandingPage;
+    SceneType CurrentScene = SceneType::MainMenu;
 }
 
 namespace Scenes
 {
 
-    SceneType GetCurrentScene() { return CurrentScene; }
+    SceneType GetCurrentScene()
+    {
+        return CurrentScene;
+    }
 
     void ChangeCurrentScene(SceneType newScene)
     {

@@ -4,6 +4,7 @@
 
 #include "../core/String.h"
 #include "../files/Files.h"
+
 #include "../recoil/Recoil.h"
 #include "../scenes/Scenes.h"
 #include "../ui/widgets/Button.h"
@@ -11,8 +12,7 @@
 namespace ClickDetection
 {
 
-    void WeaponDisplay(HWND hwnd, int right, int bottom,
-                       int mouseX, int mouseY)
+    void WeaponDisplay(HWND hwnd, int right, int bottom, int mouseX, int mouseY)
     {
         const char* weaponStr = IsAttackerView ? AttackerPrimaryWeapons[SelectedOperatorIndex]
                                                : DefenderPrimaryWeapons[SelectedOperatorIndex];
@@ -38,8 +38,7 @@ namespace ClickDetection
 
             RECT clickRect = { x, y, x + imgWidth, y + imgHeight + 45 };
 
-            if (mouseX >= clickRect.left && mouseX <= clickRect.right && mouseY >= clickRect.top
-                && mouseY <= clickRect.bottom)
+            if (mouseX >= clickRect.left && mouseX <= clickRect.right && mouseY >= clickRect.top && mouseY <= clickRect.bottom)
             {
                 SetRecoilModeFromWeapon(weapons[i]);
                 Files::SaveConfig();

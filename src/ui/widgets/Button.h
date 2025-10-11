@@ -22,6 +22,7 @@ private:
 namespace Buttons
 {
     std::vector<Button> GetButtons();
+    void ClearButtons();
 
     void CreateMainMenuButtons(HWND hwnd);
     void CreateOperatorSelectionButtons(HWND hwnd);

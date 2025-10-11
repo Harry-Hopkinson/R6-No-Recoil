@@ -51,23 +51,17 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 case 3: // Attacker Selection
                     IsAttackerView = true;
                     Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
-                    for (const auto& button : Buttons::GetButtons())
-                        ShowWindow(button.GetHWND(), SW_HIDE);
                     Buttons::CreateOperatorSelectionButtons(hwnd);
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
                 case 4: // Defender Selection
                     IsAttackerView = false;
                     Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
-                    for (const auto& button : Buttons::GetButtons())
-                        ShowWindow(button.GetHWND(), SW_HIDE);
                     Buttons::CreateOperatorSelectionButtons(hwnd);
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
                 case 5: // Back to Menu
                     Scenes::ChangeCurrentScene(SceneType::MainMenu);
-                    for (const auto& button : Buttons::GetButtons())
-                        ShowWindow(button.GetHWND(), SW_HIDE);
                     Buttons::CreateMainMenuButtons(hwnd);
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
@@ -131,10 +125,6 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 case SceneType::WeaponDisplay:
                     Drawing::DrawWeaponDisplay(memDC, rect.right, rect.bottom);
                     break;
-
-                case SceneType::AttachmentDisplay:
-                    Drawing::DrawAttachmentDisplay(memDC, rect.right, rect.bottom);
-                    break;
             }
 
             BitBlt(hdc, 0, 0, rect.right, rect.bottom, memDC, 0, 0, SRCCOPY);
@@ -164,10 +154,6 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     ClickDetection::WeaponDisplay(hwnd, rect.right, rect.bottom, mouseX, mouseY);
                     break;
 
-                case SceneType::AttachmentDisplay:
-                    ClickDetection::AttachmentDisplay(hwnd, rect.right, rect.bottom, mouseX, mouseY);
-                    break;
-
                 default:
                     break;
             }
@@ -182,7 +168,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             Font::Cleanup();
 
-            Buttons::GetButtons().clear();
+            Buttons::ClearButtons();
             PostQuitMessage(0);
             return 0;
         }
@@ -198,7 +184,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
 {
     WNDCLASS wc = {};
     wc.style = CS_HREDRAW | CS_VREDRAW;
-    wc.lpszClassName = "NoRecoilWindow";
+    wc.lpszClassName = "R6NoRecoil";
     wc.hInstance = hInstance;
     wc.lpfnWndProc = WindowProc;
     wc.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON1));

@@ -9,6 +9,4 @@ namespace ClickDetection
 
     void WeaponDisplay(HWND hwnd, int right, int bottom, int mouseX, int mouseY);
 
-    void AttachmentDisplay(HWND hwnd, int right, int bottom, int mouseX, int mouseY);
-
 } // namespace ClickDetection

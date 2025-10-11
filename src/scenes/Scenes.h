@@ -5,7 +5,6 @@ enum class SceneType
     MainMenu,
     OperatorSelection,
     WeaponDisplay,
-    AttachmentDisplay
 };
 
 namespace Scenes

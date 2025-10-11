@@ -29,8 +29,20 @@ namespace Buttons
         return ButtonsVector;
     }
 
+    void ClearButtons()
+    {
+        ButtonsVector.clear();
+    }
+
+    void HideButtons()
+    {
+        for (const auto& button : ButtonsVector)
+            ShowWindow(button.GetHWND(), SW_HIDE);
+    }
+
     void CreateMainMenuButtons(HWND hwnd)
     {
+        HideButtons();
         ButtonsVector.clear();
 
         int centerX = WINDOW_WIDTH / 2;
@@ -45,6 +57,7 @@ namespace Buttons
 
     void CreateOperatorSelectionButtons(HWND hwnd)
     {
+        HideButtons();
         ButtonsVector.clear();
 
         int startX = WINDOW_WIDTH - 200 - (350 / 2);

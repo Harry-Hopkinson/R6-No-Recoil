@@ -31,31 +31,72 @@ namespace ClickDetection
         int contentHeight = imgHeight + 50;
         int startY = 120 + (availableHeight - contentHeight) / 2;
 
+        int sectionTop = bottom - 250;
+        int btnWidth = 250;
+        int btnHeight = 50;
+        int gap = 60;
+        int centerX = right / 2;
+
+        int nonMagLeft = centerX - btnWidth - gap / 2;
+        int nonMagRight = centerX - gap / 2;
+        int magLeft = centerX + gap / 2;
+        int magRight = centerX + btnWidth + gap / 2;
+        int btnTop = sectionTop + 60;
+        int btnBottom = btnTop + btnHeight;
+
+        if (mouseY >= btnTop && mouseY <= btnBottom)
+        {
+            if (mouseX >= nonMagLeft && mouseX <= nonMagRight)
+            {
+                SelectedScopeType = ScopeType::MAGNIFIED;
+                InvalidateRect(hwnd, NULL, TRUE);
+                String::FreeWeaponList(weapons, weaponCount);
+                return;
+            }
+            else if (mouseX >= magLeft && mouseX <= magRight)
+            {
+                SelectedScopeType = ScopeType::NON_MAGNIFIED;
+                InvalidateRect(hwnd, NULL, TRUE);
+                String::FreeWeaponList(weapons, weaponCount);
+                return;
+            }
+        }
+
         for (int i = 0; i < weaponCount; ++i)
         {
             int x = startX + i * (imgWidth + spacing);
             int y = startY;
-
             RECT clickRect = { x, y, x + imgWidth, y + imgHeight + 45 };
 
             if (mouseX >= clickRect.left && mouseX <= clickRect.right && mouseY >= clickRect.top && mouseY <= clickRect.bottom)
             {
-                SetRecoilModeFromWeapon(weapons[i]);
-                Files::SaveConfig();
+                if (SelectedScopeType == ScopeType::NONE)
+                {
+                    MessageBox(hwnd, "Please select a scope type first!", "Warning", MB_OK | MB_ICONWARNING);
+                }
+                else
+                {
+                    SetRecoilModeFromWeapon(weapons[i]);
+                    Files::SaveConfig();
 
-                Scenes::ChangeCurrentScene(SceneType::AttachmentDisplay);
-                InvalidateRect(hwnd, NULL, TRUE);
+                    Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
+                    Buttons::CreateOperatorSelectionButtons(hwnd);
+                    InvalidateRect(hwnd, NULL, TRUE);
+                }
 
                 String::FreeWeaponList(weapons, weaponCount);
+                return;
             }
         }
-        // Back button detection
+
         if (mouseX >= 30 && mouseX <= 130 && mouseY >= bottom - 80 && mouseY <= bottom - 30)
         {
             Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
             Buttons::CreateOperatorSelectionButtons(hwnd);
             InvalidateRect(hwnd, NULL, TRUE);
         }
+
+        String::FreeWeaponList(weapons, weaponCount);
     }
 
 } // namespace ClickDetection

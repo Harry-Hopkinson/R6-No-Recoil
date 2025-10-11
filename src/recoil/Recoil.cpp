@@ -106,3 +106,5 @@ void SetRecoilModeFromWeapon(const char* weaponName)
 
     CurrentRecoil = Files::GetWeaponData(weaponName);
 }
+
+ScopeType SelectedScopeType = ScopeType::NONE;

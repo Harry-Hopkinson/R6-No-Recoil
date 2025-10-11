@@ -21,3 +21,12 @@ extern std::vector<const char*> DefenderPrimaryWeapons;
 extern WeaponRecoil CurrentRecoil;
 
 void SetRecoilModeFromWeapon(const char* weaponName);
+
+enum class ScopeType
+{
+    NONE,
+    MAGNIFIED,
+    NON_MAGNIFIED
+};
+
+extern ScopeType SelectedScopeType;

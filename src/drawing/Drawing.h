@@ -18,9 +18,4 @@ namespace Drawing
      */
     void DrawWeaponDisplay(HDC memDC, int right, int bottom);
 
-    /**
-     * @brief Paints attachment selection contents to the screen
-     */
-    void DrawAttachmentDisplay(HDC memDC, int right, int bottom);
-
 } // namespace Drawing

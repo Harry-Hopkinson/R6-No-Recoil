@@ -7,6 +7,7 @@
 #include <thread>
 
 #include "detection/ClickDetection.h"
+#include "drawing/Drawing.h"
 
 #include "files/Files.h"
 
@@ -50,24 +51,18 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 case 3: // Attacker Selection
                     IsAttackerView = true;
                     Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
-                    for (const auto& button : Buttons::GetButtons())
-                        ShowWindow(button.GetHWND(), SW_HIDE);
                     Buttons::CreateOperatorSelectionButtons(hwnd);
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
                 case 4: // Defender Selection
                     IsAttackerView = false;
                     Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
-                    for (const auto& button : Buttons::GetButtons())
-                        ShowWindow(button.GetHWND(), SW_HIDE);
                     Buttons::CreateOperatorSelectionButtons(hwnd);
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
                 case 5: // Back to Menu
-                    Scenes::ChangeCurrentScene(SceneType::LandingPage);
-                    for (const auto& button : Buttons::GetButtons())
-                        ShowWindow(button.GetHWND(), SW_HIDE);
-                    Buttons::CreateLandingPageButtons(hwnd);
+                    Scenes::ChangeCurrentScene(SceneType::MainMenu);
+                    Buttons::CreateMainMenuButtons(hwnd);
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
                 case 6: // Support the Project button
@@ -76,19 +71,12 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 case 7: // GitHub button
                     system("start https://github.com/Harry-Hopkinson/R6-No-Recoil");
                     break;
-                case 8: // Info Screen button
-                    Scenes::ChangeCurrentScene(SceneType::InfoScreen);
-                    for (const auto& button : Buttons::GetButtons())
-                        ShowWindow(button.GetHWND(), SW_HIDE);
-                    Buttons::CreateInfoScreenButtons(hwnd);
-                    InvalidateRect(hwnd, NULL, TRUE);
-                    break;
-                case 9: // "+" button
+                case 8: // "+" button
                     CurrentRecoil.Vertical++;
                     Files::SaveConfig();
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
-                case 10: // "-" button
+                case 9: // "-" button
                     CurrentRecoil.Vertical = maximum(CurrentRecoil.Vertical - 1, 0);
                     Files::SaveConfig();
                     InvalidateRect(hwnd, NULL, TRUE);
@@ -102,7 +90,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             HICON hIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON1));
             SendMessage(hwnd, WM_SETICON, ICON_BIG, (LPARAM)hIcon);
 
-            Buttons::CreateLandingPageButtons(hwnd);
+            Buttons::CreateMainMenuButtons(hwnd);
 
             Bitmap::AttackerBitmaps = Bitmap::LoadOperatorBitmaps(AttackerNames);
             Bitmap::DefenderBitmaps = Bitmap::LoadOperatorBitmaps(DefenderNames);
@@ -126,20 +114,16 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             switch (Scenes::GetCurrentScene())
             {
-                case SceneType::LandingPage:
-                    Scenes::DrawLandingPage(memDC, rect.right, rect.bottom);
+                case SceneType::MainMenu:
+                    Drawing::DrawMainMenu(memDC, rect.right, rect.bottom);
                     break;
 
                 case SceneType::OperatorSelection:
-                    Scenes::DrawOperatorSelection(memDC, rect.right, rect.bottom);
+                    Drawing::DrawOperatorSelection(memDC, rect.right, rect.bottom);
                     break;
 
                 case SceneType::WeaponDisplay:
-                    Scenes::DrawWeaponDisplay(memDC, rect.right, rect.bottom);
-                    break;
-
-                case SceneType::InfoScreen:
-                    Scenes::DrawInfoScreen(memDC, rect.right);
+                    Drawing::DrawWeaponDisplay(memDC, rect.right, rect.bottom);
                     break;
             }
 
@@ -160,9 +144,19 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             RECT rect;
             GetClientRect(hwnd, &rect);
 
-            if (Scenes::GetCurrentScene() == SceneType::OperatorSelection) ClickDetection::OperatorSelection(hwnd, mouseX, mouseY);
-            else if (Scenes::GetCurrentScene() == SceneType::WeaponDisplay) ClickDetection::WeaponDisplay(hwnd, rect.right, rect.bottom,
-                                                                                                          mouseX, mouseY);
+            switch (Scenes::GetCurrentScene())
+            {
+                case SceneType::OperatorSelection:
+                    ClickDetection::OperatorSelection(hwnd, mouseX, mouseY);
+                    break;
+
+                case SceneType::WeaponDisplay:
+                    ClickDetection::WeaponDisplay(hwnd, rect.right, rect.bottom, mouseX, mouseY);
+                    break;
+
+                default:
+                    break;
+            }
         }
         break;
 
@@ -174,7 +168,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             Font::Cleanup();
 
-            Buttons::GetButtons().clear();
+            Buttons::ClearButtons();
             PostQuitMessage(0);
             return 0;
         }
@@ -190,7 +184,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
 {
     WNDCLASS wc = {};
     wc.style = CS_HREDRAW | CS_VREDRAW;
-    wc.lpszClassName = "NoRecoilWindow";
+    wc.lpszClassName = "R6NoRecoil";
     wc.hInstance = hInstance;
     wc.lpfnWndProc = WindowProc;
     wc.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON1));

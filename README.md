@@ -119,16 +119,19 @@ The app uses a `WeaponData.json` file to store **recoil compensation values** fo
 ### Example Structure
 
 ```json
-[
-  { "name": "ARX200", "vertical": 2, "horizontal": 0 },
-  { "name": "F2", "vertical": 6, "horizontal": 0 },
-  { "name": "M12", "vertical": 1, "horizontal": 0 }
-]
+{
+    "name": "R4-C",
+    "recoil": {
+        "non_magnified": { "vertical": 3, "horizontal": 0 },
+        "magnified": { "vertical": 6, "horizontal": 0 }
+    }
+},
 ```
 
 ### Fields Explained
 
 - **name:** The exact name of the weapon as recognised by the app.
+- **non_magnified and magnified** Specifies whether recoil is for Non-Magnified and Magnified scopes respectively.
 - **vertical:** The amount of vertical recoil compensation applied.
   - **Higher values = stronger recoil reduction**
   - **Lower values = lighter recoil reduction**

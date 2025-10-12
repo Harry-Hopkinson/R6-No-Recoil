@@ -43,23 +43,31 @@ namespace Drawing
 
         for (int i = 0; i < weaponCount; ++i)
         {
-            int x = startX + i * (imgWidth);
+            int x = startX + i * imgWidth;
             int y = startY;
 
             HBITMAP weaponBmp = Bitmap::GetWeaponBitmap(weapons[i]);
-
             Bitmap::DrawBitmap(memDC, weaponBmp, x, y, imgWidth, imgHeight, true);
 
             RECT nameRect = { x, y + imgHeight + 15, x + imgWidth, y + imgHeight + 45 };
             HFONT oldFont = (HFONT)SelectObject(memDC, Font::GetLargeFont());
-
-            // Remove background - make text transparent
             SetBkMode(memDC, TRANSPARENT);
             SetTextColor(memDC, RGB(0, 0, 0));
-
             DrawText(memDC, weapons[i], -1, &nameRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-
             SelectObject(memDC, oldFont);
+
+            // Draw box around the selected weapon
+            if (i == SelectedWeaponIndex)
+            {
+                RECT boxRect = { x + 2, y + 2, x + imgWidth - 2, y + imgHeight + 50 };
+                HBRUSH oldBrush = (HBRUSH)SelectObject(memDC, GetStockObject(NULL_BRUSH));
+                HPEN pen = CreatePen(PS_SOLID, 3, RGB(255, 0, 0));
+                HPEN oldPen = (HPEN)SelectObject(memDC, pen);
+                Rectangle(memDC, boxRect.left, boxRect.top, boxRect.right, boxRect.bottom);
+                SelectObject(memDC, oldPen);
+                DeleteObject(pen);
+                SelectObject(memDC, oldBrush);
+            }
         }
 
         String::FreeWeaponList(weapons, weaponCount);

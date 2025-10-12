@@ -106,3 +106,5 @@ void SetRecoilModeFromWeapon(const char* weaponName)
 
     CurrentRecoil = Files::GetWeaponData(weaponName);
 }
+
+int SelectedWeaponIndex = -1;

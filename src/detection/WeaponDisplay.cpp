@@ -47,19 +47,25 @@ namespace ClickDetection
         if (mouseY >= btnTop && mouseY <= btnBottom)
         {
             if (mouseX >= nonMagLeft && mouseX <= nonMagRight)
-            {
                 SelectedScopeType = ScopeType::MAGNIFIED;
-                InvalidateRect(hwnd, NULL, TRUE);
-                String::FreeWeaponList(weapons, weaponCount);
-                return;
-            }
             else if (mouseX >= magLeft && mouseX <= magRight)
-            {
                 SelectedScopeType = ScopeType::NON_MAGNIFIED;
-                InvalidateRect(hwnd, NULL, TRUE);
-                String::FreeWeaponList(weapons, weaponCount);
-                return;
+
+            if (SelectedWeaponIndex != -1)
+            {
+                SetRecoilModeFromWeapon(weapons[SelectedWeaponIndex]);
+                Files::SaveConfig();
+
+                Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
+                Buttons::CreateOperatorSelectionButtons(hwnd);
+
+                SelectedWeaponIndex = -1;
+                SelectedScopeType = ScopeType::NONE;
             }
+
+            InvalidateRect(hwnd, NULL, TRUE);
+            String::FreeWeaponList(weapons, weaponCount);
+            return;
         }
 
         for (int i = 0; i < weaponCount; ++i)
@@ -68,8 +74,11 @@ namespace ClickDetection
             int y = startY;
             RECT clickRect = { x, y, x + imgWidth, y + imgHeight + 45 };
 
-            if (mouseX >= clickRect.left && mouseX <= clickRect.right && mouseY >= clickRect.top && mouseY <= clickRect.bottom)
+            if (mouseX >= clickRect.left && mouseX <= clickRect.right &&
+                mouseY >= clickRect.top && mouseY <= clickRect.bottom)
             {
+                SelectedWeaponIndex = i;
+
                 if (SelectedScopeType != ScopeType::NONE)
                 {
                     SetRecoilModeFromWeapon(weapons[i]);
@@ -77,9 +86,12 @@ namespace ClickDetection
 
                     Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
                     Buttons::CreateOperatorSelectionButtons(hwnd);
-                    InvalidateRect(hwnd, NULL, TRUE);
+
+                    SelectedWeaponIndex = -1;
+                    SelectedScopeType = ScopeType::NONE;
                 }
 
+                InvalidateRect(hwnd, NULL, TRUE);
                 String::FreeWeaponList(weapons, weaponCount);
                 return;
             }
@@ -89,6 +101,10 @@ namespace ClickDetection
         {
             Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
             Buttons::CreateOperatorSelectionButtons(hwnd);
+
+            SelectedWeaponIndex = -1;
+            SelectedScopeType = ScopeType::NONE;
+
             InvalidateRect(hwnd, NULL, TRUE);
         }
 

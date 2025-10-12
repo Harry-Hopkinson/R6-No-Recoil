@@ -3,15 +3,8 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
-#include <string>
+
 #include "../recoil/Recoil.h"
-
-#include <windows.h>
-
-extern "C"
-{
-    #include "../json/cJSON.h"
-}
 
 namespace Files
 {
@@ -22,7 +15,6 @@ namespace Files
 
         FILE* file = fopen("WeaponData.json", "rb");
         if (!file) {
-            MessageBoxA(NULL, "Failed to open WeaponData.json", "Error", MB_OK);
             return recoil;
         }
 
@@ -35,42 +27,48 @@ namespace Files
         data[len] = '\0';
         fclose(file);
 
-        cJSON* root = cJSON_Parse(data);
-        free(data);
-        if (!root) {
-            MessageBoxA(NULL, "Failed to parse JSON", "Error", MB_OK);
-            return recoil;
-        }
-
+        char* pos = data;
         int nonMagVert = 0, nonMagHorz = 0;
         int magVert = 0, magHorz = 0;
 
-        cJSON* weapon = NULL;
-        cJSON_ArrayForEach(weapon, root)
-        {
-            cJSON* name = cJSON_GetObjectItem(weapon, "name");
-            if (!name || strcmp(name->valuestring, weaponName) != 0)
-                continue;
+        while ((pos = strstr(pos, "\"name\""))) {
+            char name[128] = {0};
+            if (sscanf(pos, " \"name\" : \"%127[^\"]\"", name) == 1) {
+                if (strcmp(name, weaponName) != 0) {
+                    pos += strlen(name);
+                    continue;
+                }
 
-            cJSON* recoilObj = cJSON_GetObjectItem(weapon, "recoil");
-            if (!recoilObj) break;
+                // Found weapon, now find its recoil section
+                char* recoilPos = strstr(pos, "\"recoil\"");
+                if (!recoilPos) break;
 
-            cJSON* nonMag = cJSON_GetObjectItem(recoilObj, "non_magnified");
-            if (nonMag) {
-                nonMagVert = cJSON_GetObjectItem(nonMag, "vertical") ? cJSON_GetObjectItem(nonMag, "vertical")->valueint : 0;
-                nonMagHorz = cJSON_GetObjectItem(nonMag, "horizontal") ? cJSON_GetObjectItem(nonMag, "horizontal")->valueint : 0;
+                // --- Non-magnified ---
+                char* nonMagPos = strstr(recoilPos, "\"non_magnified\"");
+                if (nonMagPos) {
+                    char* vertPos = strstr(nonMagPos, "\"vertical\"");
+                    if (vertPos) sscanf(vertPos, " \"vertical\" : %d", &nonMagVert);
+
+                    char* horPos = strstr(nonMagPos, "\"horizontal\"");
+                    if (horPos) sscanf(horPos, " \"horizontal\" : %d", &nonMagHorz);
+                }
+
+                // --- Magnified ---
+                char* magPos = strstr(recoilPos, "\"magnified\"");
+                if (magPos) {
+                    char* vertPos = strstr(magPos, "\"vertical\"");
+                    if (vertPos) sscanf(vertPos, " \"vertical\" : %d", &magVert);
+
+                    char* horPos = strstr(magPos, "\"horizontal\"");
+                    if (horPos) sscanf(horPos, " \"horizontal\" : %d", &magHorz);
+                }
+
+                break; // weapon found
             }
-
-            cJSON* mag = cJSON_GetObjectItem(recoilObj, "magnified");
-            if (mag) {
-                magVert = cJSON_GetObjectItem(mag, "vertical") ? cJSON_GetObjectItem(mag, "vertical")->valueint : 0;
-                magHorz = cJSON_GetObjectItem(mag, "horizontal") ? cJSON_GetObjectItem(mag, "horizontal")->valueint : 0;
-            }
-
-            break; // found weapon
+            pos += 6; // move past "name"
         }
 
-        cJSON_Delete(root);
+        free(data);
 
         if (SelectedScopeType == ScopeType::MAGNIFIED)
             recoil = { magVert != 0 || magHorz != 0 ? magVert : nonMagVert,
@@ -80,13 +78,6 @@ namespace Files
 
         if (recoil.Vertical == 0 && recoil.Horizontal == 0)
             recoil = {3, 0};
-
-        // Debug popup
-        char msg[256];
-        sprintf(msg, "Weapon: %s\nNM: %d,%d\nM: %d,%d\nResult: %d,%d",
-                weaponName, nonMagVert, nonMagHorz, magVert, magHorz,
-                recoil.Vertical, recoil.Horizontal);
-        MessageBoxA(NULL, msg, "Recoil Debug", MB_OK);
 
         return recoil;
     }

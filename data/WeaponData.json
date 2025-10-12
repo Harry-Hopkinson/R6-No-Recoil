@@ -206,334 +206,299 @@
         }
     },
     {
-        // got here
         "name": "C7E",
         "recoil": {
-            "non_magnified": {},
-            "magnified": { "vertical": 5, "horizontal": 0 }
+            "non_magnified": { "vertical": 2, "horizontal": 0 },
+            "magnified": { "vertical": 6, "horizontal": 0 }
         }
     },
     {
         "name": "M762",
         "recoil": {
-            "non_magnified": {},
+            "non_magnified": { "vertical": 2, "horizontal": 0 },
             "magnified": { "vertical": 5, "horizontal": 0 }
         }
     },
     {
         "name": "AK-74M",
         "recoil": {
-            "non_magnified": {},
-            "magnified": { "vertical": 3, "horizontal": 0 }
+            "non_magnified": { "vertical": 2, "horizontal": 0 },
+            "magnified": { "vertical": 4, "horizontal": 0 }
         }
     },
     {
         "name": "ARX200",
         "recoil": {
-            "non_magnified": {},
+            "non_magnified": { "vertical": 2, "horizontal": 0 },
             "magnified": { "vertical": 4, "horizontal": 0 }
         }
     },
     {
         "name": "F90",
         "recoil": {
-            "non_magnified": {},
+            "non_magnified": { "vertical": 2, "horizontal": 0 },
             "magnified": { "vertical": 4, "horizontal": 0 }
         }
     },
     {
         "name": "AUG-A2",
         "recoil": {
-            "non_magnified": {},
-            "magnified": { "vertical": 2, "horizontal": 0 }
-        }
-    },
-    {
-        "name": "AUG-A2-Acog",
-        "recoil": {
-            "non_magnified": {},
+            "non_magnified": { "vertical": 2, "horizontal": 0 },
             "magnified": { "vertical": 5, "horizontal": 0 }
         }
     },
     {
         "name": "AUG-A3",
         "recoil": {
-            "non_magnified": {},
-            "magnified": { "vertical": 2, "horizontal": 0 }
+            "non_magnified": { "vertical": 2, "horizontal": 0 }
         }
     },
     {
         "name": "552-Commando",
         "recoil": {
-            "non_magnified": {},
+            "non_magnified": { "vertical": 2, "horizontal": 0 },
             "magnified": { "vertical": 4, "horizontal": 0 }
         }
     },
     {
         "name": "L85A2",
         "recoil": {
-            "non_magnified": {},
+            "non_magnified": { "vertical": 1, "horizontal": 0 },
             "magnified": { "vertical": 3, "horizontal": 0 }
         }
     },
     {
         "name": "V308",
         "recoil": {
-            "non_magnified": {},
+            "non_magnified": { "vertical": 1, "horizontal": 0 },
             "magnified": { "vertical": 4, "horizontal": 0 }
         }
     },
     {
         "name": "Spear-308",
         "recoil": {
-            "non_magnified": {},
-            "magnified": { "vertical": 2, "horizontal": 0 }
-        }
-    },
-    {
-        "name": "Spear-308-Acog",
-        "recoil": {
-            "non_magnified": {},
+            "non_magnified": { "vertical": 2, "horizontal": 0 },
             "magnified": { "vertical": 5, "horizontal": 0 }
         }
     },
     {
         "name": "416-carbine",
         "recoil": {
-            "non_magnified": {},
-            "magnified": { "vertical": 2, "horizontal": 0 }
+            "non_magnified": { "vertical": 2, "horizontal": 0 }
         }
     },
     {
         "name": "M4",
         "recoil": {
-            "non_magnified": {},
+            "non_magnified": { "vertical": 2, "horizontal": 0 },
             "magnified": { "vertical": 5, "horizontal": 0 }
         }
     },
     {
         "name": "DP27",
         "recoil": {
-            "non_magnified": {},
-            "magnified": { "vertical": 1, "horizontal": 0 }
+            "non_magnified": { "vertical": 1, "horizontal": 0 }
         }
     },
     {
         "name": "PCX-33",
         "recoil": {
-            "non_magnified": {},
-            "magnified": { "vertical": 1, "horizontal": 0 }
+            "non_magnified": { "vertical": 1, "horizontal": 0 }
         }
     },
     {
         "name": "6P41",
         "recoil": {
-            "non_magnified": {},
+            "non_magnified": { "vertical": 2, "horizontal": 0 },
             "magnified": { "vertical": 5, "horizontal": 0 }
         }
     },
     {
         "name": "G8A1",
         "recoil": {
-            "non_magnified": {},
-            "magnified": { "vertical": 4, "horizontal": 0 }
+            "non_magnified": { "vertical": 2, "horizontal": 0 },
+            "magnified": { "vertical": 6, "horizontal": 0 }
         }
     },
     {
         "name": "ALDA",
         "recoil": {
-            "non_magnified": {},
-            "magnified": { "vertical": 2, "horizontal": 0 }
+            "non_magnified": { "vertical": 2, "horizontal": 0 }
         }
     },
     {
         "name": "T-95-LSW",
         "recoil": {
-            "non_magnified": {},
+            "non_magnified": { "vertical": 2, "horizontal": 0 },
             "magnified": { "vertical": 4, "horizontal": 0 }
         }
     },
     {
         "name": "LMG-E",
         "recoil": {
-            "non_magnified": {},
-            "magnified": { "vertical": 5, "horizontal": 0 }
+            "non_magnified": { "vertical": 2, "horizontal": 0 },
+            "magnified": { "vertical": 4, "horizontal": 0 }
         }
     },
 
     {
         "name": "M249",
         "recoil": {
-            "non_magnified": {},
+            "non_magnified": { "vertical": 1, "horizontal": 0 },
             "magnified": { "vertical": 3, "horizontal": 0 }
         }
     },
     {
         "name": "M249-SAW",
         "recoil": {
-            "non_magnified": {},
+            "non_magnified": { "vertical": 2, "horizontal": 0 },
             "magnified": { "vertical": 4, "horizontal": 0 }
         }
     },
     {
         "name": "OTs-03",
         "recoil": {
-            "non_magnified": {},
-            "magnified": { "vertical": 4, "horizontal": 0 }
+            "non_magnified": { "vertical": 4, "horizontal": 0 }
         }
     },
     {
         "name": "417",
         "recoil": {
-            "non_magnified": {},
+            "non_magnified": { "vertical": 1, "horizontal": 0 },
             "magnified": { "vertical": 2, "horizontal": 0 }
         }
     },
     {
         "name": "SR-25",
         "recoil": {
-            "non_magnified": {},
+            "non_magnified": { "vertical": 2, "horizontal": 0 },
             "magnified": { "vertical": 3, "horizontal": 0 }
         }
     },
     {
         "name": "Mk-14-EBR",
         "recoil": {
-            "non_magnified": {},
+            "non_magnified": { "vertical": 2, "horizontal": 0 },
             "magnified": { "vertical": 4, "horizontal": 0 }
         }
     },
     {
         "name": "CAMRS",
         "recoil": {
-            "non_magnified": {},
+            "non_magnified": { "vertical": 1, "horizontal": 0 },
             "magnified": { "vertical": 2, "horizontal": 0 }
         }
     },
     {
         "name": "AR-15.50",
         "recoil": {
-            "non_magnified": {},
+            "non_magnified": { "vertical": 2, "horizontal": 0 },
             "magnified": { "vertical": 3, "horizontal": 0 }
         }
     },
     {
         "name": "CSRX-300",
         "recoil": {
-            "non_magnified": {},
-            "magnified": { "vertical": 3, "horizontal": 0 }
+            "non_magnified": { "vertical": 3, "horizontal": 0 }
         }
     },
     {
         "name": "M590A1",
         "recoil": {
-            "non_magnified": {},
-            "magnified": { "vertical": 3, "horizontal": 0 }
+            "non_magnified": { "vertical": 3, "horizontal": 0 }
         }
     },
     {
         "name": "M1014",
         "recoil": {
-            "non_magnified": {},
-            "magnified": { "vertical": 2, "horizontal": 0 }
+            "non_magnified": { "vertical": 2, "horizontal": 0 }
         }
     },
     {
         "name": "SG-CQB",
         "recoil": {
-            "non_magnified": {},
-            "magnified": { "vertical": 2, "horizontal": 0 }
+            "non_magnified": { "vertical": 2, "horizontal": 0 }
         }
     },
     {
         "name": "SASG-12",
         "recoil": {
-            "non_magnified": {},
-            "magnified": { "vertical": 6, "horizontal": 0 }
+            "non_magnified": { "vertical": 6, "horizontal": 0 }
         }
     },
     {
         "name": "M870",
         "recoil": {
-            "non_magnified": {},
-            "magnified": { "vertical": 2, "horizontal": 0 }
+            "non_magnified": { "vertical": 2, "horizontal": 0 }
         }
     },
     {
         "name": "Super-90",
         "recoil": {
-            "non_magnified": {},
-            "magnified": { "vertical": 2, "horizontal": 0 }
+            "non_magnified": { "vertical": 2, "horizontal": 0 }
         }
     },
     {
         "name": "SPAS-12",
         "recoil": {
-            "non_magnified": {},
-            "magnified": { "vertical": 2, "horizontal": 0 }
+            "non_magnified": { "vertical": 2, "horizontal": 0 }
         }
     },
     {
         "name": "SPAS-15",
         "recoil": {
-            "non_magnified": {},
-            "magnified": { "vertical": 2, "horizontal": 0 }
+            "non_magnified": { "vertical": 2, "horizontal": 0 }
         }
     },
     {
         "name": "SIX12",
         "recoil": {
-            "non_magnified": {},
-            "magnified": { "vertical": 2, "horizontal": 0 }
+            "non_magnified": { "vertical": 2, "horizontal": 0 }
         }
     },
     {
         "name": "SIX12-SD",
         "recoil": {
-            "non_magnified": {},
-            "magnified": { "vertical": 2, "horizontal": 0 }
+            "non_magnified": { "vertical": 2, "horizontal": 0 }
         }
     },
     {
         "name": "TCSG12",
         "recoil": {
-            "non_magnified": {},
+            "non_magnified": { "vertical": 4, "horizontal": 0 },
             "magnified": { "vertical": 6, "horizontal": 0 }
         }
     },
     {
         "name": "FO-12",
         "recoil": {
-            "non_magnified": {},
-            "magnified": { "vertical": 2, "horizontal": 0 }
+            "non_magnified": { "vertical": 2, "horizontal": 0 }
         }
     },
     {
         "name": "ACS12",
         "recoil": {
-            "non_magnified": {},
+            "non_magnified": { "vertical": 2, "horizontal": 0 },
             "magnified": { "vertical": 4, "horizontal": 0 }
         }
     },
     {
         "name": "BOSG.12.2",
         "recoil": {
-            "non_magnified": {},
+            "non_magnified": { "vertical": 2, "horizontal": 0 },
             "magnified": { "vertical": 4, "horizontal": 0 }
         }
     },
     {
         "name": "ITA12L",
         "recoil": {
-            "non_magnified": {},
-            "magnified": { "vertical": 2, "horizontal": 0 }
+            "non_magnified": { "vertical": 2, "horizontal": 0 }
         }
     },
     {
         "name": "SUPERNOVA",
         "recoil": {
-            "non_magnified": {},
-            "magnified": { "vertical": 2, "horizontal": 0 }
+            "non_magnified": { "vertical": 2, "horizontal": 0 }
         }
     }
 ]

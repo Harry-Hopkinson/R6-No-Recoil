@@ -3,85 +3,91 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
-
+#include <string>
 #include "../recoil/Recoil.h"
+
+#include <windows.h>
+
+extern "C"
+{
+    #include "../json/cJSON.h"
+}
 
 namespace Files
 {
-
-WeaponRecoil GetWeaponData(const char* weaponName)
-{
-    WeaponRecoil recoil = { 3, 0 }; // Default medium recoil
-    if (!weaponName)
-        return recoil;
-
-    FILE* file = fopen("WeaponData.json", "r");
-    if (!file)
-        return recoil;
-
-    char line[512];
-    bool insideWeapon = false;
-    ScopeType currentScope = ScopeType::NONE;
-
-    while (fgets(line, sizeof(line), file))
+    WeaponRecoil GetWeaponData(const char* weaponName)
     {
-        char* trimmed = line;
-        while (*trimmed == ' ' || *trimmed == '\t')
-            ++trimmed;
+        WeaponRecoil recoil = {3, 0};
+        if (!weaponName) return recoil;
 
-        // Check for weapon name
-        if (strstr(trimmed, "\"name\""))
-        {
-            char* quote1 = strchr(trimmed, '"');
-            if (!quote1) continue;
-            char* quote2 = strchr(quote1 + 1, '"');
-            if (!quote2) continue;
-            char* quote3 = strchr(quote2 + 1, '"');
-            if (!quote3) continue;
-            char* quote4 = strchr(quote3 + 1, '"');
-            if (!quote4) continue;
-
-            ptrdiff_t len = quote4 - quote3 - 1;
-            if (len == (ptrdiff_t)strlen(weaponName) && strncmp(weaponName, quote3 + 1, len) == 0) insideWeapon = true;
-            else insideWeapon = false;
-        }
-
-        if (!insideWeapon)
-            continue;
-
-        // Determine which scope block we are in
-        if (strstr(trimmed, "\"non_magnified\"")) currentScope = ScopeType::NON_MAGNIFIED;
-        if (strstr(trimmed, "\"magnified\"")) currentScope = ScopeType::MAGNIFIED;
-
-        if (currentScope != SelectedScopeType)
-            continue; // Skip blocks not matching the selected scope
-
-        // Parse vertical
-        if (strstr(trimmed, "\"vertical\""))
-        {
-            char* colon = strchr(trimmed, ':');
-            if (colon)
-                recoil.Vertical = atoi(colon + 1);
-        }
-
-        // Parse horizontal
-        if (strstr(trimmed, "\"horizontal\""))
-        {
-            char* colon = strchr(trimmed, ':');
-            if (colon)
-                recoil.Horizontal = atoi(colon + 1);
-        }
-
-        // If both vertical and horizontal found, we can return
-        if (strstr(trimmed, "}"))
-        {
-            fclose(file);
+        FILE* file = fopen("WeaponData.json", "rb");
+        if (!file) {
+            MessageBoxA(NULL, "Failed to open WeaponData.json", "Error", MB_OK);
             return recoil;
         }
+
+        fseek(file, 0, SEEK_END);
+        long len = ftell(file);
+        fseek(file, 0, SEEK_SET);
+
+        char* data = (char*)malloc(len + 1);
+        fread(data, 1, len, file);
+        data[len] = '\0';
+        fclose(file);
+
+        cJSON* root = cJSON_Parse(data);
+        free(data);
+        if (!root) {
+            MessageBoxA(NULL, "Failed to parse JSON", "Error", MB_OK);
+            return recoil;
+        }
+
+        int nonMagVert = 0, nonMagHorz = 0;
+        int magVert = 0, magHorz = 0;
+
+        cJSON* weapon = NULL;
+        cJSON_ArrayForEach(weapon, root)
+        {
+            cJSON* name = cJSON_GetObjectItem(weapon, "name");
+            if (!name || strcmp(name->valuestring, weaponName) != 0)
+                continue;
+
+            cJSON* recoilObj = cJSON_GetObjectItem(weapon, "recoil");
+            if (!recoilObj) break;
+
+            cJSON* nonMag = cJSON_GetObjectItem(recoilObj, "non_magnified");
+            if (nonMag) {
+                nonMagVert = cJSON_GetObjectItem(nonMag, "vertical") ? cJSON_GetObjectItem(nonMag, "vertical")->valueint : 0;
+                nonMagHorz = cJSON_GetObjectItem(nonMag, "horizontal") ? cJSON_GetObjectItem(nonMag, "horizontal")->valueint : 0;
+            }
+
+            cJSON* mag = cJSON_GetObjectItem(recoilObj, "magnified");
+            if (mag) {
+                magVert = cJSON_GetObjectItem(mag, "vertical") ? cJSON_GetObjectItem(mag, "vertical")->valueint : 0;
+                magHorz = cJSON_GetObjectItem(mag, "horizontal") ? cJSON_GetObjectItem(mag, "horizontal")->valueint : 0;
+            }
+
+            break; // found weapon
+        }
+
+        cJSON_Delete(root);
+
+        if (SelectedScopeType == ScopeType::MAGNIFIED)
+            recoil = { magVert != 0 || magHorz != 0 ? magVert : nonMagVert,
+                       magVert != 0 || magHorz != 0 ? magHorz : nonMagHorz };
+        else
+            recoil = { nonMagVert, nonMagHorz };
+
+        if (recoil.Vertical == 0 && recoil.Horizontal == 0)
+            recoil = {3, 0};
+
+        // Debug popup
+        char msg[256];
+        sprintf(msg, "Weapon: %s\nNM: %d,%d\nM: %d,%d\nResult: %d,%d",
+                weaponName, nonMagVert, nonMagHorz, magVert, magHorz,
+                recoil.Vertical, recoil.Horizontal);
+        MessageBoxA(NULL, msg, "Recoil Debug", MB_OK);
+
+        return recoil;
     }
-
-    fclose(file);
-    return recoil; // Default if not found
 }
-
-} // namespace Files

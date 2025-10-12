@@ -70,11 +70,7 @@ namespace ClickDetection
 
             if (mouseX >= clickRect.left && mouseX <= clickRect.right && mouseY >= clickRect.top && mouseY <= clickRect.bottom)
             {
-                if (SelectedScopeType == ScopeType::NONE)
-                {
-                    MessageBox(hwnd, "Please select a scope type first!", "Warning", MB_OK | MB_ICONWARNING);
-                }
-                else
+                if (SelectedScopeType != ScopeType::NONE)
                 {
                     SetRecoilModeFromWeapon(weapons[i]);
                     Files::SaveConfig();

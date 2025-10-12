@@ -1,8 +1,6 @@
 #include "Threads.h"
 
-#ifdef USE_CONTROLLER
 #include <Xinput.h>
-#endif
 
 #include <windows.h>
 #include <thread>
@@ -23,7 +21,6 @@ bool IsMouseFiring()
     return (GetAsyncKeyState(VK_LBUTTON) & 0x8000);
 }
 
-#ifdef USE_CONTROLLER
 // Controller: LT held and RT pressed = ADS + fire
 bool IsControllerADS(const XINPUT_STATE& state)
 {
@@ -43,7 +40,6 @@ bool IsControllerFiring(const XINPUT_STATE& state)
     const BYTE FIRE_THRESHOLD = 30;
     return (RT > FIRE_THRESHOLD);
 }
-#endif
 
 // Move mouse by (dx, dy)
 void MoveMouseRaw(int dx, int dy)
@@ -58,50 +54,69 @@ void MoveMouseRaw(int dx, int dy)
 
 namespace Threads
 {
+
     void ApplyRecoil()
     {
         while (Running)
         {
-#ifdef USE_CONTROLLER
-            // Poll controller state
             XINPUT_STATE controllerState;
             ZeroMemory(&controllerState, sizeof(XINPUT_STATE));
             bool controllerConnected = (XInputGetState(0, &controllerState) == ERROR_SUCCESS);
-#endif
 
-            bool isADS = IsMouseADS()
-#ifdef USE_CONTROLLER
-                || (controllerConnected && IsControllerADS(controllerState))
-#endif
-                ;
+            bool isADS = IsMouseADS() ||
+                         (controllerConnected && IsControllerADS(controllerState));
 
             if (EnableRC && isADS)
             {
-                while (
-                    IsMouseFiring()
-#ifdef USE_CONTROLLER
-                    || (controllerConnected && IsControllerFiring(controllerState))
-#endif
-                )
+                while (IsMouseFiring() ||
+                       (controllerConnected && IsControllerFiring(controllerState)))
                 {
+                    int moveX = 0;
+                    int moveY = 0;
+
                     int baseX = CurrentRecoil.Horizontal;
                     int baseY = CurrentRecoil.Vertical * 2;
 
-                    MoveMouseRaw(baseX, baseY);
+                    if (controllerConnected)
+                    {
+                        // Update controller state continuously
+                        XInputGetState(0, &controllerState);
+
+                        SHORT stickX = controllerState.Gamepad.sThumbRX;
+                        SHORT stickY = controllerState.Gamepad.sThumbRY;
+
+                        // Deadzone compensation
+                        const SHORT DEADZONE = 8000;
+                        if (abs(stickX) < DEADZONE) stickX = 0;
+                        if (abs(stickY) < DEADZONE) stickY = 0;
+
+                        // Normalize to [-1, 1]
+                        float normalizedX = (float)stickX / 32767.0f;
+                        float normalizedY = (float)stickY / 32767.0f;
+
+                        // Allow movement left/right when firing
+                        int lookX = static_cast<int>(normalizedX * 12.0f);
+                        int lookY = static_cast<int>(-normalizedY * 12.0f);
+
+                        moveX = baseX + lookX;
+                        moveY = baseY + lookY;
+                    }
+                    else
+                    {
+                        moveX = baseX;
+                        moveY = baseY;
+                    }
+
+                    MoveMouseRaw(moveX, moveY);
 
                     std::this_thread::sleep_for(std::chrono::milliseconds(5));
-
-#ifdef USE_CONTROLLER
-                    // Update controller state inside fire loop
-                    if (controllerConnected)
-                        XInputGetState(0, &controllerState);
-#endif
                 }
             }
 
             std::this_thread::sleep_for(std::chrono::milliseconds(1));
         }
     }
+
 
     void ToggleRecoil()
     {

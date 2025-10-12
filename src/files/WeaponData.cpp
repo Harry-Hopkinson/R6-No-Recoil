@@ -14,7 +14,8 @@ namespace Files
         if (!weaponName) return recoil;
 
         FILE* file = fopen("WeaponData.json", "rb");
-        if (!file) {
+        if (!file)
+        {
             return recoil;
         }
 
@@ -31,21 +32,24 @@ namespace Files
         int nonMagVert = 0, nonMagHorz = 0;
         int magVert = 0, magHorz = 0;
 
-        while ((pos = strstr(pos, "\"name\""))) {
+        while ((pos = strstr(pos, "\"name\"")))
+        {
             char name[128] = {0};
-            if (sscanf(pos, " \"name\" : \"%127[^\"]\"", name) == 1) {
-                if (strcmp(name, weaponName) != 0) {
+            if (sscanf(pos, " \"name\" : \"%127[^\"]\"", name) == 1)
+            {
+                if (strcmp(name, weaponName) != 0)
+                {
                     pos += strlen(name);
                     continue;
                 }
 
-                // Found weapon, now find its recoil section
                 char* recoilPos = strstr(pos, "\"recoil\"");
                 if (!recoilPos) break;
 
                 // --- Non-magnified ---
                 char* nonMagPos = strstr(recoilPos, "\"non_magnified\"");
-                if (nonMagPos) {
+                if (nonMagPos)
+                {
                     char* vertPos = strstr(nonMagPos, "\"vertical\"");
                     if (vertPos) sscanf(vertPos, " \"vertical\" : %d", &nonMagVert);
 
@@ -55,7 +59,8 @@ namespace Files
 
                 // --- Magnified ---
                 char* magPos = strstr(recoilPos, "\"magnified\"");
-                if (magPos) {
+                if (magPos)
+                {
                     char* vertPos = strstr(magPos, "\"vertical\"");
                     if (vertPos) sscanf(vertPos, " \"vertical\" : %d", &magVert);
 
@@ -63,9 +68,9 @@ namespace Files
                     if (horPos) sscanf(horPos, " \"horizontal\" : %d", &magHorz);
                 }
 
-                break; // weapon found
+                break;
             }
-            pos += 6; // move past "name"
+            pos += 6;
         }
 
         free(data);

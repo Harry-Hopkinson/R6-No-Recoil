@@ -64,8 +64,7 @@ namespace Drawing
 
         String::FreeWeaponList(weapons, weaponCount);
 
-        // Draw text underneath the weapon saying "Scopes"
-        const int sectionTop = bottom - 250; // adjust this value to fit your layout
+        const int sectionTop = bottom - 250;
 
         Font::DrawCenteredText(memDC, "Scope", 0, sectionTop, right, Font::GetLargeFont());
 

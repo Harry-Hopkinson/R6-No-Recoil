@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "../recoil/Recoil.h"
+#include "../recoil/Structs.h"
 
 namespace Files
 {

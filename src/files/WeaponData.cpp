@@ -4,65 +4,86 @@
 #include <cstdlib>
 #include <cstring>
 
+#include "../recoil/Structs.h"
+
 namespace Files
 {
-
     WeaponRecoil GetWeaponData(const char* weaponName)
     {
-        WeaponRecoil recoil = { 3, 0 };
-        if (!weaponName)
-            return recoil; // Default medium recoil
+        WeaponRecoil recoil = {3, 0};
+        if (!weaponName) return recoil;
 
-        FILE* file = fopen("WeaponData.json", "r");
+        FILE* file = fopen("WeaponData.json", "rb");
         if (!file)
-            return recoil; // Failed to open file
-
-        char line[256];
-        while (fgets(line, sizeof(line), file))
         {
-            char* namePos = strstr(line, "\"name\"");
-            if (namePos)
-            {
-                char* quote1 = strchr(namePos, '"');
-                if (!quote1)
-                    continue;
-                char* quote2 = strchr(quote1 + 1, '"');
-                if (!quote2)
-                    continue;
-                char* quote3 = strchr(quote2 + 1, '"');
-                if (!quote3)
-                    continue;
-                char* quote4 = strchr(quote3 + 1, '"');
-                if (!quote4)
-                    continue;
-
-                ptrdiff_t len = quote4 - quote3 - 1;
-                if (len == (ptrdiff_t)strlen(weaponName) && strncmp(weaponName, quote3 + 1, len) == 0)
-                {
-                    // Find vertical
-                    char* verticalPos = strstr(line, "\"vertical\"");
-                    if (verticalPos)
-                    {
-                        char* colon = strchr(verticalPos, ':');
-                        if (colon)
-                            recoil.Vertical = atoi(colon + 1);
-                    }
-                    // Find horizontal
-                    char* horizontalPos = strstr(line, "\"horizontal\"");
-                    if (horizontalPos)
-                    {
-                        char* colon = strchr(horizontalPos, ':');
-                        if (colon)
-                            recoil.Horizontal = atoi(colon + 1);
-                    }
-                    fclose(file);
-                    return recoil;
-                }
-            }
+            return recoil;
         }
 
-        fclose(file);
-        return recoil; // Default if not found
-    }
+        fseek(file, 0, SEEK_END);
+        long len = ftell(file);
+        fseek(file, 0, SEEK_SET);
 
-} // namespace Files
+        char* data = (char*)malloc(len + 1);
+        fread(data, 1, len, file);
+        data[len] = '\0';
+        fclose(file);
+
+        char* pos = data;
+        int nonMagVert = 0, nonMagHorz = 0;
+        int magVert = 0, magHorz = 0;
+
+        while ((pos = strstr(pos, "\"name\"")))
+        {
+            char name[128] = {0};
+            if (sscanf(pos, " \"name\" : \"%127[^\"]\"", name) == 1)
+            {
+                if (strcmp(name, weaponName) != 0)
+                {
+                    pos += strlen(name);
+                    continue;
+                }
+
+                char* recoilPos = strstr(pos, "\"recoil\"");
+                if (!recoilPos) break;
+
+                // --- Non-magnified ---
+                char* nonMagPos = strstr(recoilPos, "\"non_magnified\"");
+                if (nonMagPos)
+                {
+                    char* vertPos = strstr(nonMagPos, "\"vertical\"");
+                    if (vertPos) sscanf(vertPos, " \"vertical\" : %d", &nonMagVert);
+
+                    char* horPos = strstr(nonMagPos, "\"horizontal\"");
+                    if (horPos) sscanf(horPos, " \"horizontal\" : %d", &nonMagHorz);
+                }
+
+                // --- Magnified ---
+                char* magPos = strstr(recoilPos, "\"magnified\"");
+                if (magPos)
+                {
+                    char* vertPos = strstr(magPos, "\"vertical\"");
+                    if (vertPos) sscanf(vertPos, " \"vertical\" : %d", &magVert);
+
+                    char* horPos = strstr(magPos, "\"horizontal\"");
+                    if (horPos) sscanf(horPos, " \"horizontal\" : %d", &magHorz);
+                }
+
+                break;
+            }
+            pos += 6;
+        }
+
+        free(data);
+
+        if (SelectedScopeType == ScopeType::MAGNIFIED)
+            recoil = { magVert != 0 || magHorz != 0 ? magVert : nonMagVert,
+                       magVert != 0 || magHorz != 0 ? magHorz : nonMagHorz };
+        else
+            recoil = { nonMagVert, nonMagHorz };
+
+        if (recoil.Vertical == 0 && recoil.Horizontal == 0)
+            recoil = {3, 0};
+
+        return recoil;
+    }
+}

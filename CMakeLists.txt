@@ -9,7 +9,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 # Gather all source files
-file(GLOB_RECURSE SRC_FILES src/*.cpp src/core/*.cpp src/recoil/*.cpp)
+file(GLOB_RECURSE SRC_FILES src/*.cpp)
 set(RESOURCE_FILES src/resource/resource.rc)
 
 include_directories(${CMAKE_SOURCE_DIR})

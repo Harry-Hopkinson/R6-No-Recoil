@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../recoil/Struct.h"
+#include "../recoil/Structs.h"
 
 namespace Files
 {

@@ -28,7 +28,7 @@ std::vector<const char*> AttackerPrimaryWeapons =
     "F2, 417, SG-CQB",                 // Twitch
     "OTs-03",                          // Glaz
     "AK-12, 6P41",                     // Fuze
-    "G8A1, 552-Commando, AUG-A2-Acog", // IQ
+    "G8A1, 552-Commando, AUG-A2",      // IQ
     "C8-SFW, CAMRS",                   // Buck
     "MK17-CQB, SR-25",                 // Blackbeard
     "PARA-308, M249",                  // Capitao
@@ -38,7 +38,7 @@ std::vector<const char*> AttackerPrimaryWeapons =
     "M762, LMG-E",                     // Zofia
     "Mk-14-EBR, BOSG.12.2",            // Dokkaebi
     "V308, 417, SG-CQB",               // Lion
-    "Spear-308-Acog, 6P41, SASG-12",   // Finka
+    "Spear-308, 6P41, SASG-12",        // Finka
     "M4, AR-15.50",                    // Maverick
     "AK-74M, ARX200",                  // Nomad
     "F90, M249-SAW",                   // Gridlock
@@ -106,3 +106,5 @@ void SetRecoilModeFromWeapon(const char* weaponName)
 
     CurrentRecoil = Files::GetWeaponData(weaponName);
 }
+
+int SelectedWeaponIndex = -1;

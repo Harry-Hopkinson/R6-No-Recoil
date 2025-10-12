@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Struct.h"
+#include "Structs.h"
 
 #include <vector>
 
@@ -10,6 +10,8 @@ struct WeaponData
     int recoil;
 };
 
+extern WeaponData WeaponRecoilData[];
+
 extern std::vector<const char*> AttackerNames;
 extern std::vector<const char*> DefenderNames;
 
@@ -18,6 +20,6 @@ extern std::vector<const char*> DefenderPrimaryWeapons;
 
 extern WeaponRecoil CurrentRecoil;
 
-extern WeaponData WeaponRecoilData[];
-
 void SetRecoilModeFromWeapon(const char* weaponName);
+
+extern int SelectedWeaponIndex;

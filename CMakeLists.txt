@@ -51,7 +51,7 @@ if(MINGW)
 
 elseif(MSVC)
     # Suppress CRT warnings
-    target_compile_definitions(R6NoRecoil PRIVATE _CRT_SECURE_NO_WARNINGS)
+    target_compile_definitions(R6NoRecoil PRIVATE _CRT_SECURE_NO_WARNINGS _AMD64_=1 _M_X64=100)
 
     foreach(flag_var
         CMAKE_C_FLAGS_RELEASE CMAKE_CXX_FLAGS_RELEASE

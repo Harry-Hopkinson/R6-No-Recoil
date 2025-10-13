@@ -4,7 +4,7 @@ namespace Threads
 {
 
     /**
-     * @brief Thread for applying recoil control
+     * @brief Thread for applying recoil control for mouse or controller
      */
     void ApplyRecoil();
 

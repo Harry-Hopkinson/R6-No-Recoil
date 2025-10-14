@@ -38,7 +38,8 @@ namespace Drawing
         int leftCurrentY = 185;
 
         const char* features[] = { "- All R6 operators supported", "- Multiple sensitivity presets",
-                                   "- Customisable toggle controls", "- Minimal system impact", "- Powerful config support" };
+                                   "- Customisable toggle controls", "- Minimal system impact", "- Powerful config support",
+                                   "- Mouse and Controller Support" };
         const size_t featureCount = sizeof(features) / sizeof(features[0]);
 
         for (size_t i = 0; i < featureCount; i++)
@@ -60,7 +61,8 @@ namespace Drawing
         int rightCurrentY = rightStartY + 45;
 
         const char* steps[] = { "1. Choose Attacker or Defender", "2. Select your operator", "3. Pick your primary weapon",
-                                "4. Start playing - it's automatic!", "5. Use toggle key to enable/disable" };
+                                "4. Select your scope for that gun", "5. Start playing - it's automatic!",
+                                "6. Use toggle key to enable/disable" };
         const size_t stepCount = sizeof(steps) / sizeof(steps[0]);
 
         for (size_t i = 0; i < stepCount; i++)
@@ -112,7 +114,7 @@ namespace Drawing
         DrawText(memDC, "Created by Harry Hopkinson", -1, &creatorRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
         RECT versionRect = { right / 2, bottomY + 15, right - 60, bottomY + 35 };
-        DrawText(memDC, "Version 2.5 | Open Source", -1, &versionRect, DT_RIGHT | DT_VCENTER | DT_SINGLELINE);
+        DrawText(memDC, "Version 2.6 | Open Source", -1, &versionRect, DT_RIGHT | DT_VCENTER | DT_SINGLELINE);
 
         RECT githubRect = { 0, bottomY + 40, right + 15, bottomY + 60 };
         DrawText(memDC, "Visit GitHub for updates and source code", -1, &githubRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);

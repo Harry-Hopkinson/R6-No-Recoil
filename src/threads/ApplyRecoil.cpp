@@ -3,13 +3,14 @@
 #include <thread>
 
 #include "../Globals.h"
+#include "../core/random.h"
 #include "../inputs/Inputs.h"
 #include "../recoil/Recoil.h"
 
 std::pair<int, int> CalculateRecoil(int baseX, int baseY, float lookX, float lookY)
 {
-    int adjustedX = baseX + static_cast<int>(lookX * 12.0f);
-    int adjustedY = baseY + static_cast<int>(-lookY * 12.0f);
+    int adjustedX = baseX + static_cast<int>(lookX * ControllerMultiplier);
+    int adjustedY = baseY + static_cast<int>(-lookY * ControllerMultiplier);
     return { adjustedX, adjustedY };
 }
 
@@ -32,7 +33,7 @@ namespace Threads
             {
                 while (Inputs::IsMouseFiring() || (controllerConnected && Inputs::IsControllerFiring(state)))
                 {
-                    int moveX = CurrentRecoil.Horizontal;
+                    int moveX = GetRandomInt(-CurrentRecoil.Horizontal, CurrentRecoil.Horizontal);
                     int moveY = CurrentRecoil.Vertical * 2;
 
                     if (controllerConnected)

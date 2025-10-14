@@ -24,8 +24,8 @@ namespace Files
         len += wsprintfA(buffer + len, "\r\n");
 
         len += wsprintfA(buffer + len, "[ToggleKey]\r\n");
-        len += wsprintfA(buffer + len, "# Use https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes\n");
-        len += wsprintfA(buffer + len, "# And then convert the key code to decimal\n");
+        len += wsprintfA(buffer + len, "# Use https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes\r\n");
+        len += wsprintfA(buffer + len, "# And then convert the key code to decimal\r\n");
         len += wsprintfA(buffer + len, "# Toggle Key (e.g. 20 = CAPS LOCK)\r\n");
         len += wsprintfA(buffer + len, "ToggleKey = %d\r\n", ToggleKey);
         len += wsprintfA(buffer + len, "Enabled = %s\r\n", UseToggleKey ? "true" : "false");

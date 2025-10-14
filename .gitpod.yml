@@ -1,14 +1,7 @@
 tasks:
-    - name: compile project
-      openMode: split-left
-      command: |
-          brew install mingw-w64
-          cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=cmake/mingw-toolchain.cmake
-          cmake --build build
-
-    - name: display website
-      openMode: split-right
-      command: |
-          cd website
-          yarn
-          yarn dev --open
+  - init: |
+      cd website
+      yarn install
+  - name: display website
+      cd website
+      yarn dev --open

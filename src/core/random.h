@@ -1,8 +1,5 @@
 #pragma once
 
-#include <cstdlib>
-#include <ctime>
-
 inline void InitRandom()
 {
     static bool initialised = false;

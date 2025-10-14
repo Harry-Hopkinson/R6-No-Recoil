@@ -109,4 +109,4 @@ void SetRecoilModeFromWeapon(const char* weaponName)
 
 int SelectedWeaponIndex = -1;
 
-float ControllerMultiplier = 10.0f;
+int ControllerMultiplier = 10;

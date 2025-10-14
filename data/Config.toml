@@ -1,7 +1,11 @@
 [RecoilPresets]
+Enabled = true
 VerticalRecoil = 3
 HorizontalRecoil = 0
-Enabled = true
+
+[Controller]
+Enabled = false
+Multiplier = 10
 
 [ToggleKey]
 # Use https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes

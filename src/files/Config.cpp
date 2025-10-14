@@ -18,9 +18,14 @@ namespace Files
         int len = 0;
 
         len += wsprintfA(buffer + len, "[RecoilPresets]\r\n");
+        len += wsprintfA(buffer + len, "Enabled = %s\r\n", EnableRC ? "true" : "false");
         len += wsprintfA(buffer + len, "VerticalRecoil = %d\r\n", CurrentRecoil.Vertical);
         len += wsprintfA(buffer + len, "HorizontalRecoil = %d\r\n", CurrentRecoil.Horizontal);
-        len += wsprintfA(buffer + len, "Enabled = %s\r\n", EnableRC ? "true" : "false");
+        len += wsprintfA(buffer + len, "\r\n");
+
+        len += wsprintfA(buffer + len, "[Controller]\r\n");
+        len += wsprintfA(buffer + len, "Enabled = %s\r\n", EnableController ? "true" : "false");
+        len += wsprintfA(buffer + len, "Multiplier = %d\r\n", ControllerMultiplier);
         len += wsprintfA(buffer + len, "\r\n");
 
         len += wsprintfA(buffer + len, "[ToggleKey]\r\n");
@@ -115,12 +120,19 @@ namespace Files
 
             if (strcmp(section, "RecoilPresets") == 0)
             {
-                if (strcmp(key, "VerticalRecoil") == 0)
+                if (strcmp(key, "Enabled") == 0)
+                    EnableRC = (strcmp(value, "true") == 0 || strcmp(value, "1") == 0);
+                else if (strcmp(key, "VerticalRecoil") == 0)
                     CurrentRecoil.Vertical = atoi(value);
                 else if (strcmp(key, "HorizontalRecoil") == 0)
                     CurrentRecoil.Horizontal = atoi(value);
-                else if (strcmp(key, "Enabled") == 0)
-                    EnableRC = (strcmp(value, "true") == 0 || strcmp(value, "1") == 0);
+            }
+            else if (strcmp(section, "Controller") == 0)
+            {
+                if (strcmp(key, "Enabled") == 0)
+                    EnableController = (strcmp(value, "true") == 0 || strcmp(value, "1") == 0);
+                else if (strcmp(key, "Multiplier") == 0)
+                    ControllerMultiplier = atoi(value);
             }
             else if (strcmp(section, "ToggleKey") == 0)
             {

@@ -24,19 +24,21 @@ namespace Threads
     {
         while (Running)
         {
-            bool controllerConnected = Inputs::IsControllerConnected();
+            bool controllerConnected = EnableController && Inputs::IsControllerConnected();
             XINPUT_STATE state = controllerConnected ? Inputs::GetControllerState() : XINPUT_STATE{};
 
-            bool isADS = Inputs::IsMouseADS() || (controllerConnected && Inputs::IsControllerADS(state));
+            bool isADS = Inputs::IsMouseADS() ||
+                         (EnableController && controllerConnected && Inputs::IsControllerADS(state));
 
             if (EnableRC && isADS)
             {
-                while (Inputs::IsMouseFiring() || (controllerConnected && Inputs::IsControllerFiring(state)))
+                while (Inputs::IsMouseFiring() ||
+                       (EnableController && controllerConnected && Inputs::IsControllerFiring(state)))
                 {
                     int moveX = GetRandomInt(-CurrentRecoil.Horizontal, CurrentRecoil.Horizontal);
                     int moveY = CurrentRecoil.Vertical * 2;
 
-                    if (controllerConnected)
+                    if (EnableController && controllerConnected)
                     {
                         state = Inputs::GetControllerState();
                         float lookX, lookY;

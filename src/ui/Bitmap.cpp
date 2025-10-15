@@ -37,7 +37,7 @@ namespace Bitmap
         HBITMAP bitmap = LoadBitmap(path);
 
         if (!bitmap)
-            MessageBoxA(NULL, "Error loading weapon bitmap", "Error", MB_OK | MB_ICONERROR);
+            return nullptr;
 
         // Free the allocated strings
         delete[] cleanName;
@@ -87,7 +87,7 @@ namespace Bitmap
             bitmaps.push_back(bitmap);
 
             if (!bitmap)
-                MessageBoxA(NULL, "Error loading operator bitmap", "Error", MB_OK | MB_ICONERROR);
+                return {};
         }
         return bitmaps;
     }

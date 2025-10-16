@@ -24,13 +24,19 @@ namespace
 namespace Buttons
 {
 
-    std::vector<Button> GetButtons()
+    const std::vector<Button>& GetButtons()
     {
         return ButtonsVector;
     }
 
     void ClearButtons()
     {
+        for (const auto& button : ButtonsVector)
+        {
+            HWND hwnd = button.GetHWND();
+            if (hwnd && IsWindow(hwnd))
+                DestroyWindow(hwnd);
+        }
         ButtonsVector.clear();
     }
 
@@ -42,8 +48,7 @@ namespace Buttons
 
     void CreateMainMenuButtons(HWND hwnd)
     {
-        HideButtons();
-        ButtonsVector.clear();
+        ClearButtons();
 
         int centerX = WINDOW_WIDTH / 2;
         int centerY = WINDOW_HEIGHT / 2 + 80;
@@ -57,8 +62,7 @@ namespace Buttons
 
     void CreateOperatorSelectionButtons(HWND hwnd)
     {
-        HideButtons();
-        ButtonsVector.clear();
+        ClearButtons();
 
         int startX = WINDOW_WIDTH - 200 - (350 / 2);
         int startY = (WINDOW_HEIGHT - 90) / 2;

@@ -183,7 +183,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
 {
     WNDCLASS wc = {};
-    wc.style = CS_HREDRAW | CS_VREDRAW;
+    wc.style = CS_HREDRAW | CS_VREDRAW | CS_PARENTDC;
     wc.lpszClassName = "R6NoRecoil";
     wc.hInstance = hInstance;
     wc.lpfnWndProc = WindowProc;

@@ -21,7 +21,7 @@ private:
 
 namespace Buttons
 {
-    std::vector<Button> GetButtons();
+    const std::vector<Button>& GetButtons();
     void ClearButtons();
 
     void CreateMainMenuButtons(HWND hwnd);

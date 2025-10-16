@@ -95,6 +95,10 @@ namespace Drawing
         FrameRect(memDC, &magBtn, (HBRUSH)GetStockObject(BLACK_BRUSH));
         DrawText(memDC, "Non-Magnifying", -1, &magBtn, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
+        // Draw note about the vertical grip
+        const char* verticalGripText = "Note that the recoil presets are designed to work best with the vertical grip";
+        Font::DrawCenteredText(memDC, verticalGripText, 0, sectionTop + 160, right, Font::GetMediumFont());
+
         // Back button at the bottom
         RECT backBtn = { 30, bottom - 80, 130, bottom - 31 };
         DrawText(memDC, "Back", -1, &backBtn, DT_CENTER | DT_VCENTER | DT_SINGLELINE);

@@ -1,8 +1,7 @@
 #include <windows.h>
 
+#include "../core/macros.h"
 #include "../ui/widgets/Font.h"
-
-#define maximum(a, b) ((a) > (b) ? (a) : (b))
 
 namespace Drawing
 {

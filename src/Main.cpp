@@ -6,6 +6,8 @@
 
 #include <thread>
 
+#include "core/macros.h"
+
 #include "detection/ClickDetection.h"
 #include "drawing/Drawing.h"
 
@@ -18,8 +20,6 @@
 #include "ui/Bitmap.h"
 #include "ui/widgets/Button.h"
 #include "ui/widgets/Font.h"
-
-#define maximum(a, b) ((a) > (b) ? (a) : (b))
 
 // Window Procedure for handling events
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)

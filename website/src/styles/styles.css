@@ -133,7 +133,6 @@ section.hero {
   width: 28px;
   height: 28px;
   fill: white;
-  display: block;
 }
 
 @keyframes fadeIn {

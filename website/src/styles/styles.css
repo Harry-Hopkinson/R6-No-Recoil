@@ -7,34 +7,33 @@ body {
   color: #333;
 }
 
+/* Hero Section */
 section.hero {
   position: relative;
   height: 100vh;
   overflow: hidden;
 }
 
-.parallax-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url("/image.png");
-  background-size: cover;
-  background-position: center;
-  z-index: 0;
-  will-change: transform;
-  opacity: 0;
-  animation: fadeIn 2s ease-out forwards;
-  animation-delay: 0.15s;
-}
-
+.parallax-bg,
 .overlay-gradient {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+}
+
+.parallax-bg {
+  background-image: url("/image.png");
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  opacity: 0;
+  animation: fadeIn 2s ease-out forwards;
+  animation-delay: 0.15s;
+}
+
+.overlay-gradient {
   background: linear-gradient(
     to bottom,
     rgba(0, 0, 0, 0.4),
@@ -109,30 +108,6 @@ section.hero {
 
 .btn.secondary:hover {
   background: rgba(255, 255, 255, 0.25);
-}
-
-.github-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 1.5rem;
-  background: #000;
-  padding: 0.6rem;
-  border-radius: 50%;
-  width: 54px;
-  height: 54px;
-  transition: background 0.3s ease;
-  transform: translateX(-5px);
-}
-
-.github-btn:hover {
-  background: #333;
-}
-
-.github-btn svg {
-  width: 28px;
-  height: 28px;
-  fill: white;
 }
 
 @keyframes fadeIn {

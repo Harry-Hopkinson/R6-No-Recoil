@@ -145,7 +145,12 @@ The app uses a `WeaponData.json` file to store **recoil compensation values** fo
 
 ## 💸 Support Development
 
-Any form of donation is greatly appreciated and will help keep me motivated to keep working on this project and developing it further with new features and improvements.
+Any form of donation is greatly appreciated and will help keep me motivated to keep working on this project and developing it further with new features and improvements. If you become a member you get:
+
+- Early access to new releases
+- Requests for custom builds of the program
+- Custom discord roles
+- Help support this project
 
 [![Buy Me a Coffee](https://img.shields.io/badge/buymeacoffee-donate-yellow)](https://www.buymeacoffee.com/HarryHopkinson)
 

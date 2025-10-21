@@ -110,6 +110,12 @@ section.hero {
   background: rgba(255, 255, 255, 0.25);
 }
 
+.btn.tertiary {
+  background: #f8fafc;
+  color: #333;
+  border: 1px solid #cbd5e1;
+}
+
 @keyframes fadeIn {
   to {
     opacity: 1;

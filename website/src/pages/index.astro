@@ -276,5 +276,19 @@ import BaseLayout from "../BaseLayout.astro";
         </ul>
       </div>
     </section>
+
+    <script>
+      const parallax: HTMLElement | null =
+        document.querySelector(".parallax-bg");
+
+      const handleScroll = () => {
+        const scrollY = window.scrollY;
+
+        if (parallax)
+          parallax.style.transform = "translateY(" + scrollY * 0.5 + "px)";
+      };
+
+      window.addEventListener("scroll", handleScroll);
+    </script>
   </body>
 </BaseLayout>

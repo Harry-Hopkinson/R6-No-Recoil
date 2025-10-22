@@ -58,7 +58,7 @@ namespace Buttons
 
         ButtonsVector.emplace_back(hwnd, WINDOW_WIDTH - 375, WINDOW_HEIGHT - 100, 160, 40, "Support the Project", 6);
         ButtonsVector.emplace_back(hwnd, WINDOW_WIDTH - 200, WINDOW_HEIGHT - 100, 160, 40, "View on GitHub", 7);
-        ButtonsVector.emplace_back(hwnd, 25, WINDOW_HEIGHT - 100, 160, 40, "Join the Discord", 10);
+        ButtonsVector.emplace_back(hwnd, 60, WINDOW_HEIGHT - 100, 160, 40, "Join the Discord", 10);
     }
 
     void CreateOperatorSelectionButtons(HWND hwnd)

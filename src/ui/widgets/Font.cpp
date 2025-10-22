@@ -33,60 +33,15 @@ void Font::CreateFonts()
 
 void Font::Cleanup()
 {
-    if (FontLarge)
-    {
-        DeleteObject(FontLarge);
-        FontLarge = nullptr;
-    }
+    DeleteObject(FontLarge); FontLarge = nullptr;
 
-    if (FontMedium)
-    {
-        DeleteObject(FontMedium);
-        FontMedium = nullptr;
-    }
+    DeleteObject(FontMedium); FontMedium = nullptr;
 
-    if (FontTitle)
-    {
-        DeleteObject(FontTitle);
-        FontTitle = nullptr;
-    }
+    DeleteObject(FontTitle); FontTitle = nullptr;
 
-    if (FontSubtitle)
-    {
-        DeleteObject(FontSubtitle);
-        FontSubtitle = nullptr;
-    }
+    DeleteObject(FontSubtitle); FontSubtitle = nullptr;
 
-    if (FontDesc)
-    {
-        DeleteObject(FontDesc);
-        FontDesc = nullptr;
-    }
-}
-
-HFONT Font::GetMediumFont()
-{
-    return FontMedium;
-}
-
-HFONT Font::GetLargeFont()
-{
-    return FontLarge;
-}
-
-HFONT Font::GetTitleFont()
-{
-    return FontTitle;
-}
-
-HFONT Font::GetSubtitleFont()
-{
-    return FontSubtitle;
-}
-
-HFONT Font::GetDescFont()
-{
-    return FontDesc;
+    DeleteObject(FontDesc); FontDesc = nullptr;
 }
 
 void Font::DrawCenteredText(HDC hdc, LPCSTR text, int x, int y, int width, HFONT font)

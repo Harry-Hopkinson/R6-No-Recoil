@@ -29,31 +29,42 @@ namespace ClickDetection
 
         int availableHeight = bottom - 120;
         int contentHeight = imgHeight + 50;
-        int startY = 120 + (availableHeight - contentHeight) / 2;
+        int startY = 80 + (availableHeight - contentHeight) / 2;
 
-        int sectionTop = bottom - 250;
+        int sectionTop = bottom - 330;
         int btnWidth = 250;
         int btnHeight = 50;
         int gap = 60;
         int centerX = right / 2;
 
-        int nonMagLeft = centerX - btnWidth - gap / 2;
-        int nonMagRight = centerX - gap / 2;
-        int magLeft = centerX + gap / 2;
-        int magRight = centerX + btnWidth + gap / 2;
+        // Scope buttons
+        int magLeft = centerX - btnWidth - gap / 2;
+        int magRight = centerX - gap / 2;
+        int nonMagLeft = centerX + gap / 2;
+        int nonMagRight = centerX + btnWidth + gap / 2;
         int btnTop = sectionTop + 60;
         int btnBottom = btnTop + btnHeight;
 
-        if (mouseY >= btnTop && mouseY <= btnBottom)
-        {
-            if (mouseX >= nonMagLeft && mouseX <= nonMagRight)
-                SelectedScopeType = ScopeType::MAGNIFIED;
-            else if (mouseX >= magLeft && mouseX <= magRight)
-                SelectedScopeType = ScopeType::NON_MAGNIFIED;
+        // Grip buttons
+        int gripTop = sectionTop + 130;
+        int gripBtnWidth = 200;
+        int gripBtnHeight = 50;
+        int gripGap = 40;
+        int gripBtnTop = gripTop + 50;
+        int gripBtnBottom = gripBtnTop + gripBtnHeight;
 
-            if (SelectedWeaponIndex != -1)
+        int angledLeft = centerX - gripBtnWidth - gripGap - gripBtnWidth / 2;
+        int angledRight = centerX - gripGap - gripBtnWidth / 2;
+        int horizontalLeft = centerX - gripBtnWidth / 2;
+        int horizontalRight = centerX + gripBtnWidth / 2;
+        int verticalLeft = centerX + gripGap + gripBtnWidth / 2;
+        int verticalRight = centerX + gripBtnWidth + gripGap + gripBtnWidth / 2;
+
+        auto ProceedIfReady = [&](int selectedWeaponIndex)
+        {
+            if (selectedWeaponIndex != -1 && SelectedScopeType != ScopeType::NONE && SelectedGripType != GripType::NONE)
             {
-                SetRecoilModeFromWeapon(weapons[SelectedWeaponIndex]);
+                SetRecoilModeFromWeapon(weapons[selectedWeaponIndex]);
                 Files::SaveConfig();
 
                 Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
@@ -61,13 +72,41 @@ namespace ClickDetection
 
                 SelectedWeaponIndex = -1;
                 SelectedScopeType = ScopeType::NONE;
+                SelectedGripType = GripType::NONE;
             }
+        };
 
+        // Scope click detection
+        if (mouseY >= btnTop && mouseY <= btnBottom)
+        {
+            if (mouseX >= magLeft && mouseX <= magRight)
+                SelectedScopeType = ScopeType::MAGNIFIED;
+            else if (mouseX >= nonMagLeft && mouseX <= nonMagRight)
+                SelectedScopeType = ScopeType::NON_MAGNIFIED;
+
+            ProceedIfReady(SelectedWeaponIndex);
             InvalidateRect(hwnd, NULL, TRUE);
             String::FreeWeaponList(weapons, weaponCount);
             return;
         }
 
+        // Grip click detection
+        if (mouseY >= gripBtnTop && mouseY <= gripBtnBottom)
+        {
+            if (mouseX >= angledLeft && mouseX <= angledRight)
+                SelectedGripType = GripType::ANGLED;
+            else if (mouseX >= horizontalLeft && mouseX <= horizontalRight)
+                SelectedGripType = GripType::HORIZONTAL;
+            else if (mouseX >= verticalLeft && mouseX <= verticalRight)
+                SelectedGripType = GripType::VERTICAL;
+
+            ProceedIfReady(SelectedWeaponIndex);
+            InvalidateRect(hwnd, NULL, TRUE);
+            String::FreeWeaponList(weapons, weaponCount);
+            return;
+        }
+
+        // Weapon click detection
         for (int i = 0; i < weaponCount; ++i)
         {
             int x = startX + i * (imgWidth + spacing);
@@ -79,24 +118,14 @@ namespace ClickDetection
             {
                 SelectedWeaponIndex = i;
 
-                if (SelectedScopeType != ScopeType::NONE)
-                {
-                    SetRecoilModeFromWeapon(weapons[i]);
-                    Files::SaveConfig();
-
-                    Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
-                    Buttons::CreateOperatorSelectionButtons(hwnd);
-
-                    SelectedWeaponIndex = -1;
-                    SelectedScopeType = ScopeType::NONE;
-                }
-
+                ProceedIfReady(i);
                 InvalidateRect(hwnd, NULL, TRUE);
                 String::FreeWeaponList(weapons, weaponCount);
                 return;
             }
         }
 
+        // Back button
         if (mouseX >= 30 && mouseX <= 130 && mouseY >= bottom - 80 && mouseY <= bottom - 30)
         {
             Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
@@ -104,6 +133,7 @@ namespace ClickDetection
 
             SelectedWeaponIndex = -1;
             SelectedScopeType = ScopeType::NONE;
+            SelectedGripType = GripType::NONE;
 
             InvalidateRect(hwnd, NULL, TRUE);
         }

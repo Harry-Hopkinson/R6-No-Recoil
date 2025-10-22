@@ -13,4 +13,13 @@ enum class ScopeType
     NON_MAGNIFIED
 };
 
+enum class GripType
+{
+    NONE,
+    ANGLED,
+    HORIZONTAL,
+    VERTICAL
+};
+
 extern ScopeType SelectedScopeType;
+extern GripType SelectedGripType;

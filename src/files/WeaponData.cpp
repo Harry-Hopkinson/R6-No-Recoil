@@ -10,14 +10,12 @@ namespace Files
 {
     WeaponRecoil GetWeaponData(const char* weaponName)
     {
+        // Default recoil
         WeaponRecoil recoil = {3, 0};
         if (!weaponName) return recoil;
 
         FILE* file = fopen("WeaponData.json", "rb");
-        if (!file)
-        {
-            return recoil;
-        }
+        if (!file) return recoil;
 
         fseek(file, 0, SEEK_END);
         long len = ftell(file);
@@ -29,8 +27,14 @@ namespace Files
         fclose(file);
 
         char* pos = data;
-        int nonMagVert = 0, nonMagHorz = 0;
-        int magVert = 0, magHorz = 0;
+
+        int nonMagAngledVert = 0, nonMagAngledHorz = 0;
+        int nonMagHorizontalVert = 0, nonMagHorizontalHorz = 0;
+        int nonMagVerticalVert = 0, nonMagVerticalHorz = 0;
+
+        int magAngledVert = 0, magAngledHorz = 0;
+        int magHorizontalVert = 0, magHorizontalHorz = 0;
+        int magVerticalVert = 0, magVerticalHorz = 0;
 
         while ((pos = strstr(pos, "\"name\"")))
         {
@@ -46,26 +50,28 @@ namespace Files
                 char* recoilPos = strstr(pos, "\"recoil\"");
                 if (!recoilPos) break;
 
-                // --- Non-magnified ---
+                // Non-magnified
                 char* nonMagPos = strstr(recoilPos, "\"non_magnified\"");
                 if (nonMagPos)
                 {
-                    char* vertPos = strstr(nonMagPos, "\"vertical\"");
-                    if (vertPos) sscanf(vertPos, " \"vertical\" : %d", &nonMagVert);
-
-                    char* horPos = strstr(nonMagPos, "\"horizontal\"");
-                    if (horPos) sscanf(horPos, " \"horizontal\" : %d", &nonMagHorz);
+                    sscanf(strstr(nonMagPos, "\"angled\""), " \"angled\" : { \"vertical\" : %d, \"horizontal\" : %d }",
+                           &nonMagAngledVert, &nonMagAngledHorz);
+                    sscanf(strstr(nonMagPos, "\"horizontal\""), " \"horizontal\" : { \"vertical\" : %d, \"horizontal\" : %d }",
+                           &nonMagHorizontalVert, &nonMagHorizontalHorz);
+                    sscanf(strstr(nonMagPos, "\"vertical\""), " \"vertical\" : { \"vertical\" : %d, \"horizontal\" : %d }",
+                           &nonMagVerticalVert, &nonMagVerticalHorz);
                 }
 
-                // --- Magnified ---
+                // Magnified
                 char* magPos = strstr(recoilPos, "\"magnified\"");
                 if (magPos)
                 {
-                    char* vertPos = strstr(magPos, "\"vertical\"");
-                    if (vertPos) sscanf(vertPos, " \"vertical\" : %d", &magVert);
-
-                    char* horPos = strstr(magPos, "\"horizontal\"");
-                    if (horPos) sscanf(horPos, " \"horizontal\" : %d", &magHorz);
+                    sscanf(strstr(magPos, "\"angled\""), " \"angled\" : { \"vertical\" : %d, \"horizontal\" : %d }",
+                           &magAngledVert, &magAngledHorz);
+                    sscanf(strstr(magPos, "\"horizontal\""), " \"horizontal\" : { \"vertical\" : %d, \"horizontal\" : %d }",
+                           &magHorizontalVert, &magHorizontalHorz);
+                    sscanf(strstr(magPos, "\"vertical\""), " \"vertical\" : { \"vertical\" : %d, \"horizontal\" : %d }",
+                           &magVerticalVert, &magVerticalHorz);
                 }
 
                 break;
@@ -75,12 +81,29 @@ namespace Files
 
         free(data);
 
+        // Select the correct recoil based on grip & scope
         if (SelectedScopeType == ScopeType::MAGNIFIED)
-            recoil = { magVert != 0 || magHorz != 0 ? magVert : nonMagVert,
-                       magVert != 0 || magHorz != 0 ? magHorz : nonMagHorz };
+        {
+            switch (SelectedGripType)
+            {
+                case GripType::ANGLED: recoil = { magAngledVert, magAngledHorz }; break;
+                case GripType::HORIZONTAL: recoil = { magHorizontalVert, magHorizontalHorz }; break;
+                case GripType::VERTICAL: recoil = { magVerticalVert, magVerticalHorz }; break;
+                default: recoil = { magVerticalVert, magVerticalHorz }; break;
+            }
+        }
         else
-            recoil = { nonMagVert, nonMagHorz };
+        {
+            switch (SelectedGripType)
+            {
+                case GripType::ANGLED: recoil = { nonMagAngledVert, nonMagAngledHorz }; break;
+                case GripType::HORIZONTAL: recoil = { nonMagHorizontalVert, nonMagHorizontalHorz }; break;
+                case GripType::VERTICAL: recoil = { nonMagVerticalVert, nonMagVerticalHorz }; break;
+                default: recoil = { nonMagVerticalVert, nonMagVerticalHorz }; break;
+            }
+        }
 
+        // Fallback if all zeros
         if (recoil.Vertical == 0 && recoil.Horizontal == 0)
             recoil = {3, 0};
 

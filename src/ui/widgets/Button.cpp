@@ -69,13 +69,15 @@ namespace Buttons
         int startY = (WINDOW_HEIGHT - 90) / 2;
 
         ButtonsVector.emplace_back(hwnd, startX, startY, 170, 40, "Toggle Recoil", 1);
-        ButtonsVector.emplace_back(hwnd, startX + 170 + 10 + 80 + 10, startY, 80, 40, "+", 8);
-        ButtonsVector.emplace_back(hwnd, startX + 170 + 10, startY, 80, 40, "-", 9);
+        ButtonsVector.emplace_back(hwnd, startX + 270, startY, 80, 40, "+", 8);
+        ButtonsVector.emplace_back(hwnd, startX + 180, startY, 80, 40, "-", 9);
 
-        ButtonsVector.emplace_back(hwnd, startX, startY + 40 + 10, 170, 40, "Toggle Key", 2);
+        ButtonsVector.emplace_back(hwnd, startX, startY + 50, 170, 40, "Toggle Key", 2);
         ButtonsVector.emplace_back(
-            hwnd, startX + 170 + 10, startY + 40 + 10, 170, 40, IsAttackerView ? "Switch to Defenders" : "Switch to Attackers",
+            hwnd, startX + 180, startY + 50, 170, 40, IsAttackerView ? "Switch to Defenders" : "Switch to Attackers",
             IsAttackerView ? 4 : 3);
+
+        ButtonsVector.emplace_back(hwnd, startX + 100, startY + 100, 140, 40, "Save Config", 11);
 
         ButtonsVector.emplace_back(hwnd, WINDOW_WIDTH - 175, WINDOW_HEIGHT - 75, 160, 40, "Back to Menu", 5);
     }

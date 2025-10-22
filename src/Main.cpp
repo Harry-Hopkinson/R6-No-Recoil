@@ -71,12 +71,12 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 case 7: // GitHub button
                     system("start https://github.com/Harry-Hopkinson/R6-No-Recoil");
                     break;
-                case 8: // "+" button
+                case 8: // "+" button (Vertical)
                     CurrentRecoil.Vertical++;
                     Files::SaveConfig();
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
-                case 9: // "-" button
+                case 9: // "-" button (Vertical)
                     CurrentRecoil.Vertical = maximum(CurrentRecoil.Vertical - 1, 0);
                     Files::SaveConfig();
                     InvalidateRect(hwnd, NULL, TRUE);

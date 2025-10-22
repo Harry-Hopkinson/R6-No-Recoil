@@ -59,16 +59,21 @@ namespace Drawing
             // Draw box around the selected weapon
             if (i == SelectedWeaponIndex)
             {
-                RECT boxRect = { x + 2, y + 2, x + imgWidth - 2, y + imgHeight + 50 };
-                HBRUSH oldBrush = (HBRUSH)SelectObject(memDC, GetStockObject(NULL_BRUSH));
-                HPEN pen = CreatePen(PS_SOLID, 3, RGB(255, 0, 0));
+                int underlineY = y + imgHeight + 48;
+                int underlineLeft = x + imgWidth * 0.25;
+                int underlineRight = x + imgWidth * 0.75;
+
+                HPEN pen = CreatePen(PS_SOLID, 4, RGB(50, 150, 255));
                 HPEN oldPen = (HPEN)SelectObject(memDC, pen);
-                Rectangle(memDC, boxRect.left, boxRect.top, boxRect.right, boxRect.bottom);
+
+                MoveToEx(memDC, underlineLeft, underlineY, NULL);
+                LineTo(memDC, underlineRight, underlineY);
+
                 SelectObject(memDC, oldPen);
                 DeleteObject(pen);
-                SelectObject(memDC, oldBrush);
             }
         }
+
 
         String::FreeWeaponList(weapons, weaponCount);
 

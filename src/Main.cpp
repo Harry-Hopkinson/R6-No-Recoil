@@ -165,13 +165,14 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         case WM_DESTROY:
         {
+            Buttons::ClearButtons();
+
             Bitmap::CleanupBitmaps(Bitmap::AttackerBitmaps);
             Bitmap::CleanupBitmaps(Bitmap::DefenderBitmaps);
             Bitmap::CleanupWeaponBitmaps();
 
             Font::Cleanup();
 
-            Buttons::ClearButtons();
             PostQuitMessage(0);
             return 0;
         }

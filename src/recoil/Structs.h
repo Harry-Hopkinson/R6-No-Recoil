@@ -2,8 +2,8 @@
 
 struct WeaponRecoil
 {
-    int Vertical;
-    int Horizontal;
+    float Vertical;
+    float Horizontal;
 };
 
 enum class ScopeType

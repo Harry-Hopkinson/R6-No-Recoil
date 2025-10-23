@@ -36,7 +36,7 @@ namespace Threads
                        (EnableController && controllerConnected && Inputs::IsControllerFiring(state)))
                 {
                     int moveX = GetRandomInt(-CurrentRecoil.Horizontal, CurrentRecoil.Horizontal);
-                    int moveY = CurrentRecoil.Vertical * 2;
+                    float moveY = CurrentRecoil.Vertical * 2;
 
                     if (EnableController && controllerConnected)
                     {

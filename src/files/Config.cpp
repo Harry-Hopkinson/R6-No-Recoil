@@ -3,6 +3,8 @@
 #include "../Globals.h"
 #include "../recoil/Recoil.h"
 
+#include <cstdio>
+
 #include <windows.h>
 
 namespace Files
@@ -16,25 +18,32 @@ namespace Files
 
         char buffer[512];
         int len = 0;
+        const int bufferSize = sizeof(buffer);
 
-        len += wsprintfA(buffer + len, "[RecoilPresets]\r\n");
-        len += wsprintfA(buffer + len, "Enabled = %s\r\n", EnableRC ? "true" : "false");
-        len += wsprintfA(buffer + len, "VerticalRecoil = %d\r\n", CurrentRecoil.Vertical);
-        len += wsprintfA(buffer + len, "HorizontalRecoil = %d\r\n", CurrentRecoil.Horizontal);
-        len += wsprintfA(buffer + len, "\r\n");
+        // [RecoilPresets]
+        len += sprintf_s(buffer + len, bufferSize - len, "[RecoilPresets]\r\n");
+        len += sprintf_s(buffer + len, bufferSize - len, "Enabled = %s\r\n", EnableRC ? "true" : "false");
+        len += sprintf_s(buffer + len, bufferSize - len, "VerticalRecoil = %.1f\r\n", CurrentRecoil.Vertical);
+        len += sprintf_s(buffer + len, bufferSize - len, "HorizontalRecoil = %.1f\r\n", CurrentRecoil.Horizontal);
+        len += sprintf_s(buffer + len, bufferSize - len, "\r\n");
 
-        len += wsprintfA(buffer + len, "[Controller]\r\n");
-        len += wsprintfA(buffer + len, "Enabled = %s\r\n", EnableController ? "true" : "false");
-        len += wsprintfA(buffer + len, "Multiplier = %d\r\n", ControllerMultiplier);
-        len += wsprintfA(buffer + len, "\r\n");
 
-        len += wsprintfA(buffer + len, "[ToggleKey]\r\n");
-        len += wsprintfA(buffer + len, "# Use https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes\r\n");
-        len += wsprintfA(buffer + len, "# And then convert the key code to decimal\r\n");
-        len += wsprintfA(buffer + len, "# Toggle Key (e.g. 20 = CAPS LOCK)\r\n");
-        len += wsprintfA(buffer + len, "ToggleKey = %d\r\n", ToggleKey);
-        len += wsprintfA(buffer + len, "Enabled = %s\r\n", UseToggleKey ? "true" : "false");
+        // [Controller]
+        len += sprintf_s(buffer + len, bufferSize - len, "[Controller]\r\n");
+        len += sprintf_s(buffer + len, bufferSize - len, "Enabled = %s\r\n", EnableController ? "true" : "false");
+        len += sprintf_s(buffer + len, bufferSize - len, "Multiplier = %d\r\n", ControllerMultiplier);
+        len += sprintf_s(buffer + len, bufferSize - len, "\r\n");
 
+        // [ToggleKey]
+        len += sprintf_s(buffer + len, bufferSize - len, "[ToggleKey]\r\n");
+        len += sprintf_s(buffer + len, bufferSize - len,
+                         "# Use https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes\r\n");
+        len += sprintf_s(buffer + len, bufferSize - len, "# And then convert the key code to decimal\r\n");
+        len += sprintf_s(buffer + len, bufferSize - len, "# Toggle Key (e.g. 20 = CAPS LOCK)\r\n");
+        len += sprintf_s(buffer + len, bufferSize - len, "ToggleKey = %d\r\n", ToggleKey);
+        len += sprintf_s(buffer + len, bufferSize - len, "Enabled = %s\r\n", UseToggleKey ? "true" : "false");
+
+        // Write to file
         DWORD written;
         WriteFile(file, buffer, len, &written, NULL);
         CloseHandle(file);
@@ -123,10 +132,11 @@ namespace Files
                 if (strcmp(key, "Enabled") == 0)
                     EnableRC = (strcmp(value, "true") == 0 || strcmp(value, "1") == 0);
                 else if (strcmp(key, "VerticalRecoil") == 0)
-                    CurrentRecoil.Vertical = atoi(value);
+                    CurrentRecoil.Vertical = static_cast<float>(atof(value));
                 else if (strcmp(key, "HorizontalRecoil") == 0)
-                    CurrentRecoil.Horizontal = atoi(value);
+                    CurrentRecoil.Horizontal = static_cast<float>(atof(value));
             }
+
             else if (strcmp(section, "Controller") == 0)
             {
                 if (strcmp(key, "Enabled") == 0)

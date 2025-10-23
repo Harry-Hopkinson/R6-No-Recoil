@@ -2,7 +2,7 @@
 
 #include "../files/Files.h"
 
-WeaponRecoil CurrentRecoil = { 3, 0 };
+WeaponRecoil CurrentRecoil = { 3.0f, 0.0f };
 
 std::vector<const char*> AttackerNames = { "Striker", "Sledge",   "Thatcher", "Ash",      "Thermite",   "Twitch",
                                            "Glaz",    "Fuze",     "IQ",       "Buck",     "Blackbeard", "Capitao",

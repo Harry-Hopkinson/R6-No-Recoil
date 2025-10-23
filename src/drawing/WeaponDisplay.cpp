@@ -107,28 +107,29 @@ namespace Drawing
         int gripBtnHeight = 50;
         int gripGap = 40;
 
-        RECT angledBtn = { centerX - gripBtnWidth - gripGap - gripBtnWidth / 2, gripTop + 50,
-                           centerX - gripGap - gripBtnWidth / 2, gripTop + 50 + gripBtnHeight };
-        RECT horizontalBtn = { centerX - gripBtnWidth / 2, gripTop + 50, centerX + gripBtnWidth / 2,
-                               gripTop + 50 + gripBtnHeight };
-        RECT verticalBtn = { centerX + gripGap + gripBtnWidth / 2, gripTop + 50,
-                             centerX + gripBtnWidth + gripGap + gripBtnWidth / 2, gripTop + 50 + gripBtnHeight };
+        RECT horizontalBtn = { centerX - gripBtnWidth - gripGap - gripBtnWidth / 2, gripTop + 50,
+                               centerX - gripGap - gripBtnWidth / 2, gripTop + 50 + gripBtnHeight };
+        RECT verticalBtn = { centerX - gripBtnWidth / 2, gripTop + 50, centerX + gripBtnWidth / 2,
+                             gripTop + 50 + gripBtnHeight };
+        RECT angledBtn = { centerX + gripGap + gripBtnWidth / 2, gripTop + 50,
+                           centerX + gripBtnWidth + gripGap + gripBtnWidth / 2, gripTop + 50 + gripBtnHeight };
 
-        if (SelectedGripType == GripType::ANGLED)
-            FillRect(memDC, &angledBtn, CreateSolidBrush(RGB(200, 230, 255)));
-        else if (SelectedGripType == GripType::HORIZONTAL)
+        if (SelectedGripType == GripType::HORIZONTAL)
             FillRect(memDC, &horizontalBtn, CreateSolidBrush(RGB(200, 230, 255)));
         else if (SelectedGripType == GripType::VERTICAL)
             FillRect(memDC, &verticalBtn, CreateSolidBrush(RGB(200, 230, 255)));
+        else if (SelectedGripType == GripType::ANGLED)
+            FillRect(memDC, &angledBtn, CreateSolidBrush(RGB(200, 230, 255)));
 
-        FrameRect(memDC, &angledBtn, (HBRUSH)GetStockObject(BLACK_BRUSH));
-        DrawText(memDC, "Angled", -1, &angledBtn, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-
+        // Draw frames and labels
         FrameRect(memDC, &horizontalBtn, (HBRUSH)GetStockObject(BLACK_BRUSH));
         DrawText(memDC, "Horizontal", -1, &horizontalBtn, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
         FrameRect(memDC, &verticalBtn, (HBRUSH)GetStockObject(BLACK_BRUSH));
         DrawText(memDC, "Vertical", -1, &verticalBtn, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+
+        FrameRect(memDC, &angledBtn, (HBRUSH)GetStockObject(BLACK_BRUSH));
+        DrawText(memDC, "Angled", -1, &angledBtn, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
         // Back button
         RECT backBtn = { 30, bottom - 80, 130, bottom - 31 };

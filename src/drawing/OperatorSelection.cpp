@@ -5,6 +5,8 @@
 #include "../ui/Bitmap.h"
 #include "../ui/widgets/Font.h"
 
+#include <cstdio>
+
 namespace Drawing
 {
 
@@ -60,8 +62,9 @@ namespace Drawing
         RECT recoilRect = { infoBoxRect.left + 2 * sectionWidth + 10, infoBoxRect.top + 5, infoBoxRect.left + 3 * sectionWidth,
                             infoBoxRect.bottom - 5 };
         char recoilText[60];
-        wsprintfA(recoilText, "Recoil: V:%d H:%d", CurrentRecoil.Vertical, CurrentRecoil.Horizontal);
+        sprintf_s(recoilText, sizeof(recoilText), "Recoil: V:%.1f H:%.1f", CurrentRecoil.Vertical, CurrentRecoil.Horizontal);
         DrawText(memDC, recoilText, -1, &recoilRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
+
 
         // Add a vertical separator line
         HPEN separatorPen = CreatePen(PS_SOLID, 3, RGB(180, 180, 180));

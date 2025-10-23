@@ -53,12 +53,12 @@ namespace ClickDetection
         int gripBtnTop = gripTop + 50;
         int gripBtnBottom = gripBtnTop + gripBtnHeight;
 
-        int angledLeft = centerX - gripBtnWidth - gripGap - gripBtnWidth / 2;
-        int angledRight = centerX - gripGap - gripBtnWidth / 2;
-        int horizontalLeft = centerX - gripBtnWidth / 2;
-        int horizontalRight = centerX + gripBtnWidth / 2;
-        int verticalLeft = centerX + gripGap + gripBtnWidth / 2;
-        int verticalRight = centerX + gripBtnWidth + gripGap + gripBtnWidth / 2;
+        int horizontalLeft = centerX - gripBtnWidth - gripGap - gripBtnWidth / 2;
+        int horizontalRight = centerX - gripGap - gripBtnWidth / 2;
+        int verticalLeft = centerX - gripBtnWidth / 2;
+        int verticalRight = centerX + gripBtnWidth / 2;
+        int angledLeft = centerX + gripGap + gripBtnWidth / 2;
+        int angledRight = centerX + gripBtnWidth + gripGap + gripBtnWidth / 2;
 
         auto ProceedIfReady = [&](int selectedWeaponIndex)
         {
@@ -93,12 +93,13 @@ namespace ClickDetection
         // Grip click detection
         if (mouseY >= gripBtnTop && mouseY <= gripBtnBottom)
         {
-            if (mouseX >= angledLeft && mouseX <= angledRight)
-                SelectedGripType = GripType::ANGLED;
-            else if (mouseX >= horizontalLeft && mouseX <= horizontalRight)
+            if (mouseX >= horizontalLeft && mouseX <= horizontalRight)
                 SelectedGripType = GripType::HORIZONTAL;
             else if (mouseX >= verticalLeft && mouseX <= verticalRight)
                 SelectedGripType = GripType::VERTICAL;
+            else if (mouseX >= angledLeft && mouseX <= angledRight)
+                SelectedGripType = GripType::ANGLED;
+
 
             ProceedIfReady(SelectedWeaponIndex);
             InvalidateRect(hwnd, NULL, TRUE);

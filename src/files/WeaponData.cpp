@@ -6,9 +6,50 @@
 
 namespace Files
 {
+
+    void ParseRecoilBlock(const char* gripBlockStart, float& vert, float& hor)
+    {
+        // Find the opening brace immediately after the grip key
+        const char* braceStart = strchr(gripBlockStart, '{');
+        if (!braceStart)
+            return;
+
+        // Find the matching closing brace
+        const char* braceEnd = braceStart;
+        int depth = 1;
+        while (*++braceEnd && depth > 0)
+        {
+            if (*braceEnd == '{')
+                depth++;
+            else if (*braceEnd == '}')
+                depth--;
+        }
+        if (depth != 0)
+            return;
+
+        // Parse only inside this brace
+        const char* p = braceStart + 1;
+        while (p < braceEnd)
+        {
+            if (strncmp(p, "\"vertical\"", 10) == 0)
+            {
+                const char* colon = strchr(p, ':');
+                if (colon)
+                    vert = strtof(colon + 1, nullptr);
+            }
+            else if (strncmp(p, "\"horizontal\"", 12) == 0)
+            {
+                const char* colon = strchr(p, ':');
+                if (colon)
+                    hor = strtof(colon + 1, nullptr);
+            }
+            p++;
+        }
+    }
+
     WeaponRecoil GetWeaponData(const char* weaponName)
     {
-        WeaponRecoil recoil = { 3, 0 };
+        WeaponRecoil recoil = { 3.0f, 0.0f };
         if (!weaponName)
             return recoil;
 
@@ -28,14 +69,14 @@ namespace Files
         char* pos = data;
 
         // Non-magnified
-        int nonMagAngledVert = 0, nonMagAngledHorz = 0;
-        int nonMagHorizontalVert = 0, nonMagHorizontalHorz = 0;
-        int nonMagVerticalVert = 0, nonMagVerticalHorz = 0;
+        float nonMagAngledVert = 0.0f, nonMagAngledHorz = 0.0f;
+        float nonMagHorizontalVert = 0.0f, nonMagHorizontalHorz = 0.0f;
+        float nonMagVerticalVert = 0.0f, nonMagVerticalHorz = 0.0f;
 
         // Magnified
-        int magAngledVert = 0, magAngledHorz = 0;
-        int magHorizontalVert = 0, magHorizontalHorz = 0;
-        int magVerticalVert = 0, magVerticalHorz = 0;
+        float magAngledVert = 0.0f, magAngledHorz = 0.0f;
+        float magHorizontalVert = 0.0f, magHorizontalHorz = 0.0f;
+        float magVerticalVert = 0.0f, magVerticalHorz = 0.0f;
 
         while ((pos = strstr(pos, "\"name\"")))
         {
@@ -56,82 +97,44 @@ namespace Files
                 char* nonMagPos = strstr(recoilPos, "\"non_magnified\"");
                 if (nonMagPos)
                 {
-                    // Angled
-                    char* angledPos = strstr(nonMagPos, "\"angled\"");
-                    if (angledPos)
-                    {
-                        char* braceStart = strchr(angledPos, '{');
-                        if (braceStart)
-                            sscanf(
-                                braceStart, "{ \"vertical\" : %d, \"horizontal\" : %d }", &nonMagAngledVert, &nonMagAngledHorz);
-                    }
+                    char* horizontalKey = strstr(nonMagPos, "\"horizontal\"");
+                    if (horizontalKey)
+                        ParseRecoilBlock(horizontalKey, nonMagHorizontalVert, nonMagHorizontalHorz);
 
-                    // Horizontal
-                    char* horizontalPos = strstr(nonMagPos, "\"horizontal\"");
-                    if (horizontalPos)
-                    {
-                        char* braceStart = strchr(horizontalPos, '{');
-                        if (braceStart)
-                            sscanf(
-                                braceStart, "{ \"vertical\" : %d, \"horizontal\" : %d }", &nonMagHorizontalVert,
-                                &nonMagHorizontalHorz);
-                    }
+                    char* verticalKey = strstr(nonMagPos, "\"vertical\"");
+                    if (verticalKey)
+                        ParseRecoilBlock(verticalKey, nonMagVerticalVert, nonMagVerticalHorz);
 
-                    // Vertical
-                    char* verticalPos = strstr(nonMagPos, "\"vertical\"");
-                    if (verticalPos)
-                    {
-                        char* braceStart = strchr(verticalPos, '{');
-                        if (braceStart)
-                            sscanf(
-                                braceStart, "{ \"vertical\" : %d, \"horizontal\" : %d }", &nonMagVerticalVert,
-                                &nonMagVerticalHorz);
-                    }
+                    char* angledKey = strstr(nonMagPos, "\"angled\"");
+                    if (angledKey)
+                        ParseRecoilBlock(angledKey, nonMagAngledVert, nonMagAngledHorz);
                 }
 
                 // --- Magnified ---
                 char* magPos = strstr(recoilPos, "\"magnified\"");
                 if (magPos)
                 {
-                    // Angled
-                    char* angledPos = strstr(magPos, "\"angled\"");
-                    if (angledPos)
-                    {
-                        char* braceStart = strchr(angledPos, '{');
-                        if (braceStart)
-                            sscanf(braceStart, "{ \"vertical\" : %d, \"horizontal\" : %d }", &magAngledVert, &magAngledHorz);
-                    }
+                    char* horizontalKey = strstr(magPos, "\"horizontal\"");
+                    if (horizontalKey)
+                        ParseRecoilBlock(horizontalKey, magHorizontalVert, magHorizontalHorz);
 
-                    // Horizontal
-                    char* horizontalPos = strstr(magPos, "\"horizontal\"");
-                    if (horizontalPos)
-                    {
-                        char* braceStart = strchr(horizontalPos, '{');
-                        if (braceStart)
-                            sscanf(
-                                braceStart, "{ \"vertical\" : %d, \"horizontal\" : %d }", &magHorizontalVert,
-                                &magHorizontalHorz);
-                    }
+                    char* verticalKey = strstr(magPos, "\"vertical\"");
+                    if (verticalKey)
+                        ParseRecoilBlock(verticalKey, magVerticalVert, magVerticalHorz);
 
-                    // Vertical
-                    char* verticalPos = strstr(magPos, "\"vertical\"");
-                    if (verticalPos)
-                    {
-                        char* braceStart = strchr(verticalPos, '{');
-                        if (braceStart)
-                            sscanf(
-                                braceStart, "{ \"vertical\" : %d, \"horizontal\" : %d }", &magVerticalVert, &magVerticalHorz);
-                    }
+                    char* angledKey = strstr(magPos, "\"angled\"");
+                    if (angledKey)
+                        ParseRecoilBlock(angledKey, magAngledVert, magAngledHorz);
                 }
 
-                break; // Weapon found
+                break;
             }
             pos += 6;
         }
 
         free(data);
 
-        // --- Select recoil based on grip & scope ---
+        // Select values based on scope and grip
         if (SelectedScopeType == ScopeType::MAGNIFIED)
         {
             switch (SelectedGripType)
@@ -169,9 +172,8 @@ namespace Files
             }
         }
 
-        // --- Fallback if zero ---
-        if (recoil.Vertical == 0 && recoil.Horizontal == 0)
-            recoil = { 3, 0 };
+        if (recoil.Vertical == 0.0f && recoil.Horizontal == 0.0f)
+            recoil = { 3.0f, 0.0f };
 
         return recoil;
     }

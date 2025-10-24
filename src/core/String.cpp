@@ -5,27 +5,6 @@
 namespace String
 {
 
-    char* RemoveSpaces(const char* input)
-    {
-        if (!input)
-            return nullptr;
-
-        int len = static_cast<int>(strlen(input));
-        char* result = new char[len + 1]; // +1 for null terminator
-        int j = 0;
-
-        for (int i = 0; i < len; i++)
-        {
-            if (input[i] != ' ')
-            {
-                result[j++] = input[i];
-            }
-        }
-        result[j] = '\0'; // Null terminate
-
-        return result;
-    }
-
     char* BuildPath(const char* dir, const char* filename)
     {
         int len1 = static_cast<int>(strlen(dir));

@@ -4,13 +4,6 @@ namespace String
 {
 
     /**
-     * @brief Removes all spaces from the input string
-     * @param input The input string to process
-     * @return A newly allocated string with spaces removed (caller must delete[])
-     */
-    char* RemoveSpaces(const char* input);
-
-    /**
      * @brief Concatenates directory path, filename, and .bmp extension
      * @param dir The directory path
      * @param filename The filename without extension

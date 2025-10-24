@@ -29,11 +29,7 @@ namespace Bitmap
 
     HBITMAP LoadWeaponBitmap(const char* weaponName)
     {
-        char* cleanName = String::RemoveSpaces(weaponName);
-        if (!cleanName)
-            return nullptr;
-
-        char* path = String::BuildPath("assets/weapons/", cleanName);
+        char* path = String::BuildPath("assets/weapons/", weaponName);
         HBITMAP bitmap = LoadBitmap(path);
 
         if (!bitmap)

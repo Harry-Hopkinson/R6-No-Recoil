@@ -35,8 +35,7 @@ namespace Bitmap
         if (!bitmap)
             return nullptr;
 
-        // Free the allocated strings
-        delete[] cleanName;
+        // Free the allocated string
         delete[] path;
 
         return bitmap;

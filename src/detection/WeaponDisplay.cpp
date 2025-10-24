@@ -70,9 +70,18 @@ namespace ClickDetection
                 Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
                 Buttons::CreateOperatorSelectionButtons(hwnd);
 
+                LastScopeType = SelectedScopeType;
+                LastGripType = SelectedGripType;
+
                 SelectedWeaponIndex = -1;
                 SelectedScopeType = ScopeType::NONE;
                 SelectedGripType = GripType::NONE;
+
+                if (CurrentWeapon)
+                {
+                    free((void*)CurrentWeapon);
+                }
+                CurrentWeapon = _strdup(weapons[selectedWeaponIndex]);
             }
         };
 

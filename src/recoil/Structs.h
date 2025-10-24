@@ -23,3 +23,6 @@ enum class GripType
 
 extern ScopeType SelectedScopeType;
 extern GripType SelectedGripType;
+
+extern ScopeType LastScopeType;
+extern GripType LastGripType;

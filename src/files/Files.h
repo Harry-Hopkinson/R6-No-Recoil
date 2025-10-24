@@ -29,4 +29,10 @@ namespace Files
      */
     const char* GetImagePath(const char* name);
 
+
+    /**
+     * @brief Saves the weapon recoil data to the WeaponData.json file
+     */
+    void SaveWeaponData();
+
 } // namespace Files

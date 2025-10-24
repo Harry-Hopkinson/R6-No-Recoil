@@ -86,6 +86,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     break;
                 case 11: // Save Config button
                     Files::SaveConfig();
+                    Files::SaveWeaponData();
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
             }

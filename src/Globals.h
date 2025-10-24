@@ -12,3 +12,5 @@ extern bool EnableController;
 extern bool UseToggleKey;
 
 extern int ToggleKey;
+
+extern const char* CurrentWeapon;

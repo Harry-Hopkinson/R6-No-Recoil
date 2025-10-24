@@ -133,5 +133,155 @@
                 "angled": { "vertical": 3.0, "horizontal": 0 }
             }
         }
+    },
+    {
+        "name": "MPX",
+        "recoil": {
+            "non_magnified": {
+                "horizontal": { "vertical": 2.5, "horizontal": 0 },
+                "vertical": { "vertical": 2.0, "horizontal": 0 },
+                "angled": { "vertical": 2.5, "horizontal": 0 }
+            },
+            "magnified": {
+                "horizontal": { "vertical": 2.5, "horizontal": 0 },
+                "vertical": { "vertical": 2.0, "horizontal": 0 },
+                "angled": { "vertical": 2.5, "horizontal": 0 }
+            }
+        }
+    },
+    {
+        "name": "T-5",
+        "recoil": {
+            "non_magnified": {
+                "horizontal": { "vertical": 3.0, "horizontal": 0 },
+                "vertical": { "vertical": 2.5, "horizontal": 0 },
+                "angled": { "vertical": 3.0, "horizontal": 0 }
+            },
+            "magnified": {
+                "horizontal": { "vertical": 3.0, "horizontal": 0 },
+                "vertical": { "vertical": 2.5, "horizontal": 0 },
+                "angled": { "vertical": 3.0, "horizontal": 0 }
+            }
+        }
+    },
+    {
+        "name": "Scorpion-EVO",
+        "recoil": {
+            "non_magnified": {
+                "horizontal": { "vertical": 3.5, "horizontal": 0 },
+                "vertical": { "vertical": 3.0, "horizontal": 0 },
+                "angled": { "vertical": 3.5, "horizontal": 0 }
+            },
+            "magnified": {
+                "horizontal": { "vertical": 3.5, "horizontal": 0 },
+                "vertical": { "vertical": 3.0, "horizontal": 0 },
+                "angled": { "vertical": 3.5, "horizontal": 0 }
+            }
+        }
+    },
+    {
+        "name": "K1A",
+        "recoil": {
+            "non_magnified": {
+                "horizontal": { "vertical": 2.5, "horizontal": 0 },
+                "vertical": { "vertical": 2.0, "horizontal": 0 },
+                "angled": { "vertical": 2.5, "horizontal": 0 }
+            },
+            "magnified": {
+                "horizontal": { "vertical": 2.5, "horizontal": 0 },
+                "vertical": { "vertical": 2.0, "horizontal": 0 },
+                "angled": { "vertical": 2.5, "horizontal": 0 }
+            }
+        }
+    },
+    {
+        "name": "Vector",
+        "recoil": {
+            "non_magnified": {
+                "horizontal": { "vertical": 3.5, "horizontal": 0 },
+                "vertical": { "vertical": 2.5, "horizontal": 0 },
+                "angled": { "vertical": 3.5, "horizontal": 0 }
+            },
+            "magnified": {
+                "horizontal": { "vertical": 3.5, "horizontal": 0 },
+                "vertical": { "vertical": 2.5, "horizontal": 0 },
+                "angled": { "vertical": 3.5, "horizontal": 0 }
+            }
+        }
+    },
+    {
+        "name": "P10-RONI",
+        "recoil": {
+            "non_magnified": {
+                "horizontal": { "vertical": 3.0, "horizontal": 0 },
+                "vertical": { "vertical": 2.5, "horizontal": 0 },
+                "angled": { "vertical": 3.0, "horizontal": 0 }
+            },
+            "magnified": {
+                "horizontal": { "vertical": 3.0, "horizontal": 0 },
+                "vertical": { "vertical": 2.5, "horizontal": 0 },
+                "angled": { "vertical": 3.0, "horizontal": 0 }
+            }
+        }
+    },
+    {
+        "name": "Commando-9",
+        "recoil": {
+            "non_magnified": {
+                "horizontal": { "vertical": 2.5, "horizontal": 0 },
+                "vertical": { "vertical": 2.0, "horizontal": 0 },
+                "angled": { "vertical": 2.5, "horizontal": 0 }
+            },
+            "magnified": {
+                "horizontal": { "vertical": 2.5, "horizontal": 0 },
+                "vertical": { "vertical": 2.0, "horizontal": 0 },
+                "angled": { "vertical": 2.5, "horizontal": 0 }
+            }
+        }
+    },
+    {
+        "name": "9mm-C1",
+        "recoil": {
+            "non_magnified": {
+                "horizontal": { "vertical": 1.5, "horizontal": 0 },
+                "vertical": { "vertical": 1.0, "horizontal": 0 },
+                "angled": { "vertical": 1.5, "horizontal": 0 }
+            },
+            "magnified": {
+                "horizontal": { "vertical": 1.5, "horizontal": 0 },
+                "vertical": { "vertical": 1.0, "horizontal": 0 },
+                "angled": { "vertical": 1.5, "horizontal": 0 }
+            }
+        }
+    },
+    {
+        "name": "M12",
+        "recoil": {
+            "non_magnified": {
+                "horizontal": { "vertical": 1.5, "horizontal": 0 },
+                "vertical": { "vertical": 1.5, "horizontal": 0 },
+                "angled": { "vertical": 1.5, "horizontal": 0 }
+            },
+            "magnified": {
+                "horizontal": { "vertical": 1.5, "horizontal": 0 },
+                "vertical": { "vertical": 1.5, "horizontal": 0 },
+                "angled": { "vertical": 1.5, "horizontal": 0 }
+            }
+        }
+    },
+    {
+        "name": "PDW9",
+        "recoil": {
+            "non_magnified": {
+                "horizontal": { "vertical": 2.5, "horizontal": 0 },
+                "vertical": { "vertical": 2.0, "horizontal": 0 },
+                "angled": { "vertical": 2.5, "horizontal": 0 }
+            },
+            "magnified": {
+                "horizontal": { "vertical": 5.5, "horizontal": 0 },
+                "vertical": { "vertical": 4.5, "horizontal": 0 },
+                "angled": { "vertical": 5.5, "horizontal": 0 }
+            }
+        }
     }
 ]

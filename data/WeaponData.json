@@ -283,5 +283,95 @@
                 "angled": { "vertical": 5.5, "horizontal": 0 }
             }
         }
+    },
+    {
+        "name": "POF-9",
+        "recoil": {
+            "non_magnified": {
+                "horizontal": { "vertical": 2.5, "horizontal": 0 },
+                "vertical": { "vertical": 2.0, "horizontal": 0 },
+                "angled": { "vertical": 2.5, "horizontal": 0 }
+            },
+            "magnified": {
+                "horizontal": { "vertical": 5.5, "horizontal": 0 },
+                "vertical": { "vertical": 4.5, "horizontal": 0 },
+                "angled": { "vertical": 5.5, "horizontal": 0 }
+            }
+        }
+    },
+    {
+        "name": "SC3000K",
+        "recoil": {
+            "non_magnified": {
+                "horizontal": { "vertical": 3.0, "horizontal": 0 },
+                "vertical": { "vertical": 2.5, "horizontal": 0 },
+                "angled": { "vertical": 3.0, "horizontal": 0 }
+            },
+            "magnified": {
+                "horizontal": { "vertical": 7.5, "horizontal": 0 },
+                "vertical": { "vertical": 6.0, "horizontal": 0 },
+                "angled": { "vertical": 7.5, "horizontal": 0 }
+            }
+        }
+    },
+    {
+        "name": "UZK50GI",
+        "recoil": {
+            "non_magnified": {
+                "horizontal": { "vertical": 2.5, "horizontal": 0 },
+                "vertical": { "vertical": 2.0, "horizontal": 0 },
+                "angled": { "vertical": 2.5, "horizontal": 0 }
+            },
+            "magnified": {
+                "horizontal": { "vertical": 2.5, "horizontal": 0 },
+                "vertical": { "vertical": 2.0, "horizontal": 0 },
+                "angled": { "vertical": 2.5, "horizontal": 0 }
+            }
+        }
+    },
+    {
+        "name": "AK-12",
+        "recoil": {
+            "non_magnified": {
+                "horizontal": { "vertical": 3.0, "horizontal": 0 },
+                "vertical": { "vertical": 2.5, "horizontal": 0 },
+                "angled": { "vertical": 3.0, "horizontal": 0 }
+            },
+            "magnified": {
+                "horizontal": { "vertical": 6.5, "horizontal": 0 },
+                "vertical": { "vertical": 5.5, "horizontal": 0 },
+                "angled": { "vertical": 6.5, "horizontal": 0 }
+            }
+        }
+    },
+    {
+        "name": "F2",
+        "recoil": {
+            "non_magnified": {
+                "horizontal": { "vertical": 4.0, "horizontal": 0 },
+                "vertical": { "vertical": 4.0, "horizontal": 0 },
+                "angled": { "vertical": 4.0, "horizontal": 0 }
+            },
+            "magnified": {
+                "horizontal": { "vertical": 9.0, "horizontal": 0 },
+                "vertical": { "vertical": 9.0, "horizontal": 0 },
+                "angled": { "vertical": 9.0, "horizontal": 0 }
+            }
+        }
+    },
+    {
+        "name": "AR33",
+        "recoil": {
+            "non_magnified": {
+                "horizontal": { "vertical": 2.0, "horizontal": 0 },
+                "vertical": { "vertical": 2.0, "horizontal": 0 },
+                "angled": { "vertical": 2.0, "horizontal": 0 }
+            },
+            "magnified": {
+                "horizontal": { "vertical": 5.0, "horizontal": 0 },
+                "vertical": { "vertical": 4.0, "horizontal": 0 },
+                "angled": { "vertical": 5.0, "horizontal": 0 }
+            }
+        }
     }
 ]

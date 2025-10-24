@@ -19,7 +19,8 @@ enum class GripType
 
 namespace Files
 {
-    void SaveWeaponRecoil(const char* weaponName, float vert, float hor)
+
+    void SaveWeaponData(const char* weaponName, float vert, float hor)
     {
         ScopeType SelectedScopeType = ScopeType::NON_MAGNIFIED;
         GripType SelectedGripType = GripType::HORIZONTAL;
@@ -102,13 +103,12 @@ namespace Files
         }
 
         // Reconstruct JSON with corrected block
-        size_t beforeLen = braceStart - data + 1; // include '{'
+        size_t beforeLen = braceStart - data + 1;
         size_t afterLen = strlen(braceEnd);
         char* before = (char*)malloc(beforeLen + 1);
         memcpy(before, data, beforeLen);
         before[beforeLen] = '\0';
 
-        // ✅ Properly close the brace here
         char newBlock[256];
         snprintf(newBlock, sizeof(newBlock), " \"vertical\": %.2f, \"horizontal\": %.2f }", vert, hor);
 
@@ -128,10 +128,11 @@ namespace Files
         free(newData);
         free(data);
     }
+
 } // namespace Files
 
 int main()
 {
-    Files::SaveWeaponRecoil("P90", 3.5f, 0.5f);
+    Files::SaveWeaponData("P90", 3.5f, 0.5f);
     return 0;
 }

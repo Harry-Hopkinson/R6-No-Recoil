@@ -1,3 +1,5 @@
+#include "Structs.h"
+
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -6,21 +8,6 @@ struct WeaponRecoil
 {
     float Vertical;
     float Horizontal;
-};
-
-enum class ScopeType
-{
-    NONE,
-    MAGNIFIED,
-    NON_MAGNIFIED
-};
-
-enum class GripType
-{
-    NONE,
-    ANGLED,
-    HORIZONTAL,
-    VERTICAL
 };
 
 namespace Files

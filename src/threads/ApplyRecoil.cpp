@@ -27,16 +27,18 @@ namespace Threads
             bool controllerConnected = EnableController && Inputs::IsControllerConnected();
             XINPUT_STATE state = controllerConnected ? Inputs::GetControllerState() : XINPUT_STATE{};
 
-            bool isADS = Inputs::IsMouseADS() ||
-                         (EnableController && controllerConnected && Inputs::IsControllerADS(state));
+            bool isADS = Inputs::IsMouseADS() || (EnableController && controllerConnected && Inputs::IsControllerADS(state));
 
             if (EnableRC && isADS)
             {
-                while (Inputs::IsMouseFiring() ||
-                       (EnableController && controllerConnected && Inputs::IsControllerFiring(state)))
+                while (Inputs::IsMouseFiring()
+                       || (EnableController && controllerConnected && Inputs::IsControllerFiring(state)))
                 {
-                    int moveX = GetRandomInt(-CurrentRecoil.Horizontal, CurrentRecoil.Horizontal);
-                    float moveY = CurrentRecoil.Vertical * 2;
+
+                    int moveX = GetRandomInt(-static_cast<int>(CurrentRecoil.Horizontal),
+                                             static_cast<int>(CurrentRecoil.Horizontal));
+                    int moveY = static_cast<int>(CurrentRecoil.Vertical * 2.0f);
+
 
                     if (EnableController && controllerConnected)
                     {

@@ -58,8 +58,8 @@ namespace Drawing
             if (i == SelectedWeaponIndex)
             {
                 int underlineY = y + imgHeight + 48;
-                int underlineLeft = x + imgWidth * 0.25;
-                int underlineRight = x + imgWidth * 0.75;
+                int underlineLeft = x + imgWidth / 4;
+                int underlineRight = x + (imgWidth * 3) / 4;
 
                 HPEN pen = CreatePen(PS_SOLID, 4, RGB(50, 150, 255));
                 HPEN oldPen = (HPEN)SelectObject(memDC, pen);

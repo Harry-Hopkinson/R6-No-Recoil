@@ -12,106 +12,94 @@
 namespace ClickDetection
 {
 
+    void ResetVariables()
+    {
+        SelectedWeaponIndex = -1;
+        SelectedScopeType = ScopeType::NONE;
+        SelectedGripType = GripType::NONE;
+    }
+
     void WeaponDisplay(HWND hwnd, int right, int bottom, int mouseX, int mouseY)
     {
         const char* weaponStr = IsAttackerView ? AttackerPrimaryWeapons[SelectedOperatorIndex]
                                                : DefenderPrimaryWeapons[SelectedOperatorIndex];
 
-        const char* weapons[3] = { NULL, NULL, NULL };
+        const char* weapons[3] = { nullptr, nullptr, nullptr };
         int weaponCount = String::ParseWeaponList(weaponStr, weapons, 3);
 
-        int imgWidth = 400;
-        int imgHeight = 150;
-        int spacing = 60;
+        constexpr int imgWidth = 400;
+        constexpr int imgHeight = 150;
+        constexpr int spacing = 60;
+        constexpr int btnWidth = 250;
+        constexpr int gap = 60;
+        constexpr int gripBtnWidth = 200;
+        constexpr int gripGap = 40;
 
         int totalWidth = weaponCount * imgWidth + (weaponCount - 1) * spacing;
         int startX = (right - totalWidth) / 2;
-
-        int availableHeight = bottom - 120;
-        int contentHeight = imgHeight + 50;
-        int startY = 80 + (availableHeight - contentHeight) / 2;
+        int startY = 80 + (bottom - 120 - (imgHeight + 50)) / 2;
 
         int sectionTop = bottom - 330;
-        int btnWidth = 250;
-        int btnHeight = 50;
-        int gap = 60;
         int centerX = right / 2;
 
-        // Scope buttons
-        int magLeft = centerX - btnWidth - gap / 2;
-        int magRight = centerX - gap / 2;
-        int nonMagLeft = centerX + gap / 2;
-        int nonMagRight = centerX + btnWidth + gap / 2;
-        int btnTop = sectionTop + 60;
-        int btnBottom = btnTop + btnHeight;
+        RECT magRect = { centerX - btnWidth - gap / 2, sectionTop + 60, centerX - gap / 2, sectionTop + 110 };
+        RECT nonMagRect = { centerX + gap / 2, sectionTop + 60, centerX + btnWidth + gap / 2, sectionTop + 110 };
 
-        // Grip buttons
-        int gripTop = sectionTop + 130;
-        int gripBtnWidth = 200;
-        int gripBtnHeight = 50;
-        int gripGap = 40;
-        int gripBtnTop = gripTop + 50;
-        int gripBtnBottom = gripBtnTop + gripBtnHeight;
+        RECT gripRects[3];
+        gripRects[0] = { centerX - gripBtnWidth * 3 / 2 - gripGap, sectionTop + 180, centerX - gripBtnWidth / 2 - gripGap,
+                         sectionTop + 230 }; // Horizontal
+        gripRects[1] = { centerX - gripBtnWidth / 2, sectionTop + 180, centerX + gripBtnWidth / 2,
+                         sectionTop + 230 }; // Vertical
+        gripRects[2] = { centerX + gripBtnWidth / 2 + gripGap, sectionTop + 180, centerX + gripBtnWidth * 3 / 2 + gripGap,
+                         sectionTop + 230 }; // Angled
 
-        int horizontalLeft = centerX - gripBtnWidth - gripGap - gripBtnWidth / 2;
-        int horizontalRight = centerX - gripGap - gripBtnWidth / 2;
-        int verticalLeft = centerX - gripBtnWidth / 2;
-        int verticalRight = centerX + gripBtnWidth / 2;
-        int angledLeft = centerX + gripGap + gripBtnWidth / 2;
-        int angledRight = centerX + gripBtnWidth + gripGap + gripBtnWidth / 2;
+        auto ProceedIfReady = [&](int selectedWeaponIndex) {
+            if (selectedWeaponIndex == -1 || SelectedScopeType == ScopeType::NONE || SelectedGripType == GripType::NONE)
+                return;
 
-        auto ProceedIfReady = [&](int selectedWeaponIndex)
-        {
-            if (selectedWeaponIndex != -1 && SelectedScopeType != ScopeType::NONE && SelectedGripType != GripType::NONE)
-            {
-                SetRecoilModeFromWeapon(weapons[selectedWeaponIndex]);
-                Files::SaveConfig();
+            SetRecoilModeFromWeapon(weapons[selectedWeaponIndex]);
+            Files::SaveConfig();
 
-                Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
-                Buttons::CreateOperatorSelectionButtons(hwnd);
+            Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
+            Buttons::CreateOperatorSelectionButtons(hwnd);
 
-                LastScopeType = SelectedScopeType;
-                LastGripType = SelectedGripType;
+            LastScopeType = SelectedScopeType;
+            LastGripType = SelectedGripType;
+            ResetVariables();
 
-                SelectedWeaponIndex = -1;
-                SelectedScopeType = ScopeType::NONE;
-                SelectedGripType = GripType::NONE;
+            if (CurrentWeapon)
+                free((void*)CurrentWeapon);
 
-                if (CurrentWeapon)
-                {
-                    free((void*)CurrentWeapon);
-                }
-                CurrentWeapon = _strdup(weapons[selectedWeaponIndex]);
-            }
+            CurrentWeapon = _strdup(weapons[selectedWeaponIndex]);
         };
 
-        // Scope click detection
-        if (mouseY >= btnTop && mouseY <= btnBottom)
+
+        // Scope buttons
+        if (mouseY >= magRect.top && mouseY <= magRect.bottom)
         {
-            if (mouseX >= magLeft && mouseX <= magRight)
+            if (mouseX >= magRect.left && mouseX <= magRect.right)
                 SelectedScopeType = ScopeType::MAGNIFIED;
-            else if (mouseX >= nonMagLeft && mouseX <= nonMagRight)
+            else if (mouseX >= nonMagRect.left && mouseX <= nonMagRect.right)
                 SelectedScopeType = ScopeType::NON_MAGNIFIED;
 
             ProceedIfReady(SelectedWeaponIndex);
-            InvalidateRect(hwnd, NULL, TRUE);
+            InvalidateRect(hwnd, nullptr, TRUE);
             String::FreeWeaponList(weapons, weaponCount);
             return;
         }
 
-        // Grip click detection
-        if (mouseY >= gripBtnTop && mouseY <= gripBtnBottom)
+        // Grip buttons
+        if (mouseY >= gripRects[0].top && mouseY <= gripRects[0].bottom)
         {
-            if (mouseX >= horizontalLeft && mouseX <= horizontalRight)
+            if (mouseX >= gripRects[0].left && mouseX <= gripRects[0].right)
                 SelectedGripType = GripType::HORIZONTAL;
-            else if (mouseX >= verticalLeft && mouseX <= verticalRight)
+            else if (mouseX >= gripRects[1].left && mouseX <= gripRects[1].right)
                 SelectedGripType = GripType::VERTICAL;
-            else if (mouseX >= angledLeft && mouseX <= angledRight)
+            else if (mouseX >= gripRects[2].left && mouseX <= gripRects[2].right)
                 SelectedGripType = GripType::ANGLED;
 
-
             ProceedIfReady(SelectedWeaponIndex);
-            InvalidateRect(hwnd, NULL, TRUE);
+            InvalidateRect(hwnd, nullptr, TRUE);
             String::FreeWeaponList(weapons, weaponCount);
             return;
         }
@@ -119,33 +107,27 @@ namespace ClickDetection
         // Weapon click detection
         for (int i = 0; i < weaponCount; ++i)
         {
-            int x = startX + i * (imgWidth + spacing);
-            int y = startY;
-            RECT clickRect = { x, y, x + imgWidth, y + imgHeight + 45 };
+            RECT clickRect = { startX + i * (imgWidth + spacing), startY, startX + i * (imgWidth + spacing) + imgWidth,
+                               startY + imgHeight + 45 };
 
-            if (mouseX >= clickRect.left && mouseX <= clickRect.right &&
-                mouseY >= clickRect.top && mouseY <= clickRect.bottom)
+            if (mouseX >= clickRect.left && mouseX <= clickRect.right && mouseY >= clickRect.top && mouseY <= clickRect.bottom)
             {
                 SelectedWeaponIndex = i;
-
                 ProceedIfReady(i);
-                InvalidateRect(hwnd, NULL, TRUE);
+                InvalidateRect(hwnd, nullptr, TRUE);
                 String::FreeWeaponList(weapons, weaponCount);
                 return;
             }
         }
 
         // Back button
-        if (mouseX >= 30 && mouseX <= 130 && mouseY >= bottom - 80 && mouseY <= bottom - 30)
+        RECT backBtn = { 30, bottom - 80, 130, bottom - 30 };
+        if (mouseX >= backBtn.left && mouseX <= backBtn.right && mouseY >= backBtn.top && mouseY <= backBtn.bottom)
         {
             Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
             Buttons::CreateOperatorSelectionButtons(hwnd);
-
-            SelectedWeaponIndex = -1;
-            SelectedScopeType = ScopeType::NONE;
-            SelectedGripType = GripType::NONE;
-
-            InvalidateRect(hwnd, NULL, TRUE);
+            ResetVariables();
+            InvalidateRect(hwnd, nullptr, TRUE);
         }
 
         String::FreeWeaponList(weapons, weaponCount);

@@ -21,6 +21,7 @@ namespace ClickDetection
             {
                 SelectedOperatorIndex = static_cast<int>(i);
                 Scenes::ChangeCurrentScene(SceneType::WeaponDisplay);
+
                 for (const auto& button : Buttons::GetButtons())
                     ShowWindow(button.GetHWND(), SW_HIDE);
                 InvalidateRect(hwnd, NULL, TRUE);

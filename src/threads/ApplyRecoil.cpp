@@ -3,7 +3,6 @@
 #include <thread>
 
 #include "../Globals.h"
-#include "../core/random.h"
 #include "../inputs/Inputs.h"
 #include "../recoil/Recoil.h"
 
@@ -35,8 +34,7 @@ namespace Threads
                        || (EnableController && controllerConnected && Inputs::IsControllerFiring(state)))
                 {
 
-                    int moveX = GetRandomInt(-static_cast<int>(CurrentRecoil.Horizontal),
-                                             static_cast<int>(CurrentRecoil.Horizontal));
+                    int moveX = static_cast<int>(CurrentRecoil.Horizontal * 2.0f);
                     int moveY = static_cast<int>(CurrentRecoil.Vertical * 2.0f);
 
 

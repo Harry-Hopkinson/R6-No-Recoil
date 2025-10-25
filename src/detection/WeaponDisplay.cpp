@@ -9,15 +9,15 @@
 #include "../scenes/Scenes.h"
 #include "../ui/widgets/Button.h"
 
-void ResetVariables()
-{
-    SelectedWeaponIndex = -1;
-    SelectedScopeType = ScopeType::NONE;
-    SelectedGripType = GripType::NONE;
-}
-
 namespace ClickDetection
 {
+
+    void ResetVariables()
+    {
+        SelectedWeaponIndex = -1;
+        SelectedScopeType = ScopeType::NONE;
+        SelectedGripType = GripType::NONE;
+    }
 
     void WeaponDisplay(HWND hwnd, int right, int bottom, int mouseX, int mouseY)
     {

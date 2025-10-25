@@ -131,6 +131,9 @@ namespace Drawing
         FrameRect(memDC, &angledBtn, (HBRUSH)GetStockObject(BLACK_BRUSH));
         DrawText(memDC, "Angled", -1, &angledBtn, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
+        const char* verticalGripText = "Note that the recoil presets are designed to work best with the Compensator and Extended Barrel.";
+        Font::DrawCenteredText(memDC, verticalGripText, 0, sectionTop + 260, right, Font::GetMediumFont());
+
         // Back button
         RECT backBtn = { 30, bottom - 80, 130, bottom - 31 };
         DrawText(memDC, "Back", -1, &backBtn, DT_CENTER | DT_VCENTER | DT_SINGLELINE);

@@ -9,6 +9,13 @@
 #include "../scenes/Scenes.h"
 #include "../ui/widgets/Button.h"
 
+void ResetVariables()
+{
+    SelectedWeaponIndex = -1;
+    SelectedScopeType = ScopeType::NONE;
+    SelectedGripType = GripType::NONE;
+}
+
 namespace ClickDetection
 {
 
@@ -26,14 +33,10 @@ namespace ClickDetection
 
         int totalWidth = weaponCount * imgWidth + (weaponCount - 1) * spacing;
         int startX = (right - totalWidth) / 2;
-
-        int availableHeight = bottom - 120;
-        int contentHeight = imgHeight + 50;
-        int startY = 80 + (availableHeight - contentHeight) / 2;
+        int startY = 80 + (bottom - 120 - (imgHeight + 50)) / 2;
 
         int sectionTop = bottom - 330;
         int btnWidth = 250;
-        int btnHeight = 50;
         int gap = 60;
         int centerX = right / 2;
 
@@ -43,7 +46,7 @@ namespace ClickDetection
         int nonMagLeft = centerX + gap / 2;
         int nonMagRight = centerX + btnWidth + gap / 2;
         int btnTop = sectionTop + 60;
-        int btnBottom = btnTop + btnHeight;
+        int btnBottom = btnTop + 50;
 
         // Grip buttons
         int gripTop = sectionTop + 130;
@@ -72,10 +75,7 @@ namespace ClickDetection
 
                 LastScopeType = SelectedScopeType;
                 LastGripType = SelectedGripType;
-
-                SelectedWeaponIndex = -1;
-                SelectedScopeType = ScopeType::NONE;
-                SelectedGripType = GripType::NONE;
+                ResetVariables();
 
                 if (CurrentWeapon)
                 {
@@ -141,9 +141,7 @@ namespace ClickDetection
             Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
             Buttons::CreateOperatorSelectionButtons(hwnd);
 
-            SelectedWeaponIndex = -1;
-            SelectedScopeType = ScopeType::NONE;
-            SelectedGripType = GripType::NONE;
+            ResetVariables();
 
             InvalidateRect(hwnd, NULL, TRUE);
         }

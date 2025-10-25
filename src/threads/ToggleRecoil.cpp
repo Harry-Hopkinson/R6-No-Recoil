@@ -21,6 +21,7 @@ namespace Threads
             {
                 EnableRC = !EnableRC;
                 Files::SaveConfig();
+
                 InvalidateRect(FindWindow(NULL, "R6 No Recoil"), NULL, TRUE);
                 std::this_thread::sleep_for(std::chrono::milliseconds(TOGGLE_DELAY_MS));
             }

@@ -60,7 +60,7 @@ namespace Drawing
         textRect.left = infoBoxRect.left + 2 * sectionWidth + 10;
         textRect.right = infoBoxRect.left + 3 * sectionWidth;
         char recoilText[60];
-        sprintf_s(recoilText, sizeof(recoilText), "Recoil: V:%.1f H:%.1f", CurrentRecoil.Vertical, CurrentRecoil.Horizontal);
+        sprintf_s(recoilText, sizeof(recoilText), "Recoil: V: %.1f H: %.1f", CurrentRecoil.Vertical, CurrentRecoil.Horizontal);
         DrawText(memDC, recoilText, -1, &textRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
         // Vertical and Horizontal Recoil Text to the right of the buttons

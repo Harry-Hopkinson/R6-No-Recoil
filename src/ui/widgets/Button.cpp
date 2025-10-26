@@ -68,9 +68,15 @@ namespace Buttons
         int startX = WINDOW_WIDTH - 200 - (350 / 2);
         int startY = (WINDOW_HEIGHT - 90) / 2;
 
-        ButtonsVector.emplace_back(hwnd, startX, startY, 170, 40, "Toggle Recoil", 1);
-        ButtonsVector.emplace_back(hwnd, startX + 270, startY, 80, 40, "+", 8);
-        ButtonsVector.emplace_back(hwnd, startX + 180, startY, 80, 40, "-", 9);
+        ButtonsVector.emplace_back(hwnd, startX + 90, startY, 170, 40, "Toggle Recoil", 1);
+
+        // Vertical Recoil
+        ButtonsVector.emplace_back(hwnd, startX + 270, startY - 150, 80, 40, "+", 8);
+        ButtonsVector.emplace_back(hwnd, startX + 180, startY - 150, 80, 40, "-", 9);
+
+        // Horizontal Recoil
+        ButtonsVector.emplace_back(hwnd, startX + 270, startY - 100, 80, 40, "+", 12);
+        ButtonsVector.emplace_back(hwnd, startX + 180, startY - 100, 80, 40, "-", 13);
 
         ButtonsVector.emplace_back(hwnd, startX, startY + 50, 170, 40, "Toggle Key", 2);
         ButtonsVector.emplace_back(

@@ -20,9 +20,9 @@ namespace Drawing
         {
             int x, y;
             LayoutUtils::OperatorGridLayout::GetCellPosition(i, x, y);
-            Bitmap::DrawBitmap(memDC, bitmaps[i], x, y,
-                               LayoutUtils::OperatorGridLayout::CELL_SIZE,
-                               LayoutUtils::OperatorGridLayout::CELL_SIZE, true);
+            Bitmap::DrawBitmap(
+                memDC, bitmaps[i], x, y, LayoutUtils::OperatorGridLayout::CELL_SIZE, LayoutUtils::OperatorGridLayout::CELL_SIZE,
+                true);
         }
 
         SetBkMode(memDC, TRANSPARENT);
@@ -62,6 +62,18 @@ namespace Drawing
         char recoilText[60];
         sprintf_s(recoilText, sizeof(recoilText), "Recoil: V:%.1f H:%.1f", CurrentRecoil.Vertical, CurrentRecoil.Horizontal);
         DrawText(memDC, recoilText, -1, &textRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
+
+        // Vertical and Horizontal Recoil Text to the right of the buttons
+        SetTextColor(memDC, RGB(60, 60, 60));
+        SetBkMode(memDC, TRANSPARENT);
+
+        RECT verticalLabelRect = { WINDOW_WIDTH - 305, (WINDOW_HEIGHT - 90) / 2 - 140, WINDOW_WIDTH - 150,
+                                   (WINDOW_HEIGHT - 90) / 2 - 120 };
+        RECT horizontalLabelRect = { WINDOW_WIDTH - 320, (WINDOW_HEIGHT - 90) / 2 - 90, WINDOW_WIDTH - 150,
+                                     (WINDOW_HEIGHT - 90) / 2 - 70 };
+
+        DrawText(memDC, "Vertical Recoil:", -1, &verticalLabelRect, DT_LEFT | DT_SINGLELINE | DT_VCENTER);
+        DrawText(memDC, "Horizontal Recoil:", -1, &horizontalLabelRect, DT_LEFT | DT_SINGLELINE | DT_VCENTER);
 
         // Vertical separator line
         HPEN separatorPen = CreatePen(PS_SOLID, 3, RGB(180, 180, 180));

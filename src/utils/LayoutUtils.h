@@ -48,7 +48,7 @@ namespace LayoutUtils
     {
         static constexpr int WEAPON_WIDTH = 400;
         static constexpr int WEAPON_HEIGHT = 150;
-        static constexpr int WEAPON_SPACING = 60;
+        static constexpr int WEAPON_SPACING = 10;
         static constexpr int WEAPON_NAME_HEIGHT = 30;
 
         static constexpr int SCOPE_BUTTON_WIDTH = 250;
@@ -74,7 +74,7 @@ namespace LayoutUtils
         {
             int totalWidth = weaponCount * WEAPON_WIDTH + (weaponCount - 1) * WEAPON_SPACING;
             outStartX = (screenWidth - totalWidth) / 2;
-            outStartY = 80 + (screenHeight - 120 - (WEAPON_HEIGHT + 50)) / 2;
+            outStartY = 40 + (screenHeight - 120 - (WEAPON_HEIGHT + 50)) / 2;
         }
 
         /**

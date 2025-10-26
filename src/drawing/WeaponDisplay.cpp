@@ -18,12 +18,12 @@ namespace Drawing
         SetBkMode(memDC, TRANSPARENT);
 
         const char* operatorName = IsAttackerView ? AttackerNames[SelectedOperatorIndex] : DefenderNames[SelectedOperatorIndex];
-        const char* weaponStr = IsAttackerView ? AttackerPrimaryWeapons[SelectedOperatorIndex]
-                                               : DefenderPrimaryWeapons[SelectedOperatorIndex];
+        const char* weaponStr = IsAttackerView ? AttackerWeapons[SelectedOperatorIndex]
+                                               : DefenderWeapons[SelectedOperatorIndex];
 
         // Draw operator name and instruction text with correct fonts
-        Font::DrawCenteredText(memDC, operatorName, 0, 160, right, Font::GetLargeFont());
-        Font::DrawCenteredText(memDC, "Select a primary weapon:", 0, 200, right, Font::GetMediumFont());
+        Font::DrawCenteredText(memDC, operatorName, 0, 220, right, Font::GetLargeFont());
+        Font::DrawCenteredText(memDC, "Select a primary weapon:", 0, 260, right, Font::GetMediumFont());
 
         // Parse weapons
         const char* weapons[3] = { nullptr, nullptr, nullptr };

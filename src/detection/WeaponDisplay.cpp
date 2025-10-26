@@ -20,8 +20,8 @@ namespace ClickDetection
 
     void WeaponDisplay(HWND hwnd, int right, int bottom, int mouseX, int mouseY)
     {
-        const char* weaponStr = IsAttackerView ? AttackerPrimaryWeapons[SelectedOperatorIndex]
-                                               : DefenderPrimaryWeapons[SelectedOperatorIndex];
+        const char* weaponStr = IsAttackerView ? AttackerWeapons[SelectedOperatorIndex]
+                                               : DefenderWeapons[SelectedOperatorIndex];
 
         const char* weapons[3] = { nullptr, nullptr, nullptr };
         int weaponCount = String::ParseWeaponList(weaponStr, weapons, 3);

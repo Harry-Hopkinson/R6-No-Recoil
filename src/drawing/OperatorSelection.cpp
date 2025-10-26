@@ -2,6 +2,7 @@
 #include "../recoil/Recoil.h"
 #include "../ui/Bitmap.h"
 #include "../ui/widgets/Font.h"
+#include "../utils/GdiHelpers.h"
 
 #include <cstdio>
 #include <windows.h>
@@ -25,17 +26,9 @@ namespace Drawing
 
         RECT infoBoxRect = { 20, 10, right - 400, 40 };
 
-        // Draw info box background
-        HBRUSH infoBrush = CreateSolidBrush(RGB(248, 249, 250));
-        FillRect(memDC, &infoBoxRect, infoBrush);
-        DeleteObject(infoBrush);
-
-        // Draw info box border
-        HPEN infoPen = CreatePen(PS_SOLID, 1, RGB(220, 220, 220));
-        HPEN oldPen = (HPEN)SelectObject(memDC, infoPen);
-        Rectangle(memDC, infoBoxRect.left, infoBoxRect.top, infoBoxRect.right, infoBoxRect.bottom);
-        SelectObject(memDC, oldPen);
-        DeleteObject(infoPen);
+        // Draw info box background and border
+        GdiHelpers::FillRectColor(memDC, infoBoxRect, RGB(248, 249, 250));
+        GdiHelpers::DrawRectBorder(memDC, infoBoxRect, RGB(220, 220, 220));
 
         // Draw info text
         HFONT oldFont = (HFONT)SelectObject(memDC, Font::GetDescFont());

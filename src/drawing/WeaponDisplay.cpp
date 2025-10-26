@@ -4,6 +4,7 @@
 #include "../scenes/Scenes.h"
 #include "../ui/Bitmap.h"
 #include "../ui/widgets/Font.h"
+#include "../utils/GdiHelpers.h"
 
 #include <windows.h>
 
@@ -65,12 +66,10 @@ namespace Drawing
                 int underlineLeft = x + imgWidth / 4;
                 int underlineRight = x + (imgWidth * 3) / 4;
 
-                HPEN pen = CreatePen(PS_SOLID, 4, RGB(50, 150, 255));
-                HPEN oldPen = (HPEN)SelectObject(memDC, pen);
+                GdiHelpers::ScopedPen pen(PS_SOLID, 4, RGB(50, 150, 255));
+                GdiHelpers::ScopedSelectObject select(memDC, pen);
                 MoveToEx(memDC, underlineLeft, underlineY, nullptr);
                 LineTo(memDC, underlineRight, underlineY);
-                SelectObject(memDC, oldPen);
-                DeleteObject(pen);
             }
         }
 
@@ -86,12 +85,10 @@ namespace Drawing
         RECT magBtn = { centerX - btnWidth - gap / 2, sectionTop + 60, centerX - gap / 2, sectionTop + 60 + btnHeight };
         RECT nonMagBtn = { centerX + gap / 2, sectionTop + 60, centerX + btnWidth + gap / 2, sectionTop + 60 + btnHeight };
 
-        HBRUSH highlightBrush = CreateSolidBrush(RGB(200, 230, 255));
         if (SelectedScopeType == ScopeType::MAGNIFIED)
-            FillRect(memDC, &magBtn, highlightBrush);
+            GdiHelpers::FillRectColor(memDC, magBtn, RGB(200, 230, 255));
         else if (SelectedScopeType == ScopeType::NON_MAGNIFIED)
-            FillRect(memDC, &nonMagBtn, highlightBrush);
-        DeleteObject(highlightBrush);
+            GdiHelpers::FillRectColor(memDC, nonMagBtn, RGB(200, 230, 255));
 
         FrameRect(memDC, &magBtn, (HBRUSH)GetStockObject(BLACK_BRUSH));
         FrameRect(memDC, &nonMagBtn, (HBRUSH)GetStockObject(BLACK_BRUSH));
@@ -110,14 +107,12 @@ namespace Drawing
         RECT angledBtn = { centerX + gripGap + gripBtnWidth / 2, gripTop + 50,
                            centerX + gripBtnWidth + gripGap + gripBtnWidth / 2, gripTop + 50 + gripBtnHeight };
 
-        highlightBrush = CreateSolidBrush(RGB(200, 230, 255));
         if (SelectedGripType == GripType::HORIZONTAL)
-            FillRect(memDC, &horizontalBtn, highlightBrush);
+            GdiHelpers::FillRectColor(memDC, horizontalBtn, RGB(200, 230, 255));
         else if (SelectedGripType == GripType::VERTICAL)
-            FillRect(memDC, &verticalBtn, highlightBrush);
+            GdiHelpers::FillRectColor(memDC, verticalBtn, RGB(200, 230, 255));
         else if (SelectedGripType == GripType::ANGLED)
-            FillRect(memDC, &angledBtn, highlightBrush);
-        DeleteObject(highlightBrush);
+            GdiHelpers::FillRectColor(memDC, angledBtn, RGB(200, 230, 255));
 
         FrameRect(memDC, &horizontalBtn, (HBRUSH)GetStockObject(BLACK_BRUSH));
         FrameRect(memDC, &verticalBtn, (HBRUSH)GetStockObject(BLACK_BRUSH));

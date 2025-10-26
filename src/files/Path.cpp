@@ -1,13 +1,8 @@
 #include "Files.h"
 
-#include <windows.h>
+#include "../utils/FileUtils.h"
 
-const char* GetExecutableDir()
-{
-    static char exePath[MAX_PATH] = {};
-    GetModuleFileNameA(NULL, exePath, MAX_PATH);
-    return exePath;
-}
+#include <windows.h>
 
 namespace Files
 {
@@ -15,7 +10,7 @@ namespace Files
     const char* GetImagePath(const char* name)
     {
         static char fullPath[MAX_PATH] = {};
-        const char* exePath = GetExecutableDir();
+        const char* exePath = FileUtils::GetExecutableDir();
 
         int lastSlash = -1;
         for (int i = 0; exePath[i] != '\0'; ++i)

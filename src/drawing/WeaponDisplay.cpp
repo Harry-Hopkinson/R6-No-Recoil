@@ -35,12 +35,12 @@ namespace Drawing
         SetStretchBltMode(memDC, HALFTONE);
         SetBrushOrgEx(memDC, 0, 0, nullptr);
 
-        RECT nameRect = {};
-        HFONT weaponFont;
-
         // Draw each weapon with original font logic
         for (int i = 0; i < weaponCount; ++i)
         {
+            RECT nameRect = {};
+            HFONT weaponFont;
+
             int x = startX + i * imgWidth;
             int y = startY;
 

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../core/CompilerUtils.h"
+
 enum class SceneType
 {
     MainMenu,
@@ -15,12 +17,12 @@ namespace
 namespace Scenes
 {
 
-    __forceinline SceneType GetCurrentScene()
+    FORCE_INLINE SceneType GetCurrentScene()
     {
         return CurrentScene;
     }
 
-    __forceinline void ChangeCurrentScene(SceneType newScene)
+    FORCE_INLINE void ChangeCurrentScene(SceneType newScene)
     {
         CurrentScene = newScene;
     }

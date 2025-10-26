@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../../Globals.h"
+#include "../../core/CompilerUtils.h"
 #include <vector>
 
 typedef struct HWND__* HWND;
@@ -12,7 +13,7 @@ class Button
 public:
     Button(HWND parent, int x, int y, int width, int height, const char* text, int id);
 
-    __forceinline HWND GetHWND() const { return hwndButton; }
+    FORCE_INLINE HWND GetHWND() const { return hwndButton; }
 
 private:
     HWND hwndButton;
@@ -21,7 +22,13 @@ private:
 
 namespace Buttons
 {
-    __forceinline const std::vector<Button>& GetButtons();
+    extern std::vector<Button> ButtonsVector;
+
+    FORCE_INLINE const std::vector<Button>& GetButtons()
+    {
+        return ButtonsVector;
+    }
+
     void ClearButtons();
 
     void CreateMainMenuButtons(HWND hwnd);

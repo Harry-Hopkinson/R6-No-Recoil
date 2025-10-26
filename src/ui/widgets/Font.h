@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../core/CompilerUtils.h"
+
 typedef struct HFONT__* HFONT;
 typedef struct HDC__* HDC;
 typedef const char* LPCSTR;
@@ -10,11 +12,11 @@ public:
     static void CreateFonts();
     static void Cleanup();
 
-    static __forceinline HFONT GetMediumFont()   { return FontMedium; }
-    static __forceinline HFONT GetLargeFont()    { return FontLarge; }
-    static __forceinline HFONT GetTitleFont()    { return FontTitle; }
-    static __forceinline HFONT GetSubtitleFont() { return FontSubtitle; }
-    static __forceinline HFONT GetDescFont()     { return FontDesc; }
+    static FORCE_INLINE HFONT GetMediumFont()   { return FontMedium; }
+    static FORCE_INLINE HFONT GetLargeFont()    { return FontLarge; }
+    static FORCE_INLINE HFONT GetTitleFont()    { return FontTitle; }
+    static FORCE_INLINE HFONT GetSubtitleFont() { return FontSubtitle; }
+    static FORCE_INLINE HFONT GetDescFont()     { return FontDesc; }
 
     static void DrawCenteredText(HDC hdc, LPCSTR text, int x, int y, int width, HFONT font);
 

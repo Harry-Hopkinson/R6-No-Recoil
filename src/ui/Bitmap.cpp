@@ -1,17 +1,16 @@
 #include "Bitmap.h"
 
-#include <windows.h>
-
 #include "../Globals.h"
 #include "../core/String.h"
 #include "../files/Files.h"
+
+#include <windows.h>
 
 namespace Bitmap
 {
 
     std::vector<HBITMAP> AttackerBitmaps;
     std::vector<HBITMAP> DefenderBitmaps;
-
     static std::vector<WeaponBitmapEntry> WeaponBitmaps;
 
     std::vector<HBITMAP>& GetCurrentBitmapList()
@@ -23,21 +22,17 @@ namespace Bitmap
     {
         if (!path)
             return nullptr;
-
         return (HBITMAP)LoadImageA(NULL, path, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE);
     }
 
     HBITMAP LoadWeaponBitmap(const char* weaponName)
     {
-        char* path = String::BuildPath("assets/weapons/", weaponName);
-        HBITMAP bitmap = LoadBitmap(path);
-
-        if (!bitmap)
+        if (!weaponName)
             return nullptr;
 
-        // Free the allocated string
+        char* path = String::BuildPath("assets/weapons/", weaponName);
+        HBITMAP bitmap = LoadBitmap(path);
         delete[] path;
-
         return bitmap;
     }
 
@@ -46,26 +41,18 @@ namespace Bitmap
         if (!weaponName)
             return nullptr;
 
-        // Search the cache first
+        // Search cache
         for (const auto& entry : WeaponBitmaps)
-        {
             if (strcmp(entry.name, weaponName) == 0)
                 return entry.bitmap;
-        }
 
-        // Not found in cache, load the bitmap
+        // Not cached, load
         HBITMAP bmp = LoadWeaponBitmap(weaponName);
         if (bmp)
         {
-            // Make a copy of the name to store in our cache
             char* nameCopy = String::CreateStringCopy(weaponName);
             if (nameCopy)
-            {
-                WeaponBitmapEntry entry;
-                entry.name = nameCopy;
-                entry.bitmap = bmp;
-                WeaponBitmaps.push_back(entry);
-            }
+                WeaponBitmaps.push_back({ nameCopy, bmp });
         }
         return bmp;
     }
@@ -73,17 +60,17 @@ namespace Bitmap
     std::vector<HBITMAP> LoadOperatorBitmaps(const std::vector<const char*>& names)
     {
         std::vector<HBITMAP> bitmaps;
-
         bitmaps.reserve(names.size());
+
         for (const auto& name : names)
         {
             const char* path = Files::GetImagePath(name);
             HBITMAP bitmap = LoadBitmap(path);
-            bitmaps.push_back(bitmap);
-
             if (!bitmap)
-                return {};
+                return {}; // Return empty if any bitmap fails
+            bitmaps.push_back(bitmap);
         }
+
         return bitmaps;
     }
 
@@ -102,10 +89,8 @@ namespace Bitmap
     void CleanupBitmaps(std::vector<HBITMAP>& bitmaps)
     {
         for (HBITMAP bmp : bitmaps)
-        {
             if (bmp)
                 DeleteObject(bmp);
-        }
         bitmaps.clear();
     }
 
@@ -127,18 +112,15 @@ namespace Bitmap
         }
 
         HGDIOBJ oldBmp = SelectObject(hdcMem, bitmap);
-        BITMAP bm;
+        BITMAP bm{};
         GetObject(bitmap, sizeof(bm), &bm);
 
-        // Draw a border around the image area
         RECT imgRect = { x, y, x + width, y + height };
         FrameRect(hdc, &imgRect, (HBRUSH)GetStockObject(BLACK_BRUSH));
 
-        // Set up for better quality scaling
         SetStretchBltMode(hdc, HALFTONE);
-        SetBrushOrgEx(hdc, 0, 0, NULL);
+        SetBrushOrgEx(hdc, 0, 0, nullptr);
 
-        // Draw the bitmap
         BOOL result = StretchBlt(hdc, x, y, width, height, hdcMem, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY);
 
         SelectObject(hdcMem, oldBmp);
@@ -159,12 +141,9 @@ namespace Bitmap
             return;
 
         RECT imgRect = { x, y, x + width, y + height };
-
-        // Draw border and fill with gray
         FrameRect(hdc, &imgRect, (HBRUSH)GetStockObject(BLACK_BRUSH));
         FillRect(hdc, &imgRect, (HBRUSH)GetStockObject(LTGRAY_BRUSH));
 
-        // Draw text if provided
         if (text)
         {
             int oldBkMode = SetBkMode(hdc, TRANSPARENT);

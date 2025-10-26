@@ -2,8 +2,6 @@
 
 #include "../utils/StringUtils.h"
 
-#include <cstring>
-
 namespace String
 {
 

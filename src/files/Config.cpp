@@ -5,10 +5,6 @@
 #include "../utils/FileUtils.h"
 #include "../utils/StringUtils.h"
 
-#include <cstdio>
-
-#include <windows.h>
-
 namespace Files
 {
 
@@ -24,7 +20,6 @@ namespace Files
         len += sprintf_s(buffer + len, bufferSize - len, "VerticalRecoil = %.1f\r\n", CurrentRecoil.Vertical);
         len += sprintf_s(buffer + len, bufferSize - len, "HorizontalRecoil = %.1f\r\n", CurrentRecoil.Horizontal);
         len += sprintf_s(buffer + len, bufferSize - len, "\r\n");
-
 
         // [Controller]
         len += sprintf_s(buffer + len, bufferSize - len, "[Controller]\r\n");
@@ -59,7 +54,7 @@ namespace Files
         while (line)
         {
             line = StringUtils::TrimWhitespace(line);
-            
+
             if (*line == '\0' || *line == '#')
             {
                 line = strtok(NULL, "\r\n");

@@ -2,8 +2,6 @@
 
 #include "../utils/FileUtils.h"
 
-#include <windows.h>
-
 namespace Files
 {
 

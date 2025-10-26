@@ -5,8 +5,6 @@
 #include "../files/Files.h"
 #include "../utils/GdiHelpers.h"
 
-#include <windows.h>
-
 namespace Bitmap
 {
 

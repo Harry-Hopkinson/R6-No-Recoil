@@ -5,7 +5,6 @@
 #include "../utils/GdiHelpers.h"
 
 #include <cstdio>
-#include <windows.h>
 
 namespace Drawing
 {

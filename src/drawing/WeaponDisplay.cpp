@@ -1,12 +1,12 @@
 #include "../Globals.h"
+
 #include "../core/String.h"
 #include "../recoil/Recoil.h"
 #include "../scenes/Scenes.h"
+
 #include "../ui/Bitmap.h"
 #include "../ui/widgets/Font.h"
 #include "../utils/GdiHelpers.h"
-
-#include <windows.h>
 
 namespace Drawing
 {

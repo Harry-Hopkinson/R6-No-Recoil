@@ -1,5 +1,3 @@
-#include <windows.h>
-
 #include "../core/macros.h"
 #include "../ui/widgets/Font.h"
 #include "../utils/GdiHelpers.h"
@@ -79,7 +77,7 @@ namespace Drawing
             rightCurrentY += 28;
         }
 
-        // CTA Box
+        // Call to Action Box
         int ctaY = maximum(leftCurrentY, rightCurrentY) + 80;
         textRect = { right / 4, ctaY - 10, (right * 3) / 4, ctaY + 70 };
         GdiHelpers::FillRectColor(memDC, textRect, RGB(245, 245, 245));

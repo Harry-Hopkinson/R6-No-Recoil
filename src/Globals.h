@@ -1,7 +1,7 @@
 #pragma once
 
-constexpr int WINDOW_WIDTH = 1200;
-constexpr int WINDOW_HEIGHT = 900;
+inline constexpr int WINDOW_WIDTH = 1200;
+inline constexpr int WINDOW_HEIGHT = 900;
 
 extern bool EnableRC;
 extern bool Running;

@@ -3,7 +3,6 @@
 #include "../core/macros.h"
 #include "../ui/widgets/Font.h"
 #include "../utils/GdiHelpers.h"
-#include "../utils/MathUtils.h"
 
 namespace Drawing
 {
@@ -80,9 +79,8 @@ namespace Drawing
             rightCurrentY += 28;
         }
 
-        int ctaY = MathUtils::Max(leftCurrentY, rightCurrentY) + 80;
-
         // CTA Box
+        int ctaY = maximum(leftCurrentY, rightCurrentY) + 80;
         textRect = { right / 4, ctaY - 10, (right * 3) / 4, ctaY + 70 };
         GdiHelpers::FillRectColor(memDC, textRect, RGB(245, 245, 245));
         GdiHelpers::DrawRectBorder(memDC, textRect, RGB(220, 50, 50), 2);

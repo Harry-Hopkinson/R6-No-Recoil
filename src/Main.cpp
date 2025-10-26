@@ -7,7 +7,6 @@
 #include <thread>
 
 #include "core/macros.h"
-#include "utils/MathUtils.h"
 
 #include "detection/ClickDetection.h"
 #include "drawing/Drawing.h"
@@ -78,7 +77,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
                 case 9: // "-" button (Vertical)
-                    CurrentRecoil.Vertical = MathUtils::Max(CurrentRecoil.Vertical - 1.0f, 0.0f);
+                    CurrentRecoil.Vertical = maximum(CurrentRecoil.Vertical - 1.0f, 0.0f);
                     Files::SaveConfig();
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;

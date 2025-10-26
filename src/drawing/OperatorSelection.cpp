@@ -3,8 +3,10 @@
 #include "../ui/Bitmap.h"
 #include "../ui/widgets/Font.h"
 #include "../utils/GdiHelpers.h"
+#include "../utils/LayoutUtils.h"
 
 #include <cstdio>
+#include <windows.h>
 
 namespace Drawing
 {
@@ -16,9 +18,11 @@ namespace Drawing
         // Draw operator bitmaps in grid
         for (size_t i = 0; i < bitmaps.size(); ++i)
         {
-            int x = 30 + (i % 6) * 120;
-            int y = 50 + (int)(i / 6) * 120;
-            Bitmap::DrawBitmap(memDC, bitmaps[i], x, y, 110, 110, true);
+            int x, y;
+            LayoutUtils::OperatorGridLayout::GetCellPosition(i, x, y);
+            Bitmap::DrawBitmap(memDC, bitmaps[i], x, y, 
+                              LayoutUtils::OperatorGridLayout::CELL_SIZE, 
+                              LayoutUtils::OperatorGridLayout::CELL_SIZE, true);
         }
 
         SetBkMode(memDC, TRANSPARENT);

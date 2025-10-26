@@ -7,6 +7,9 @@
 #include "../ui/Bitmap.h"
 #include "../ui/widgets/Font.h"
 #include "../utils/GdiHelpers.h"
+#include "../utils/LayoutUtils.h"
+
+#include <windows.h>
 
 namespace Drawing
 {
@@ -27,34 +30,34 @@ namespace Drawing
         const char* weapons[3] = { nullptr, nullptr, nullptr };
         int weaponCount = String::ParseWeaponList(weaponStr, weapons, 3);
 
-        int imgWidth = 400;
-        int imgHeight = 150;
-        int totalWidth = weaponCount * imgWidth + (weaponCount - 1);
-        int startX = (right - totalWidth) / 2;
-        int startY = 40 + (bottom - 120 - (imgHeight + 50)) / 2;
+        // Calculate layout using utilities
+        int startX, startY;
+        LayoutUtils::WeaponDisplayLayout::GetWeaponStartPosition(weaponCount, right, bottom, startX, startY);
 
         SetStretchBltMode(memDC, HALFTONE);
         SetBrushOrgEx(memDC, 0, 0, nullptr);
 
-        // Draw each weapon with original font logic
+        // Draw each weapon
         for (int i = 0; i < weaponCount; ++i)
         {
-            RECT nameRect = {};
-            HFONT weaponFont;
-
-            int x = startX + i * imgWidth;
+            int x = startX + i * (LayoutUtils::WeaponDisplayLayout::WEAPON_WIDTH + 
+                                  LayoutUtils::WeaponDisplayLayout::WEAPON_SPACING);
             int y = startY;
 
             HBITMAP weaponBmp = Bitmap::GetWeaponBitmap(weapons[i]);
-            Bitmap::DrawBitmap(memDC, weaponBmp, x, y, imgWidth, imgHeight, true);
+            Bitmap::DrawBitmap(memDC, weaponBmp, x, y, 
+                              LayoutUtils::WeaponDisplayLayout::WEAPON_WIDTH, 
+                              LayoutUtils::WeaponDisplayLayout::WEAPON_HEIGHT, true);
 
-            // Draw weapon name using original per-loop font select
-            weaponFont = Font::GetLargeFont();
+            // Draw weapon name
+            HFONT weaponFont = Font::GetLargeFont();
             HFONT oldFont = (HFONT)SelectObject(memDC, weaponFont);
             SetBkMode(memDC, TRANSPARENT);
             SetTextColor(memDC, RGB(0, 0, 0));
 
-            nameRect = { x, y + imgHeight + 15, x + imgWidth, y + imgHeight + 45 };
+            RECT nameRect = { x, y + LayoutUtils::WeaponDisplayLayout::WEAPON_HEIGHT + 15, 
+                             x + LayoutUtils::WeaponDisplayLayout::WEAPON_WIDTH, 
+                             y + LayoutUtils::WeaponDisplayLayout::WEAPON_HEIGHT + 45 };
             DrawText(memDC, weapons[i], -1, &nameRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
             SelectObject(memDC, oldFont);
@@ -62,9 +65,9 @@ namespace Drawing
             // Underline selected weapon
             if (i == SelectedWeaponIndex)
             {
-                int underlineY = y + imgHeight + 48;
-                int underlineLeft = x + imgWidth / 4;
-                int underlineRight = x + (imgWidth * 3) / 4;
+                int underlineY = y + LayoutUtils::WeaponDisplayLayout::WEAPON_HEIGHT + 48;
+                int underlineLeft = x + LayoutUtils::WeaponDisplayLayout::WEAPON_WIDTH / 4;
+                int underlineRight = x + (LayoutUtils::WeaponDisplayLayout::WEAPON_WIDTH * 3) / 4;
 
                 GdiHelpers::ScopedPen pen(PS_SOLID, 4, RGB(50, 150, 255));
                 GdiHelpers::ScopedSelectObject select(memDC, pen);
@@ -76,14 +79,11 @@ namespace Drawing
         String::FreeWeaponList(weapons, weaponCount);
 
         // Scope Section
-        const int sectionTop = bottom - 330;
+        const int sectionTop = bottom - LayoutUtils::WeaponDisplayLayout::SECTION_OFFSET_FROM_BOTTOM;
         Font::DrawCenteredText(memDC, "Scope", 0, sectionTop, right, Font::GetLargeFont());
 
-        int btnWidth = 250, btnHeight = 50, gap = 60;
-        int centerX = right / 2;
-
-        RECT magBtn = { centerX - btnWidth - gap / 2, sectionTop + 60, centerX - gap / 2, sectionTop + 60 + btnHeight };
-        RECT nonMagBtn = { centerX + gap / 2, sectionTop + 60, centerX + btnWidth + gap / 2, sectionTop + 60 + btnHeight };
+        RECT magBtn, nonMagBtn;
+        LayoutUtils::WeaponDisplayLayout::GetScopeButtonRects(right, bottom, magBtn, nonMagBtn);
 
         if (SelectedScopeType == ScopeType::MAGNIFIED)
             GdiHelpers::FillRectColor(memDC, magBtn, RGB(200, 230, 255));
@@ -99,13 +99,8 @@ namespace Drawing
         const int gripTop = sectionTop + 130;
         Font::DrawCenteredText(memDC, "Grip", 0, gripTop, right, Font::GetLargeFont());
 
-        int gripBtnWidth = 200, gripBtnHeight = 50, gripGap = 40;
-        RECT horizontalBtn = { centerX - gripBtnWidth - gripGap - gripBtnWidth / 2, gripTop + 50,
-                               centerX - gripGap - gripBtnWidth / 2, gripTop + 50 + gripBtnHeight };
-        RECT verticalBtn = { centerX - gripBtnWidth / 2, gripTop + 50, centerX + gripBtnWidth / 2,
-                             gripTop + 50 + gripBtnHeight };
-        RECT angledBtn = { centerX + gripGap + gripBtnWidth / 2, gripTop + 50,
-                           centerX + gripBtnWidth + gripGap + gripBtnWidth / 2, gripTop + 50 + gripBtnHeight };
+        RECT horizontalBtn, verticalBtn, angledBtn;
+        LayoutUtils::WeaponDisplayLayout::GetGripButtonRects(right, bottom, horizontalBtn, verticalBtn, angledBtn);
 
         if (SelectedGripType == GripType::HORIZONTAL)
             GdiHelpers::FillRectColor(memDC, horizontalBtn, RGB(200, 230, 255));

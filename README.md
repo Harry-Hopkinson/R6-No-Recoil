@@ -127,7 +127,7 @@ Enabled = false
 #### [RecoilPresets]
 - **Enabled:** Enable or disable recoil adjustment.
 - **VerticalRecoil:** The vertical recoil compensation value.
-- **HorizontalRecoil:** The horizontal recoil compensation value.
+- **HorizontalRecoil:** The horizontal recoil compensation value (Positive goes right, negative goes left)
 
 #### [Controller]
 - **Enabled:** Enable or disable recoil adjustment with a controller.
@@ -158,8 +158,10 @@ The app uses a `WeaponData.json` file to store **recoil compensation values** fo
 - **name:** The exact name of the weapon as recognised by the app.
 - **non_magnified and magnified** Specifies whether recoil is for Non-Magnified and Magnified scopes respectively.
 - **vertical:** The amount of vertical recoil compensation applied.
-  - **Higher values = stronger recoil reduction**
-  - **Lower values = lighter recoil reduction**
+  - **Higher values (Vertical) = stronger recoil reduction**
+  - **Lower values (Vertical) = lighter recoil reduction**
+  - **Positive Values (Horizontal) = movement to the right**
+  - **Negative Values (Horizontal) = movement to the left**
   - **Typical range:** 1 (low recoil SMGs) to 6 (high recoil assault rifles), but you can experiment.
 - **horizontal:** The amount of horizontal recoil compensation applied.
   - **Typical range:** Between 1 and 2.

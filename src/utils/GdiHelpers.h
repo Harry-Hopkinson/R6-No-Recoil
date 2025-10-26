@@ -14,8 +14,8 @@ namespace GdiHelpers
         explicit ScopedBrush(COLORREF color) : brush(CreateSolidBrush(color)) {}
         ~ScopedBrush() { if (brush) DeleteObject(brush); }
         
-        operator HBRUSH() const { return brush; }
-        HBRUSH Get() const { return brush; }
+        __forceinline operator HBRUSH() const { return brush; }
+        __forceinline HBRUSH Get() const { return brush; }
         
     private:
         HBRUSH brush;
@@ -32,8 +32,8 @@ namespace GdiHelpers
         ScopedPen(int style, int width, COLORREF color) : pen(CreatePen(style, width, color)) {}
         ~ScopedPen() { if (pen) DeleteObject(pen); }
         
-        operator HPEN() const { return pen; }
-        HPEN Get() const { return pen; }
+        __forceinline operator HPEN() const { return pen; }
+        __forceinline HPEN Get() const { return pen; }
         
     private:
         HPEN pen;
@@ -63,7 +63,7 @@ namespace GdiHelpers
      * @param rect Rectangle to fill
      * @param color Fill color
      */
-    inline void FillRectColor(HDC hdc, const RECT& rect, COLORREF color)
+    __forceinline void FillRectColor(HDC hdc, const RECT& rect, COLORREF color)
     {
         ScopedBrush brush(color);
         FillRect(hdc, &rect, brush);
@@ -76,7 +76,7 @@ namespace GdiHelpers
      * @param color Border color
      * @param width Border width
      */
-    inline void DrawRectBorder(HDC hdc, const RECT& rect, COLORREF color, int width = 1)
+    __forceinline void DrawRectBorder(HDC hdc, const RECT& rect, COLORREF color, int width = 1)
     {
         ScopedPen pen(PS_SOLID, width, color);
         ScopedSelectObject select(hdc, pen);

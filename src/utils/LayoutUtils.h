@@ -22,7 +22,7 @@ namespace LayoutUtils
          * @param outX Output X position
          * @param outY Output Y position
          */
-        static inline void GetCellPosition(size_t index, int& outX, int& outY)
+        static __forceinline void GetCellPosition(size_t index, int& outX, int& outY)
         {
             outX = GRID_START_X + static_cast<int>(index % COLUMNS) * CELL_STRIDE;
             outY = GRID_START_Y + static_cast<int>(index / COLUMNS) * CELL_STRIDE;
@@ -33,7 +33,7 @@ namespace LayoutUtils
          * @param index Cell index
          * @return RECT with cell bounds
          */
-        static inline RECT GetCellRect(size_t index)
+        static __forceinline RECT GetCellRect(size_t index)
         {
             int x, y;
             GetCellPosition(index, x, y);
@@ -162,7 +162,7 @@ namespace LayoutUtils
      * @param y Point Y coordinate
      * @return true if point is inside rectangle
      */
-    inline bool IsPointInRect(const RECT& rect, int x, int y)
+    __forceinline bool IsPointInRect(const RECT& rect, int x, int y)
     {
         return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
     }

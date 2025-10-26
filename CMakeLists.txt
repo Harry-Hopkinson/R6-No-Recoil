@@ -62,7 +62,7 @@ elseif(MSVC)
 
     # Compile options for MSVC
     target_compile_options(R6NoRecoil PRIVATE
-        $<$<CONFIG:Release>:/W4 /Os /GL /Gy /Zc:inline /Zc:preprocessor /utf-8 /GS /MD>
+        $<$<CONFIG:Release>:/W4 /Os /GL /Gy /Zc:inline /Zc:preprocessor /utf-8 /GS /MD /Ob2>
         $<$<CONFIG:Debug>:/W3 /Od /Zi /utf-8 /MDd>
     )
 

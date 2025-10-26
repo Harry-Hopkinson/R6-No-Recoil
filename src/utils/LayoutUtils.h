@@ -22,7 +22,7 @@ namespace LayoutUtils
          * @param outX Output X position
          * @param outY Output Y position
          */
-        static __forceinline void GetCellPosition(size_t index, int& outX, int& outY)
+        static inline void GetCellPosition(size_t index, int& outX, int& outY)
         {
             outX = GRID_START_X + static_cast<int>(index % COLUMNS) * CELL_STRIDE;
             outY = GRID_START_Y + static_cast<int>(index / COLUMNS) * CELL_STRIDE;
@@ -33,7 +33,7 @@ namespace LayoutUtils
          * @param index Cell index
          * @return RECT with cell bounds
          */
-        static __forceinline RECT GetCellRect(size_t index)
+        static inline RECT GetCellRect(size_t index)
         {
             int x, y;
             GetCellPosition(index, x, y);
@@ -50,15 +50,15 @@ namespace LayoutUtils
         static constexpr int WEAPON_HEIGHT = 150;
         static constexpr int WEAPON_SPACING = 60;
         static constexpr int WEAPON_NAME_HEIGHT = 30;
-        
+
         static constexpr int SCOPE_BUTTON_WIDTH = 250;
         static constexpr int SCOPE_BUTTON_HEIGHT = 50;
         static constexpr int SCOPE_BUTTON_GAP = 60;
-        
+
         static constexpr int GRIP_BUTTON_WIDTH = 200;
         static constexpr int GRIP_BUTTON_HEIGHT = 50;
         static constexpr int GRIP_BUTTON_GAP = 40;
-        
+
         static constexpr int SECTION_OFFSET_FROM_BOTTOM = 330;
 
         /**
@@ -69,7 +69,7 @@ namespace LayoutUtils
          * @param outStartX Output start X position
          * @param outStartY Output start Y position
          */
-        static inline void GetWeaponStartPosition(int weaponCount, int screenWidth, int screenHeight, 
+        static inline void GetWeaponStartPosition(int weaponCount, int screenWidth, int screenHeight,
                                                    int& outStartX, int& outStartY)
         {
             int totalWidth = weaponCount * WEAPON_WIDTH + (weaponCount - 1) * WEAPON_SPACING;
@@ -97,24 +97,24 @@ namespace LayoutUtils
          * @param outMagnified Output RECT for magnified button
          * @param outNonMagnified Output RECT for non-magnified button
          */
-        static inline void GetScopeButtonRects(int screenWidth, int screenHeight, 
+        static inline void GetScopeButtonRects(int screenWidth, int screenHeight,
                                                RECT& outMagnified, RECT& outNonMagnified)
         {
             int sectionTop = screenHeight - SECTION_OFFSET_FROM_BOTTOM;
             int centerX = screenWidth / 2;
-            
-            outMagnified = { 
-                centerX - SCOPE_BUTTON_WIDTH - SCOPE_BUTTON_GAP / 2, 
-                sectionTop + 60, 
-                centerX - SCOPE_BUTTON_GAP / 2, 
-                sectionTop + 60 + SCOPE_BUTTON_HEIGHT 
+
+            outMagnified = {
+                centerX - SCOPE_BUTTON_WIDTH - SCOPE_BUTTON_GAP / 2,
+                sectionTop + 60,
+                centerX - SCOPE_BUTTON_GAP / 2,
+                sectionTop + 60 + SCOPE_BUTTON_HEIGHT
             };
-            
-            outNonMagnified = { 
-                centerX + SCOPE_BUTTON_GAP / 2, 
-                sectionTop + 60, 
-                centerX + SCOPE_BUTTON_WIDTH + SCOPE_BUTTON_GAP / 2, 
-                sectionTop + 60 + SCOPE_BUTTON_HEIGHT 
+
+            outNonMagnified = {
+                centerX + SCOPE_BUTTON_GAP / 2,
+                sectionTop + 60,
+                centerX + SCOPE_BUTTON_WIDTH + SCOPE_BUTTON_GAP / 2,
+                sectionTop + 60 + SCOPE_BUTTON_HEIGHT
             };
         }
 
@@ -131,26 +131,26 @@ namespace LayoutUtils
         {
             int gripTop = screenHeight - SECTION_OFFSET_FROM_BOTTOM + 130;
             int centerX = screenWidth / 2;
-            
-            outHorizontal = { 
-                centerX - GRIP_BUTTON_WIDTH * 3 / 2 - GRIP_BUTTON_GAP, 
+
+            outHorizontal = {
+                centerX - GRIP_BUTTON_WIDTH * 3 / 2 - GRIP_BUTTON_GAP,
                 gripTop + 50,
-                centerX - GRIP_BUTTON_WIDTH / 2 - GRIP_BUTTON_GAP, 
-                gripTop + 50 + GRIP_BUTTON_HEIGHT 
+                centerX - GRIP_BUTTON_WIDTH / 2 - GRIP_BUTTON_GAP,
+                gripTop + 50 + GRIP_BUTTON_HEIGHT
             };
-            
-            outVertical = { 
-                centerX - GRIP_BUTTON_WIDTH / 2, 
+
+            outVertical = {
+                centerX - GRIP_BUTTON_WIDTH / 2,
                 gripTop + 50,
-                centerX + GRIP_BUTTON_WIDTH / 2, 
-                gripTop + 50 + GRIP_BUTTON_HEIGHT 
+                centerX + GRIP_BUTTON_WIDTH / 2,
+                gripTop + 50 + GRIP_BUTTON_HEIGHT
             };
-            
-            outAngled = { 
-                centerX + GRIP_BUTTON_WIDTH / 2 + GRIP_BUTTON_GAP, 
+
+            outAngled = {
+                centerX + GRIP_BUTTON_WIDTH / 2 + GRIP_BUTTON_GAP,
                 gripTop + 50,
-                centerX + GRIP_BUTTON_WIDTH * 3 / 2 + GRIP_BUTTON_GAP, 
-                gripTop + 50 + GRIP_BUTTON_HEIGHT 
+                centerX + GRIP_BUTTON_WIDTH * 3 / 2 + GRIP_BUTTON_GAP,
+                gripTop + 50 + GRIP_BUTTON_HEIGHT
             };
         }
     };
@@ -162,7 +162,7 @@ namespace LayoutUtils
      * @param y Point Y coordinate
      * @return true if point is inside rectangle
      */
-    __forceinline bool IsPointInRect(const RECT& rect, int x, int y)
+    inline bool IsPointInRect(const RECT& rect, int x, int y)
     {
         return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
     }

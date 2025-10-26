@@ -13,10 +13,10 @@ namespace GdiHelpers
     public:
         explicit ScopedBrush(COLORREF color) : brush(CreateSolidBrush(color)) {}
         ~ScopedBrush() { if (brush) DeleteObject(brush); }
-        
-        __forceinline operator HBRUSH() const { return brush; }
-        __forceinline HBRUSH Get() const { return brush; }
-        
+
+        operator HBRUSH() const { return brush; }
+        HBRUSH Get() const { return brush; }
+
     private:
         HBRUSH brush;
         ScopedBrush(const ScopedBrush&) = delete;
@@ -31,10 +31,10 @@ namespace GdiHelpers
     public:
         ScopedPen(int style, int width, COLORREF color) : pen(CreatePen(style, width, color)) {}
         ~ScopedPen() { if (pen) DeleteObject(pen); }
-        
-        __forceinline operator HPEN() const { return pen; }
-        __forceinline HPEN Get() const { return pen; }
-        
+
+        operator HPEN() const { return pen; }
+        HPEN Get() const { return pen; }
+
     private:
         HPEN pen;
         ScopedPen(const ScopedPen&) = delete;
@@ -49,7 +49,7 @@ namespace GdiHelpers
     public:
         ScopedSelectObject(HDC hdc, HGDIOBJ obj) : hdc(hdc), oldObj(SelectObject(hdc, obj)) {}
         ~ScopedSelectObject() { if (oldObj) SelectObject(hdc, oldObj); }
-        
+
     private:
         HDC hdc;
         HGDIOBJ oldObj;
@@ -63,7 +63,7 @@ namespace GdiHelpers
      * @param rect Rectangle to fill
      * @param color Fill color
      */
-    __forceinline void FillRectColor(HDC hdc, const RECT& rect, COLORREF color)
+    inline void FillRectColor(HDC hdc, const RECT& rect, COLORREF color)
     {
         ScopedBrush brush(color);
         FillRect(hdc, &rect, brush);
@@ -76,7 +76,7 @@ namespace GdiHelpers
      * @param color Border color
      * @param width Border width
      */
-    __forceinline void DrawRectBorder(HDC hdc, const RECT& rect, COLORREF color, int width = 1)
+    inline void DrawRectBorder(HDC hdc, const RECT& rect, COLORREF color, int width = 1)
     {
         ScopedPen pen(PS_SOLID, width, color);
         ScopedSelectObject select(hdc, pen);

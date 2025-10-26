@@ -1,7 +1,6 @@
-#include <windows.h>
-
 #include "../core/macros.h"
 #include "../ui/widgets/Font.h"
+#include "../utils/GdiHelpers.h"
 
 namespace Drawing
 {
@@ -78,19 +77,11 @@ namespace Drawing
             rightCurrentY += 28;
         }
 
+        // Call to Action Box
         int ctaY = maximum(leftCurrentY, rightCurrentY) + 80;
-
-        // CTA Box
         textRect = { right / 4, ctaY - 10, (right * 3) / 4, ctaY + 70 };
-        HBRUSH ctaBrush = CreateSolidBrush(RGB(245, 245, 245));
-        FillRect(memDC, &textRect, ctaBrush);
-        DeleteObject(ctaBrush);
-
-        HPEN ctaPen = CreatePen(PS_SOLID, 2, RGB(220, 50, 50));
-        HPEN oldPen = (HPEN)SelectObject(memDC, ctaPen);
-        Rectangle(memDC, textRect.left, textRect.top, textRect.right, textRect.bottom);
-        SelectObject(memDC, oldPen);
-        DeleteObject(ctaPen);
+        GdiHelpers::FillRectColor(memDC, textRect, RGB(245, 245, 245));
+        GdiHelpers::DrawRectBorder(memDC, textRect, RGB(220, 50, 50), 2);
 
         SelectObject(memDC, Font::GetSubtitleFont());
         SetTextColor(memDC, RGB(220, 50, 50));
@@ -105,12 +96,10 @@ namespace Drawing
         // Footer
         int bottomY = bottom - 120;
 
-        HPEN dividerPen = CreatePen(PS_SOLID, 1, RGB(200, 200, 200));
-        HPEN oldDividerPen = (HPEN)SelectObject(memDC, dividerPen);
+        GdiHelpers::ScopedPen dividerPen(PS_SOLID, 1, RGB(200, 200, 200));
+        GdiHelpers::ScopedSelectObject select(memDC, dividerPen);
         MoveToEx(memDC, 60, bottomY, nullptr);
         LineTo(memDC, right - 60, bottomY);
-        SelectObject(memDC, oldDividerPen);
-        DeleteObject(dividerPen);
 
         SetTextColor(memDC, RGB(120, 120, 120));
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../../Globals.h"
+
 #include <vector>
 
 typedef struct HWND__* HWND;
@@ -22,8 +23,9 @@ private:
 namespace Buttons
 {
     const std::vector<Button>& GetButtons();
+
     void ClearButtons();
 
     void CreateMainMenuButtons(HWND hwnd);
     void CreateOperatorSelectionButtons(HWND hwnd);
-}
+} // namespace Buttons

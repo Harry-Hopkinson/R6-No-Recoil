@@ -3,8 +3,10 @@
 #include "../ui/Bitmap.h"
 #include "../ui/widgets/Font.h"
 
+#include "../utils/GdiHelpers.h"
+#include "../utils/LayoutUtils.h"
+
 #include <cstdio>
-#include <windows.h>
 
 namespace Drawing
 {
@@ -16,26 +18,20 @@ namespace Drawing
         // Draw operator bitmaps in grid
         for (size_t i = 0; i < bitmaps.size(); ++i)
         {
-            int x = 30 + (i % 6) * 120;
-            int y = 50 + (int)(i / 6) * 120;
-            Bitmap::DrawBitmap(memDC, bitmaps[i], x, y, 110, 110, true);
+            int x, y;
+            LayoutUtils::OperatorGridLayout::GetCellPosition(i, x, y);
+            Bitmap::DrawBitmap(memDC, bitmaps[i], x, y,
+                               LayoutUtils::OperatorGridLayout::CELL_SIZE,
+                               LayoutUtils::OperatorGridLayout::CELL_SIZE, true);
         }
 
         SetBkMode(memDC, TRANSPARENT);
 
         RECT infoBoxRect = { 20, 10, right - 400, 40 };
 
-        // Draw info box background
-        HBRUSH infoBrush = CreateSolidBrush(RGB(248, 249, 250));
-        FillRect(memDC, &infoBoxRect, infoBrush);
-        DeleteObject(infoBrush);
-
-        // Draw info box border
-        HPEN infoPen = CreatePen(PS_SOLID, 1, RGB(220, 220, 220));
-        HPEN oldPen = (HPEN)SelectObject(memDC, infoPen);
-        Rectangle(memDC, infoBoxRect.left, infoBoxRect.top, infoBoxRect.right, infoBoxRect.bottom);
-        SelectObject(memDC, oldPen);
-        DeleteObject(infoPen);
+        // Draw info box background and border
+        GdiHelpers::FillRectColor(memDC, infoBoxRect, RGB(248, 249, 250));
+        GdiHelpers::DrawRectBorder(memDC, infoBoxRect, RGB(220, 220, 220));
 
         // Draw info text
         HFONT oldFont = (HFONT)SelectObject(memDC, Font::GetDescFont());

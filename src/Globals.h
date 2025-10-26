@@ -1,7 +1,7 @@
 #pragma once
 
-extern const int WINDOW_WIDTH;
-extern const int WINDOW_HEIGHT;
+inline constexpr int WINDOW_WIDTH = 1200;
+inline constexpr int WINDOW_HEIGHT = 900;
 
 extern bool EnableRC;
 extern bool Running;

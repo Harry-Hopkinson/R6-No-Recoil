@@ -1,10 +1,9 @@
 #include "ClickDetection.h"
 
-#include <windows.h>
-
 #include "../scenes/Scenes.h"
 #include "../ui/Bitmap.h"
 #include "../ui/widgets/Button.h"
+#include "../utils/LayoutUtils.h"
 
 namespace ClickDetection
 {
@@ -14,10 +13,9 @@ namespace ClickDetection
         const auto& bitmaps = Bitmap::GetCurrentBitmapList();
         for (size_t i = 0; i < bitmaps.size(); ++i)
         {
-            int x = 30 + (i % 6) * (110 + 10);
-            int y = 50 + (int)(i / 6) * (110 + 10);
+            RECT cellRect = LayoutUtils::OperatorGridLayout::GetCellRect(i);
 
-            if (mouseX >= x && mouseX <= x + 110 && mouseY >= y && mouseY <= y + 110)
+            if (LayoutUtils::IsPointInRect(cellRect, mouseX, mouseY))
             {
                 SelectedOperatorIndex = static_cast<int>(i);
                 Scenes::ChangeCurrentScene(SceneType::WeaponDisplay);
@@ -25,6 +23,7 @@ namespace ClickDetection
                 for (const auto& button : Buttons::GetButtons())
                     ShowWindow(button.GetHWND(), SW_HIDE);
                 InvalidateRect(hwnd, NULL, TRUE);
+                break;
             }
         }
     }

@@ -67,9 +67,9 @@ namespace Drawing
         SetTextColor(memDC, RGB(60, 60, 60));
         SetBkMode(memDC, TRANSPARENT);
 
-        RECT verticalLabelRect = { WINDOW_WIDTH - 305, (WINDOW_HEIGHT - 90) / 2 - 140, WINDOW_WIDTH - 150,
+        RECT verticalLabelRect = { WINDOW_WIDTH - 340, (WINDOW_HEIGHT - 90) / 2 - 140, WINDOW_WIDTH - 150,
                                    (WINDOW_HEIGHT - 90) / 2 - 120 };
-        RECT horizontalLabelRect = { WINDOW_WIDTH - 320, (WINDOW_HEIGHT - 90) / 2 - 90, WINDOW_WIDTH - 150,
+        RECT horizontalLabelRect = { WINDOW_WIDTH - 355, (WINDOW_HEIGHT - 90) / 2 - 90, WINDOW_WIDTH - 150,
                                      (WINDOW_HEIGHT - 90) / 2 - 70 };
 
         DrawText(memDC, "Vertical Recoil:", -1, &verticalLabelRect, DT_LEFT | DT_SINGLELINE | DT_VCENTER);

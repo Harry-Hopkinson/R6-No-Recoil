@@ -12,7 +12,7 @@ class Button
 public:
     Button(HWND parent, int x, int y, int width, int height, const char* text, int id);
 
-    HWND GetHWND() const;
+    __forceinline HWND GetHWND() const { return hwndButton; }
 
 private:
     HWND hwndButton;
@@ -21,7 +21,7 @@ private:
 
 namespace Buttons
 {
-    const std::vector<Button>& GetButtons();
+    __forceinline const std::vector<Button>& GetButtons();
     void ClearButtons();
 
     void CreateMainMenuButtons(HWND hwnd);

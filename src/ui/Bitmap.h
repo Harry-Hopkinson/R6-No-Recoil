@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../Globals.h"
 #include <vector>
 
 typedef struct HBITMAP__* HBITMAP;
@@ -76,6 +77,9 @@ namespace Bitmap
     extern std::vector<HBITMAP> AttackerBitmaps;
     extern std::vector<HBITMAP> DefenderBitmaps;
 
-    std::vector<HBITMAP>& GetCurrentBitmapList();
+    __forceinline std::vector<HBITMAP>& GetCurrentBitmapList()
+    {
+        return IsAttackerView ? AttackerBitmaps : DefenderBitmaps;
+    }
 
 } // namespace Bitmap

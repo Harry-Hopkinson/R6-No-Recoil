@@ -7,11 +7,23 @@ enum class SceneType
     WeaponDisplay,
 };
 
+namespace
+{
+    SceneType CurrentScene = SceneType::MainMenu;
+}
+
 namespace Scenes
 {
 
-    SceneType GetCurrentScene();
-    void ChangeCurrentScene(SceneType newScene);
+    __forceinline SceneType GetCurrentScene()
+    {
+        return CurrentScene;
+    }
+
+    __forceinline void ChangeCurrentScene(SceneType newScene)
+    {
+        CurrentScene = newScene;
+    }
 
 } // namespace Scenes
 

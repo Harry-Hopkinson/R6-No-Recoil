@@ -12,11 +12,6 @@ namespace Bitmap
     std::vector<HBITMAP> DefenderBitmaps;
     static std::vector<WeaponBitmapEntry> WeaponBitmaps;
 
-    std::vector<HBITMAP>& GetCurrentBitmapList()
-    {
-        return IsAttackerView ? AttackerBitmaps : DefenderBitmaps;
-    }
-
     HBITMAP LoadBitmap(const char* path)
     {
         if (!path)

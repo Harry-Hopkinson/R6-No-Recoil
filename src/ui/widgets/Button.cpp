@@ -11,11 +11,6 @@ Button::Button(HWND parent, int x, int y, int width, int height, const char* tex
         reinterpret_cast<HMENU>(static_cast<uintptr_t>(id)), GetModuleHandle(NULL), NULL);
 }
 
-HWND Button::GetHWND() const
-{
-    return hwndButton;
-}
-
 namespace
 {
     std::vector<Button> ButtonsVector;
@@ -24,7 +19,7 @@ namespace
 namespace Buttons
 {
 
-    const std::vector<Button>& GetButtons()
+    __forceinline const std::vector<Button>& GetButtons()
     {
         return ButtonsVector;
     }

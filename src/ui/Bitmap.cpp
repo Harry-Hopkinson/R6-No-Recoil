@@ -3,6 +3,7 @@
 #include "../Globals.h"
 #include "../core/String.h"
 #include "../files/Files.h"
+#include "../utils/GdiHelpers.h"
 
 #include <windows.h>
 
@@ -111,7 +112,7 @@ namespace Bitmap
             return false;
         }
 
-        HGDIOBJ oldBmp = SelectObject(hdcMem, bitmap);
+        GdiHelpers::ScopedSelectObject select(hdcMem, bitmap);
         BITMAP bm{};
         GetObject(bitmap, sizeof(bm), &bm);
 
@@ -123,7 +124,6 @@ namespace Bitmap
 
         BOOL result = StretchBlt(hdc, x, y, width, height, hdcMem, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY);
 
-        SelectObject(hdcMem, oldBmp);
         DeleteDC(hdcMem);
 
         if (!result && showPlaceholder)

@@ -24,8 +24,8 @@ namespace LayoutUtils
          */
         static inline void GetCellPosition(size_t index, int& outX, int& outY)
         {
-            outX = GRID_START_X + (index % COLUMNS) * CELL_STRIDE;
-            outY = GRID_START_Y + (index / COLUMNS) * CELL_STRIDE;
+            outX = GRID_START_X + static_cast<int>(index % COLUMNS) * CELL_STRIDE;
+            outY = GRID_START_Y + static_cast<int>(index / COLUMNS) * CELL_STRIDE;
         }
 
         /**

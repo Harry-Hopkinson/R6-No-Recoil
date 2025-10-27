@@ -38,7 +38,7 @@ namespace ClickDetection
             Buttons::CreateOperatorSelectionButtons(hwnd);
         };
 
-        // --- Detect weapon + preset clicks ---
+        // Detect weapon and preset clicks
         for (int i = 0; i < weaponCount; ++i)
         {
             int x = startX
@@ -55,7 +55,7 @@ namespace ClickDetection
                 return;
             }
 
-            // --- Vertical preset buttons ---
+            // Vertical preset buttons
             const int buttonWidth = 200;
             const int buttonHeight = 45;
             const int buttonSpacing = 10;
@@ -78,7 +78,7 @@ namespace ClickDetection
             }
         }
 
-        // --- Back button detection ---
+        // Back button detection
         RECT backBtn = { 30, bottom - 80, 130, bottom - 30 };
         if (LayoutUtils::IsPointInRect(backBtn, mouseX, mouseY))
         {

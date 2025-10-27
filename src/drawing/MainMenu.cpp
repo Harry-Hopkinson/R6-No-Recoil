@@ -1,4 +1,5 @@
 #include "../core/macros.h"
+
 #include "../ui/widgets/Font.h"
 #include "../utils/GdiHelpers.h"
 

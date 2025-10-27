@@ -1,8 +1,8 @@
 #include "../Globals.h"
+#include "../recoil/Recoil.h"
 
 #include "../core/String.h"
 #include "../files/Files.h"
-#include "../recoil/Recoil.h"
 #include "../scenes/Scenes.h"
 
 #include "../ui/Bitmap.h"
@@ -94,12 +94,12 @@ namespace Drawing
 
         String::FreeWeaponList(weapons, weaponCount);
 
-        // --- Note text ---
+        // Note text
         const int sectionTop = bottom - LayoutUtils::WeaponDisplayLayout::SECTION_OFFSET_FROM_BOTTOM;
         const char* noteText = "Click a weapon or preset to select recoil settings.";
         Font::DrawCenteredText(memDC, noteText, 0, sectionTop + 260, right, Font::GetMediumFont());
 
-        // --- Back button ---
+        // Back button
         RECT backBtn = { 30, bottom - 80, 130, bottom - 31 };
         DrawText(memDC, "Back", -1, &backBtn, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
         FrameRect(memDC, &backBtn, (HBRUSH)GetStockObject(BLACK_BRUSH));

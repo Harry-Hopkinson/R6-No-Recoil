@@ -18,9 +18,10 @@ namespace Files
     /**
      * @brief Loads the weapon recoil data from the data.json file
      * @param char* The name of the weapon that recoil value will be fetched
+     * @param int The index of the preset that recoil value will be fetched
      * @return The weapons's recoil value
      */
-    WeaponRecoil GetWeaponData(const char* weaponName);
+    WeaponRecoil GetWeaponData(const char* weaponName, int presetIndex);
 
     /**
      * @brief Constructs the path for the operator bitmap based off the name
@@ -32,7 +33,8 @@ namespace Files
 
     /**
      * @brief Saves the weapon recoil data to the WeaponData.json file
+     * @param int The index of the preset that recoil value will be saved
      */
-    void SaveWeaponData();
+    void SaveWeaponData(int presetIndex);
 
 } // namespace Files

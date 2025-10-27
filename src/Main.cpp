@@ -72,7 +72,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     system("start https://github.com/Harry-Hopkinson/R6-No-Recoil");
                     break;
                 case 8: // "+" button (Vertical)
-                    CurrentRecoil.Vertical = round(CurrentRecoil.Vertical + 1.0f);
+                    CurrentRecoil.Vertical = round(CurrentRecoil.Vertical);
                     Files::SaveConfig();
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
@@ -86,11 +86,11 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     break;
                 case 11: // Save Config button
                     Files::SaveConfig();
-                    Files::SaveWeaponData();
+                    Files::SaveWeaponData(PresetIndex);
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
                 case 12: // "+" button (Horizontal)
-                    CurrentRecoil.Horizontal = round(CurrentRecoil.Horizontal + 1.0f);
+                    CurrentRecoil.Horizontal = round(CurrentRecoil.Horizontal);
                     Files::SaveConfig();
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;

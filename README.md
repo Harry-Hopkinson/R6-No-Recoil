@@ -146,25 +146,22 @@ The app uses a `WeaponData.json` file to store **recoil compensation values** fo
 ```json
 {
     "name": "R4-C",
-    "recoil": {
-        "non_magnified": { "vertical": 3, "horizontal": 0 },
-        "magnified": { "vertical": 6, "horizontal": 0 }
-    }
+    "preset-1": { "vertical": 7.5, "horizontal": 0 },
+    "preset-2": { "vertical": 3.0, "horizontal": 0 },
+    "preset-3": { "vertical": 0.0, "horizontal": 0 }
 },
 ```
 
 ### Fields Explained
 
 - **name:** The exact name of the weapon as recognised by the app.
-- **non_magnified and magnified** Specifies whether recoil is for Non-Magnified and Magnified scopes respectively.
+- **preset-1/2/3** Specifies which preset to use for the weapon.
 - **vertical:** The amount of vertical recoil compensation applied.
   - **Higher values (Vertical) = stronger recoil reduction**
   - **Lower values (Vertical) = lighter recoil reduction**
+- **horizontal:** The amount of horizontal recoil compensation applied.
   - **Positive Values (Horizontal) = movement to the right**
   - **Negative Values (Horizontal) = movement to the left**
-  - **Typical range:** 1 (low recoil SMGs) to 6 (high recoil assault rifles), but you can experiment.
-- **horizontal:** The amount of horizontal recoil compensation applied.
-  - **Typical range:** Between 1 and 2.
 
 ## 💸 Support Development
 

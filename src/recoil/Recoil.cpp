@@ -1,7 +1,5 @@
 #include "Recoil.h"
 
-#include "../files/Files.h"
-
 WeaponRecoil CurrentRecoil = { 3.0f, 0.0f };
 
 std::vector<const char*> AttackerNames = { "Striker", "Sledge",   "Thatcher", "Ash",      "Thermite",   "Twitch",
@@ -44,7 +42,7 @@ std::vector<const char*> AttackerWeapons =
     "F90, M249-SAW",              // Gridlock
     "FMG-9",                      // Nokk
     "G8A1, SMG-11",               // Amaru
-    "C75",                        // Kali
+    "C75, SPSMG9",                // Kali
     "G36C, ARX200",               // Iana
     "AK-12",                      // Ace
     "SC3000K, MP7",               // Zero
@@ -99,14 +97,6 @@ std::vector<const char*> DefenderWeapons =
     "Scorpion-EVO, FMG-9"       // Denari
 };
 
-void SetRecoilModeFromWeapon(const char* weaponName)
-{
-    if (!weaponName)
-        return;
-
-    CurrentRecoil = Files::GetWeaponData(weaponName);
-}
-
-int SelectedWeaponIndex = -1;
-
 int ControllerMultiplier = 10;
+
+int PresetIndex = 0;

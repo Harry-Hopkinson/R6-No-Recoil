@@ -27,9 +27,9 @@ Most recoil tools like Logitech G Hub (now detectable) are bloated, heavy, and c
 - **📌 No Recoil** – Reduces weapon recoil for better accuracy.
 - **⚡ Lightweight & Fast** – Optimised for minimal CPU usage.
 - **🔧 No Installation Required** – Just run the `.exe`.
-- **⚙️ Powerful Config Support** – Modify the Config.toml file.
+- **⚙️ Powerful Config Support** – Modify the Config.toml/WeaponData.json files.
+- **🛠️ Highly Customisable** – Save weapon data to presets for quick switching.
 - **🖥️ Works on Any Setup** – Supports Windows 10/11.
-- **🛠️ Open Source & Customisable** – Modify as needed.
 
 ## 🎮 How to Use
 
@@ -37,12 +37,14 @@ Most recoil tools like Logitech G Hub (now detectable) are bloated, heavy, and c
 2. **Run the Program** (double-click `R6NoRecoil.exe`).
 3. **Choose whether attacking or defending**.
 4. **Choose your operator and their primary weapon**.
-5. **Controls:**
+5. **Choose your weapon preset**.
+6. **Controls:**
    - **Press `Toggle Recoil`** → Toggle the no-recoil effect on/off.
    - **Press `Change Mode`** → Adjust the strength of the recoil compensation.
    - **Press `Toggle Key`** -> Enable/Disable toggle key activating/deactivating recoil. Default CapsLock.
+   - **Press `Save Config`** -> Save current weapon data to the selected preset.
    - **Switch to Defenders/Attackers** -> Change operator type.
-6. **Enjoy Smoother Aim!**
+7. **Enjoy Smoother Aim!**
 
 ## ⚠️ Important Setup Note
 

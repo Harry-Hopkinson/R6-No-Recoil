@@ -37,7 +37,7 @@ namespace Drawing
         SetTextColor(memDC, RGB(70, 70, 70));
 
         int leftCurrentY = 185;
-        const char* features[] = { "- All R6 operators supported",   "- Multiple sensitivity presets",
+        const char* features[] = { "- All primary weapons supported",   "- Multiple sensitivity presets",
                                    "- Customisable toggle controls", "- Minimal system impact",
                                    "- Powerful config support",      "- Mouse and Controller Support" };
         size_t featureCount = sizeof(features) / sizeof(features[0]);
@@ -63,9 +63,9 @@ namespace Drawing
         SetTextColor(memDC, RGB(70, 70, 70));
 
         int rightCurrentY = rightStartY + 45;
-        const char* steps[] = { "1. Choose Attacker or Defender",     "2. Select your operator",
-                                "3. Pick your primary weapon",        "4. Choose your weapon preset for that gun",
-                                "5. Start playing - it's automatic!", "6. Use toggle key to enable/disable" };
+        const char* steps[] = { "1. Choose Attacker or Defender",               "2. Select your operator",
+                                "3. Pick your primary weapon",                  "4. Choose your weapon preset for that gun",
+                                "5. Modify your recoil and save to the preset", "6. Use toggle key to enable/disable" };
         size_t stepCount = sizeof(steps) / sizeof(steps[0]);
 
         for (size_t i = 0; i < stepCount; i++)

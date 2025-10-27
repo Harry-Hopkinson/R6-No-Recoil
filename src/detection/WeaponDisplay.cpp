@@ -26,13 +26,12 @@ namespace ClickDetection
         {
             PresetIndex = presetIndex;
 
-            Files::SaveConfig();
-
             if (CurrentWeapon)
                 free((void*)CurrentWeapon);
             CurrentWeapon = _strdup(weapons[selectedWeaponIndex]);
 
-            CurrentRecoil = Files::GetWeaponData(CurrentWeapon, PresetIndex);
+            CurrentRecoil = Files::GetWeaponData(CurrentWeapon, presetIndex);
+            Files::SaveConfig();
 
             Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
             Buttons::CreateOperatorSelectionButtons(hwnd);

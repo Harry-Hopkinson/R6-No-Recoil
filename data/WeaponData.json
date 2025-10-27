@@ -1,980 +1,392 @@
 [
     {
         "name": "P90",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.5, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.5, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 2.5, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "MP5",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.5, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.5, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 2.5, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "MP5K",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.5, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.5, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 2.5, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "MP5SD",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.0, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.0, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 2.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "UMP45",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 1.5, "horizontal": 0 },
-                "vertical": { "vertical": 1.0, "horizontal": 0 },
-                "angled": { "vertical": 1.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 1.5, "horizontal": 0 },
-                "vertical": { "vertical": 1.0, "horizontal": 0 },
-                "angled": { "vertical": 1.5, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 1.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "MP7",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.5, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.5, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 2.5, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "9x19VSN",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.0, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.0, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 2.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "FMG-9",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.5, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 5.0, "horizontal": 0 },
-                "vertical": { "vertical": 5.0, "horizontal": 0 },
-                "angled": { "vertical": 5.0, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 5.0, "horizontal": 0 },
+        "preset-2": { "vertical": 2.5, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "Mx4-Storm",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 3.0, "horizontal": 0 },
-                "vertical": { "vertical": 2.5, "horizontal": 0 },
-                "angled": { "vertical": 3.0, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 3.0, "horizontal": 0 },
-                "vertical": { "vertical": 2.5, "horizontal": 0 },
-                "angled": { "vertical": 3.0, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 2.5, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "MPX",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.0, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.0, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 2.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "T-5",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 3.0, "horizontal": 0 },
-                "vertical": { "vertical": 2.5, "horizontal": 0 },
-                "angled": { "vertical": 3.0, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 3.0, "horizontal": 0 },
-                "vertical": { "vertical": 2.5, "horizontal": 0 },
-                "angled": { "vertical": 3.0, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 2.5, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "Scorpion-EVO",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 3.5, "horizontal": 0 },
-                "vertical": { "vertical": 3.0, "horizontal": 0 },
-                "angled": { "vertical": 3.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 3.5, "horizontal": 0 },
-                "vertical": { "vertical": 3.0, "horizontal": 0 },
-                "angled": { "vertical": 3.5, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 3.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "K1A",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.0, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.0, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 2.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "Vector",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 3.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.5, "horizontal": 0 },
-                "angled": { "vertical": 3.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 3.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.5, "horizontal": 0 },
-                "angled": { "vertical": 3.5, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 2.5, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "P10-RONI",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 3.0, "horizontal": 0 },
-                "vertical": { "vertical": 2.5, "horizontal": 0 },
-                "angled": { "vertical": 3.0, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 3.0, "horizontal": 0 },
-                "vertical": { "vertical": 2.5, "horizontal": 0 },
-                "angled": { "vertical": 3.0, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 2.5, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "Commando-9",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.0, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.0, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 2.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "9mm-C1",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 1.5, "horizontal": 0 },
-                "vertical": { "vertical": 1.0, "horizontal": 0 },
-                "angled": { "vertical": 1.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 1.5, "horizontal": 0 },
-                "vertical": { "vertical": 1.0, "horizontal": 0 },
-                "angled": { "vertical": 1.5, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 1.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "M12",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 1.5, "horizontal": 0 },
-                "vertical": { "vertical": 1.5, "horizontal": 0 },
-                "angled": { "vertical": 1.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 1.5, "horizontal": 0 },
-                "vertical": { "vertical": 1.5, "horizontal": 0 },
-                "angled": { "vertical": 1.5, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 1.5, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "PDW9",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.0, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 5.5, "horizontal": 0 },
-                "vertical": { "vertical": 4.5, "horizontal": 0 },
-                "angled": { "vertical": 5.5, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 4.5, "horizontal": 0 },
+        "preset-2": { "vertical": 2.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "POF-9",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.0, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 5.5, "horizontal": 0 },
-                "vertical": { "vertical": 4.5, "horizontal": 0 },
-                "angled": { "vertical": 5.5, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 4.5, "horizontal": 0 },
+        "preset-2": { "vertical": 2.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "SC3000K",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 3.0, "horizontal": 0 },
-                "vertical": { "vertical": 2.5, "horizontal": 0 },
-                "angled": { "vertical": 3.0, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 7.5, "horizontal": 0 },
-                "vertical": { "vertical": 6.0, "horizontal": 0 },
-                "angled": { "vertical": 7.5, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 6.0, "horizontal": 0 },
+        "preset-2": { "vertical": 2.5, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "UZK50GI",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.0, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.0, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 2.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "AK-12",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 3.0, "horizontal": 0 },
-                "vertical": { "vertical": 2.5, "horizontal": 0 },
-                "angled": { "vertical": 3.0, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 6.5, "horizontal": 0 },
-                "vertical": { "vertical": 5.5, "horizontal": 0 },
-                "angled": { "vertical": 6.5, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 5.5, "horizontal": 0 },
+        "preset-2": { "vertical": 2.5, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "F2",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 4.0, "horizontal": 0 },
-                "vertical": { "vertical": 4.0, "horizontal": 0 },
-                "angled": { "vertical": 4.0, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 9.0, "horizontal": 0 },
-                "vertical": { "vertical": 9.0, "horizontal": 0 },
-                "angled": { "vertical": 9.0, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 9.0, "horizontal": 0 },
+        "preset-2": { "vertical": 4.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "AR33",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.0, "horizontal": 0 },
-                "vertical": { "vertical": 2.0, "horizontal": 0 },
-                "angled": { "vertical": 2.0, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 5.0, "horizontal": 0 },
-                "vertical": { "vertical": 4.0, "horizontal": 0 },
-                "angled": { "vertical": 5.0, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 4.0, "horizontal": 0 },
+        "preset-2": { "vertical": 2.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "556XI",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.0, "horizontal": 0 },
-                "vertical": { "vertical": 1.5, "horizontal": 0 },
-                "angled": { "vertical": 2.0, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 4.5, "horizontal": 0 },
-                "vertical": { "vertical": 3.5, "horizontal": 0 },
-                "angled": { "vertical": 4.5, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 3.5, "horizontal": 0 },
+        "preset-2": { "vertical": 1.5, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "G36C",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.0, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 6.5, "horizontal": 0 },
-                "vertical": { "vertical": 5.0, "horizontal": 0 },
-                "angled": { "vertical": 6.5, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 5.0, "horizontal": 0 },
+        "preset-2": { "vertical": 2.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "R4-C",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 3.0, "horizontal": 0 },
-                "vertical": { "vertical": 2.5, "horizontal": 0 },
-                "angled": { "vertical": 3.0, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 7.5, "horizontal": 0 },
-                "vertical": { "vertical": 6.5, "horizontal": 0 },
-                "angled": { "vertical": 7.5, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 7.5, "horizontal": 0 },
+        "preset-2": { "vertical": 3.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "C8-SFW",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.5, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 5.5, "horizontal": 0 },
-                "vertical": { "vertical": 5.5, "horizontal": 0 },
-                "angled": { "vertical": 5.5, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 5.5, "horizontal": 0 },
+        "preset-2": { "vertical": 2.5, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "MK17-CQB",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 1.0, "horizontal": 0 },
-                "vertical": { "vertical": 1.0, "horizontal": 0 },
-                "angled": { "vertical": 1.0, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 3.0, "horizontal": 0 },
-                "vertical": { "vertical": 2.5, "horizontal": 0 },
-                "angled": { "vertical": 3.0, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 2.5, "horizontal": 0 },
+        "preset-2": { "vertical": 1.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "PARA-308",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.0, "horizontal": 0 },
-                "vertical": { "vertical": 1.5, "horizontal": 0 },
-                "angled": { "vertical": 2.0, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 5.0, "horizontal": 0 },
-                "vertical": { "vertical": 4.0, "horizontal": 0 },
-                "angled": { "vertical": 5.0, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 4.0, "horizontal": 0 },
+        "preset-2": { "vertical": 1.5, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "Type-89",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.0, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 6.0, "horizontal": 0 },
-                "vertical": { "vertical": 5.0, "horizontal": 0 },
-                "angled": { "vertical": 6.0, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 6.0, "horizontal": 0 },
+        "preset-2": { "vertical": 2.5, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "C7E",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 3.0, "horizontal": 0 },
-                "vertical": { "vertical": 2.5, "horizontal": 0 },
-                "angled": { "vertical": 3.0, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 7.5, "horizontal": 0 },
-                "vertical": { "vertical": 6.5, "horizontal": 0 },
-                "angled": { "vertical": 7.5, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 7.5, "horizontal": 0 },
+        "preset-2": { "vertical": 3.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "M762",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.0, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 6.5, "horizontal": 0 },
-                "vertical": { "vertical": 5.0, "horizontal": 0 },
-                "angled": { "vertical": 6.5, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 5.0, "horizontal": 0 },
+        "preset-2": { "vertical": 2.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "AK-74M",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 1.5, "horizontal": 0 },
-                "vertical": { "vertical": 1.5, "horizontal": 0 },
-                "angled": { "vertical": 1.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 4.0, "horizontal": 0 },
-                "vertical": { "vertical": 3.0, "horizontal": 0 },
-                "angled": { "vertical": 4.0, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 4.0, "horizontal": 0 },
+        "preset-2": { "vertical": 1.5, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "ARX200",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.0, "horizontal": 0 },
-                "vertical": { "vertical": 1.5, "horizontal": 0 },
-                "angled": { "vertical": 2.0, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 5.0, "horizontal": 0 },
-                "vertical": { "vertical": 4.0, "horizontal": 0 },
-                "angled": { "vertical": 5.0, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 5.0, "horizontal": 0 },
+        "preset-2": { "vertical": 2.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "F90",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.0, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 5.5, "horizontal": 0 },
-                "vertical": { "vertical": 4.5, "horizontal": 0 },
-                "angled": { "vertical": 5.5, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 5.5, "horizontal": 0 },
+        "preset-2": { "vertical": 2.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "AUG-A2",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.5, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 6.0, "horizontal": 0 },
-                "vertical": { "vertical": 6.0, "horizontal": 0 },
-                "angled": { "vertical": 6.0, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 6.0, "horizontal": 0 },
+        "preset-2": { "vertical": 2.5, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "AUG-A3",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.0, "horizontal": 0 },
-                "vertical": { "vertical": 1.5, "horizontal": 0 },
-                "angled": { "vertical": 2.0, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 2.0, "horizontal": 0 },
-                "vertical": { "vertical": 1.5, "horizontal": 0 },
-                "angled": { "vertical": 2.0, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 2.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "552-Commando",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.0, "horizontal": 0 },
-                "vertical": { "vertical": 1.5, "horizontal": 0 },
-                "angled": { "vertical": 2.0, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 5.0, "horizontal": 0 },
-                "vertical": { "vertical": 4.0, "horizontal": 0 },
-                "angled": { "vertical": 5.0, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 5.0, "horizontal": 0 },
+        "preset-2": { "vertical": 2.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "L85A2",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.0, "horizontal": 0 },
-                "vertical": { "vertical": 1.5, "horizontal": 0 },
-                "angled": { "vertical": 2.0, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 4.5, "horizontal": 0 },
-                "vertical": { "vertical": 3.5, "horizontal": 0 },
-                "angled": { "vertical": 4.5, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 4.5, "horizontal": 0 },
+        "preset-2": { "vertical": 2.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "V308",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.0, "horizontal": 0 },
-                "vertical": { "vertical": 1.5, "horizontal": 0 },
-                "angled": { "vertical": 2.0, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 5.0, "horizontal": 0 },
-                "vertical": { "vertical": 4.0, "horizontal": 0 },
-                "angled": { "vertical": 5.0, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 5.0, "horizontal": 0 },
+        "preset-2": { "vertical": 2.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "Spear-308",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 3.0, "horizontal": 0 },
-                "vertical": { "vertical": 2.5, "horizontal": 0 },
-                "angled": { "vertical": 3.0, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 7.0, "horizontal": 0 },
-                "vertical": { "vertical": 5.5, "horizontal": 0 },
-                "angled": { "vertical": 7.0, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 7.0, "horizontal": 0 },
+        "preset-2": { "vertical": 3.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "416-carbine",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 3.0, "horizontal": 0 },
-                "vertical": { "vertical": 2.5, "horizontal": 0 },
-                "angled": { "vertical": 3.0, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 3.0, "horizontal": 0 },
-                "vertical": { "vertical": 2.5, "horizontal": 0 },
-                "angled": { "vertical": 3.0, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 3.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "M4",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.0, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 6.0, "horizontal": 0 },
-                "vertical": { "vertical": 5.0, "horizontal": 0 },
-                "angled": { "vertical": 6.0, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 6.0, "horizontal": 0 },
+        "preset-2": { "vertical": 2.5, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "DP27",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 1.0, "horizontal": 0 },
-                "vertical": { "vertical": 1.0, "horizontal": 0 },
-                "angled": { "vertical": 1.0, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 1.0, "horizontal": 0 },
-                "vertical": { "vertical": 1.0, "horizontal": 0 },
-                "angled": { "vertical": 1.0, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 1.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "PCX-33",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.0, "horizontal": 0 },
-                "vertical": { "vertical": 1.5, "horizontal": 0 },
-                "angled": { "vertical": 2.0, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 2.0, "horizontal": 0 },
-                "vertical": { "vertical": 1.5, "horizontal": 0 },
-                "angled": { "vertical": 2.0, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 2.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "6P41",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.0, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 6.0, "horizontal": 0 },
-                "vertical": { "vertical": 5.0, "horizontal": 0 },
-                "angled": { "vertical": 6.0, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 6.0, "horizontal": 0 },
+        "preset-2": { "vertical": 2.5, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "G8A1",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.0, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 6.0, "horizontal": 0 },
-                "vertical": { "vertical": 5.0, "horizontal": 0 },
-                "angled": { "vertical": 6.0, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 6.0, "horizontal": 0 },
+        "preset-2": { "vertical": 2.5, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "ALDA",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 3.0, "horizontal": 0 },
-                "vertical": { "vertical": 2.5, "horizontal": 0 },
-                "angled": { "vertical": 3.0, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 3.0, "horizontal": 0 },
-                "vertical": { "vertical": 2.5, "horizontal": 0 },
-                "angled": { "vertical": 3.0, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 3.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "T-95-LSW",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.0, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 5.5, "horizontal": 0 },
-                "vertical": { "vertical": 4.5, "horizontal": 0 },
-                "angled": { "vertical": 5.5, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 5.5, "horizontal": 0 },
+        "preset-2": { "vertical": 2.5, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "LMG-E",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 3.0, "horizontal": 0 },
-                "vertical": { "vertical": 2.5, "horizontal": 0 },
-                "angled": { "vertical": 3.0, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 7.0, "horizontal": 0 },
-                "vertical": { "vertical": 5.5, "horizontal": 0 },
-                "angled": { "vertical": 7.0, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 7.0, "horizontal": 0 },
+        "preset-2": { "vertical": 3.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "M249",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 1.5, "horizontal": 0 },
-                "vertical": { "vertical": 1.5, "horizontal": 0 },
-                "angled": { "vertical": 1.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 4.0, "horizontal": 0 },
-                "vertical": { "vertical": 3.0, "horizontal": 0 },
-                "angled": { "vertical": 4.0, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 4.0, "horizontal": 0 },
+        "preset-2": { "vertical": 1.5, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "M249-SAW",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 1.5, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 5.0, "horizontal": 0 },
-                "vertical": { "vertical": 4.0, "horizontal": 0 },
-                "angled": { "vertical": 5.0, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 5.0, "horizontal": 0 },
+        "preset-2": { "vertical": 2.5, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "417",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 1.5, "horizontal": 0 },
-                "vertical": { "vertical": 1.0, "horizontal": 0 },
-                "angled": { "vertical": 1.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.0, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 2.5, "horizontal": 0 },
+        "preset-2": { "vertical": 1.5, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "SR-25",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.0, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 5.5, "horizontal": 0 },
-                "vertical": { "vertical": 4.5, "horizontal": 0 },
-                "angled": { "vertical": 5.5, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 5.5, "horizontal": 0 },
+        "preset-2": { "vertical": 2.5, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "Mk-14-EBR",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.0, "horizontal": 0 },
-                "angled": { "vertical": 2.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 5.5, "horizontal": 0 },
-                "vertical": { "vertical": 4.5, "horizontal": 0 },
-                "angled": { "vertical": 5.5, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 5.5, "horizontal": 0 },
+        "preset-2": { "vertical": 2.5, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "CAMRS",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 1.5, "horizontal": 0 },
-                "vertical": { "vertical": 1.0, "horizontal": 0 },
-                "angled": { "vertical": 1.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 3.0, "horizontal": 0 },
-                "vertical": { "vertical": 2.5, "horizontal": 0 },
-                "angled": { "vertical": 3.0, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 3.0, "horizontal": 0 },
+        "preset-2": { "vertical": 1.5, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "AR-15.50",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 1.5, "horizontal": 0 },
-                "vertical": { "vertical": 1.0, "horizontal": 0 },
-                "angled": { "vertical": 1.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 3.5, "horizontal": 0 },
-                "vertical": { "vertical": 3.0, "horizontal": 0 },
-                "angled": { "vertical": 3.5, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 3.5, "horizontal": 0 },
+        "preset-2": { "vertical": 1.5, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "TCSG12",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 5.5, "horizontal": 0 },
-                "vertical": { "vertical": 4.0, "horizontal": 0 },
-                "angled": { "vertical": 5.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 12.0, "horizontal": 0 },
-                "vertical": { "vertical": 9.0, "horizontal": 0 },
-                "angled": { "vertical": 12.0, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 12.0, "horizontal": 0 },
+        "preset-2": { "vertical": 5.5, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "ACS12",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.0, "horizontal": 0 },
-                "vertical": { "vertical": 1.5, "horizontal": 0 },
-                "angled": { "vertical": 2.0, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 4.5, "horizontal": 0 },
-                "vertical": { "vertical": 4.0, "horizontal": 0 },
-                "angled": { "vertical": 4.5, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 4.5, "horizontal": 0 },
+        "preset-2": { "vertical": 2.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "Bearing-9",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 4.0, "horizontal": 0 },
-                "vertical": { "vertical": 4.0, "horizontal": 0 },
-                "angled": { "vertical": 4.0, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 4.0, "horizontal": 0 },
-                "vertical": { "vertical": 4.0, "horizontal": 0 },
-                "angled": { "vertical": 4.0, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 4.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "SMG-11",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 4.5, "horizontal": 0 },
-                "vertical": { "vertical": 3.5, "horizontal": 0 },
-                "angled": { "vertical": 4.5, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 4.5, "horizontal": 0 },
-                "vertical": { "vertical": 3.5, "horizontal": 0 },
-                "angled": { "vertical": 4.5, "horizontal": 0 }
-            }
-        }
+        "preset-1": { "vertical": 4.5, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "SMG-12",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 4.5, "horizontal": 0.5 },
-                "vertical": { "vertical": 4.0, "horizontal": 0.5 },
-                "angled": { "vertical": 4.5, "horizontal": 0.5 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 4.5, "horizontal": 0.5 },
-                "vertical": { "vertical": 4.0, "horizontal": 0.5 },
-                "angled": { "vertical": 4.5, "horizontal": 0.5 }
-            }
-        }
+        "preset-1": { "vertical": 4.5, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "C75",
-        "recoil": {
-            "non_magnified": {
-                "horizontal": { "vertical": 2.5, "horizontal": 0 },
-                "vertical": { "vertical": 2.0, "horizontal": 0 },
-                "angled": { "vertical": 2.0, "horizontal": 0 }
-            },
-            "magnified": {
-                "horizontal": { "vertical": 2.0, "horizontal": 0 },
-                "vertical": { "vertical": 2.0, "horizontal": 0 },
-                "angled": { "vertical": 2.0, "horizontal": 0 }
-            }
-        }
-    },
-    {
-        "name": "Reaper-MK2"
+        "preset-1": { "vertical": 2.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     }
 ]

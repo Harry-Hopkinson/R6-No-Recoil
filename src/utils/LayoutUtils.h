@@ -14,7 +14,7 @@ namespace LayoutUtils
         static constexpr int COLUMNS = 6;
         static constexpr int CELL_SIZE = 110;
         static constexpr int CELL_SPACING = 10;
-        static constexpr int CELL_STRIDE = CELL_SIZE + CELL_SPACING; // 120
+        static constexpr int CELL_STRIDE = CELL_SIZE + CELL_SPACING;
 
         /**
          * @brief Calculate grid cell position
@@ -51,14 +51,6 @@ namespace LayoutUtils
         static constexpr int WEAPON_SPACING = 10;
         static constexpr int WEAPON_NAME_HEIGHT = 30;
 
-        static constexpr int SCOPE_BUTTON_WIDTH = 250;
-        static constexpr int SCOPE_BUTTON_HEIGHT = 50;
-        static constexpr int SCOPE_BUTTON_GAP = 60;
-
-        static constexpr int GRIP_BUTTON_WIDTH = 200;
-        static constexpr int GRIP_BUTTON_HEIGHT = 50;
-        static constexpr int GRIP_BUTTON_GAP = 40;
-
         static constexpr int SECTION_OFFSET_FROM_BOTTOM = 330;
 
         /**
@@ -88,70 +80,6 @@ namespace LayoutUtils
         {
             int x = startX + weaponIndex * (WEAPON_WIDTH + WEAPON_SPACING);
             return { x, startY, x + WEAPON_WIDTH, startY + WEAPON_HEIGHT + 45 };
-        }
-
-        /**
-         * @brief Get scope button rectangles
-         * @param screenWidth Screen width
-         * @param screenHeight Screen height
-         * @param outMagnified Output RECT for magnified button
-         * @param outNonMagnified Output RECT for non-magnified button
-         */
-        static inline void GetScopeButtonRects(int screenWidth, int screenHeight,
-                                               RECT& outMagnified, RECT& outNonMagnified)
-        {
-            int sectionTop = screenHeight - SECTION_OFFSET_FROM_BOTTOM;
-            int centerX = screenWidth / 2;
-
-            outMagnified = {
-                centerX - SCOPE_BUTTON_WIDTH - SCOPE_BUTTON_GAP / 2,
-                sectionTop + 60,
-                centerX - SCOPE_BUTTON_GAP / 2,
-                sectionTop + 60 + SCOPE_BUTTON_HEIGHT
-            };
-
-            outNonMagnified = {
-                centerX + SCOPE_BUTTON_GAP / 2,
-                sectionTop + 60,
-                centerX + SCOPE_BUTTON_WIDTH + SCOPE_BUTTON_GAP / 2,
-                sectionTop + 60 + SCOPE_BUTTON_HEIGHT
-            };
-        }
-
-        /**
-         * @brief Get grip button rectangles
-         * @param screenWidth Screen width
-         * @param screenHeight Screen height
-         * @param outHorizontal Output RECT for horizontal grip button
-         * @param outVertical Output RECT for vertical grip button
-         * @param outAngled Output RECT for angled grip button
-         */
-        static inline void GetGripButtonRects(int screenWidth, int screenHeight,
-                                              RECT& outHorizontal, RECT& outVertical, RECT& outAngled)
-        {
-            int gripTop = screenHeight - SECTION_OFFSET_FROM_BOTTOM + 130;
-            int centerX = screenWidth / 2;
-
-            outHorizontal = {
-                centerX - GRIP_BUTTON_WIDTH * 3 / 2 - GRIP_BUTTON_GAP,
-                gripTop + 50,
-                centerX - GRIP_BUTTON_WIDTH / 2 - GRIP_BUTTON_GAP,
-                gripTop + 50 + GRIP_BUTTON_HEIGHT
-            };
-
-            outVertical = {
-                centerX - GRIP_BUTTON_WIDTH / 2,
-                gripTop + 50,
-                centerX + GRIP_BUTTON_WIDTH / 2,
-                gripTop + 50 + GRIP_BUTTON_HEIGHT
-            };
-
-            outAngled = {
-                centerX + GRIP_BUTTON_WIDTH / 2 + GRIP_BUTTON_GAP,
-                gripTop + 50,
-                centerX + GRIP_BUTTON_WIDTH * 3 / 2 + GRIP_BUTTON_GAP,
-                gripTop + 50 + GRIP_BUTTON_HEIGHT
-            };
         }
     };
 

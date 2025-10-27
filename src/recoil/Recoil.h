@@ -25,3 +25,5 @@ void SetRecoilModeFromWeapon(const char* weaponName);
 extern int SelectedWeaponIndex;
 
 extern int ControllerMultiplier;
+
+extern int PresetIndex;

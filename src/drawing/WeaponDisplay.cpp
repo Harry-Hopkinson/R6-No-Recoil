@@ -23,7 +23,7 @@ namespace Drawing
 
         // Draw operator name and instruction text with correct fonts
         Font::DrawCenteredText(memDC, operatorName, 0, 220, right, Font::GetLargeFont());
-        Font::DrawCenteredText(memDC, "Select a primary weapon:", 0, 260, right, Font::GetMediumFont());
+        Font::DrawCenteredText(memDC, "Select a weapon:", 0, 260, right, Font::GetMediumFont());
 
         // Parse weapons
         const char* weapons[3] = { nullptr, nullptr, nullptr };
@@ -76,62 +76,9 @@ namespace Drawing
 
         String::FreeWeaponList(weapons, weaponCount);
 
-        // Scope Section
         const int sectionTop = bottom - LayoutUtils::WeaponDisplayLayout::SECTION_OFFSET_FROM_BOTTOM;
-        Font::DrawCenteredText(memDC, "Scope", 0, sectionTop, right, Font::GetLargeFont());
-
-        RECT magBtn, nonMagBtn;
-        LayoutUtils::WeaponDisplayLayout::GetScopeButtonRects(right, bottom, magBtn, nonMagBtn);
-
-        switch (SelectedScopeType)
-        {
-            case ScopeType::MAGNIFIED:
-                GdiHelpers::FillRectColor(memDC, magBtn, RGB(200, 230, 255));
-                break;
-            case ScopeType::NON_MAGNIFIED:
-                GdiHelpers::FillRectColor(memDC, nonMagBtn, RGB(200, 230, 255));
-                break;
-            default:
-                break;
-        }
-
-        FrameRect(memDC, &magBtn, (HBRUSH)GetStockObject(BLACK_BRUSH));
-        FrameRect(memDC, &nonMagBtn, (HBRUSH)GetStockObject(BLACK_BRUSH));
-        DrawText(memDC, "Magnified", -1, &magBtn, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-        DrawText(memDC, "Non-Magnifying", -1, &nonMagBtn, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-
-        // Grip Section
-        const int gripTop = sectionTop + 130;
-        Font::DrawCenteredText(memDC, "Grip", 0, gripTop, right, Font::GetLargeFont());
-
-        RECT horizontalBtn, verticalBtn, angledBtn;
-        LayoutUtils::WeaponDisplayLayout::GetGripButtonRects(right, bottom, horizontalBtn, verticalBtn, angledBtn);
-
-        switch (SelectedGripType)
-        {
-            case GripType::HORIZONTAL:
-                GdiHelpers::FillRectColor(memDC, horizontalBtn, RGB(200, 230, 255));
-                break;
-            case GripType::VERTICAL:
-                GdiHelpers::FillRectColor(memDC, verticalBtn, RGB(200, 230, 255));
-                break;
-            case GripType::ANGLED:
-                GdiHelpers::FillRectColor(memDC, angledBtn, RGB(200, 230, 255));
-                break;
-            default:
-                break;
-        }
-
-        FrameRect(memDC, &horizontalBtn, (HBRUSH)GetStockObject(BLACK_BRUSH));
-        FrameRect(memDC, &verticalBtn, (HBRUSH)GetStockObject(BLACK_BRUSH));
-        FrameRect(memDC, &angledBtn, (HBRUSH)GetStockObject(BLACK_BRUSH));
-        DrawText(memDC, "Horizontal", -1, &horizontalBtn, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-        DrawText(memDC, "Vertical", -1, &verticalBtn, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-        DrawText(memDC, "Angled", -1, &angledBtn, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-
-        const char* verticalGripText = "Note that the recoil presets are designed to work best with the Compensator and "
-                                       "Extended Barrel.";
-        Font::DrawCenteredText(memDC, verticalGripText, 0, sectionTop + 260, right, Font::GetMediumFont());
+        const char* noteText = "Note that clicking on the weapon will use Preset 1.";
+        Font::DrawCenteredText(memDC, noteText, 0, sectionTop + 260, right, Font::GetMediumFont());
 
         // Back button
         RECT backBtn = { 30, bottom - 80, 130, bottom - 31 };

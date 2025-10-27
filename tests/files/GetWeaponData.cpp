@@ -1,5 +1,3 @@
-#include "Structs.h"
-
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -192,7 +190,7 @@ namespace Files
 int main()
 {
     const char* weaponName = "P90";
-    WeaponRecoil recoil = Files::GetWeaponData(weaponName);
+    WeaponRecoil recoil = Files::GetWeaponData(weaponName, PresetIndex);
     printf("Weapon: %s\n", weaponName);
     printf("ScopeType: NON_MAGNIFIED\nGripType: HORIZONTAL\n");
     printf("Vertical Recoil: %.2f\nHorizontal Recoil: %.2f\n", recoil.Vertical, recoil.Horizontal);

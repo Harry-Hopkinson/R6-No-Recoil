@@ -11,13 +11,6 @@
 namespace ClickDetection
 {
 
-    void ResetVariables()
-    {
-        SelectedWeaponIndex = -1;
-        SelectedScopeType = ScopeType::NONE;
-        SelectedGripType = GripType::NONE;
-    }
-
     void WeaponDisplay(HWND hwnd, int right, int bottom, int mouseX, int mouseY)
     {
         const char* weaponStr = IsAttackerView ? AttackerWeapons[SelectedOperatorIndex]
@@ -30,76 +23,21 @@ namespace ClickDetection
         int startX, startY;
         LayoutUtils::WeaponDisplayLayout::GetWeaponStartPosition(weaponCount, right, bottom, startX, startY);
 
-        RECT magRect, nonMagRect;
-        LayoutUtils::WeaponDisplayLayout::GetScopeButtonRects(right, bottom, magRect, nonMagRect);
-
-        RECT horizontalRect, verticalRect, angledRect;
-        LayoutUtils::WeaponDisplayLayout::GetGripButtonRects(right, bottom, horizontalRect, verticalRect, angledRect);
-
         auto ProceedIfReady = [&](int selectedWeaponIndex)
         {
-            if (selectedWeaponIndex == -1 || SelectedScopeType == ScopeType::NONE || SelectedGripType == GripType::NONE)
-                return;
-
             SetRecoilModeFromWeapon(weapons[selectedWeaponIndex]);
             Files::SaveConfig();
 
             Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
             Buttons::CreateOperatorSelectionButtons(hwnd);
 
-            LastScopeType = SelectedScopeType;
-            LastGripType = SelectedGripType;
-            ResetVariables();
+            SelectedWeaponIndex = -1;
 
             if (CurrentWeapon)
                 free((void*)CurrentWeapon);
 
             CurrentWeapon = _strdup(weapons[selectedWeaponIndex]);
         };
-
-        // Scope buttons
-        if (LayoutUtils::IsPointInRect(magRect, mouseX, mouseY))
-        {
-            SelectedScopeType = ScopeType::MAGNIFIED;
-            ProceedIfReady(SelectedWeaponIndex);
-            InvalidateRect(hwnd, nullptr, TRUE);
-            String::FreeWeaponList(weapons, weaponCount);
-            return;
-        }
-        else if (LayoutUtils::IsPointInRect(nonMagRect, mouseX, mouseY))
-        {
-            SelectedScopeType = ScopeType::NON_MAGNIFIED;
-            ProceedIfReady(SelectedWeaponIndex);
-            InvalidateRect(hwnd, nullptr, TRUE);
-            String::FreeWeaponList(weapons, weaponCount);
-            return;
-        }
-
-        // Grip buttons
-        if (LayoutUtils::IsPointInRect(horizontalRect, mouseX, mouseY))
-        {
-            SelectedGripType = GripType::HORIZONTAL;
-            ProceedIfReady(SelectedWeaponIndex);
-            InvalidateRect(hwnd, nullptr, TRUE);
-            String::FreeWeaponList(weapons, weaponCount);
-            return;
-        }
-        else if (LayoutUtils::IsPointInRect(verticalRect, mouseX, mouseY))
-        {
-            SelectedGripType = GripType::VERTICAL;
-            ProceedIfReady(SelectedWeaponIndex);
-            InvalidateRect(hwnd, nullptr, TRUE);
-            String::FreeWeaponList(weapons, weaponCount);
-            return;
-        }
-        else if (LayoutUtils::IsPointInRect(angledRect, mouseX, mouseY))
-        {
-            SelectedGripType = GripType::ANGLED;
-            ProceedIfReady(SelectedWeaponIndex);
-            InvalidateRect(hwnd, nullptr, TRUE);
-            String::FreeWeaponList(weapons, weaponCount);
-            return;
-        }
 
         // Weapon click detection
         for (int i = 0; i < weaponCount; ++i)
@@ -109,6 +47,7 @@ namespace ClickDetection
             if (LayoutUtils::IsPointInRect(weaponRect, mouseX, mouseY))
             {
                 SelectedWeaponIndex = i;
+
                 ProceedIfReady(i);
                 InvalidateRect(hwnd, nullptr, TRUE);
                 String::FreeWeaponList(weapons, weaponCount);
@@ -122,7 +61,7 @@ namespace ClickDetection
         {
             Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
             Buttons::CreateOperatorSelectionButtons(hwnd);
-            ResetVariables();
+            SelectedWeaponIndex = -1;
             InvalidateRect(hwnd, nullptr, TRUE);
         }
 

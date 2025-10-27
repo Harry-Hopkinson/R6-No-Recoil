@@ -86,7 +86,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     break;
                 case 11: // Save Config button
                     Files::SaveConfig();
-                    Files::SaveWeaponData();
+                    Files::SaveWeaponData(PresetIndex);
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
                 case 12: // "+" button (Horizontal)

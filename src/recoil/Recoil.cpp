@@ -44,7 +44,7 @@ std::vector<const char*> AttackerWeapons =
     "F90, M249-SAW",              // Gridlock
     "FMG-9",                      // Nokk
     "G8A1, SMG-11",               // Amaru
-    "C75",                        // Kali
+    "C75, SPSMG9",                // Kali
     "G36C, ARX200",               // Iana
     "AK-12",                      // Ace
     "SC3000K, MP7",               // Zero

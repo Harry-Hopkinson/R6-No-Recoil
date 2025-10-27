@@ -62,9 +62,6 @@ namespace Files
 
         free(data);
 
-        if (recoil.Vertical == 0.0f && recoil.Horizontal == 0.0f)
-            recoil = { 3.0f, 0.0f };
-
         return recoil;
     }
 

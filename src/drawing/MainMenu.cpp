@@ -63,7 +63,7 @@ namespace Drawing
 
         int rightCurrentY = rightStartY + 45;
         const char* steps[] = { "1. Choose Attacker or Defender",     "2. Select your operator",
-                                "3. Pick your primary weapon",        "4. Select your scope for that gun",
+                                "3. Pick your primary weapon",        "4. Choose your weapon preset for that gun",
                                 "5. Start playing - it's automatic!", "6. Use toggle key to enable/disable" };
         size_t stepCount = sizeof(steps) / sizeof(steps[0]);
 

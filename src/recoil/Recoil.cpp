@@ -99,16 +99,6 @@ std::vector<const char*> DefenderWeapons =
     "Scorpion-EVO, FMG-9"       // Denari
 };
 
-void SetRecoilModeFromWeapon(const char* weaponName)
-{
-    if (!weaponName)
-        return;
-
-    CurrentRecoil = Files::GetWeaponData(weaponName, PresetIndex);
-}
-
-int SelectedWeaponIndex = -1;
-
 int ControllerMultiplier = 10;
 
 int PresetIndex = 0;

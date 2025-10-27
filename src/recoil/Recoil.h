@@ -20,10 +20,6 @@ extern std::vector<const char*> DefenderWeapons;
 
 extern WeaponRecoil CurrentRecoil;
 
-void SetRecoilModeFromWeapon(const char* weaponName);
-
-extern int SelectedWeaponIndex;
-
 extern int ControllerMultiplier;
 
 extern int PresetIndex;

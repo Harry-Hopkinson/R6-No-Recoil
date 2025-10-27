@@ -108,7 +108,7 @@ namespace Drawing
         DrawText(memDC, "Created by Harry Hopkinson", -1, &textRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
         textRect = { right / 2, bottomY + 15, right - 60, bottomY + 35 };
-        DrawText(memDC, "Version 2.7 | Open Source", -1, &textRect, DT_RIGHT | DT_VCENTER | DT_SINGLELINE);
+        DrawText(memDC, "Version 2.8 | Open Source", -1, &textRect, DT_RIGHT | DT_VCENTER | DT_SINGLELINE);
 
         textRect = { 0, bottomY + 40, right + 15, bottomY + 60 };
         DrawText(memDC, "Visit GitHub for updates and source code", -1, &textRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);

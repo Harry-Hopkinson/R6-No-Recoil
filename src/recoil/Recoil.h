@@ -4,14 +4,6 @@
 
 #include <vector>
 
-struct WeaponData
-{
-    const char* name;
-    int recoil;
-};
-
-extern WeaponData WeaponRecoilData[];
-
 extern std::vector<const char*> AttackerNames;
 extern std::vector<const char*> DefenderNames;
 

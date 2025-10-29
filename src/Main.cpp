@@ -1,7 +1,7 @@
 #include <windows.h>
 #include <windowsx.h>
 
-#include "resources/resource.h"
+#include "resource/resource.h"
 
 #include <thread>
 

@@ -10,7 +10,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 # Gather all source files
 file(GLOB_RECURSE SRC_FILES src/*.cpp)
-set(RESOURCE_FILES src/resources/resource.rc src/resources/app_version.rc)
+set(RESOURCE_FILES src/resource/resource.rc)
 
 include_directories(${CMAKE_SOURCE_DIR})
 

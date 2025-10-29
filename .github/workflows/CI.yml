@@ -22,8 +22,8 @@ jobs:
       - name: Build the project (Release)
         run: cmake --build build --config Release --target R6NoRecoil
 
-      - name: Strip symbols from executable
-        run: strip build/Release/R6NoRecoil.exe
+      # - name: Strip symbols from executable
+      #   run: strip build/Release/R6NoRecoil.exe
 
       - name: Prepare release folder
         run: |

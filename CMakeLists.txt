@@ -20,6 +20,13 @@ set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_RELEASE TRUE)
 # Windows GUI executable
 add_executable(R6NoRecoil WIN32 ${SRC_FILES} ${RESOURCE_FILES})
 
+target_compile_definitions(R6NoRecoil PRIVATE
+    WIN32_LEAN_AND_MEAN
+    NOCOMM
+    NOSERVICE
+    NOHELP
+)
+
 # Copy assets
 file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR})
 

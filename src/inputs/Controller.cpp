@@ -2,6 +2,8 @@
 
 #include <windows.h>
 
+#define abs(x) ((x) < 0 ? -(x) : (x))
+
 namespace Inputs
 {
 

@@ -71,12 +71,12 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     system("start https://github.com/Harry-Hopkinson/R6-No-Recoil");
                     break;
                 case 8: // "+" button (Vertical)
-                    CurrentRecoil.Vertical = round(CurrentRecoil.Vertical);
+                    CurrentRecoil.Vertical += 0.5f;
                     Files::SaveConfig();
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
                 case 9: // "-" button (Vertical)
-                    CurrentRecoil.Vertical = maximum(static_cast<int>(CurrentRecoil.Vertical - 1.0f), 0.0f);
+                    CurrentRecoil.Vertical = maximum(CurrentRecoil.Vertical - 0.5f, 0.0f);
                     Files::SaveConfig();
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
@@ -89,12 +89,12 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
                 case 12: // "+" button (Horizontal)
-                    CurrentRecoil.Horizontal = round(CurrentRecoil.Horizontal);
+                    CurrentRecoil.Horizontal += 0.5f;
                     Files::SaveConfig();
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
                 case 13: // "-" button (Horizontal)
-                    CurrentRecoil.Horizontal -= 1.0f;
+                    CurrentRecoil.Horizontal -= 0.5f;
                     Files::SaveConfig();
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;

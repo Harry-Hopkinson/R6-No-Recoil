@@ -14,33 +14,41 @@ constexpr int POLL_INTERVAL_MS = 10;
 
 void GetWeaponAtIndex(const char* weapons, int index, char* out, size_t out_size)
 {
-    if (!weapons || !out || out_size == 0) return;
+    if (!weapons || !out || out_size == 0)
+        return;
 
     int current = 0;
     const char* start = weapons;
 
     while (*start)
     {
-        while (*start && isspace((unsigned char)*start)) start++;
+        while (*start && isspace((unsigned char)*start))
+            ++start;
 
         const char* end = start;
-        while (*end && *end != ',') end++;
+        while (*end && *end != ',')
+            ++end;
 
         if (current == index)
         {
             const char* trim_end = end;
-            while (trim_end > start && isspace((unsigned char)*(trim_end-1))) trim_end--;
+            while (trim_end > start && isspace((unsigned char)*(trim_end - 1)))
+                --trim_end;
 
             size_t len = trim_end - start;
-            if (len >= out_size) len = out_size - 1;
+            if (len >= out_size)
+                len = out_size - 1;
+
             memcpy(out, start, len);
             out[len] = '\0';
             return;
         }
 
-        if (*end == ',') end++;
+        if (*end == ',')
+            ++end;
+
         start = end;
-        current++;
+        ++current;
     }
 
     out[0] = '\0';
@@ -72,6 +80,7 @@ namespace Threads
                 CurrentRecoil = Files::GetWeaponData(weaponName, 1);
                 Files::SaveConfig();
 
+                InvalidateRect(FindWindow(NULL, "R6 No Recoil"), NULL, TRUE);
                 std::this_thread::sleep_for(std::chrono::milliseconds(TOGGLE_DELAY_MS));
             }
             else if (SecondaryKeyEnabled && (GetAsyncKeyState(SecondaryKey) & 0x8000))
@@ -84,6 +93,7 @@ namespace Threads
                 CurrentRecoil = Files::GetWeaponData(weaponName, 1);
                 Files::SaveConfig();
 
+                InvalidateRect(FindWindow(NULL, "R6 No Recoil"), NULL, TRUE);
                 std::this_thread::sleep_for(std::chrono::milliseconds(TOGGLE_DELAY_MS));
             }
             else if (TertiaryKeyEnabled && (GetAsyncKeyState(TertiaryKey) & 0x8000))
@@ -96,6 +106,7 @@ namespace Threads
                 CurrentRecoil = Files::GetWeaponData(weaponName, 1);
                 Files::SaveConfig();
 
+                InvalidateRect(FindWindow(NULL, "R6 No Recoil"), NULL, TRUE);
                 std::this_thread::sleep_for(std::chrono::milliseconds(TOGGLE_DELAY_MS));
             }
 

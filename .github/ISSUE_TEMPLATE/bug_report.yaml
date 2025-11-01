@@ -1,51 +1,51 @@
 name: Bug report
 description: Report an issue you encountered when using the R6 No Recoil Tool.
 labels:
-- bug
+    - bug
 
 body:
-- type: markdown
-  attributes:
-    value: Before filing this bug, [please check if it hasn't already been reported](https://github.com/Harry-Hopkinson/R6-No-Recoil/issues). If it has, please add useful information to the existing issue instead.
+    - type: markdown
+      attributes:
+          value: Before filing this bug, [please check if it hasn't already been reported](https://github.com/Harry-Hopkinson/R6-No-Recoil/issues). If it has, please add useful information to the existing issue instead.
 
-- type: input
-  attributes:
-    label: Operating System
-    placeholder: e.g. Windows 10, 64-bit
-  validations:
-    required: true
+    - type: input
+      attributes:
+          label: Operating System
+          placeholder: e.g. Windows 10, 64-bit
+      validations:
+          required: true
 
-- type: input
-  attributes:
-    label: R6 No Recoil Version
-    placeholder: e.g. 1.0.7
-    description: You can see the version by checking the [Github Release Page](https://github.com/Harry-Hopkinson/R6-No-Recoil/releases).
-  validations:
-    required: true
+    - type: input
+      attributes:
+          label: R6 No Recoil Version
+          placeholder: e.g. 1.0.7
+          description: You can see the version by checking the [Github Release Page](https://github.com/Harry-Hopkinson/R6-No-Recoil/releases).
+      validations:
+          required: true
 
-- type: textarea
-  attributes:
-    label: Describe the issue
-    description: Please describe the issue you are experiencing here.
-  validations:
-    required: true
+    - type: textarea
+      attributes:
+          label: Describe the issue
+          description: Please describe the issue you are experiencing here.
+      validations:
+          required: true
 
-- type: textarea
-  attributes:
-    label: Steps to reproduce
-    description: I highly suggest including a screenshot.
-    placeholder: |
-      Tell us the steps required to trigger your bug. Example:
-      1. Change value in Config.toml.
-      2. Open R6NoRecoil.
-      3. Observe the Tool Crashing.
-  validations:
-    required: true
+    - type: textarea
+      attributes:
+          label: Steps to reproduce
+          description: I highly suggest including a screenshot.
+          placeholder: |
+              Tell us the steps required to trigger your bug. Example:
+              1. Change value in Config.toml.
+              2. Open R6NoRecoil.
+              3. Observe the Tool Crashing.
+      validations:
+          required: true
 
-- type: textarea
-  attributes:
-    label: Attachments
-    description: Please add any screenshots, dump files and/or videos here that may help us fix the issue.
-    placeholder: Drag and drop files here to add them
-  validations:
-    required: false
+    - type: textarea
+      attributes:
+          label: Attachments
+          description: Please add any screenshots, dump files and/or videos here that may help us fix the issue.
+          placeholder: Drag and drop files here to add them
+      validations:
+          required: false

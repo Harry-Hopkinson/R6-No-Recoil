@@ -1,22 +1,22 @@
 Checks: >
-  -*,
-  cppcoreguidelines-pro-type-member-init,
-  cppcoreguidelines-pro-type-reinterpret-cast,
-  cppcoreguidelines-avoid-magic-numbers,
-  cppcoreguidelines-owning-memory,
-  cppcoreguidelines-no-malloc,
-  cppcoreguidelines-macro-usage,
-  modernize-use-nullptr,
-  modernize-use-override,
-  modernize-loop-convert,
-  modernize-pass-by-value,
-  readability-uppercase-literal-suffix,
-  readability-braces-around-statements,
-  readability-identifier-naming,
-  clang-analyzer-core.CallAndMessage,
-  clang-analyzer-cplusplus.NewDelete
+    -*,
+    cppcoreguidelines-pro-type-member-init,
+    cppcoreguidelines-pro-type-reinterpret-cast,
+    cppcoreguidelines-avoid-magic-numbers,
+    cppcoreguidelines-owning-memory,
+    cppcoreguidelines-no-malloc,
+    cppcoreguidelines-macro-usage,
+    modernize-use-nullptr,
+    modernize-use-override,
+    modernize-loop-convert,
+    modernize-pass-by-value,
+    readability-uppercase-literal-suffix,
+    readability-braces-around-statements,
+    readability-identifier-naming,
+    clang-analyzer-core.CallAndMessage,
+    clang-analyzer-cplusplus.NewDelete
 CheckOptions:
-  - key: cppcoreguidelines-macro-usage.AllowedRegexp
-    value: 'validate_global_widx|NETWORK_STREAM_VERSION|SFL_ASSERT|SFL_CATCH'
+    - key: cppcoreguidelines-macro-usage.AllowedRegexp
+      value: "validate_global_widx|NETWORK_STREAM_VERSION|SFL_ASSERT|SFL_CATCH"
 WarningsAsErrors: true
-FormatStyle: 'file'
+FormatStyle: "file"

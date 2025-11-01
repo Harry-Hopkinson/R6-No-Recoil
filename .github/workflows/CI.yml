@@ -1,59 +1,59 @@
 name: Build and Upload Application, Lint and Build Website
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
 
 jobs:
-  application:
-    runs-on: windows-2025
+    application:
+        runs-on: windows-2025
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
 
-      - name: Configure project with CMake
-        run: cmake -S . -B build -G "Visual Studio 17 2022" -A x64
+            - name: Configure project with CMake
+              run: cmake -S . -B build -G "Visual Studio 17 2022" -A x64
 
-      - name: Build the project (Release)
-        run: cmake --build build --config Release --target R6NoRecoil
+            - name: Build the project (Release)
+              run: cmake --build build --config Release --target R6NoRecoil
 
-      - name: Strip symbols from executable
-        run: strip build/Release/R6NoRecoil.exe
+            - name: Strip symbols from executable
+              run: strip build/Release/R6NoRecoil.exe
 
-      - name: Prepare release folder
-        run: |
-          mkdir -p release
-          copy build\Release\R6NoRecoil.exe release\
-          xcopy assets release\assets /E /I /Y
-          copy build\Config.toml release\
-          copy build\WeaponData.json release\
+            - name: Prepare release folder
+              run: |
+                  mkdir -p release
+                  copy build\Release\R6NoRecoil.exe release\
+                  xcopy assets release\assets /E /I /Y
+                  copy build\Config.toml release\
+                  copy build\WeaponData.json release\
 
-      - name: Zip release folder
-        run: powershell Compress-Archive -Path release/* -DestinationPath R6NoRecoil.zip
+            - name: Zip release folder
+              run: powershell Compress-Archive -Path release/* -DestinationPath R6NoRecoil.zip
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: R6NoRecoil
-          path: R6NoRecoil.zip
+            - name: Upload artifact
+              uses: actions/upload-artifact@v4
+              with:
+                  name: R6NoRecoil
+                  path: R6NoRecoil.zip
 
-  website:
-    runs-on: ubuntu-latest
+    website:
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
 
-      - name: Yarn install
-        run: cd website && yarn
+            - name: Yarn install
+              run: cd website && yarn
 
-      - name: Lint website
-        run: cd website && yarn lint
+            - name: Lint website
+              run: cd website && yarn lint
 
-      - name: Build website
-        run: cd website && yarn build
+            - name: Build website
+              run: cd website && yarn build

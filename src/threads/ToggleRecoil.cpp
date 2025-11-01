@@ -57,6 +57,21 @@ void GetWeaponAtIndex(const char* weapons, int index, char* out, size_t out_size
 namespace Threads
 {
 
+    static void LoadWeaponRecoil(int weaponIndex)
+    {
+        const char* weapons = IsAttackerView ? AttackerWeapons[SelectedOperatorIndex]
+                                             : DefenderWeapons[SelectedOperatorIndex];
+
+        char weaponName[16] = {};
+        GetWeaponAtIndex(weapons, weaponIndex, weaponName, sizeof(weaponName));
+
+        CurrentRecoil = Files::GetWeaponData(weaponName, 1);
+        Files::SaveConfig();
+
+        InvalidateRect(FindWindow(NULL, "R6 No Recoil"), NULL, TRUE);
+        std::this_thread::sleep_for(std::chrono::milliseconds(TOGGLE_DELAY_MS));
+    }
+
     void ToggleRecoil()
     {
 
@@ -72,42 +87,15 @@ namespace Threads
             }
             else if (PrimaryKeyEnabled && (GetAsyncKeyState(PrimaryKey) & 0x8000))
             {
-                const char* weapons = IsAttackerView ? AttackerWeapons[SelectedOperatorIndex]
-                                                     : DefenderWeapons[SelectedOperatorIndex];
-
-                char weaponName[16];
-                GetWeaponAtIndex(weapons, 0, weaponName, sizeof(weaponName));
-                CurrentRecoil = Files::GetWeaponData(weaponName, 1);
-                Files::SaveConfig();
-
-                InvalidateRect(FindWindow(NULL, "R6 No Recoil"), NULL, TRUE);
-                std::this_thread::sleep_for(std::chrono::milliseconds(TOGGLE_DELAY_MS));
+                LoadWeaponRecoil(0);
             }
             else if (SecondaryKeyEnabled && (GetAsyncKeyState(SecondaryKey) & 0x8000))
             {
-                const char* weapons = IsAttackerView ? AttackerWeapons[SelectedOperatorIndex]
-                                                     : DefenderWeapons[SelectedOperatorIndex];
-
-                char weaponName[16];
-                GetWeaponAtIndex(weapons, 1, weaponName, sizeof(weaponName));
-                CurrentRecoil = Files::GetWeaponData(weaponName, 1);
-                Files::SaveConfig();
-
-                InvalidateRect(FindWindow(NULL, "R6 No Recoil"), NULL, TRUE);
-                std::this_thread::sleep_for(std::chrono::milliseconds(TOGGLE_DELAY_MS));
+                LoadWeaponRecoil(1);
             }
             else if (TertiaryKeyEnabled && (GetAsyncKeyState(TertiaryKey) & 0x8000))
             {
-                const char* weapons = IsAttackerView ? AttackerWeapons[SelectedOperatorIndex]
-                                                     : DefenderWeapons[SelectedOperatorIndex];
-
-                char weaponName[16];
-                GetWeaponAtIndex(weapons, 2, weaponName, sizeof(weaponName));
-                CurrentRecoil = Files::GetWeaponData(weaponName, 1);
-                Files::SaveConfig();
-
-                InvalidateRect(FindWindow(NULL, "R6 No Recoil"), NULL, TRUE);
-                std::this_thread::sleep_for(std::chrono::milliseconds(TOGGLE_DELAY_MS));
+                LoadWeaponRecoil(2);
             }
 
             std::this_thread::sleep_for(std::chrono::milliseconds(POLL_INTERVAL_MS));

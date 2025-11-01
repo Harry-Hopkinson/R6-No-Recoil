@@ -61,62 +61,6 @@ Any form of donation is greatly appreciated and will help keep me motivated to k
 
 [![Patreon](https://img.shields.io/badge/Patreon-F96854?style=for-the-badge&logo=patreon&logoColor=white)](https://www.patreon.com/cw/R6NoRecoil)
 
-## ⚠️ Important Setup Note
-
-To ensure the recoil compensation behaves consistently across all systems, you must:
-
-1. **Disable Windows mouse acceleration** (Enhance Pointer Precision).
-2. **Enable raw mouse input in Rainbow Six Siege**.
-
-### 🔧 How to disable **Enhance Pointer Precision**
-
-#### Method 1: Using Control Panel
-
-1. **Open the Control Panel.**
-    - Press **Windows + R**, type `control`, and press **Enter**.
-
-2. **Go to Mouse → Pointer Options.**
-    - In Control Panel, set **View by** to **Large icons** or **Small icons**.
-    - Click **Mouse**.
-    - Select the **Pointer Options** tab.
-
-3. **Uncheck the box for "Enhance pointer precision".**
-
-4. **Click Apply and OK.**
-
-#### Method 2: Using Windows Settings
-
-1. **Open Settings.**
-    - Press **Windows + I** to open the Settings app.
-
-2. **Go to Devices → Mouse.**
-    - In the left sidebar, select **Mouse**.
-    - Click **Additional mouse options** on the right.
-
-3. **Disable Enhance pointer precision.**
-    - In the **Pointer Options** tab, uncheck **Enhance pointer precision**.
-
-4. **Click Apply and OK.**
-
-### 🎯 How to Enable Raw Mouse Input in Rainbow Six Siege
-
-1. **Close Rainbow Six Siege** completely.
-2. **Locate your GameSettings.ini file**:
-    ```plaintext
-    Documents\My Games\Rainbow Six - Siege\<RandomNumbersFolder>\GameSettings.ini
-    ```
-3. **Open the file in Notepad (or any text editor)**.
-4. **Find the line**:
-    ```plaintext
-    RawInputMouseKeyboard=0
-    ```
-5. **Change it to**:
-    ```plaintext
-    RawInputMouseKeyboard=1
-    ```
-6. **Save the file and close the editor**.
-7. **Restart the game** — raw mouse input will now be active.
-
 ## ⚙️ Config Explained
 
 The app automatically creates a `Config.toml` file on first run. You can manually edit it to customise the experience.

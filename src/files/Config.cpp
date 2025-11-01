@@ -1,6 +1,7 @@
 #include "Files.h"
 
 #include "../Globals.h"
+#include "../core/Keys.h"
 #include "../recoil/Recoil.h"
 
 #include "../utils/FileUtils.h"

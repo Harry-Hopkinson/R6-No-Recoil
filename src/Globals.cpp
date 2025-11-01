@@ -8,6 +8,4 @@ bool EnableController = false;
 
 bool UseToggleKey = false;
 
-int ToggleKey = 20;
-
 const char* CurrentWeapon = nullptr;

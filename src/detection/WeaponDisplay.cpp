@@ -1,5 +1,6 @@
 #include "ClickDetection.h"
 
+#include "../core/Keys.h"
 #include "../core/String.h"
 #include "../files/Files.h"
 
@@ -61,6 +62,36 @@ namespace ClickDetection
 
             int buttonStartY = y + LayoutUtils::WeaponDisplayLayout::WEAPON_HEIGHT + 60;
             int buttonStartX = x + (LayoutUtils::WeaponDisplayLayout::WEAPON_WIDTH - buttonWidth) / 2;
+
+            // Key bind button area
+            const int keyWidth = 100;
+            const int keyHeight = 30;
+
+            const int keyStartX = x + (LayoutUtils::WeaponDisplayLayout::WEAPON_WIDTH - keyWidth) / 2;
+            const int keyStartY = y + LayoutUtils::WeaponDisplayLayout::WEAPON_HEIGHT + 225;
+            RECT keyRect = { keyStartX, keyStartY + keyHeight + 20, keyStartX + keyWidth,
+                             keyStartY + keyHeight + 20 + keyHeight };
+
+            if (LayoutUtils::IsPointInRect(keyRect, mouseX, mouseY))
+            {
+                switch (i)
+                {
+                    case 0:
+                        PrimaryKeyEnabled = !PrimaryKeyEnabled;
+                        break;
+                    case 1:
+                        SecondaryKeyEnabled = !SecondaryKeyEnabled;
+                        break;
+                    case 2:
+                        TertiaryKeyEnabled = !TertiaryKeyEnabled;
+                        break;
+                    default:
+                        break;
+                }
+                InvalidateRect(hwnd, nullptr, TRUE);
+                String::FreeWeaponList(weapons, weaponCount);
+                return;
+            }
 
             for (int p = 0; p < 3; ++p)
             {

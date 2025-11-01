@@ -1,6 +1,7 @@
 #include "../Globals.h"
 #include "../recoil/Recoil.h"
 
+#include "../core/Keys.h"
 #include "../core/String.h"
 #include "../files/Files.h"
 #include "../scenes/Scenes.h"
@@ -66,6 +67,39 @@ namespace Drawing
             int buttonStartY = y + LayoutUtils::WeaponDisplayLayout::WEAPON_HEIGHT + 60;
             int buttonStartX = x + (LayoutUtils::WeaponDisplayLayout::WEAPON_WIDTH - buttonWidth) / 2;
 
+            // Key bindings
+            const int keyWidth = 100;
+            const int keyHeight = 30;
+
+            const int keyStartX = x + LayoutUtils::WeaponDisplayLayout::WEAPON_WIDTH - 250;
+            const int keyStartY = y + LayoutUtils::WeaponDisplayLayout::WEAPON_HEIGHT + 225;
+            RECT keyRect = { keyStartX, keyStartY, keyStartX + keyWidth, keyStartY + keyHeight };
+
+            char text[16];
+            snprintf(text, sizeof(text), "Key Bind %d", i + 1);
+            DrawText(memDC, text, -1, &keyRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+
+            char enabledText[16];
+            snprintf(
+                enabledText, sizeof(enabledText), "Toggled: %s", (PrimaryKeyEnabled && i == 0) || (SecondaryKeyEnabled && i == 1) ||
+                                               (TertiaryKeyEnabled && i == 2)
+                                                   ? "Yes"
+                                                   : "No");
+            keyRect.top += 20;
+            keyRect.bottom += 20;
+            DrawText(memDC, enabledText, -1, &keyRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+
+
+            // Enable key bind button underneath text
+            RECT buttonRect = { keyStartX, keyStartY + keyHeight + 20, keyStartX + keyWidth,
+                                keyStartY + keyHeight + 20 + keyHeight };
+            HBRUSH fill = CreateSolidBrush(RGB(240, 240, 240));
+            FillRect(memDC, &buttonRect, fill);
+            DeleteObject(fill);
+            FrameRect(memDC, &buttonRect, (HBRUSH)GetStockObject(BLACK_BRUSH));
+            DrawText(memDC, "Toggle", -1, &buttonRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+
+
             for (int p = 0; p < 3; ++p)
             {
                 WeaponRecoil recoilData = Files::GetWeaponData(weapons[i], p + 1);
@@ -81,7 +115,7 @@ namespace Drawing
                 // Outline
                 FrameRect(memDC, &btnRect, (HBRUSH)GetStockObject(BLACK_BRUSH));
 
-                char text[128];
+                char text[32];
                 snprintf(text, sizeof(text), "Preset %d: V:%.1f, H:%.1f", p + 1, recoilData.Vertical, recoilData.Horizontal);
 
                 HFONT btnFont = Font::GetMediumFont();

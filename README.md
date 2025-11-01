@@ -10,10 +10,14 @@
     <a href="http://discord.gg/68rUtWqEBy">
         <img src="https://img.shields.io/badge/Join%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Join Discord">
     </a>
+    <a href="https://www.patreon.com/cw/R6NoRecoil">
+        <img src="https://img.shields.io/badge/Patreon-F96854?style=for-the-badge&logo=patreon&logoColor=white" alt="Support the Project">
+    </a>
 
-| Release Build | Development Build |
-|---------------|-------------------|
+| Release Build                                                                                                                                                                                     | Development Build                                                                                                                                                                                      |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | [![Release](https://img.shields.io/badge/Release%20Build-Download-blue?style=for-the-badge&logo=github)](https://github.com/Harry-Hopkinson/R6-No-Recoil/releases/latest/download/R6NoRecoil.zip) | [![Development](https://img.shields.io/badge/Development%20Build-Download-yellow?style=for-the-badge&logo=github)](https://nightly.link/Harry-Hopkinson/R6-No-Recoil/workflows/CI/main/R6NoRecoil.zip) |
+
 </div>
 
 A lightweight, efficient **no-recoil tool** for Rainbow Six Siege. Designed for smooth performance and ease of use.
@@ -39,12 +43,23 @@ Most recoil tools like Logitech G Hub (now detectable) are bloated, heavy, and c
 4. **Choose your operator and their primary weapon**.
 5. **Choose your weapon preset**.
 6. **Controls:**
-   - **Press `Toggle Recoil`** → Toggle the no-recoil effect on/off.
-   - **Press `Change Mode`** → Adjust the strength of the recoil compensation.
-   - **Press `Toggle Key`** -> Enable/Disable toggle key activating/deactivating recoil. Default CapsLock.
-   - **Press `Save Config`** -> Save current weapon data to the selected preset.
-   - **Switch to Defenders/Attackers** -> Change operator type.
+    - **Press `Toggle Recoil`** → Toggle the no-recoil effect on/off.
+    - **Press `Change Mode`** → Adjust the strength of the recoil compensation.
+    - **Press `Toggle Key`** -> Enable/Disable toggle key activating/deactivating recoil. Default CapsLock.
+    - **Press `Save Config`** -> Save current weapon data to the selected preset.
+    - **Switch to Defenders/Attackers** -> Change operator type.
 7. **Enjoy Smoother Aim!**
+
+## 💸 Support Development
+
+Any form of donation is greatly appreciated and will help keep me motivated to keep working on this project and developing it further with new features and improvements. If you become a member you get:
+
+- Early access to new releases.
+- Requests for custom builds of the program.
+- Custom discord roles.
+- Help support me develop bigger and better features for this project.
+
+[![Patreon](https://img.shields.io/badge/Patreon-F96854?style=for-the-badge&logo=patreon&logoColor=white)](https://www.patreon.com/cw/R6NoRecoil)
 
 ## ⚠️ Important Setup Note
 
@@ -56,28 +71,30 @@ To ensure the recoil compensation behaves consistently across all systems, you m
 ### 🔧 How to disable **Enhance Pointer Precision**
 
 #### Method 1: Using Control Panel
+
 1. **Open the Control Panel.**
-   - Press **Windows + R**, type `control`, and press **Enter**.
+    - Press **Windows + R**, type `control`, and press **Enter**.
 
 2. **Go to Mouse → Pointer Options.**
-   - In Control Panel, set **View by** to **Large icons** or **Small icons**.
-   - Click **Mouse**.
-   - Select the **Pointer Options** tab.
+    - In Control Panel, set **View by** to **Large icons** or **Small icons**.
+    - Click **Mouse**.
+    - Select the **Pointer Options** tab.
 
 3. **Uncheck the box for "Enhance pointer precision".**
 
 4. **Click Apply and OK.**
 
 #### Method 2: Using Windows Settings
+
 1. **Open Settings.**
-   - Press **Windows + I** to open the Settings app.
+    - Press **Windows + I** to open the Settings app.
 
 2. **Go to Devices → Mouse.**
-   - In the left sidebar, select **Mouse**.
-   - Click **Additional mouse options** on the right.
+    - In the left sidebar, select **Mouse**.
+    - Click **Additional mouse options** on the right.
 
 3. **Disable Enhance pointer precision.**
-   - In the **Pointer Options** tab, uncheck **Enhance pointer precision**.
+    - In the **Pointer Options** tab, uncheck **Enhance pointer precision**.
 
 4. **Click Apply and OK.**
 
@@ -127,15 +144,18 @@ Enabled = false
 ### Fields Explained
 
 #### [RecoilPresets]
+
 - **Enabled:** Enable or disable recoil adjustment.
 - **VerticalRecoil:** The vertical recoil compensation value.
 - **HorizontalRecoil:** The horizontal recoil compensation value (Positive goes right, negative goes left)
 
 #### [Controller]
+
 - **Enabled:** Enable or disable recoil adjustment with a controller.
 - **Multiplier:** The multiplier for controller adjustment when firing.
 
 #### [ToggleKey]
+
 - **ToggleKey:** The key code for toggling recoil adjustment.
 - **Enabled:** Enable or disable recoil adjustment with a toggle key.
 
@@ -159,11 +179,11 @@ The app uses a `WeaponData.json` file to store **recoil compensation values** fo
 - **name:** The exact name of the weapon as recognised by the app.
 - **preset-1/2/3** Specifies which preset to use for the weapon.
 - **vertical:** The amount of vertical recoil compensation applied.
-  - **Higher values (Vertical) = stronger recoil reduction**
-  - **Lower values (Vertical) = lighter recoil reduction**
+    - **Higher values (Vertical) = stronger recoil reduction**
+    - **Lower values (Vertical) = lighter recoil reduction**
 - **horizontal:** The amount of horizontal recoil compensation applied.
-  - **Positive Values (Horizontal) = movement to the right**
-  - **Negative Values (Horizontal) = movement to the left**
+    - **Positive Values (Horizontal) = movement to the right**
+    - **Negative Values (Horizontal) = movement to the left**
 
 ## ⚠️ Disclaimer
 

@@ -75,9 +75,9 @@ namespace Drawing
             const int keyStartY = y + LayoutUtils::WeaponDisplayLayout::WEAPON_HEIGHT + 225;
             RECT keyRect = { keyStartX, keyStartY, keyStartX + keyWidth, keyStartY + keyHeight };
 
-            char text[16];
-            snprintf(text, sizeof(text), "Key Bind %d", i + 1);
-            DrawText(memDC, text, -1, &keyRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+            char keyBindText[16];
+            snprintf(keyBindText, sizeof(keyBindText), "Key Bind %d", i + 1);
+            DrawText(memDC, keyBindText, -1, &keyRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
             char enabledText[16];
             snprintf(
@@ -93,9 +93,6 @@ namespace Drawing
             // Enable key bind button underneath text
             RECT buttonRect = { keyStartX, keyStartY + keyHeight + 20, keyStartX + keyWidth,
                                 keyStartY + keyHeight + 20 + keyHeight };
-            HBRUSH fill = CreateSolidBrush(RGB(240, 240, 240));
-            FillRect(memDC, &buttonRect, fill);
-            DeleteObject(fill);
             FrameRect(memDC, &buttonRect, (HBRUSH)GetStockObject(BLACK_BRUSH));
             DrawText(memDC, "Toggle", -1, &buttonRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
@@ -107,21 +104,16 @@ namespace Drawing
                 RECT btnRect = { buttonStartX, buttonStartY + p * (buttonHeight + buttonSpacing), buttonStartX + buttonWidth,
                                  buttonStartY + p * (buttonHeight + buttonSpacing) + buttonHeight };
 
-                // Uniform light gray fill
-                HBRUSH fill = CreateSolidBrush(RGB(240, 240, 240));
-                FillRect(memDC, &btnRect, fill);
-                DeleteObject(fill);
-
                 // Outline
                 FrameRect(memDC, &btnRect, (HBRUSH)GetStockObject(BLACK_BRUSH));
 
-                char text[32];
-                snprintf(text, sizeof(text), "Preset %d: V:%.1f, H:%.1f", p + 1, recoilData.Vertical, recoilData.Horizontal);
+                char presetText[32];
+                snprintf(presetText, sizeof(presetText), "Preset %d: V:%.1f, H:%.1f", p + 1, recoilData.Vertical, recoilData.Horizontal);
 
                 HFONT btnFont = Font::GetMediumFont();
                 HFONT oldBtnFont = (HFONT)SelectObject(memDC, btnFont);
                 SetTextColor(memDC, RGB(0, 0, 0));
-                DrawText(memDC, text, -1, &btnRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+                DrawText(memDC, presetText, -1, &btnRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
                 SelectObject(memDC, oldBtnFont);
             }
         }

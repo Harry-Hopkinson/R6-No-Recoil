@@ -64,33 +64,36 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     Buttons::CreateMainMenuButtons(hwnd);
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
-                case 6: // GitHub button
+                case 6: // Support button
+                    system("start https://www.patreon.com/cw/R6NoRecoil");
+                    break;
+                case 7: // GitHub button
                     system("start https://github.com/Harry-Hopkinson/R6-No-Recoil");
                     break;
-                case 7: // "+" button (Vertical)
+                case 8: // "+" button (Vertical)
                     CurrentRecoil.Vertical += 0.5f;
                     Files::SaveConfig();
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
-                case 8: // "-" button (Vertical)
+                case 9: // "-" button (Vertical)
                     CurrentRecoil.Vertical = maximum(CurrentRecoil.Vertical - 0.5f, 0.0f);
                     Files::SaveConfig();
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
-                case 9: // Discord button
+                case 10: // Discord button
                     system("start https://discord.gg/68rUtWqEBy");
                     break;
-                case 10: // Save Config button
+                case 11: // Save Config button
                     Files::SaveConfig();
                     Files::SaveWeaponData(PresetIndex);
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
-                case 11: // "+" button (Horizontal)
+                case 12: // "+" button (Horizontal)
                     CurrentRecoil.Horizontal += 0.5f;
                     Files::SaveConfig();
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
-                case 12: // "-" button (Horizontal)
+                case 13: // "-" button (Horizontal)
                     CurrentRecoil.Horizontal -= 0.5f;
                     Files::SaveConfig();
                     InvalidateRect(hwnd, NULL, TRUE);

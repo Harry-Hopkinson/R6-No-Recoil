@@ -56,8 +56,9 @@ namespace Buttons
         ButtonsVector.emplace_back(hwnd, centerX - 250, centerY, 200, 80, "ATTACKERS", 3);
         ButtonsVector.emplace_back(hwnd, centerX + 50, centerY, 200, 80, "DEFENDERS", 4);
 
-        ButtonsVector.emplace_back(hwnd, WINDOW_WIDTH - 200, WINDOW_HEIGHT - 100, 160, 40, "View on GitHub", 6);
-        ButtonsVector.emplace_back(hwnd, 60, WINDOW_HEIGHT - 100, 160, 40, "Join the Discord", 9);
+        ButtonsVector.emplace_back(hwnd, WINDOW_WIDTH - 375, WINDOW_HEIGHT - 100, 160, 40, "Support the Project", 6);
+        ButtonsVector.emplace_back(hwnd, WINDOW_WIDTH - 200, WINDOW_HEIGHT - 100, 160, 40, "View on GitHub", 7);
+        ButtonsVector.emplace_back(hwnd, 60, WINDOW_HEIGHT - 100, 160, 40, "Join the Discord", 10);
     }
 
     void CreateOperatorSelectionButtons(HWND hwnd)
@@ -70,19 +71,19 @@ namespace Buttons
         ButtonsVector.emplace_back(hwnd, startX + 90, startY, 170, 40, "Toggle Recoil", 1);
 
         // Vertical Recoil
-        ButtonsVector.emplace_back(hwnd, startX + 240, startY - 150, 80, 40, "+", 7);
-        ButtonsVector.emplace_back(hwnd, startX + 150, startY - 150, 80, 40, "-", 8);
+        ButtonsVector.emplace_back(hwnd, startX + 240, startY - 150, 80, 40, "+", 8);
+        ButtonsVector.emplace_back(hwnd, startX + 150, startY - 150, 80, 40, "-", 9);
 
         // Horizontal Recoil
-        ButtonsVector.emplace_back(hwnd, startX + 240, startY - 100, 80, 40, "+", 11);
-        ButtonsVector.emplace_back(hwnd, startX + 150, startY - 100, 80, 40, "-", 12);
+        ButtonsVector.emplace_back(hwnd, startX + 240, startY - 100, 80, 40, "+", 12);
+        ButtonsVector.emplace_back(hwnd, startX + 150, startY - 100, 80, 40, "-", 13);
 
         ButtonsVector.emplace_back(hwnd, startX, startY + 50, 170, 40, "Toggle Key", 2);
         ButtonsVector.emplace_back(
             hwnd, startX + 180, startY + 50, 170, 40, IsAttackerView ? "Switch to Defenders" : "Switch to Attackers",
             IsAttackerView ? 4 : 3);
 
-        ButtonsVector.emplace_back(hwnd, startX + 100, startY + 100, 140, 40, "Save Config", 10);
+        ButtonsVector.emplace_back(hwnd, startX + 100, startY + 100, 140, 40, "Save Config", 11);
 
         ButtonsVector.emplace_back(hwnd, WINDOW_WIDTH - 175, WINDOW_HEIGHT - 75, 160, 40, "Back to Menu", 5);
     }

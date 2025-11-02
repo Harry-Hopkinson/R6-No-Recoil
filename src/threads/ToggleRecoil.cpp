@@ -9,8 +9,10 @@
 #include "../scenes/Scenes.h"
 #include "../recoil/Recoil.h"
 
+constexpr const char* WINDOW_TITLE = "R6 No Recoil";
+
 constexpr int TOGGLE_DELAY_MS = 300;
-constexpr int POLL_INTERVAL_MS = 10;
+constexpr int POLL_INTERVAL_MS = 50;
 
 void GetWeaponAtIndex(const char* weapons, int index, char* out, size_t out_size)
 {
@@ -57,10 +59,17 @@ void GetWeaponAtIndex(const char* weapons, int index, char* out, size_t out_size
 namespace Threads
 {
 
+    static HWND GetWindowHandle()
+    {
+        static HWND hwnd = nullptr;
+        if (!hwnd || !IsWindow(hwnd))
+            hwnd = FindWindow(NULL, WINDOW_TITLE);
+        return hwnd;
+    }
+
     static void LoadWeaponRecoil(int weaponIndex)
     {
-        const char* weapons = IsAttackerView ? AttackerWeapons[SelectedOperatorIndex]
-                                             : DefenderWeapons[SelectedOperatorIndex];
+        const char* weapons = IsAttackerView ? AttackerWeapons[SelectedOperatorIndex] : DefenderWeapons[SelectedOperatorIndex];
 
         char weaponName[16] = {};
         GetWeaponAtIndex(weapons, weaponIndex, weaponName, sizeof(weaponName));
@@ -68,13 +77,13 @@ namespace Threads
         CurrentRecoil = Files::GetWeaponData(weaponName, 1);
         Files::SaveConfig();
 
-        InvalidateRect(FindWindow(NULL, "R6 No Recoil"), NULL, TRUE);
+        if (HWND hwnd = GetWindowHandle())
+            InvalidateRect(hwnd, NULL, TRUE);
         std::this_thread::sleep_for(std::chrono::milliseconds(TOGGLE_DELAY_MS));
     }
 
     void ToggleRecoil()
     {
-
         while (Running)
         {
             if (UseToggleKey && (GetAsyncKeyState(ToggleKey) & 0x8000))
@@ -82,7 +91,8 @@ namespace Threads
                 EnableRC = !EnableRC;
                 Files::SaveConfig();
 
-                InvalidateRect(FindWindow(NULL, "R6 No Recoil"), NULL, TRUE);
+                if (HWND hwnd = GetWindowHandle())
+                    InvalidateRect(hwnd, NULL, TRUE);
                 std::this_thread::sleep_for(std::chrono::milliseconds(TOGGLE_DELAY_MS));
             }
             else if (PrimaryKeyEnabled && (GetAsyncKeyState(PrimaryKey) & 0x8000))

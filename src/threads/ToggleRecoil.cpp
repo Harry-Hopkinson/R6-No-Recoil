@@ -14,7 +14,7 @@ constexpr const char* WINDOW_TITLE = "R6 No Recoil";
 constexpr int TOGGLE_DELAY_MS = 300;
 constexpr int POLL_INTERVAL_MS = 50;
 
-void GetWeaponAtIndex(const char* weapons, int index, char* out, size_t out_size)
+static void GetWeaponAtIndex(const char* weapons, int index, char* out, size_t out_size)
 {
     if (!weapons || !out || out_size == 0)
         return;
@@ -56,31 +56,31 @@ void GetWeaponAtIndex(const char* weapons, int index, char* out, size_t out_size
     out[0] = '\0';
 }
 
+static HWND GetWindowHandle()
+{
+    static HWND hwnd = nullptr;
+    if (!hwnd || !IsWindow(hwnd))
+        hwnd = FindWindow(NULL, WINDOW_TITLE);
+    return hwnd;
+}
+
+static void LoadWeaponRecoil(int weaponIndex)
+{
+    const char* weapons = IsAttackerView ? AttackerWeapons[SelectedOperatorIndex] : DefenderWeapons[SelectedOperatorIndex];
+
+    char weaponName[16] = {};
+    GetWeaponAtIndex(weapons, weaponIndex, weaponName, sizeof(weaponName));
+
+    CurrentRecoil = Files::GetWeaponData(weaponName, 1);
+    Files::SaveConfig();
+
+    if (HWND hwnd = GetWindowHandle())
+        InvalidateRect(hwnd, NULL, TRUE);
+    std::this_thread::sleep_for(std::chrono::milliseconds(TOGGLE_DELAY_MS));
+}
+
 namespace Threads
 {
-
-    static HWND GetWindowHandle()
-    {
-        static HWND hwnd = nullptr;
-        if (!hwnd || !IsWindow(hwnd))
-            hwnd = FindWindow(NULL, WINDOW_TITLE);
-        return hwnd;
-    }
-
-    static void LoadWeaponRecoil(int weaponIndex)
-    {
-        const char* weapons = IsAttackerView ? AttackerWeapons[SelectedOperatorIndex] : DefenderWeapons[SelectedOperatorIndex];
-
-        char weaponName[16] = {};
-        GetWeaponAtIndex(weapons, weaponIndex, weaponName, sizeof(weaponName));
-
-        CurrentRecoil = Files::GetWeaponData(weaponName, 1);
-        Files::SaveConfig();
-
-        if (HWND hwnd = GetWindowHandle())
-            InvalidateRect(hwnd, NULL, TRUE);
-        std::this_thread::sleep_for(std::chrono::milliseconds(TOGGLE_DELAY_MS));
-    }
 
     void ToggleRecoil()
     {

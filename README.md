@@ -70,19 +70,22 @@ The app automatically creates a `Config.toml` file on first run. You can manuall
 ```toml
 [RecoilPresets]
 Enabled = true
-VerticalRecoil = 3
-HorizontalRecoil = 0
+VerticalRecoil = 3.0
+HorizontalRecoil = 0.0
 
 [Controller]
 Enabled = false
 Multiplier = 10
 
-[ToggleKey]
+[Keys]
 # Use https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
 # And then convert the key code to decimal
 # Toggle Key (e.g. 20 = CAPS LOCK)
-ToggleKey = 20
-Enabled = false
+ToggleRecoilKey = 20
+ToggleRecoilEnabled = false
+PrimaryKey = 49
+SecondaryKey = 50
+TertiaryKey = 51
 ```
 
 ### Fields Explained
@@ -98,10 +101,13 @@ Enabled = false
 - **Enabled:** Enable or disable recoil adjustment with a controller.
 - **Multiplier:** The multiplier for controller adjustment when firing.
 
-#### [ToggleKey]
+#### [Keys]
 
-- **ToggleKey:** The key code for toggling recoil adjustment.
-- **Enabled:** Enable or disable recoil adjustment with a toggle key.
+- **ToggleRecoilKey:** The key code for toggling recoil adjustment.
+- **ToggleRecoilEnabled:** Enable or disable recoil adjustment with a toggle key.
+- **PrimaryKey:** The key code for selecting the first weapon of a selected operator.
+- **SecondaryKey:** The key code for selecting the second weapon of a selected operator.
+- **TertiaryKey:** The key code for selecting the third weapon of a selected operator
 
 ## 🔫 WeaponData.json Explained
 

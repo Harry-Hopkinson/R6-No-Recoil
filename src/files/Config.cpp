@@ -29,14 +29,17 @@ namespace Files
         len += sprintf_s(buffer + len, bufferSize - len, "Multiplier = %d\r\n", ControllerMultiplier);
         len += sprintf_s(buffer + len, bufferSize - len, "\r\n");
 
-        // [ToggleKey]
-        len += sprintf_s(buffer + len, bufferSize - len, "[ToggleKey]\r\n");
+        // [Keys]
+        len += sprintf_s(buffer + len, bufferSize - len, "[Keys]\r\n");
         len += sprintf_s(buffer + len, bufferSize - len,
                          "# Use https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes\r\n");
         len += sprintf_s(buffer + len, bufferSize - len, "# And then convert the key code to decimal\r\n");
         len += sprintf_s(buffer + len, bufferSize - len, "# Toggle Key (e.g. 20 = CAPS LOCK)\r\n");
-        len += sprintf_s(buffer + len, bufferSize - len, "ToggleKey = %d\r\n", ToggleKey);
-        len += sprintf_s(buffer + len, bufferSize - len, "Enabled = %s\r\n", UseToggleKey ? "true" : "false");
+        len += sprintf_s(buffer + len, bufferSize - len, "ToggleRecoilKey = %d\r\n", ToggleKey);
+        len += sprintf_s(buffer + len, bufferSize - len, "ToggleRecoilEnabled = %s\r\n", UseToggleKey ? "true" : "false");
+        len += sprintf_s(buffer + len, bufferSize - len, "PrimaryKey = %d\r\n", PrimaryKey);
+        len += sprintf_s(buffer + len, bufferSize - len, "SecondaryKey = %d\r\n", SecondaryKey);
+        len += sprintf_s(buffer + len, bufferSize - len, "TertiaryKey = %d\r\n", TertiaryKey);
 
         FileUtils::WriteFileFromMemory("Config.toml", buffer, len);
     }
@@ -102,12 +105,18 @@ namespace Files
                 else if (StringUtils::StringEquals(key, "Multiplier"))
                     ControllerMultiplier = atoi(value);
             }
-            else if (StringUtils::StringEquals(section, "ToggleKey"))
+            else if (StringUtils::StringEquals(section, "Keys"))
             {
-                if (StringUtils::StringEquals(key, "ToggleKey"))
+                if (StringUtils::StringEquals(key, "ToggleRecoilKey"))
                     ToggleKey = atoi(value);
-                else if (StringUtils::StringEquals(key, "Enabled"))
+                else if (StringUtils::StringEquals(key, "ToggleRecoilEnabled"))
                     UseToggleKey = (StringUtils::StringEquals(value, "true") || StringUtils::StringEquals(value, "1"));
+                else if (StringUtils::StringEquals(key, "PrimaryKey"))
+                    PrimaryKey = atoi(value);
+                else if (StringUtils::StringEquals(key, "SecondaryKey"))
+                    SecondaryKey = atoi(value);
+                else if (StringUtils::StringEquals(key, "TertiaryKey"))
+                    TertiaryKey = atoi(value);
             }
 
             line = strtok(NULL, "\r\n");

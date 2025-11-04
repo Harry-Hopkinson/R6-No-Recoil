@@ -81,7 +81,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
                 case 10: // Discord button
-                    system("start https://discord.gg/68rUtWqEBy");
+                    system("start https://discord.gg/XSR2ayDTzD");
                     break;
                 case 11: // Save Config button
                     Files::SaveConfig();

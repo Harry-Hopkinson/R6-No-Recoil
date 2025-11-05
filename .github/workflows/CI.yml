@@ -32,6 +32,7 @@ jobs:
                   xcopy assets release\assets /E /I /Y
                   copy build\Config.toml release\
                   copy build\WeaponData.json release\
+                  copy build\UpdateTool.bat release\
 
             - name: Zip release folder
               run: powershell Compress-Archive -Path release/* -DestinationPath R6NoRecoil.zip

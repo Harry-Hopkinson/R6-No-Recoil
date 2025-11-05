@@ -10,8 +10,8 @@
     <a href="http://discord.gg/XSR2ayDTzD">
         <img src="https://img.shields.io/badge/Join%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Join Discord">
     </a>
-    <a href="https://www.paypal.me/HarryHopkinson06">
-        <img src="https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white" alt="Support the Project">
+    <a href="https://buymeacoffee.com/harryhopkinson06">
+        <img src="https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-black.svg" alt="Support the Project">
     </a>
 
 | Release Build                                                                                                                                                                                     | Development Build                                                                                                                                                                                      |
@@ -59,7 +59,7 @@ Any form of donation is greatly appreciated and will help keep me motivated to k
 - Custom discord roles.
 - Help support me develop bigger and better features for this project.
 
-[![PayPal](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://www.paypal.me/HarryHopkinson06)
+[![Buy Me a Coffee](https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-black.svg)](https://www.buymeacoffee.com/harryhopkinson06)
 
 ## ⚙️ Config Explained
 

@@ -37,7 +37,7 @@ Most recoil tools like Logitech G Hub (now detectable) are bloated, heavy, and c
 
 ## 🎮 How to Use
 
-1. **Download** `R6NoRecoil` from the [Github Release Page](https://github.com/Harry-Hopkinson/R6-No-Recoil/releases/latest).
+1. **Download** `R6NoRecoil` from the [Github Release Page](https://github.com/Harry-Hopkinson/R6-No-Recoil/releases/latest). Then extract the zip folder.
 2. **Run the Program** (double-click `R6NoRecoil.exe`).
 3. **Choose whether attacking or defending**.
 4. **Choose your operator and their primary weapon**.

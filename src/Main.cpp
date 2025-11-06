@@ -59,16 +59,14 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     Buttons::CreateOperatorSelectionButtons(hwnd);
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
-                case 5: // Back to Menu
-                    Scenes::ChangeCurrentScene(SceneType::MainMenu);
-                    Buttons::CreateMainMenuButtons(hwnd);
-                    InvalidateRect(hwnd, NULL, TRUE);
-                    break;
-                case 6: // Support button
+                case 5: // Support button
                     system("start https://ko-fi.com/harryhopkinson");
                     break;
-                case 7: // GitHub button
+                case 6: // GitHub button
                     system("start https://github.com/Harry-Hopkinson/R6-No-Recoil");
+                    break;
+                case 7: // Discord button
+                    system("start https://discord.gg/XSR2ayDTzD");
                     break;
                 case 8: // "+" button (Vertical)
                     CurrentRecoil.Vertical += 0.5f;
@@ -80,22 +78,19 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     Files::SaveConfig();
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
-                case 10: // Discord button
-                    system("start https://discord.gg/XSR2ayDTzD");
-                    break;
-                case 11: // Save Config button
-                    Files::SaveConfig();
-                    Files::SaveWeaponData(PresetIndex);
-                    InvalidateRect(hwnd, NULL, TRUE);
-                    break;
-                case 12: // "+" button (Horizontal)
+                case 10: // "+" button (Horizontal)
                     CurrentRecoil.Horizontal += 0.5f;
                     Files::SaveConfig();
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
-                case 13: // "-" button (Horizontal)
+                case 11: // "-" button (Horizontal)
                     CurrentRecoil.Horizontal -= 0.5f;
                     Files::SaveConfig();
+                    InvalidateRect(hwnd, NULL, TRUE);
+                    break;
+                case 12: // Save Config button
+                    Files::SaveConfig();
+                    Files::SaveWeaponData(PresetIndex);
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
             }
@@ -107,7 +102,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             HICON hIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON1));
             SendMessage(hwnd, WM_SETICON, ICON_BIG, (LPARAM)hIcon);
 
-            Buttons::CreateMainMenuButtons(hwnd);
+            Buttons::CreateOperatorSelectionButtons(hwnd);
 
             Bitmap::AttackerBitmaps = Bitmap::LoadOperatorBitmaps(AttackerNames);
             Bitmap::DefenderBitmaps = Bitmap::LoadOperatorBitmaps(DefenderNames);
@@ -131,10 +126,6 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             switch (Scenes::GetCurrentScene())
             {
-                case SceneType::MainMenu:
-                    Drawing::DrawMainMenu(memDC, rect.right, rect.bottom);
-                    break;
-
                 case SceneType::OperatorSelection:
                     Drawing::DrawOperatorSelection(memDC, rect.right, rect.bottom);
                     break;

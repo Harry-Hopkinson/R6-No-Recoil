@@ -26,6 +26,5 @@ namespace Buttons
 
     void ClearButtons();
 
-    void CreateMainMenuButtons(HWND hwnd);
     void CreateOperatorSelectionButtons(HWND hwnd);
 } // namespace Buttons

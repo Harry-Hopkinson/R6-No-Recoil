@@ -12,8 +12,6 @@ public:
 
     static HFONT GetMediumFont()   { return FontMedium; }
     static HFONT GetLargeFont()    { return FontLarge; }
-    static HFONT GetTitleFont()    { return FontTitle; }
-    static HFONT GetSubtitleFont() { return FontSubtitle; }
     static HFONT GetDescFont()     { return FontDesc; }
 
     static void DrawCenteredText(HDC hdc, LPCSTR text, int x, int y, int width, HFONT font);
@@ -21,7 +19,5 @@ public:
 private:
     static HFONT FontMedium;
     static HFONT FontLarge;
-    static HFONT FontTitle;
-    static HFONT FontSubtitle;
     static HFONT FontDesc;
 };

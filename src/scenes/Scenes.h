@@ -2,7 +2,6 @@
 
 enum class SceneType
 {
-    MainMenu,
     OperatorSelection,
     WeaponDisplay,
 };

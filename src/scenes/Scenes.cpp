@@ -2,7 +2,7 @@
 
 namespace
 {
-    SceneType CurrentScene = SceneType::MainMenu;
+    SceneType CurrentScene = SceneType::OperatorSelection;
 }
 
 namespace Scenes

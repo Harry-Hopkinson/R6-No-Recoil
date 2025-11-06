@@ -15,7 +15,7 @@ echo.
 echo This script will:
 echo  - Download the latest R6 No Recoil build from GitHub.
 echo  - Extract all ZIP folders (including nested).
-echo  - Place all neatly in one folder.
+echo  - Preserve the "assets" structure and weapon presets.
 echo.
 echo Press CTRL+C to cancel at any time.
 echo ------------------------------------------------------------
@@ -25,6 +25,7 @@ echo.
 set "url=https://nightly.link/Harry-Hopkinson/R6-No-Recoil/workflows/CI/main/R6NoRecoil.zip"
 set "zipFile=R6NoRecoil.zip"
 set "outputFolder=R6NoRecoil"
+set "weaponData=WeaponData.json"
 
 :: Step 1: Check for PowerShell
 where powershell >nul 2>nul
@@ -36,7 +37,7 @@ if errorlevel 1 (
 
 powershell -Command "Write-Host '[INFO] PowerShell detected.' -ForegroundColor Green"
 echo ------------------------------------------------------------
-powershell -Command "Write-Host '[STEP 1/5] Downloading the latest build...' -ForegroundColor Cyan"
+powershell -Command "Write-Host '[STEP 1/6] Downloading the latest build...' -ForegroundColor Cyan"
 echo URL: %url%
 echo.
 
@@ -55,7 +56,7 @@ if not exist "%zipFile%" (
 )
 
 echo ------------------------------------------------------------
-powershell -Command "Write-Host '[STEP 2/5] Extracting main ZIP...' -ForegroundColor Cyan"
+powershell -Command "Write-Host '[STEP 2/6] Extracting main ZIP...' -ForegroundColor Cyan"
 if exist "%outputFolder%" (
     echo [INFO] Removing old "%outputFolder%" folder...
     rmdir /s /q "%outputFolder%"
@@ -71,7 +72,7 @@ if not exist "%outputFolder%" (
 )
 
 echo ------------------------------------------------------------
-powershell -Command "Write-Host '[STEP 3/5] Checking for nested ZIP or subfolder...' -ForegroundColor Cyan"
+powershell -Command "Write-Host '[STEP 3/6] Checking for nested ZIP or subfolder...' -ForegroundColor Cyan"
 set "innerZip=%outputFolder%\R6NoRecoil.zip"
 
 if exist "%innerZip%" (
@@ -99,7 +100,7 @@ for /d %%F in ("%outputFolder%\*") do (
 :Flattened
 
 echo ------------------------------------------------------------
-powershell -Command "Write-Host '[STEP 4/5] Preserving assets structure...' -ForegroundColor Cyan"
+powershell -Command "Write-Host '[STEP 4/6] Preserving assets structure...' -ForegroundColor Cyan"
 if exist "%outputFolder%\assets" (
     if exist "%outputFolder%\assets\operators" powershell -Command "Write-Host '  Found operators folder — keeping it.' -ForegroundColor Green"
     if exist "%outputFolder%\assets\weapons" powershell -Command "Write-Host '  Found weapons folder — keeping it.' -ForegroundColor Green"
@@ -108,12 +109,28 @@ if exist "%outputFolder%\assets" (
 )
 
 echo ------------------------------------------------------------
-powershell -Command "Write-Host '[STEP 5/5] Cleaning up...' -ForegroundColor Cyan"
+powershell -Command "Write-Host '[STEP 5/6] Replacing WeaponData.json file...' -ForegroundColor Cyan"
+
+:: Check for local WeaponData.json
+if exist "%weaponData%" (
+    echo [INFO] Found local WeaponData.json, copying to new folder...
+    copy /Y "%weaponData%" "%outputFolder%\%weaponData%" >nul
+    if exist "%outputFolder%\%weaponData%" (
+        powershell -Command "Write-Host '[SUCCESS] WeaponData.json replaced successfully.' -ForegroundColor Green"
+    ) else (
+        powershell -Command "Write-Host '[WARNING] Failed to copy WeaponData.json to new folder.' -ForegroundColor Yellow"
+    )
+) else (
+    powershell -Command "Write-Host '[WARNING] No local WeaponData.json found in script directory — skipping replacement.' -ForegroundColor Yellow"
+)
+
+echo ------------------------------------------------------------
+powershell -Command "Write-Host '[STEP 6/6] Cleaning up...' -ForegroundColor Cyan"
 if exist "%zipFile%" del "%zipFile%"
 echo [INFO] Removed temporary ZIP file.
 
 echo.
-powershell -Command "Write-Host 'All files extracted successfully!' -ForegroundColor Green"
+powershell -Command "Write-Host 'All files extracted and WeaponData.json updated successfully!' -ForegroundColor Green"
 echo Location: "%cd%\%outputFolder%"
 echo ------------------------------------------------------------
 echo.

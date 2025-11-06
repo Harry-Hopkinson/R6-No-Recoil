@@ -14,14 +14,15 @@ echo ============================================================
 echo.
 echo This script will:
 echo  - Download the latest R6 No Recoil build from GitHub.
-echo  - Extract all ZIP folders (including nested).
-echo  - Preserve the "assets" structure and weapon presets.
+echo  - Extract it into one clean folder.
+echo  - Preserve the "assets" folder.
+echo  - Replace WeaponData.json automatically.
 echo.
 echo Press CTRL+C to cancel at any time.
 echo ------------------------------------------------------------
 echo.
 
-:: Set variables
+:: Variables
 set "url=https://nightly.link/Harry-Hopkinson/R6-No-Recoil/workflows/CI/main/R6NoRecoil.zip"
 set "zipFile=R6NoRecoil.zip"
 set "outputFolder=R6NoRecoil"
@@ -37,7 +38,7 @@ if errorlevel 1 (
 
 powershell -Command "Write-Host '[INFO] PowerShell detected.' -ForegroundColor Green"
 echo ------------------------------------------------------------
-powershell -Command "Write-Host '[STEP 1/6] Downloading the latest build...' -ForegroundColor Cyan"
+powershell -Command "Write-Host '[STEP 1/4] Downloading latest build...' -ForegroundColor Cyan"
 echo URL: %url%
 echo.
 
@@ -56,14 +57,14 @@ if not exist "%zipFile%" (
 )
 
 echo ------------------------------------------------------------
-powershell -Command "Write-Host '[STEP 2/6] Extracting main ZIP...' -ForegroundColor Cyan"
+powershell -Command "Write-Host '[STEP 2/4] Extracting ZIP...' -ForegroundColor Cyan"
 if exist "%outputFolder%" (
     echo [INFO] Removing old "%outputFolder%" folder...
     rmdir /s /q "%outputFolder%"
 )
 
 powershell -Command ^
-    "try { Expand-Archive -Path '%zipFile%' -DestinationPath '%outputFolder%' -Force; Write-Host 'Primary extraction complete.' -ForegroundColor Green } catch { Write-Host 'Extraction failed:' $_.Exception.Message -ForegroundColor Red; exit 1 }"
+    "try { Expand-Archive -Path '%zipFile%' -DestinationPath '%outputFolder%' -Force; Write-Host 'Extraction complete.' -ForegroundColor Green } catch { Write-Host 'Extraction failed:' $_.Exception.Message -ForegroundColor Red; exit 1 }"
 
 if not exist "%outputFolder%" (
     powershell -Command "Write-Host '[ERROR] Extraction failed — output folder missing.' -ForegroundColor Red"
@@ -72,46 +73,9 @@ if not exist "%outputFolder%" (
 )
 
 echo ------------------------------------------------------------
-powershell -Command "Write-Host '[STEP 3/6] Checking for nested ZIP or subfolder...' -ForegroundColor Cyan"
-set "innerZip=%outputFolder%\R6NoRecoil.zip"
+powershell -Command "Write-Host '[STEP 3/4] Replacing WeaponData.json...' -ForegroundColor Cyan"
 
-if exist "%innerZip%" (
-    powershell -Command "Write-Host '[INFO] Nested ZIP found, extracting...' -ForegroundColor Yellow"
-    powershell -Command ^
-        "try { Expand-Archive -Path '%innerZip%' -DestinationPath '%outputFolder%\inner' -Force; Write-Host 'Inner ZIP extracted successfully.' -ForegroundColor Green } catch { Write-Host 'Failed to extract inner ZIP:' $_.Exception.Message -ForegroundColor Red; exit 1 }"
-    xcopy "%outputFolder%\inner\*" "%outputFolder%\" /E /H /Y >nul
-    del "%innerZip%"
-    rmdir /s /q "%outputFolder%\inner"
-) else (
-    echo [INFO] No nested ZIP found.
-)
-
-:: Handle nested folder structure (excluding assets)
-for /d %%F in ("%outputFolder%\*") do (
-    if exist "%%F\*" (
-        if /I not "%%~nxF"=="assets" (
-            powershell -Command "Write-Host '[INFO] Moving files from subfolder %%~nxF up...' -ForegroundColor Yellow"
-            xcopy "%%F\*" "%outputFolder%\" /E /H /Y >nul
-            rmdir /s /q "%%F"
-            goto Flattened
-        )
-    )
-)
-:Flattened
-
-echo ------------------------------------------------------------
-powershell -Command "Write-Host '[STEP 4/6] Preserving assets structure...' -ForegroundColor Cyan"
-if exist "%outputFolder%\assets" (
-    if exist "%outputFolder%\assets\operators" powershell -Command "Write-Host '  Found operators folder — keeping it.' -ForegroundColor Green"
-    if exist "%outputFolder%\assets\weapons" powershell -Command "Write-Host '  Found weapons folder — keeping it.' -ForegroundColor Green"
-) else (
-    echo [INFO] No assets folder found — skipping.
-)
-
-echo ------------------------------------------------------------
-powershell -Command "Write-Host '[STEP 5/6] Replacing WeaponData.json file...' -ForegroundColor Cyan"
-
-:: Check for local WeaponData.json
+:: Replace WeaponData.json
 if exist "%weaponData%" (
     echo [INFO] Found local WeaponData.json, copying to new folder...
     copy /Y "%weaponData%" "%outputFolder%\%weaponData%" >nul
@@ -125,7 +89,7 @@ if exist "%weaponData%" (
 )
 
 echo ------------------------------------------------------------
-powershell -Command "Write-Host '[STEP 6/6] Cleaning up...' -ForegroundColor Cyan"
+powershell -Command "Write-Host '[STEP 4/4] Cleaning up...' -ForegroundColor Cyan"
 if exist "%zipFile%" del "%zipFile%"
 echo [INFO] Removed temporary ZIP file.
 

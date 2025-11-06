@@ -62,7 +62,7 @@ namespace Buttons
 
         ButtonsVector.emplace_back(hwnd, WINDOW_WIDTH - 375, WINDOW_HEIGHT - 150, 160, 40, "Support the Project", 5);
         ButtonsVector.emplace_back(hwnd, WINDOW_WIDTH - 200, WINDOW_HEIGHT - 150, 160, 40, "View on GitHub", 6);
-        ButtonsVector.emplace_back(hwnd, WINDOW_WIDTH - 287.5, WINDOW_HEIGHT - 100, 160, 40, "Join the Discord", 7);
+        ButtonsVector.emplace_back(hwnd, WINDOW_WIDTH - 287, WINDOW_HEIGHT - 100, 160, 40, "Join the Discord", 7);
 
         // Vertical Recoil
         ButtonsVector.emplace_back(hwnd, startX + 240, startY - 150, 80, 40, "+", 8);

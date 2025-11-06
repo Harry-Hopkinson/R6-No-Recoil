@@ -394,5 +394,23 @@
         "preset-1": { "vertical": 2.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
+    },
+    {
+        "name": "P9",
+        "preset-1": { "vertical": 0.5, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
+    },
+    {
+        "name": "P12",
+        "preset-1": { "vertical": 1.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
+    },
+    {
+        "name": "LFP586",
+        "preset-1": { "vertical": 8.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
+        "preset-3": { "vertical": 0.0, "horizontal": 0 }
     }
 ]

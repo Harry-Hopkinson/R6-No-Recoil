@@ -2,19 +2,19 @@
 
 WeaponRecoil CurrentRecoil = { 3.0f, 0.0f };
 
-std::vector<const char*> AttackerNames = { "Striker", "Sledge",   "Thatcher", "Ash",      "Thermite",   "Twitch",
-                                           "Glaz",    "Fuze",     "IQ",       "Buck",     "Blackbeard", "Capitao",
-                                           "Hibana",  "Jackal",   "Ying",     "Zofia",    "Dokkaebi",   "Lion",
-                                           "Finka",   "Maverick", "Nomad",    "Gridlock", "Nokk",       "Amaru",
-                                           "Kali",    "Iana",     "Ace",      "Zero",     "Flores",     "Osa",
-                                           "Sens",    "Grim",     "Brava",    "Ram",      "Deimos",     "Rauora" };
+std::vector<const char*> AttackerNames = { "Striker",  "Sledge", "Thatcher", "Ash",   "Thermite", "Twitch",     "Montagne",
+                                           "Glaz",     "Fuze",   "Blitz",    "IQ",    "Buck",     "Blackbeard", "Capitao",
+                                           "Hibana",   "Jackal", "Ying",     "Zofia", "Dokkaebi", "Lion",       "Finka",
+                                           "Maverick", "Nomad",  "Gridlock", "Nokk",  "Amaru",    "Kali",       "Iana",
+                                           "Ace",      "Zero",   "Flores",   "Osa",   "Sens",     "Grim",       "Brava",
+                                           "Ram",      "Deimos", "Rauora" };
 
-std::vector<const char*> DefenderNames = { "Sentry", "Smoke",       "Mute",   "Castle", "Pulse", "Doc",      "Rook",
-                                           "Kapkan", "Tachanka",    "Jager",  "Bandit", "Frost", "Valkyrie", "Caveira",
-                                           "Echo",   "Mira",        "Lesion", "Ela",    "Vigil", "Maestro",  "Alibi",
-                                           "Kaid",   "Mozzie",      "Warden", "Goyo",   "Wamai", "Oryx",     "Melusi",
-                                           "Aruni",  "Thunderbird", "Thorn",  "Azami",  "Solis", "Fenrir",   "Tubarao",
-                                           "Skopos", "Denari" };
+std::vector<const char*> DefenderNames = { "Sentry",  "Smoke",    "Mute",        "Castle", "Pulse", "Doc",      "Rook",
+                                           "Kapkan",  "Tachanka", "Jager",       "Bandit", "Frost", "Valkyrie", "Caveira",
+                                           "Echo",    "Mira",     "Lesion",      "Ela",    "Vigil", "Maestro",  "Alibi",
+                                           "Clash",   "Kaid",     "Mozzie",      "Warden", "Goyo",  "Wamai",    "Oryx",
+                                           "Melusi",  "Aruni",    "Thunderbird", "Thorn",  "Azami", "Solis",    "Fenrir",
+                                           "Tubarao", "Skopos",   "Denari" };
 
 std::vector<const char*> AttackerWeapons =
 {
@@ -24,8 +24,10 @@ std::vector<const char*> AttackerWeapons =
     "R4-C, G36C",                 // Ash
     "556XI",                      // Thermite
     "F2, 417",                    // Twitch
-    "OTs-03, Bearing-9",          // Glaz
+    "P9, LFP586",                 // Montagne
+    "Bearing-9",                  // Glaz
     "AK-12, 6P41",                // Fuze
+    "P12",                        // Blitz
     "G8A1, 552-Commando, AUG-A2", // IQ
     "C8-SFW, CAMRS",              // Buck
     "MK17-CQB, SR-25",            // Blackbeard
@@ -79,6 +81,7 @@ std::vector<const char*> DefenderWeapons =
     "K1A, SMG-12, C75",         // Vigil
     "ALDA, ACS12",              // Maestro
     "Mx4-Storm, ACS12",         // Alibi
+    "SPSMG9",                   // Clash
     "AUG-A3, TCSG12",           // Kaid
     "Commando-9, P10-RONI",     // Mozzie
     "MPX, SMG-12",              // Warden

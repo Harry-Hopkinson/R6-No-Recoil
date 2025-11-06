@@ -27,21 +27,18 @@ jobs:
 
             - name: Prepare release folder
               run: |
-                  mkdir release
-                  copy build\Config.toml release\
-                  copy build\WeaponData.json release\
-                  copy build\Release\R6NoRecoil.exe release\
-                  copy scripts\UpdateTool.bat release\
-                  xcopy assets release\assets /E /I /Y
-
-            - name: Zip release folder
-              run: powershell Compress-Archive -Path release/* -DestinationPath R6NoRecoil.zip
+                  mkdir R6NoRecoil
+                  copy build\Config.toml R6NoRecoil\
+                  copy build\WeaponData.json R6NoRecoil\
+                  copy build\Release\R6NoRecoil.exe R6NoRecoil\
+                  copy scripts\UpdateTool.bat R6NoRecoil\
+                  xcopy assets R6NoRecoil\assets /E /I /Y
 
             - name: Upload artifact
               uses: actions/upload-artifact@v4
               with:
                   name: R6NoRecoil
-                  path: R6NoRecoil.zip
+                  path: R6NoRecoil
 
     website:
         runs-on: ubuntu-latest

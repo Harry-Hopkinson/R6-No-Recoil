@@ -86,7 +86,7 @@ add_custom_command(TARGET R6NoRecoil POST_BUILD
             ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/assets
 )
 
-foreach(FILE Config.toml WeaponData.json UpdateTool.bat)
+foreach(FILE Config.toml WeaponData.json)
     add_custom_command(TARGET R6NoRecoil POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy
                 ${CMAKE_SOURCE_DIR}/data/${FILE}

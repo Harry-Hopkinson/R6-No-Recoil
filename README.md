@@ -10,8 +10,8 @@
     <a href="http://discord.gg/XSR2ayDTzD">
         <img src="https://img.shields.io/badge/Join%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Join Discord">
     </a>
-    <a href="https://buymeacoffee.com/harryhopkinson06">
-        <img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Support the Project">
+    <a href="https://ko-fi.com/harryhopkinson">
+        <img src="https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white" alt="Support the Project">
     </a>
 
 | Release Build                                                                                                                                                                                     | Development Build                                                                                                                                                                                      |
@@ -59,7 +59,7 @@ Any form of donation is greatly appreciated and will help keep me motivated to k
 - Custom discord roles.
 - Help support me develop bigger and better features for this project.
 
-[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/harryhopkinson06)
+[![Buy Me a Coffee](https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/harryhopkinson)
 
 ## ⚙️ Config Explained
 

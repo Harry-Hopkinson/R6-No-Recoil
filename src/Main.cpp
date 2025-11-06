@@ -65,7 +65,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     InvalidateRect(hwnd, NULL, TRUE);
                     break;
                 case 6: // Support button
-                    system("start https://buymeacoffee.com/harryhopkinson06");
+                    system("start https://ko-fi.com/harryhopkinson");
                     break;
                 case 7: // GitHub button
                     system("start https://github.com/Harry-Hopkinson/R6-No-Recoil");

@@ -30,7 +30,6 @@ namespace Files
      */
     const char* GetImagePath(const char* name);
 
-
     /**
      * @brief Saves the weapon recoil data to the WeaponData.json file
      * @param int The index of the preset that recoil value will be saved

@@ -25,4 +25,4 @@ namespace Inputs
         SendInput(1, &input, sizeof(INPUT));
     }
 
-}
+} // namespace Inputs

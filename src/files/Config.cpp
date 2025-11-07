@@ -31,8 +31,9 @@ namespace Files
 
         // [Keys]
         len += sprintf_s(buffer + len, bufferSize - len, "[Keys]\r\n");
-        len += sprintf_s(buffer + len, bufferSize - len,
-                         "# Use https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes\r\n");
+        len += sprintf_s(
+            buffer + len, bufferSize - len,
+            "# Use https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes\r\n");
         len += sprintf_s(buffer + len, bufferSize - len, "# And then convert the key code to decimal\r\n");
         len += sprintf_s(buffer + len, bufferSize - len, "# Toggle Key (e.g. 20 = CAPS LOCK)\r\n");
         len += sprintf_s(buffer + len, bufferSize - len, "ToggleRecoilKey = %d\r\n", ToggleKey);

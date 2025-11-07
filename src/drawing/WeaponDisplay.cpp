@@ -18,8 +18,6 @@ namespace Drawing
 
     void DrawWeaponDisplay(HDC memDC, int right, int bottom)
     {
-        SetBkMode(memDC, TRANSPARENT);
-
         const char* operatorName = IsAttackerView ? AttackerNames[SelectedOperatorIndex] : DefenderNames[SelectedOperatorIndex];
         const char* weaponStr = IsAttackerView ? AttackerWeapons[SelectedOperatorIndex]
                                                : DefenderWeapons[SelectedOperatorIndex];

@@ -21,68 +21,48 @@ namespace Drawing
         {
             int x, y;
             LayoutUtils::OperatorGridLayout::GetCellPosition(i, x, y);
-            Bitmap::DrawBitmap(
-                memDC, bitmaps[i], x, y, LayoutUtils::OperatorGridLayout::CELL_SIZE, LayoutUtils::OperatorGridLayout::CELL_SIZE,
-                true);
+            Bitmap::DrawBitmap(memDC, bitmaps[i], x, y,
+                LayoutUtils::OperatorGridLayout::CELL_SIZE,
+                LayoutUtils::OperatorGridLayout::CELL_SIZE, true);
         }
 
-        SetBkMode(memDC, TRANSPARENT);
+        RECT infoBoxRect = { 40, 10, right - 400, 40 };
+        Rectangle(memDC, infoBoxRect.left, infoBoxRect.top, infoBoxRect.right - 75, infoBoxRect.bottom);
 
-        RECT infoBoxRect = { 20, 10, right - 400, 40 };
-
-        // Draw info box background and border
-        GdiHelpers::FillRectColor(memDC, infoBoxRect, RGB(248, 249, 250));
-        GdiHelpers::DrawRectBorder(memDC, infoBoxRect, RGB(220, 220, 220));
-
-        // Draw info text
         HFONT oldFont = (HFONT)SelectObject(memDC, Font::GetDescFont());
         SetTextColor(memDC, RGB(60, 60, 60));
 
-        RECT textRect = {};
-        int sectionWidth = (infoBoxRect.right - infoBoxRect.left) / 4;
+        const int sectionWidth = (infoBoxRect.right - infoBoxRect.left) / 4;
+        RECT textRect;
 
-        // Status
-        textRect.left = infoBoxRect.left + 15;
-        textRect.top = infoBoxRect.top + 5;
-        textRect.right = infoBoxRect.left + sectionWidth;
-        textRect.bottom = infoBoxRect.bottom - 5;
+        textRect = { infoBoxRect.left + 15, infoBoxRect.top + 5, infoBoxRect.left + sectionWidth, infoBoxRect.bottom - 5 };
         char statusText[50];
-        wsprintfA(statusText, "Status: %s", EnableRC ? "ENABLED" : "DISABLED");
+        sprintf_s(statusText, "Status: %s", EnableRC ? "ENABLED" : "DISABLED");
         DrawText(memDC, statusText, -1, &textRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
-        // Toggle key
-        textRect.left = infoBoxRect.left + sectionWidth + 10;
-        textRect.right = infoBoxRect.left + 2 * sectionWidth;
+        textRect = { infoBoxRect.left + sectionWidth + 10, infoBoxRect.top + 5, infoBoxRect.left + 2 * sectionWidth, infoBoxRect.bottom - 5 };
         char toggleText[50];
-        wsprintfA(toggleText, "Toggle: %s", UseToggleKey ? "ON" : "OFF");
+        sprintf_s(toggleText, "Toggle: %s", UseToggleKey ? "ON" : "OFF");
         DrawText(memDC, toggleText, -1, &textRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
-        // Recoil settings
-        textRect.left = infoBoxRect.left + 2 * sectionWidth + 10;
-        textRect.right = infoBoxRect.left + 3 * sectionWidth;
+        textRect = { infoBoxRect.left + 2 * sectionWidth + 10, infoBoxRect.top + 5, infoBoxRect.left + 3 * sectionWidth, infoBoxRect.bottom - 5 };
         char recoilText[60];
         sprintf_s(recoilText, sizeof(recoilText), "Recoil: V: %.1f H: %.1f", CurrentRecoil.Vertical, CurrentRecoil.Horizontal);
         DrawText(memDC, recoilText, -1, &textRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
-        // Vertical and Horizontal Recoil Text to the right of the buttons
-        SetTextColor(memDC, RGB(60, 60, 60));
-        SetBkMode(memDC, TRANSPARENT);
+        textRect = { infoBoxRect.left + 3 * sectionWidth + 10, infoBoxRect.top + 5, infoBoxRect.right - 60, infoBoxRect.bottom - 5 };
+        char currentVersionText[50];
+        sprintf_s(currentVersionText, "Version: %.1f", CURRENT_VERSION);
+        DrawText(memDC, currentVersionText, -1, &textRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
-        RECT verticalLabelRect = { WINDOW_WIDTH - 340, (WINDOW_HEIGHT - 90) / 2 - 140, WINDOW_WIDTH - 150,
-                                   (WINDOW_HEIGHT - 90) / 2 - 120 };
-        RECT horizontalLabelRect = { WINDOW_WIDTH - 355, (WINDOW_HEIGHT - 90) / 2 - 90, WINDOW_WIDTH - 150,
-                                     (WINDOW_HEIGHT - 90) / 2 - 70 };
+        RECT verticalLabelRect = { WINDOW_WIDTH - 340, (WINDOW_HEIGHT - 90) / 2 - 140, WINDOW_WIDTH - 150, (WINDOW_HEIGHT - 90) / 2 - 120 };
+        RECT horizontalLabelRect = { WINDOW_WIDTH - 355, (WINDOW_HEIGHT - 90) / 2 - 90, WINDOW_WIDTH - 150, (WINDOW_HEIGHT - 90) / 2 - 70 };
 
         DrawText(memDC, "Vertical Recoil:", -1, &verticalLabelRect, DT_LEFT | DT_SINGLELINE | DT_VCENTER);
         DrawText(memDC, "Horizontal Recoil:", -1, &horizontalLabelRect, DT_LEFT | DT_SINGLELINE | DT_VCENTER);
 
-        // Vertical separator line
-        HPEN separatorPen = CreatePen(PS_SOLID, 3, RGB(180, 180, 180));
-        HPEN oldSepPen = (HPEN)SelectObject(memDC, separatorPen);
-        MoveToEx(memDC, 760, 60, NULL);
+        MoveToEx(memDC, 760, 60, nullptr);
         LineTo(memDC, 760, bottom - 20);
-        SelectObject(memDC, oldSepPen);
-        DeleteObject(separatorPen);
 
         SelectObject(memDC, oldFont);
     }

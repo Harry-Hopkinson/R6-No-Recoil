@@ -1,5 +1,7 @@
 #pragma once
 
+inline constexpr float CURRENT_VERSION = 2.9;
+
 inline constexpr int WINDOW_WIDTH = 1200;
 inline constexpr int WINDOW_HEIGHT = 925;
 

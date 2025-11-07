@@ -6,66 +6,6 @@ namespace GdiHelpers
 {
 
     /**
-     * @brief RAII wrapper for GDI brush objects
-     */
-    class ScopedBrush
-    {
-    public:
-        explicit ScopedBrush(COLORREF color)
-            : brush(CreateSolidBrush(color))
-        {
-        }
-        ~ScopedBrush()
-        {
-            if (brush) DeleteObject(brush);
-        }
-
-        operator HBRUSH() const
-        {
-            return brush;
-        }
-        HBRUSH Get() const
-        {
-            return brush;
-        }
-
-    private:
-        HBRUSH brush;
-        ScopedBrush(const ScopedBrush&) = delete;
-        ScopedBrush& operator=(const ScopedBrush&) = delete;
-    };
-
-    /**
-     * @brief RAII wrapper for GDI pen objects
-     */
-    class ScopedPen
-    {
-    public:
-        ScopedPen(int style, int width, COLORREF color)
-            : pen(CreatePen(style, width, color))
-        {
-        }
-        ~ScopedPen()
-        {
-            if (pen) DeleteObject(pen);
-        }
-
-        operator HPEN() const
-        {
-            return pen;
-        }
-        HPEN Get() const
-        {
-            return pen;
-        }
-
-    private:
-        HPEN pen;
-        ScopedPen(const ScopedPen&) = delete;
-        ScopedPen& operator=(const ScopedPen&) = delete;
-    };
-
-    /**
      * @brief RAII wrapper for selecting GDI objects
      */
     class ScopedSelectObject
@@ -87,31 +27,5 @@ namespace GdiHelpers
         ScopedSelectObject(const ScopedSelectObject&) = delete;
         ScopedSelectObject& operator=(const ScopedSelectObject&) = delete;
     };
-
-    /**
-     * @brief Creates and fills a rectangle with a solid color brush
-     * @param hdc Device context
-     * @param rect Rectangle to fill
-     * @param color Fill color
-     */
-    inline void FillRectColor(HDC hdc, const RECT& rect, COLORREF color)
-    {
-        ScopedBrush brush(color);
-        FillRect(hdc, &rect, brush);
-    }
-
-    /**
-     * @brief Draws a rectangle outline with specified pen
-     * @param hdc Device context
-     * @param rect Rectangle to draw
-     * @param color Border color
-     * @param width Border width
-     */
-    inline void DrawRectBorder(HDC hdc, const RECT& rect, COLORREF color, int width = 1)
-    {
-        ScopedPen pen(PS_SOLID, width, color);
-        ScopedSelectObject select(hdc, pen);
-        Rectangle(hdc, rect.left, rect.top, rect.right, rect.bottom);
-    }
 
 } // namespace GdiHelpers

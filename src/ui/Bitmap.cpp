@@ -128,12 +128,7 @@ namespace Bitmap
         FrameRect(hdc, &imgRect, (HBRUSH)GetStockObject(BLACK_BRUSH));
         FillRect(hdc, &imgRect, (HBRUSH)GetStockObject(LTGRAY_BRUSH));
 
-        if (text)
-        {
-            int oldBkMode = SetBkMode(hdc, TRANSPARENT);
-            DrawTextA(hdc, text, -1, &imgRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-            SetBkMode(hdc, oldBkMode);
-        }
+        if (text) DrawTextA(hdc, text, -1, &imgRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
     }
 
 } // namespace Bitmap

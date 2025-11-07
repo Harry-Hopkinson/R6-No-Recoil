@@ -46,7 +46,7 @@ namespace Drawing
             HBITMAP weaponBmp = Bitmap::GetWeaponBitmap(weapons[i]);
             Bitmap::DrawBitmap(
                 memDC, weaponBmp, x, y, LayoutUtils::WeaponDisplayLayout::WEAPON_WIDTH,
-                LayoutUtils::WeaponDisplayLayout::WEAPON_HEIGHT, true);
+                LayoutUtils::WeaponDisplayLayout::WEAPON_HEIGHT);
 
             // Weapon name
             HFONT weaponFont = Font::GetLargeFont();

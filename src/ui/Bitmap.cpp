@@ -18,7 +18,7 @@ namespace Bitmap
         return IsAttackerView ? AttackerBitmaps : DefenderBitmaps;
     }
 
-    HBITMAP LoadBitmap(const char* path)
+    static HBITMAP LoadBitmap(const char* path)
     {
         if (!path) return nullptr;
         return (HBITMAP)LoadImageA(NULL, path, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE);
@@ -82,21 +82,24 @@ namespace Bitmap
         bitmaps.clear();
     }
 
-    bool DrawBitmap(HDC hdc, HBITMAP bitmap, int x, int y, int width, int height, bool showPlaceholder)
+    static void DrawPlaceholder(HDC hdc, int x, int y, int width, int height)
+    {
+        if (!hdc) return;
+
+        RECT imgRect = { x, y, x + width, y + height };
+        FrameRect(hdc, &imgRect, (HBRUSH)GetStockObject(BLACK_BRUSH));
+        FillRect(hdc, &imgRect, (HBRUSH)GetStockObject(LTGRAY_BRUSH));
+    }
+
+    bool DrawBitmap(HDC hdc, HBITMAP bitmap, int x, int y, int width, int height)
     {
         if (!hdc || !bitmap)
         {
-            if (showPlaceholder) DrawPlaceholder(hdc, x, y, width, height);
+            DrawPlaceholder(hdc, x, y, width, height);
             return false;
         }
 
         HDC hdcMem = CreateCompatibleDC(hdc);
-        if (!hdcMem)
-        {
-            if (showPlaceholder) DrawPlaceholder(hdc, x, y, width, height);
-            return false;
-        }
-
         GdiHelpers::ScopedSelectObject select(hdcMem, bitmap);
         BITMAP bm{};
         GetObject(bitmap, sizeof(bm), &bm);
@@ -111,24 +114,7 @@ namespace Bitmap
 
         DeleteDC(hdcMem);
 
-        if (!result && showPlaceholder)
-        {
-            DrawPlaceholder(hdc, x, y, width, height);
-            return false;
-        }
-
         return result != FALSE;
-    }
-
-    void DrawPlaceholder(HDC hdc, int x, int y, int width, int height, const char* text)
-    {
-        if (!hdc) return;
-
-        RECT imgRect = { x, y, x + width, y + height };
-        FrameRect(hdc, &imgRect, (HBRUSH)GetStockObject(BLACK_BRUSH));
-        FillRect(hdc, &imgRect, (HBRUSH)GetStockObject(LTGRAY_BRUSH));
-
-        if (text) DrawTextA(hdc, text, -1, &imgRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
     }
 
 } // namespace Bitmap

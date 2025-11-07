@@ -18,13 +18,6 @@ namespace Bitmap
     };
 
     /**
-     * @brief Loads a bitmap from file path
-     * @param path The file path to the bitmap
-     * @return Handle to the loaded bitmap, or nullptr if failed
-     */
-    HBITMAP LoadBitmap(const char* path);
-
-    /**
      * @brief Loads a weapon bitmap by name, with caching
      * @param weaponName The name of the weapon
      * @return Handle to the loaded bitmap, or nullptr if failed
@@ -60,18 +53,7 @@ namespace Bitmap
      * @param showPlaceholder Whether to show placeholder on failure
      * @return True if bitmap was drawn successfully
      */
-    bool DrawBitmap(HDC hdc, HBITMAP bitmap, int x, int y, int width, int height, bool showPlaceholder = true);
-
-    /**
-     * @brief Draws a placeholder rectangle with optional text
-     * @param hdc Device context to draw on
-     * @param x X position
-     * @param y Y position
-     * @param width Width of placeholder
-     * @param height Height of placeholder
-     * @param text Optional text to display (default: "No Image")
-     */
-    void DrawPlaceholder(HDC hdc, int x, int y, int width, int height, const char* text = "No Image");
+    bool DrawBitmap(HDC hdc, HBITMAP bitmap, int x, int y, int width, int height);
 
     extern std::vector<HBITMAP> AttackerBitmaps;
     extern std::vector<HBITMAP> DefenderBitmaps;

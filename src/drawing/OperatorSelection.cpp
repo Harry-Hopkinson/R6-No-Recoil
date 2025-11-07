@@ -4,10 +4,11 @@
 #include "../ui/Bitmap.h"
 #include "../ui/widgets/Font.h"
 
-#include "../utils/GdiHelpers.h"
 #include "../utils/LayoutUtils.h"
 
 #include <cstdio>
+
+inline constexpr float CURRENT_VERSION = 2.9f;
 
 namespace Drawing
 {
@@ -23,7 +24,7 @@ namespace Drawing
             LayoutUtils::OperatorGridLayout::GetCellPosition(i, x, y);
             Bitmap::DrawBitmap(memDC, bitmaps[i], x, y,
                 LayoutUtils::OperatorGridLayout::CELL_SIZE,
-                LayoutUtils::OperatorGridLayout::CELL_SIZE, true);
+                LayoutUtils::OperatorGridLayout::CELL_SIZE);
         }
 
         RECT infoBoxRect = { 40, 10, right - 400, 40 };

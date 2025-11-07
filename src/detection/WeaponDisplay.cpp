@@ -23,7 +23,8 @@ namespace ClickDetection
         int startX, startY;
         LayoutUtils::WeaponDisplayLayout::GetWeaponStartPosition(weaponCount, right, bottom, startX, startY);
 
-        auto ProceedIfReady = [&](int selectedWeaponIndex, int presetIndex) {
+        auto ProceedIfReady = [&](int selectedWeaponIndex, int presetIndex)
+        {
             PresetIndex = presetIndex;
 
             if (CurrentWeapon) free((void*)CurrentWeapon);
@@ -43,13 +44,12 @@ namespace ClickDetection
                 + i * (LayoutUtils::WeaponDisplayLayout::WEAPON_WIDTH + LayoutUtils::WeaponDisplayLayout::WEAPON_SPACING);
             int y = startY;
 
-            // Weapon bitmap area
+            // Check if weapon image clicked and default to Preset 1
             RECT weaponRect = LayoutUtils::WeaponDisplayLayout::GetWeaponRect(i, startX, startY);
             if (LayoutUtils::IsPointInRect(weaponRect, mouseX, mouseY))
             {
-                ProceedIfReady(i, 1); // default to Preset 1
+                ProceedIfReady(i, 1);
                 InvalidateRect(hwnd, nullptr, TRUE);
-                String::FreeWeaponList(weapons, weaponCount);
                 return;
             }
 
@@ -87,7 +87,6 @@ namespace ClickDetection
                         break;
                 }
                 InvalidateRect(hwnd, nullptr, TRUE);
-                String::FreeWeaponList(weapons, weaponCount);
                 return;
             }
 
@@ -100,7 +99,6 @@ namespace ClickDetection
                 {
                     ProceedIfReady(i, p + 1); // Preset 1/2/3
                     InvalidateRect(hwnd, nullptr, TRUE);
-                    String::FreeWeaponList(weapons, weaponCount);
                     return;
                 }
             }

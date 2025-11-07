@@ -39,12 +39,6 @@ namespace Buttons
         ButtonsVector.clear();
     }
 
-    void HideButtons()
-    {
-        for (const auto& button : ButtonsVector)
-            ShowWindow(button.GetHWND(), SW_HIDE);
-    }
-
     void CreateOperatorSelectionButtons(HWND hwnd)
     {
         ClearButtons();

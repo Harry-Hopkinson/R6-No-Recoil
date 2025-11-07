@@ -44,11 +44,8 @@ namespace Bitmap
 
         // Not cached, load
         HBITMAP bmp = LoadWeaponBitmap(weaponName);
-        if (bmp)
-        {
-            char* nameCopy = String::CreateStringCopy(weaponName);
-            if (nameCopy) WeaponBitmaps.push_back({ nameCopy, bmp });
-        }
+        if (bmp) WeaponBitmaps.push_back({ String::CreateStringCopy(weaponName), bmp });
+
         return bmp;
     }
 

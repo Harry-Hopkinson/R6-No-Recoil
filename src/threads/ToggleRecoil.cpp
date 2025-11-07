@@ -9,10 +9,10 @@
 #include "../scenes/Scenes.h"
 #include "../recoil/Recoil.h"
 
-constexpr const char* WINDOW_TITLE = "R6 No Recoil";
+inline constexpr const char* WINDOW_TITLE = "R6 No Recoil";
 
-constexpr int TOGGLE_DELAY_MS = 300;
-constexpr int POLL_INTERVAL_MS = 50;
+inline constexpr int TOGGLE_DELAY_MS = 300;
+inline constexpr int POLL_INTERVAL_MS = 50;
 
 static void GetWeaponAtIndex(const char* weapons, int index, char* out, size_t out_size)
 {

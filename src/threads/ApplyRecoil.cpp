@@ -6,8 +6,8 @@
 #include "../inputs/Inputs.h"
 #include "../recoil/Recoil.h"
 
-constexpr int FIRE_DELAY_MS = 5;
-constexpr int IDLE_DELAY_MS = 5;
+inline constexpr int FIRE_DELAY_MS = 5;
+inline constexpr int IDLE_DELAY_MS = 5;
 
 static std::pair<int, int> CalculateRecoil(int baseX, int baseY, float lookX, float lookY)
 {

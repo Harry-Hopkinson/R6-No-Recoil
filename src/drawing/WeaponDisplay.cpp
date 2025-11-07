@@ -81,21 +81,18 @@ namespace Drawing
 
             char enabledText[16];
             snprintf(
-                enabledText, sizeof(enabledText), "Toggled: %s", (PrimaryKeyEnabled && i == 0) || (SecondaryKeyEnabled && i == 1) ||
-                                               (TertiaryKeyEnabled && i == 2)
-                                                   ? "Yes"
-                                                   : "No");
+                enabledText, sizeof(enabledText), "Toggled: %s",
+                (PrimaryKeyEnabled && i == 0) || (SecondaryKeyEnabled && i == 1) || (TertiaryKeyEnabled && i == 2) ? "Yes"
+                                                                                                                   : "No");
             keyRect.top += 20;
             keyRect.bottom += 20;
             DrawText(memDC, enabledText, -1, &keyRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-
 
             // Enable key bind button underneath text
             RECT buttonRect = { keyStartX, keyStartY + keyHeight + 20, keyStartX + keyWidth,
                                 keyStartY + keyHeight + 20 + keyHeight };
             FrameRect(memDC, &buttonRect, (HBRUSH)GetStockObject(BLACK_BRUSH));
             DrawText(memDC, "Toggle", -1, &buttonRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-
 
             for (int p = 0; p < 3; ++p)
             {
@@ -108,7 +105,9 @@ namespace Drawing
                 FrameRect(memDC, &btnRect, (HBRUSH)GetStockObject(BLACK_BRUSH));
 
                 char presetText[32];
-                snprintf(presetText, sizeof(presetText), "Preset %d: V:%.1f, H:%.1f", p + 1, recoilData.Vertical, recoilData.Horizontal);
+                snprintf(
+                    presetText, sizeof(presetText), "Preset %d: V:%.1f, H:%.1f", p + 1, recoilData.Vertical,
+                    recoilData.Horizontal);
 
                 HFONT btnFont = Font::GetMediumFont();
                 HFONT oldBtnFont = (HFONT)SelectObject(memDC, btnFont);

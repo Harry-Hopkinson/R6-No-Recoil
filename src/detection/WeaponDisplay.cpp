@@ -23,12 +23,10 @@ namespace ClickDetection
         int startX, startY;
         LayoutUtils::WeaponDisplayLayout::GetWeaponStartPosition(weaponCount, right, bottom, startX, startY);
 
-        auto ProceedIfReady = [&](int selectedWeaponIndex, int presetIndex)
-        {
+        auto ProceedIfReady = [&](int selectedWeaponIndex, int presetIndex) {
             PresetIndex = presetIndex;
 
-            if (CurrentWeapon)
-                free((void*)CurrentWeapon);
+            if (CurrentWeapon) free((void*)CurrentWeapon);
             CurrentWeapon = _strdup(weapons[selectedWeaponIndex]);
 
             CurrentRecoil = Files::GetWeaponData(CurrentWeapon, presetIndex);

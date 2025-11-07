@@ -34,8 +34,7 @@ namespace Buttons
         for (const auto& button : ButtonsVector)
         {
             HWND hwnd = button.GetHWND();
-            if (hwnd && IsWindow(hwnd))
-                DestroyWindow(hwnd);
+            if (hwnd && IsWindow(hwnd)) DestroyWindow(hwnd);
         }
         ButtonsVector.clear();
     }

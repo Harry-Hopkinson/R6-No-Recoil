@@ -20,15 +20,13 @@ namespace Bitmap
 
     HBITMAP LoadBitmap(const char* path)
     {
-        if (!path)
-            return nullptr;
+        if (!path) return nullptr;
         return (HBITMAP)LoadImageA(NULL, path, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE);
     }
 
     HBITMAP LoadWeaponBitmap(const char* weaponName)
     {
-        if (!weaponName)
-            return nullptr;
+        if (!weaponName) return nullptr;
 
         char* path = String::BuildPath("assets/weapons/", weaponName);
         HBITMAP bitmap = LoadBitmap(path);
@@ -38,21 +36,18 @@ namespace Bitmap
 
     HBITMAP GetWeaponBitmap(const char* weaponName)
     {
-        if (!weaponName)
-            return nullptr;
+        if (!weaponName) return nullptr;
 
         // Search cache
         for (const auto& entry : WeaponBitmaps)
-            if (strcmp(entry.name, weaponName) == 0)
-                return entry.bitmap;
+            if (strcmp(entry.name, weaponName) == 0) return entry.bitmap;
 
         // Not cached, load
         HBITMAP bmp = LoadWeaponBitmap(weaponName);
         if (bmp)
         {
             char* nameCopy = String::CreateStringCopy(weaponName);
-            if (nameCopy)
-                WeaponBitmaps.push_back({ nameCopy, bmp });
+            if (nameCopy) WeaponBitmaps.push_back({ nameCopy, bmp });
         }
         return bmp;
     }
@@ -66,8 +61,7 @@ namespace Bitmap
         {
             const char* path = Files::GetImagePath(name);
             HBITMAP bitmap = LoadBitmap(path);
-            if (!bitmap)
-                return {}; // Return empty if any bitmap fails
+            if (!bitmap) return {}; // Return empty if any bitmap fails
             bitmaps.push_back(bitmap);
         }
 
@@ -78,10 +72,8 @@ namespace Bitmap
     {
         for (auto& entry : WeaponBitmaps)
         {
-            if (entry.bitmap)
-                DeleteObject(entry.bitmap);
-            if (entry.name)
-                delete[] entry.name;
+            if (entry.bitmap) DeleteObject(entry.bitmap);
+            if (entry.name) delete[] entry.name;
         }
         WeaponBitmaps.clear();
     }
@@ -89,8 +81,7 @@ namespace Bitmap
     void CleanupBitmaps(std::vector<HBITMAP>& bitmaps)
     {
         for (HBITMAP bmp : bitmaps)
-            if (bmp)
-                DeleteObject(bmp);
+            if (bmp) DeleteObject(bmp);
         bitmaps.clear();
     }
 
@@ -98,16 +89,14 @@ namespace Bitmap
     {
         if (!hdc || !bitmap)
         {
-            if (showPlaceholder)
-                DrawPlaceholder(hdc, x, y, width, height);
+            if (showPlaceholder) DrawPlaceholder(hdc, x, y, width, height);
             return false;
         }
 
         HDC hdcMem = CreateCompatibleDC(hdc);
         if (!hdcMem)
         {
-            if (showPlaceholder)
-                DrawPlaceholder(hdc, x, y, width, height);
+            if (showPlaceholder) DrawPlaceholder(hdc, x, y, width, height);
             return false;
         }
 
@@ -136,8 +125,7 @@ namespace Bitmap
 
     void DrawPlaceholder(HDC hdc, int x, int y, int width, int height, const char* text)
     {
-        if (!hdc)
-            return;
+        if (!hdc) return;
 
         RECT imgRect = { x, y, x + width, y + height };
         FrameRect(hdc, &imgRect, (HBRUSH)GetStockObject(BLACK_BRUSH));

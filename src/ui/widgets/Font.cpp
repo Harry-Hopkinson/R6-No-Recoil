@@ -23,11 +23,14 @@ void Font::CreateFonts()
 
 void Font::Cleanup()
 {
-    DeleteObject(FontMedium); FontMedium = nullptr;
+    DeleteObject(FontMedium);
+    FontMedium = nullptr;
 
-    DeleteObject(FontLarge); FontLarge = nullptr;
+    DeleteObject(FontLarge);
+    FontLarge = nullptr;
 
-    DeleteObject(FontDesc); FontDesc = nullptr;
+    DeleteObject(FontDesc);
+    FontDesc = nullptr;
 }
 
 void Font::DrawCenteredText(HDC hdc, LPCSTR text, int x, int y, int width, HFONT font)

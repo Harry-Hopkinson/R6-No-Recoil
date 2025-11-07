@@ -10,9 +10,18 @@ public:
     static void CreateFonts();
     static void Cleanup();
 
-    static HFONT GetMediumFont()   { return FontMedium; }
-    static HFONT GetLargeFont()    { return FontLarge; }
-    static HFONT GetDescFont()     { return FontDesc; }
+    static HFONT GetMediumFont()
+    {
+        return FontMedium;
+    }
+    static HFONT GetLargeFont()
+    {
+        return FontLarge;
+    }
+    static HFONT GetDescFont()
+    {
+        return FontDesc;
+    }
 
     static void DrawCenteredText(HDC hdc, LPCSTR text, int x, int y, int width, HFONT font);
 

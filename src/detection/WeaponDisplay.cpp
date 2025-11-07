@@ -49,7 +49,7 @@ namespace ClickDetection
             if (LayoutUtils::IsPointInRect(weaponRect, mouseX, mouseY))
             {
                 ProceedIfReady(i, 1);
-                InvalidateRect(hwnd, nullptr, TRUE);
+                InvalidateRect(hwnd, nullptr, FALSE);
                 return;
             }
 
@@ -86,7 +86,7 @@ namespace ClickDetection
                     default:
                         break;
                 }
-                InvalidateRect(hwnd, nullptr, TRUE);
+                InvalidateRect(hwnd, nullptr, FALSE);
                 return;
             }
 
@@ -98,7 +98,7 @@ namespace ClickDetection
                 if (LayoutUtils::IsPointInRect(btnRect, mouseX, mouseY))
                 {
                     ProceedIfReady(i, p + 1); // Preset 1/2/3
-                    InvalidateRect(hwnd, nullptr, TRUE);
+                    InvalidateRect(hwnd, nullptr, FALSE);
                     return;
                 }
             }
@@ -110,7 +110,7 @@ namespace ClickDetection
         {
             Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
             Buttons::CreateOperatorSelectionButtons(hwnd);
-            InvalidateRect(hwnd, nullptr, TRUE);
+            InvalidateRect(hwnd, nullptr, FALSE);
         }
 
         String::FreeWeaponList(weapons, weaponCount);

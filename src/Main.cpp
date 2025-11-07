@@ -40,24 +40,24 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 case 1: // Enable/Disable Recoil
                     EnableRC = !EnableRC;
                     Files::SaveConfig();
-                    InvalidateRect(hwnd, NULL, TRUE);
+                    InvalidateRect(hwnd, NULL, FALSE);
                     break;
                 case 2: // Toggle Key
                     UseToggleKey = !UseToggleKey;
                     Files::SaveConfig();
-                    InvalidateRect(hwnd, NULL, TRUE);
+                    InvalidateRect(hwnd, NULL, FALSE);
                     break;
                 case 3: // Attacker Selection
                     IsAttackerView = true;
                     Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
                     Buttons::CreateOperatorSelectionButtons(hwnd);
-                    InvalidateRect(hwnd, NULL, TRUE);
+                    InvalidateRect(hwnd, NULL, FALSE);
                     break;
                 case 4: // Defender Selection
                     IsAttackerView = false;
                     Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
                     Buttons::CreateOperatorSelectionButtons(hwnd);
-                    InvalidateRect(hwnd, NULL, TRUE);
+                    InvalidateRect(hwnd, NULL, FALSE);
                     break;
                 case 5: // Support button
                     system("start https://ko-fi.com/harryhopkinson");
@@ -71,27 +71,27 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 case 8: // "+" button (Vertical)
                     CurrentRecoil.Vertical += 0.5f;
                     Files::SaveConfig();
-                    InvalidateRect(hwnd, NULL, TRUE);
+                    InvalidateRect(hwnd, NULL, FALSE);
                     break;
                 case 9: // "-" button (Vertical)
                     CurrentRecoil.Vertical = maximum(CurrentRecoil.Vertical - 0.5f, 0.0f);
                     Files::SaveConfig();
-                    InvalidateRect(hwnd, NULL, TRUE);
+                    InvalidateRect(hwnd, NULL, FALSE);
                     break;
                 case 10: // "+" button (Horizontal)
                     CurrentRecoil.Horizontal += 0.5f;
                     Files::SaveConfig();
-                    InvalidateRect(hwnd, NULL, TRUE);
+                    InvalidateRect(hwnd, NULL, FALSE);
                     break;
                 case 11: // "-" button (Horizontal)
                     CurrentRecoil.Horizontal -= 0.5f;
                     Files::SaveConfig();
-                    InvalidateRect(hwnd, NULL, TRUE);
+                    InvalidateRect(hwnd, NULL, FALSE);
                     break;
                 case 12: // Save Config button
                     Files::SaveConfig();
                     Files::SaveWeaponData(PresetIndex);
-                    InvalidateRect(hwnd, NULL, TRUE);
+                    InvalidateRect(hwnd, NULL, FALSE);
                     break;
             }
         }

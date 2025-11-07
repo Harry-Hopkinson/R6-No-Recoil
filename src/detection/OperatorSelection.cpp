@@ -22,7 +22,7 @@ namespace ClickDetection
 
                 for (const auto& button : Buttons::GetButtons())
                     ShowWindow(button.GetHWND(), SW_HIDE);
-                InvalidateRect(hwnd, NULL, TRUE);
+                InvalidateRect(hwnd, NULL, FALSE);
                 break;
             }
         }

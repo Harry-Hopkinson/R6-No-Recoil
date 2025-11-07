@@ -25,8 +25,8 @@ namespace Threads
         {
             const bool controllerEnabled = EnableController;
             const bool controllerConnected = controllerEnabled && Inputs::IsControllerConnected();
-            const bool isADS = Inputs::IsMouseADS() ||
-                               (controllerConnected && Inputs::IsControllerADS(Inputs::GetControllerState()));
+            const bool isADS = Inputs::IsMouseADS()
+                || (controllerConnected && Inputs::IsControllerADS(Inputs::GetControllerState()));
 
             if (!EnableRC || !isADS)
             {

@@ -16,8 +16,7 @@ std::vector<const char*> DefenderNames = { "Sentry",  "Smoke",    "Mute",       
                                            "Melusi",  "Aruni",    "Thunderbird", "Thorn",  "Azami", "Solis",    "Fenrir",
                                            "Tubarao", "Skopos",   "Denari" };
 
-std::vector<const char*> AttackerWeapons =
-{
+std::vector<const char*> AttackerWeapons = {
     "M4, M249, SR-25",            // Striker
     "L85A2",                      // Sledge
     "L85A2, AR33",                // Thatcher
@@ -58,8 +57,7 @@ std::vector<const char*> AttackerWeapons =
     "417, M249",                  // Rauora
 };
 
-std::vector<const char*> DefenderWeapons =
-{
+std::vector<const char*> DefenderWeapons = {
     "Commando-9, TCSG12",       // Sentry
     "FMG-9, SMG-11",            // Smoke
     "MP5K, SMG-11",             // Mute

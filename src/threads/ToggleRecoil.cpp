@@ -16,8 +16,7 @@ constexpr int POLL_INTERVAL_MS = 50;
 
 static void GetWeaponAtIndex(const char* weapons, int index, char* out, size_t out_size)
 {
-    if (!weapons || !out || out_size == 0)
-        return;
+    if (!weapons || !out || out_size == 0) return;
 
     int current = 0;
     const char* start = weapons;
@@ -38,16 +37,14 @@ static void GetWeaponAtIndex(const char* weapons, int index, char* out, size_t o
                 --trim_end;
 
             size_t len = trim_end - start;
-            if (len >= out_size)
-                len = out_size - 1;
+            if (len >= out_size) len = out_size - 1;
 
             memcpy(out, start, len);
             out[len] = '\0';
             return;
         }
 
-        if (*end == ',')
-            ++end;
+        if (*end == ',') ++end;
 
         start = end;
         ++current;
@@ -59,8 +56,7 @@ static void GetWeaponAtIndex(const char* weapons, int index, char* out, size_t o
 static HWND GetWindowHandle()
 {
     static HWND hwnd = nullptr;
-    if (!hwnd || !IsWindow(hwnd))
-        hwnd = FindWindow(NULL, WINDOW_TITLE);
+    if (!hwnd || !IsWindow(hwnd)) hwnd = FindWindow(NULL, WINDOW_TITLE);
     return hwnd;
 }
 
@@ -74,8 +70,7 @@ static void LoadWeaponRecoil(int weaponIndex)
     CurrentRecoil = Files::GetWeaponData(weaponName, 1);
     Files::SaveConfig();
 
-    if (HWND hwnd = GetWindowHandle())
-        InvalidateRect(hwnd, NULL, TRUE);
+    if (HWND hwnd = GetWindowHandle()) InvalidateRect(hwnd, NULL, TRUE);
     std::this_thread::sleep_for(std::chrono::milliseconds(TOGGLE_DELAY_MS));
 }
 
@@ -91,8 +86,7 @@ namespace Threads
                 EnableRC = !EnableRC;
                 Files::SaveConfig();
 
-                if (HWND hwnd = GetWindowHandle())
-                    InvalidateRect(hwnd, NULL, TRUE);
+                if (HWND hwnd = GetWindowHandle()) InvalidateRect(hwnd, NULL, TRUE);
                 std::this_thread::sleep_for(std::chrono::milliseconds(TOGGLE_DELAY_MS));
             }
             else if (PrimaryKeyEnabled && (GetAsyncKeyState(PrimaryKey) & 0x8000))

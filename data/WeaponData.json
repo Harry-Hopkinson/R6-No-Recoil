@@ -133,7 +133,7 @@
     },
     {
         "name": "AK-12",
-        "preset-1": { "vertical": 5.5, "horizontal": 0 },
+        "preset-1": { "vertical": 6.5, "horizontal": 0 },
         "preset-2": { "vertical": 2.5, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },

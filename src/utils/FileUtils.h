@@ -14,14 +14,11 @@ namespace FileUtils
      */
     inline char* ReadFileToMemory(const char* filename, DWORD* outSize = nullptr)
     {
-        if (!filename)
-            return nullptr;
+        if (!filename) return nullptr;
 
-        HANDLE file = CreateFileA(filename, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING,
-                                   FILE_ATTRIBUTE_NORMAL, NULL);
+        HANDLE file = CreateFileA(filename, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
-        if (file == INVALID_HANDLE_VALUE)
-            return nullptr;
+        if (file == INVALID_HANDLE_VALUE) return nullptr;
 
         DWORD fileSize = GetFileSize(file, NULL);
         if (fileSize == INVALID_FILE_SIZE || fileSize == 0)
@@ -43,8 +40,7 @@ namespace FileUtils
         buffer[bytesRead] = '\0';
         CloseHandle(file);
 
-        if (outSize)
-            *outSize = bytesRead;
+        if (outSize) *outSize = bytesRead;
 
         return buffer;
     }
@@ -58,14 +54,11 @@ namespace FileUtils
      */
     inline bool WriteFileFromMemory(const char* filename, const char* buffer, DWORD length)
     {
-        if (!filename || !buffer)
-            return false;
+        if (!filename || !buffer) return false;
 
-        HANDLE file = CreateFileA(filename, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS,
-                                   FILE_ATTRIBUTE_NORMAL, NULL);
+        HANDLE file = CreateFileA(filename, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 
-        if (file == INVALID_HANDLE_VALUE)
-            return false;
+        if (file == INVALID_HANDLE_VALUE) return false;
 
         DWORD written;
         bool success = WriteFile(file, buffer, length, &written, NULL) && (written == length);
@@ -81,8 +74,7 @@ namespace FileUtils
      */
     inline bool FileExists(const char* filename)
     {
-        if (!filename)
-            return false;
+        if (!filename) return false;
 
         DWORD attrib = GetFileAttributesA(filename);
         return (attrib != INVALID_FILE_ATTRIBUTES && !(attrib & FILE_ATTRIBUTE_DIRECTORY));
@@ -95,8 +87,7 @@ namespace FileUtils
     inline const char* GetExecutableDir()
     {
         static char exePath[MAX_PATH] = {};
-        if (exePath[0] == '\0')
-            GetModuleFileNameA(NULL, exePath, MAX_PATH);
+        if (exePath[0] == '\0') GetModuleFileNameA(NULL, exePath, MAX_PATH);
         return exePath;
     }
 

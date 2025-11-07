@@ -11,11 +11,23 @@ namespace GdiHelpers
     class ScopedBrush
     {
     public:
-        explicit ScopedBrush(COLORREF color) : brush(CreateSolidBrush(color)) {}
-        ~ScopedBrush() { if (brush) DeleteObject(brush); }
+        explicit ScopedBrush(COLORREF color)
+            : brush(CreateSolidBrush(color))
+        {
+        }
+        ~ScopedBrush()
+        {
+            if (brush) DeleteObject(brush);
+        }
 
-        operator HBRUSH() const { return brush; }
-        HBRUSH Get() const { return brush; }
+        operator HBRUSH() const
+        {
+            return brush;
+        }
+        HBRUSH Get() const
+        {
+            return brush;
+        }
 
     private:
         HBRUSH brush;
@@ -29,11 +41,23 @@ namespace GdiHelpers
     class ScopedPen
     {
     public:
-        ScopedPen(int style, int width, COLORREF color) : pen(CreatePen(style, width, color)) {}
-        ~ScopedPen() { if (pen) DeleteObject(pen); }
+        ScopedPen(int style, int width, COLORREF color)
+            : pen(CreatePen(style, width, color))
+        {
+        }
+        ~ScopedPen()
+        {
+            if (pen) DeleteObject(pen);
+        }
 
-        operator HPEN() const { return pen; }
-        HPEN Get() const { return pen; }
+        operator HPEN() const
+        {
+            return pen;
+        }
+        HPEN Get() const
+        {
+            return pen;
+        }
 
     private:
         HPEN pen;
@@ -47,8 +71,15 @@ namespace GdiHelpers
     class ScopedSelectObject
     {
     public:
-        ScopedSelectObject(HDC hdc, HGDIOBJ obj) : hdc(hdc), oldObj(SelectObject(hdc, obj)) {}
-        ~ScopedSelectObject() { if (oldObj) SelectObject(hdc, oldObj); }
+        ScopedSelectObject(HDC hdc, HGDIOBJ obj)
+            : hdc(hdc)
+            , oldObj(SelectObject(hdc, obj))
+        {
+        }
+        ~ScopedSelectObject()
+        {
+            if (oldObj) SelectObject(hdc, oldObj);
+        }
 
     private:
         HDC hdc;

@@ -61,8 +61,8 @@ namespace LayoutUtils
          * @param outStartX Output start X position
          * @param outStartY Output start Y position
          */
-        static inline void GetWeaponStartPosition(int weaponCount, int screenWidth, int screenHeight,
-                                                   int& outStartX, int& outStartY)
+        static inline void GetWeaponStartPosition(
+            int weaponCount, int screenWidth, int screenHeight, int& outStartX, int& outStartY)
         {
             int totalWidth = weaponCount * WEAPON_WIDTH + (weaponCount - 1) * WEAPON_SPACING;
             outStartX = (screenWidth - totalWidth) / 2;

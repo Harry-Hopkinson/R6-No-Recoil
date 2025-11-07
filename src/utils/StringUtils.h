@@ -14,8 +14,7 @@ namespace StringUtils
      */
     inline char* BuildPath(const char* dir, const char* filename, const char* ext)
     {
-        if (!dir || !filename || !ext)
-            return nullptr;
+        if (!dir || !filename || !ext) return nullptr;
 
         const size_t len1 = strlen(dir);
         const size_t len2 = strlen(filename);
@@ -37,8 +36,7 @@ namespace StringUtils
      */
     inline char* CopyString(const char* input)
     {
-        if (!input)
-            return nullptr;
+        if (!input) return nullptr;
 
         const size_t len = strlen(input);
         char* result = new char[len + 1];
@@ -53,15 +51,13 @@ namespace StringUtils
      */
     inline char* TrimWhitespace(char* str)
     {
-        if (!str)
-            return nullptr;
+        if (!str) return nullptr;
 
         // Trim leading
         while (*str == ' ' || *str == '\t')
             ++str;
 
-        if (*str == '\0')
-            return str;
+        if (*str == '\0') return str;
 
         // Trim trailing
         char* end = str + strlen(str) - 1;
@@ -79,8 +75,7 @@ namespace StringUtils
      */
     inline bool StringEquals(const char* a, const char* b)
     {
-        if (!a || !b)
-            return (a == b);
+        if (!a || !b) return (a == b);
         return strcmp(a, b) == 0;
     }
 
@@ -92,8 +87,7 @@ namespace StringUtils
      */
     inline bool StartsWith(const char* str, const char* prefix)
     {
-        if (!str || !prefix)
-            return false;
+        if (!str || !prefix) return false;
         return strncmp(str, prefix, strlen(prefix)) == 0;
     }
 
@@ -106,8 +100,7 @@ namespace StringUtils
      */
     inline int ParseWeaponList(const char* weaponStr, const char* weapons[], int maxWeapons)
     {
-        if (!weaponStr || !weapons || maxWeapons <= 0)
-            return 0;
+        if (!weaponStr || !weapons || maxWeapons <= 0) return 0;
 
         int weaponCount = 0;
         const char* ptr = weaponStr;
@@ -142,8 +135,7 @@ namespace StringUtils
             }
 
             // Skip comma
-            if (*ptr == ',')
-                ++ptr;
+            if (*ptr == ',') ++ptr;
         }
 
         return weaponCount;
@@ -156,13 +148,11 @@ namespace StringUtils
      */
     inline void FreeWeaponList(const char* weapons[], int count)
     {
-        if (!weapons)
-            return;
+        if (!weapons) return;
 
         for (int i = 0; i < count; i++)
         {
-            if (weapons[i])
-                delete[] weapons[i];
+            if (weapons[i]) delete[] weapons[i];
         }
     }
 

@@ -220,8 +220,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
     {
         while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
-            if (msg.message == WM_KEYDOWN && msg.wParam == VK_ESCAPE)
-                PostMessage(hwnd, WM_CLOSE, 0, 0);
+            if (msg.message == WM_KEYDOWN && msg.wParam == VK_ESCAPE) PostMessage(hwnd, WM_CLOSE, 0, 0);
 
             TranslateMessage(&msg);
             DispatchMessage(&msg);
@@ -230,10 +229,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
         std::this_thread::sleep_for(std::chrono::milliseconds(16));
     }
 
-    if (recoilThread.joinable())
-        recoilThread.join();
-    if (toggleThread.joinable())
-        toggleThread.join();
+    if (recoilThread.joinable()) recoilThread.join();
+    if (toggleThread.joinable()) toggleThread.join();
 
     return 0;
 }

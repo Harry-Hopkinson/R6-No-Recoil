@@ -1,10 +1,10 @@
 #include "Bitmap.h"
 
+#include <windows.h>
+
 #include "../Globals.h"
 #include "../core/String.h"
 #include "../files/Files.h"
-
-#include "../utils/GdiHelpers.h"
 
 namespace Bitmap
 {
@@ -100,7 +100,8 @@ namespace Bitmap
         }
 
         HDC hdcMem = CreateCompatibleDC(hdc);
-        GdiHelpers::ScopedSelectObject select(hdcMem, bitmap);
+        HGDIOBJ oldBmp = SelectObject(hdcMem, bitmap);
+
         BITMAP bm{};
         GetObject(bitmap, sizeof(bm), &bm);
 
@@ -110,10 +111,12 @@ namespace Bitmap
         SetStretchBltMode(hdc, HALFTONE);
         SetBrushOrgEx(hdc, 0, 0, nullptr);
 
-        BOOL result = StretchBlt(hdc, x, y, width, height, hdcMem, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY);
+        BOOL result = StretchBlt(hdc, x, y, width, height,
+                                 hdcMem, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY);
+
+        if (oldBmp) SelectObject(hdcMem, oldBmp);
 
         DeleteDC(hdcMem);
-
         return result != FALSE;
     }
 

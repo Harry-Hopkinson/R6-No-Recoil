@@ -1,6 +1,6 @@
 #include "Font.h"
 
-#include "../../utils/GdiHelpers.h"
+#include <windows.h>
 
 HFONT Font::FontMedium = nullptr;
 HFONT Font::FontLarge = nullptr;
@@ -35,9 +35,16 @@ void Font::Cleanup()
 
 void Font::DrawCenteredText(HDC hdc, LPCSTR text, int x, int y, int width, HFONT font)
 {
-    GdiHelpers::ScopedSelectObject select(hdc, font);
-    SIZE textSize;
-    GetTextExtentPoint32(hdc, text, static_cast<int>(strlen(text)), &textSize);
+    if (!hdc || !text || !font)
+        return;
+
+    HFONT oldFont = (HFONT)SelectObject(hdc, font);
+
+    SIZE textSize{};
+    GetTextExtentPoint32A(hdc, text, static_cast<int>(strlen(text)), &textSize);
+
     int textX = x + (width - textSize.cx) / 2;
-    TextOut(hdc, textX, y, text, static_cast<int>(strlen(text)));
+    TextOutA(hdc, textX, y, text, static_cast<int>(strlen(text)));
+
+    if (oldFont) SelectObject(hdc, oldFont);
 }

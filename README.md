@@ -1,6 +1,5 @@
-# 🎯 R6 No Recoil
-
 <div align="center">
+    <h1>🎯 R6 No Recoil</h1>
     <a href="https://github.com/Harry-Hopkinson/R6-No-Recoil/releases/latest">
         <img src="https://raw.githubusercontent.com/Harry-Hopkinson/R6-No-Recoil/master/website/public/app.png" alt="App Preview" width="750px">
     </a>

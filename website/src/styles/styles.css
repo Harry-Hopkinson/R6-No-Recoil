@@ -24,7 +24,7 @@ section.hero {
 }
 
 .parallax-bg {
-  background-image: url("/image.png");
+  background-image: url("/app.png");
   background-size: cover;
   background-position: center;
   z-index: 0;
@@ -68,7 +68,6 @@ section.hero {
   line-height: 1.7;
   max-width: 720px;
   margin: 0.75rem auto 1.5rem;
-  color: #ddd;
 }
 
 .buttons {

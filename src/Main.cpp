@@ -66,7 +66,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     system("start https://github.com/Harry-Hopkinson/R6-No-Recoil");
                     break;
                 case 7: // Discord button
-                    system("start https://discord.gg/XSR2ayDTzD");
+                    system("start https://discord.gg/4HBAmVpKFK");
                     break;
                 case 8: // "+" button (Vertical)
                     CurrentRecoil.Vertical += 0.5f;
@@ -185,6 +185,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         case WM_ERASEBKGND:
             return 1; // Prevent flickering by not erasing background
+        break;
 
         default:
             return DefWindowProc(hwnd, uMsg, wParam, lParam);

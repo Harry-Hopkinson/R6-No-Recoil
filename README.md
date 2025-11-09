@@ -4,7 +4,7 @@
         <img src="https://raw.githubusercontent.com/Harry-Hopkinson/R6-No-Recoil/master/website/public/app.png" alt="App Preview" width="750px">
     </a>
     <hr>
-    <a href="http://discord.gg/4HBAmVpKFK">
+    <a href="http://discord.gg/UDa95ZCKw5">
         <img src="https://img.shields.io/badge/Join%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Join Discord">
     </a>
     <a href="https://ko-fi.com/harryhopkinson">

@@ -85,7 +85,7 @@ if exist "%weaponData%" (
         powershell -Command "Write-Host '[WARNING] Failed to copy WeaponData.json to new folder.' -ForegroundColor Yellow"
     )
 ) else (
-    powershell -Command "Write-Host '[WARNING] No local WeaponData.json found in script directory — skipping replacement.' -ForegroundColor Yellow"
+    powershell -Command "Write-Host '[WARNING] No local WeaponData.json found in script directory.' -ForegroundColor Yellow"
 )
 
 echo ------------------------------------------------------------

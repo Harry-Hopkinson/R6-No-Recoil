@@ -87,7 +87,7 @@ if [ -f "$weaponData" ]; then
         echo "[WARNING] Failed to copy WeaponData.json to new folder."
     fi
 else
-    echo "[WARNING] No local WeaponData.json found in script directory — skipping replacement."
+    echo "[WARNING] No local WeaponData.json found in script directory."
 fi
 
 echo "------------------------------------------------------------"

@@ -18,7 +18,8 @@
 #include "ui/widgets/Button.h"
 #include "ui/widgets/Font.h"
 
-#define maximum(a, b) ((a) > (b) ? (a) : (b))
+#define ceilf(x) ((int)(x) + ((x) > (int)(x) ? 1 : 0))
+#define round(x) (ceilf((x) * 2.0f) / 2.0f)
 
 // Window Procedure for handling events
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -69,22 +70,22 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     system("start https://discord.gg/UDa95ZCKw5");
                     break;
                 case 8: // "+" button (Vertical)
-                    CurrentRecoil.Vertical += 0.5f;
+                    CurrentRecoil.Vertical = round(CurrentRecoil.Vertical + 0.5f);
                     Files::SaveConfig();
                     InvalidateRect(hwnd, NULL, FALSE);
                     break;
                 case 9: // "-" button (Vertical)
-                    CurrentRecoil.Vertical = maximum(CurrentRecoil.Vertical - 0.5f, 0.0f);
+                    CurrentRecoil.Vertical = round(CurrentRecoil.Vertical - 0.5f);
                     Files::SaveConfig();
                     InvalidateRect(hwnd, NULL, FALSE);
                     break;
                 case 10: // "+" button (Horizontal)
-                    CurrentRecoil.Horizontal += 0.5f;
+                    CurrentRecoil.Horizontal = round(CurrentRecoil.Horizontal + 0.5f);
                     Files::SaveConfig();
                     InvalidateRect(hwnd, NULL, FALSE);
                     break;
                 case 11: // "-" button (Horizontal)
-                    CurrentRecoil.Horizontal -= 0.5f;
+                    CurrentRecoil.Horizontal = round(CurrentRecoil.Horizontal - 0.5f);
                     Files::SaveConfig();
                     InvalidateRect(hwnd, NULL, FALSE);
                     break;

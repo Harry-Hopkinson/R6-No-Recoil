@@ -49,7 +49,8 @@ namespace ClickDetection
             if (LayoutUtils::IsPointInRect(weaponRect, mouseX, mouseY))
             {
                 ProceedIfReady(i, 1);
-                InvalidateRect(hwnd, nullptr, FALSE);
+                RedrawWindow(hwnd, NULL, NULL,
+                    RDW_INVALIDATE | RDW_UPDATENOW | RDW_NOERASE | RDW_NOCHILDREN);
                 return;
             }
 
@@ -98,7 +99,8 @@ namespace ClickDetection
                 if (LayoutUtils::IsPointInRect(btnRect, mouseX, mouseY))
                 {
                     ProceedIfReady(i, p + 1); // Preset 1/2/3
-                    InvalidateRect(hwnd, nullptr, FALSE);
+                    RedrawWindow(hwnd, NULL, NULL,
+                        RDW_INVALIDATE | RDW_UPDATENOW | RDW_NOERASE | RDW_NOCHILDREN);
                     return;
                 }
             }
@@ -110,7 +112,8 @@ namespace ClickDetection
         {
             Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
             Buttons::CreateOperatorSelectionButtons(hwnd);
-            InvalidateRect(hwnd, nullptr, FALSE);
+            RedrawWindow(hwnd, NULL, NULL,
+                RDW_INVALIDATE | RDW_UPDATENOW | RDW_NOERASE | RDW_NOCHILDREN);
         }
 
         String::FreeWeaponList(weapons, weaponCount);

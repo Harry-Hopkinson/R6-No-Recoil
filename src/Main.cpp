@@ -71,7 +71,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     system("start https://github.com/Harry-Hopkinson/R6-No-Recoil");
                     break;
                 case 7: // Discord button
-                    system("start https://discord.gg/UDa95ZCKw5");
+                    system("start https://discord.gg/cW9gDQtTGr");
                     break;
                 case 8: // "+" button (Vertical)
                     CurrentRecoil.Vertical = round(CurrentRecoil.Vertical + 0.5f);

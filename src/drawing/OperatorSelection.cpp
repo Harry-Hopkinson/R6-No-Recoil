@@ -8,7 +8,7 @@
 
 #include <cstdio>
 
-inline constexpr float CURRENT_VERSION = 2.9f;
+inline constexpr float CURRENT_VERSION = 3.0f;
 
 namespace Drawing
 {
@@ -27,7 +27,7 @@ namespace Drawing
                 LayoutUtils::OperatorGridLayout::CELL_SIZE);
         }
 
-        RECT infoBoxRect = { 40, 10, right - 400, 40 };
+        RECT infoBoxRect = { 40, 10, right - 355, 40 };
         Rectangle(memDC, infoBoxRect.left, infoBoxRect.top, infoBoxRect.right - 75, infoBoxRect.bottom);
 
         HFONT oldFont = (HFONT)SelectObject(memDC, Font::GetDescFont());
@@ -48,7 +48,7 @@ namespace Drawing
 
         textRect = { infoBoxRect.left + 2 * sectionWidth + 10, infoBoxRect.top + 5, infoBoxRect.left + 3 * sectionWidth, infoBoxRect.bottom - 5 };
         char recoilText[60];
-        sprintf_s(recoilText, sizeof(recoilText), "Recoil: V: %.1f H: %.1f", CurrentRecoil.Vertical, CurrentRecoil.Horizontal);
+        sprintf_s(recoilText, sizeof(recoilText), "Recoil: V: %.2f  H: %.2f", CurrentRecoil.Vertical, CurrentRecoil.Horizontal);
         DrawText(memDC, recoilText, -1, &textRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
         textRect = { infoBoxRect.left + 3 * sectionWidth + 10, infoBoxRect.top + 5, infoBoxRect.right - 60, infoBoxRect.bottom - 5 };

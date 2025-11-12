@@ -104,7 +104,7 @@ namespace Drawing
 
                 char presetText[32];
                 snprintf(
-                    presetText, sizeof(presetText), "Preset %d: V:%.1f, H:%.1f", p + 1, recoilData.Vertical,
+                    presetText, sizeof(presetText), "Preset %d: V:%.2f, H:%.2f", p + 1, recoilData.Vertical,
                     recoilData.Horizontal);
 
                 HFONT btnFont = Font::GetMediumFont();

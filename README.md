@@ -66,8 +66,8 @@ The app automatically creates a `Config.toml` file on first run. You can manuall
 ```toml
 [RecoilPresets]
 Enabled = true
-VerticalRecoil = 3.0
-HorizontalRecoil = 0.0
+VerticalRecoil = 3.00
+HorizontalRecoil = 0.00
 
 [Controller]
 Enabled = false

@@ -1,6 +1,6 @@
 #include "Recoil.h"
 
-WeaponRecoil CurrentRecoil = { 3.0f, 0.0f };
+WeaponRecoil CurrentRecoil = { 3.00f, 0.00f };
 
 std::vector<const char*> AttackerNames = { "Striker",  "Sledge", "Thatcher", "Ash",   "Thermite", "Twitch",     "Montagne",
                                            "Glaz",     "Fuze",   "Blitz",    "IQ",    "Buck",     "Blackbeard", "Capitao",

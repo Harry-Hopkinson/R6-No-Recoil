@@ -12,7 +12,7 @@ namespace Files
 
     WeaponRecoil GetWeaponData(const char* weaponName, int presetIndex)
     {
-        WeaponRecoil recoil = { 3.0f, 0.0f };
+        WeaponRecoil recoil = { 3.00f, 0.00f };
         if (!weaponName) return recoil;
 
         FILE* file = fopen("WeaponData.json", "rb");
@@ -124,7 +124,7 @@ namespace Files
 
         char newBlock[256];
         snprintf(
-            newBlock, sizeof(newBlock), " \"vertical\": %.1f, \"horizontal\": %.1f }", CurrentRecoil.Vertical,
+            newBlock, sizeof(newBlock), " \"vertical\": %.2f, \"horizontal\": %.2f }", CurrentRecoil.Vertical,
             CurrentRecoil.Horizontal);
 
         size_t newSize = beforeLen + strlen(newBlock) + afterLen + 2;

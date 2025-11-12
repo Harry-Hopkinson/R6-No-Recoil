@@ -19,8 +19,8 @@ namespace Files
         // [RecoilPresets]
         len += sprintf_s(buffer + len, bufferSize - len, "[RecoilPresets]\r\n");
         len += sprintf_s(buffer + len, bufferSize - len, "Enabled = %s\r\n", EnableRC ? "true" : "false");
-        len += sprintf_s(buffer + len, bufferSize - len, "VerticalRecoil = %.1f\r\n", CurrentRecoil.Vertical);
-        len += sprintf_s(buffer + len, bufferSize - len, "HorizontalRecoil = %.1f\r\n", CurrentRecoil.Horizontal);
+        len += sprintf_s(buffer + len, bufferSize - len, "VerticalRecoil = %.2f\r\n", CurrentRecoil.Vertical);
+        len += sprintf_s(buffer + len, bufferSize - len, "HorizontalRecoil = %.2f\r\n", CurrentRecoil.Horizontal);
         len += sprintf_s(buffer + len, bufferSize - len, "\r\n");
 
         // [Controller]

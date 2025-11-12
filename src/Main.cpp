@@ -41,28 +41,24 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 case 1: // Enable/Disable Recoil
                     EnableRC = !EnableRC;
                     Files::SaveConfig();
-                    RedrawWindow(hwnd, NULL, NULL,
-                        RDW_INVALIDATE | RDW_UPDATENOW | RDW_NOERASE);
+                    RedrawWindow(hwnd, NULL, NULL, RDW_INVALIDATE | RDW_UPDATENOW | RDW_NOERASE);
                     break;
                 case 2: // Toggle Key
                     UseToggleKey = !UseToggleKey;
                     Files::SaveConfig();
-                    RedrawWindow(hwnd, NULL, NULL,
-                        RDW_INVALIDATE | RDW_UPDATENOW | RDW_NOERASE);
+                    RedrawWindow(hwnd, NULL, NULL, RDW_INVALIDATE | RDW_UPDATENOW | RDW_NOERASE);
                     break;
                 case 3: // Attacker Selection
                     IsAttackerView = true;
                     Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
                     Buttons::CreateOperatorSelectionButtons(hwnd);
-                    RedrawWindow(hwnd, NULL, NULL,
-                        RDW_INVALIDATE | RDW_UPDATENOW | RDW_NOERASE);
+                    RedrawWindow(hwnd, NULL, NULL, RDW_INVALIDATE | RDW_UPDATENOW | RDW_NOERASE);
                     break;
                 case 4: // Defender Selection
                     IsAttackerView = false;
                     Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
                     Buttons::CreateOperatorSelectionButtons(hwnd);
-                    RedrawWindow(hwnd, NULL, NULL,
-                        RDW_INVALIDATE | RDW_UPDATENOW | RDW_NOERASE);
+                    RedrawWindow(hwnd, NULL, NULL, RDW_INVALIDATE | RDW_UPDATENOW | RDW_NOERASE);
                     break;
                 case 5: // Support button
                     system("start https://ko-fi.com/harryhopkinson");
@@ -76,32 +72,27 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 case 8: // "+" button (Vertical)
                     CurrentRecoil.Vertical = round(CurrentRecoil.Vertical + 0.5f);
                     Files::SaveConfig();
-                    RedrawWindow(hwnd, NULL, NULL,
-                        RDW_INVALIDATE | RDW_UPDATENOW | RDW_NOERASE);
+                    RedrawWindow(hwnd, NULL, NULL, RDW_INVALIDATE | RDW_UPDATENOW | RDW_NOERASE);
                     break;
                 case 9: // "-" button (Vertical)
                     CurrentRecoil.Vertical = round(CurrentRecoil.Vertical - 0.5f);
                     Files::SaveConfig();
-                    RedrawWindow(hwnd, NULL, NULL,
-                        RDW_INVALIDATE | RDW_UPDATENOW | RDW_NOERASE);
+                    RedrawWindow(hwnd, NULL, NULL, RDW_INVALIDATE | RDW_UPDATENOW | RDW_NOERASE);
                     break;
                 case 10: // "+" button (Horizontal)
                     CurrentRecoil.Horizontal = round(CurrentRecoil.Horizontal + 0.5f);
                     Files::SaveConfig();
-                    RedrawWindow(hwnd, NULL, NULL,
-                        RDW_INVALIDATE | RDW_UPDATENOW | RDW_NOERASE);
+                    RedrawWindow(hwnd, NULL, NULL, RDW_INVALIDATE | RDW_UPDATENOW | RDW_NOERASE);
                     break;
                 case 11: // "-" button (Horizontal)
                     CurrentRecoil.Horizontal = round(CurrentRecoil.Horizontal - 0.5f);
                     Files::SaveConfig();
-                    RedrawWindow(hwnd, NULL, NULL,
-                        RDW_INVALIDATE | RDW_UPDATENOW | RDW_NOERASE);
+                    RedrawWindow(hwnd, NULL, NULL, RDW_INVALIDATE | RDW_UPDATENOW | RDW_NOERASE);
                     break;
                 case 12: // Save Config button
                     Files::SaveConfig();
                     Files::SaveWeaponData(PresetIndex);
-                    RedrawWindow(hwnd, NULL, NULL,
-                        RDW_INVALIDATE | RDW_UPDATENOW | RDW_NOERASE);
+                    RedrawWindow(hwnd, NULL, NULL, RDW_INVALIDATE | RDW_UPDATENOW | RDW_NOERASE);
                     break;
             }
         }
@@ -195,7 +186,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         case WM_ERASEBKGND:
             return 1; // Prevent flickering by not erasing background
-        break;
+            break;
 
         default:
             return DefWindowProc(hwnd, uMsg, wParam, lParam);
@@ -218,8 +209,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
     Files::LoadConfig();
 
     HWND hwnd = CreateWindowEx(
-        0, wc.lpszClassName, "R6 No Recoil", WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX, CW_USEDEFAULT,
-        CW_USEDEFAULT, WINDOW_WIDTH, WINDOW_HEIGHT, nullptr, nullptr, hInstance, nullptr);
+        0, wc.lpszClassName, "R6 No Recoil", WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX | WS_CLIPCHILDREN,
+        CW_USEDEFAULT, CW_USEDEFAULT, WINDOW_WIDTH, WINDOW_HEIGHT, nullptr, nullptr, hInstance, nullptr);
 
     if (!hwnd) return 0;
 

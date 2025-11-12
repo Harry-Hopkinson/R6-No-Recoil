@@ -43,8 +43,8 @@ namespace Threads
                 continue;
             }
 
-            float moveX = CurrentRecoil.Horizontal * 2.0f;
-            float moveY = CurrentRecoil.Vertical * 2.0f;
+            int moveX = CurrentRecoil.Horizontal * 2.0f;
+            int moveY = CurrentRecoil.Vertical * 2.0f;
 
             if (controllerConnected)
             {

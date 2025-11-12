@@ -15,7 +15,7 @@ namespace Inputs
         return (GetAsyncKeyState(VK_LBUTTON) & 0x8000);
     }
 
-    void MoveMouseRaw(float dx, float dy)
+    void MoveMouseRaw(int dx, int dy)
     {
         INPUT input = { 0 };
         input.type = INPUT_MOUSE;

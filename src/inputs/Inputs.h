@@ -18,7 +18,7 @@ namespace Inputs
     /*
      * Moves the mouse cursor by the specified amount.
      */
-    void MoveMouseRaw(float dx, float dy);
+    void MoveMouseRaw(int dx, int dy);
 
     /*
      * Returns true if a controller is connected.

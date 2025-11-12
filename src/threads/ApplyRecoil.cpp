@@ -9,10 +9,10 @@
 inline constexpr int FIRE_DELAY_MS = 5;
 inline constexpr int IDLE_DELAY_MS = 5;
 
-static std::pair<int, int> CalculateRecoil(int baseX, int baseY, float lookX, float lookY)
+static std::pair<int, int> CalculateRecoil(float baseX, float baseY, float lookX, float lookY)
 {
-    int adjustedX = baseX + static_cast<int>(lookX * ControllerMultiplier);
-    int adjustedY = baseY + static_cast<int>(-lookY * ControllerMultiplier);
+    int adjustedX = static_cast<int>(baseX + (lookX * ControllerMultiplier));
+    int adjustedY = static_cast<int>(baseY + (-lookY * ControllerMultiplier));
     return { adjustedX, adjustedY };
 }
 

@@ -8,50 +8,12 @@
 #include "../files/Files.h"
 #include "../scenes/Scenes.h"
 #include "../recoil/Recoil.h"
+#include "../utils/StringUtils.h"
 
 inline constexpr const char* WINDOW_TITLE = "R6 No Recoil";
 
 inline constexpr int TOGGLE_DELAY_MS = 300;
 inline constexpr int POLL_INTERVAL_MS = 50;
-
-static void GetWeaponAtIndex(const char* weapons, int index, char* out, size_t out_size)
-{
-    if (!weapons || !out || out_size == 0) return;
-
-    int current = 0;
-    const char* start = weapons;
-
-    while (*start)
-    {
-        while (*start && isspace((unsigned char)*start))
-            ++start;
-
-        const char* end = start;
-        while (*end && *end != ',')
-            ++end;
-
-        if (current == index)
-        {
-            const char* trim_end = end;
-            while (trim_end > start && isspace((unsigned char)*(trim_end - 1)))
-                --trim_end;
-
-            size_t len = trim_end - start;
-            if (len >= out_size) len = out_size - 1;
-
-            memcpy(out, start, len);
-            out[len] = '\0';
-            return;
-        }
-
-        if (*end == ',') ++end;
-
-        start = end;
-        ++current;
-    }
-
-    out[0] = '\0';
-}
 
 static HWND GetWindowHandle()
 {
@@ -66,7 +28,7 @@ static void LoadWeaponRecoil(int weaponIndex)
     const char* weapons = IsAttackerView ? AttackerWeapons[selectedOperatorIndex] : DefenderWeapons[selectedOperatorIndex];
 
     char weaponName[16] = {};
-    GetWeaponAtIndex(weapons, weaponIndex, weaponName, sizeof(weaponName));
+    StringUtils::GetWeaponAtIndex(weapons, weaponIndex, weaponName, sizeof(weaponName));
 
     CurrentRecoil = Files::GetWeaponData(weaponName, 1);
     Files::SaveConfig();

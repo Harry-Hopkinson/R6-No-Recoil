@@ -18,9 +18,10 @@ namespace Drawing
 
     void DrawWeaponDisplay(HDC memDC, int right, int bottom)
     {
-        const char* operatorName = IsAttackerView ? AttackerNames[SelectedOperatorIndex] : DefenderNames[SelectedOperatorIndex];
-        const char* weaponStr = IsAttackerView ? AttackerWeapons[SelectedOperatorIndex]
-                                               : DefenderWeapons[SelectedOperatorIndex];
+        const int selectedOperatorIndex = Scenes::GetSelectedOperatorIndex();
+        const char* operatorName = IsAttackerView ? AttackerNames[selectedOperatorIndex] : DefenderNames[selectedOperatorIndex];
+        const char* weaponStr = IsAttackerView ? AttackerWeapons[selectedOperatorIndex]
+                                               : DefenderWeapons[selectedOperatorIndex];
 
         // Titles
         Font::DrawCenteredText(memDC, operatorName, 0, 220, right, Font::GetLargeFont());

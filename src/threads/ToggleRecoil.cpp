@@ -62,7 +62,8 @@ static HWND GetWindowHandle()
 
 static void LoadWeaponRecoil(int weaponIndex)
 {
-    const char* weapons = IsAttackerView ? AttackerWeapons[SelectedOperatorIndex] : DefenderWeapons[SelectedOperatorIndex];
+    const int selectedOperatorIndex = Scenes::GetSelectedOperatorIndex();
+    const char* weapons = IsAttackerView ? AttackerWeapons[selectedOperatorIndex] : DefenderWeapons[selectedOperatorIndex];
 
     char weaponName[16] = {};
     GetWeaponAtIndex(weapons, weaponIndex, weaponName, sizeof(weaponName));

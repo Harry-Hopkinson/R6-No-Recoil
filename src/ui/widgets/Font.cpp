@@ -35,8 +35,7 @@ void Font::Cleanup()
 
 void Font::DrawCenteredText(HDC hdc, LPCSTR text, int x, int y, int width, HFONT font)
 {
-    if (!hdc || !text || !font)
-        return;
+    if (!hdc || !text || !font) return;
 
     HFONT oldFont = (HFONT)SelectObject(hdc, font);
 

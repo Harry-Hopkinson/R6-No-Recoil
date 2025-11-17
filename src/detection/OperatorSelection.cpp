@@ -4,6 +4,7 @@
 #include "../ui/Bitmap.h"
 #include "../ui/widgets/Button.h"
 #include "../utils/LayoutUtils.h"
+#include "../utils/WindowUtils.h"
 
 namespace ClickDetection
 {
@@ -17,14 +18,13 @@ namespace ClickDetection
 
             if (LayoutUtils::IsPointInRect(cellRect, mouseX, mouseY))
             {
-                SelectedOperatorIndex = static_cast<int>(i);
+                Scenes::SetSelectedOperatorIndex(static_cast<int>(i));
                 Scenes::ChangeCurrentScene(SceneType::WeaponDisplay);
 
                 for (const auto& button : Buttons::GetButtons())
                     ShowWindow(button.GetHWND(), SW_HIDE);
 
-                RedrawWindow(hwnd, NULL, NULL,
-                    RDW_INVALIDATE | RDW_UPDATENOW | RDW_NOERASE | RDW_NOCHILDREN);
+                WindowUtils::InvalidateWindowNoChildren(hwnd);
                 break;
             }
         }

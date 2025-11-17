@@ -8,14 +8,16 @@
 #include "../scenes/Scenes.h"
 #include "../ui/widgets/Button.h"
 #include "../utils/LayoutUtils.h"
+#include "../utils/WindowUtils.h"
 
 namespace ClickDetection
 {
 
     void WeaponDisplay(HWND hwnd, int right, int bottom, int mouseX, int mouseY)
     {
-        const char* weaponStr = IsAttackerView ? AttackerWeapons[SelectedOperatorIndex]
-                                               : DefenderWeapons[SelectedOperatorIndex];
+        const int selectedOperatorIndex = Scenes::GetSelectedOperatorIndex();
+        const char* weaponStr = IsAttackerView ? AttackerWeapons[selectedOperatorIndex]
+                                               : DefenderWeapons[selectedOperatorIndex];
 
         const char* weapons[3] = { nullptr, nullptr, nullptr };
         int weaponCount = String::ParseWeaponList(weaponStr, weapons, 3);
@@ -23,8 +25,7 @@ namespace ClickDetection
         int startX, startY;
         LayoutUtils::WeaponDisplayLayout::GetWeaponStartPosition(weaponCount, right, bottom, startX, startY);
 
-        auto ProceedIfReady = [&](int selectedWeaponIndex, int presetIndex)
-        {
+        auto ProceedIfReady = [&](int selectedWeaponIndex, int presetIndex) {
             PresetIndex = presetIndex;
 
             if (CurrentWeapon) free((void*)CurrentWeapon);
@@ -49,8 +50,7 @@ namespace ClickDetection
             if (LayoutUtils::IsPointInRect(weaponRect, mouseX, mouseY))
             {
                 ProceedIfReady(i, 1);
-                RedrawWindow(hwnd, NULL, NULL,
-                    RDW_INVALIDATE | RDW_UPDATENOW | RDW_NOERASE | RDW_NOCHILDREN);
+                WindowUtils::InvalidateWindowNoChildren(hwnd);
                 return;
             }
 
@@ -99,8 +99,7 @@ namespace ClickDetection
                 if (LayoutUtils::IsPointInRect(btnRect, mouseX, mouseY))
                 {
                     ProceedIfReady(i, p + 1); // Preset 1/2/3
-                    RedrawWindow(hwnd, NULL, NULL,
-                        RDW_INVALIDATE | RDW_UPDATENOW | RDW_NOERASE | RDW_NOCHILDREN);
+                    WindowUtils::InvalidateWindowNoChildren(hwnd);
                     return;
                 }
             }
@@ -112,8 +111,7 @@ namespace ClickDetection
         {
             Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
             Buttons::CreateOperatorSelectionButtons(hwnd);
-            RedrawWindow(hwnd, NULL, NULL,
-                RDW_INVALIDATE | RDW_UPDATENOW | RDW_NOERASE | RDW_NOCHILDREN);
+            WindowUtils::InvalidateWindowNoChildren(hwnd);
         }
 
         String::FreeWeaponList(weapons, weaponCount);

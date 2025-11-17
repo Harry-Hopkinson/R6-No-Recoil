@@ -3,7 +3,8 @@
 namespace
 {
     SceneType CurrentScene = SceneType::OperatorSelection;
-}
+    int SelectedOperatorIndex = -1;
+} // namespace
 
 namespace Scenes
 {
@@ -18,6 +19,14 @@ namespace Scenes
         CurrentScene = newScene;
     }
 
-} // namespace Scenes
+    int GetSelectedOperatorIndex()
+    {
+        return SelectedOperatorIndex;
+    }
 
-int SelectedOperatorIndex = -1;
+    void SetSelectedOperatorIndex(int index)
+    {
+        SelectedOperatorIndex = index;
+    }
+
+} // namespace Scenes

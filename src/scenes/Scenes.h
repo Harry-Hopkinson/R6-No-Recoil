@@ -12,6 +12,7 @@ namespace Scenes
     SceneType GetCurrentScene();
     void ChangeCurrentScene(SceneType newScene);
 
-} // namespace Scenes
+    int GetSelectedOperatorIndex();
+    void SetSelectedOperatorIndex(int index);
 
-extern int SelectedOperatorIndex;
+} // namespace Scenes

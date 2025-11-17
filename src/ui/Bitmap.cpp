@@ -111,8 +111,7 @@ namespace Bitmap
         SetStretchBltMode(hdc, HALFTONE);
         SetBrushOrgEx(hdc, 0, 0, nullptr);
 
-        BOOL result = StretchBlt(hdc, x, y, width, height,
-                                 hdcMem, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY);
+        BOOL result = StretchBlt(hdc, x, y, width, height, hdcMem, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY);
 
         if (oldBmp) SelectObject(hdcMem, oldBmp);
 

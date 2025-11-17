@@ -24,7 +24,7 @@ namespace ClickDetection
                 for (const auto& button : Buttons::GetButtons())
                     ShowWindow(button.GetHWND(), SW_HIDE);
 
-                    WindowUtils::InvalidateWindowNoChildren(hwnd);
+                WindowUtils::InvalidateWindowNoChildren(hwnd);
                 break;
             }
         }

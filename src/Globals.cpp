@@ -8,4 +8,6 @@ bool EnableController = false;
 
 bool UseToggleKey = false;
 
+bool DarkTheme = true;
+
 const char* CurrentWeapon = nullptr;

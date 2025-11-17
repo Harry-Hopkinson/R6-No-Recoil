@@ -124,7 +124,10 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             HBITMAP memBitmap = CreateCompatibleBitmap(hdc, rect.right, rect.bottom);
             HGDIOBJ oldBitmap = SelectObject(memDC, memBitmap);
 
-            FillRect(memDC, &rect, (HBRUSH)(COLOR_WINDOW + 1));
+            // Background color depending on DarkTheme
+            HBRUSH bgBrush = CreateSolidBrush(DarkTheme ? RGB(30, 30, 30) : RGB(255, 255, 255));
+            FillRect(memDC, &rect, bgBrush);
+            DeleteObject(bgBrush);
 
             switch (Scenes::GetCurrentScene())
             {
@@ -183,10 +186,6 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             return 0;
         }
         break;
-
-        case WM_ERASEBKGND:
-            return 1; // Prevent flickering by not erasing background
-            break;
 
         default:
             return DefWindowProc(hwnd, uMsg, wParam, lParam);

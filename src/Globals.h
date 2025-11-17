@@ -11,4 +11,6 @@ extern bool EnableController;
 
 extern bool UseToggleKey;
 
+extern bool DarkTheme;
+
 extern const char* CurrentWeapon;

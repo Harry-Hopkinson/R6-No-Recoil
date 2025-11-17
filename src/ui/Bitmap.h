@@ -51,7 +51,6 @@ namespace Bitmap
      * @param width Width to draw
      * @param height Height to draw
      * @param showPlaceholder Whether to show placeholder on failure
-     * @return True if bitmap was drawn successfully
      */
     void DrawBitmap(HDC hdc, HBITMAP bitmap, int x, int y, int width, int height);
 

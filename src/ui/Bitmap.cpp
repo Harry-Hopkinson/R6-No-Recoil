@@ -9,13 +9,25 @@
 namespace Bitmap
 {
 
-    std::vector<HBITMAP> AttackerBitmaps;
-    std::vector<HBITMAP> DefenderBitmaps;
+    static std::vector<HBITMAP> AttackerBitmaps;
+    static std::vector<HBITMAP> DefenderBitmaps;
     static std::vector<WeaponBitmapEntry> WeaponBitmaps;
 
     std::vector<HBITMAP>& GetCurrentBitmapList()
     {
         return IsAttackerView ? AttackerBitmaps : DefenderBitmaps;
+    }
+
+    void InitializeOperatorBitmaps(const std::vector<const char*>& attackerNames, const std::vector<const char*>& defenderNames)
+    {
+        AttackerBitmaps = LoadOperatorBitmaps(attackerNames);
+        DefenderBitmaps = LoadOperatorBitmaps(defenderNames);
+    }
+
+    void CleanupOperatorBitmaps()
+    {
+        CleanupBitmaps(AttackerBitmaps);
+        CleanupBitmaps(DefenderBitmaps);
     }
 
     static HBITMAP LoadBitmap(const char* path)

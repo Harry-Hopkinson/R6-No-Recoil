@@ -8,6 +8,7 @@
 #include "../scenes/Scenes.h"
 #include "../ui/widgets/Button.h"
 #include "../utils/LayoutUtils.h"
+#include "../utils/WindowUtils.h"
 
 namespace ClickDetection
 {
@@ -49,8 +50,7 @@ namespace ClickDetection
             if (LayoutUtils::IsPointInRect(weaponRect, mouseX, mouseY))
             {
                 ProceedIfReady(i, 1);
-                RedrawWindow(hwnd, NULL, NULL,
-                    RDW_INVALIDATE | RDW_UPDATENOW | RDW_NOERASE | RDW_NOCHILDREN);
+                WindowUtils::InvalidateWindowNoChildren(hwnd);
                 return;
             }
 
@@ -99,8 +99,7 @@ namespace ClickDetection
                 if (LayoutUtils::IsPointInRect(btnRect, mouseX, mouseY))
                 {
                     ProceedIfReady(i, p + 1); // Preset 1/2/3
-                    RedrawWindow(hwnd, NULL, NULL,
-                        RDW_INVALIDATE | RDW_UPDATENOW | RDW_NOERASE | RDW_NOCHILDREN);
+                    WindowUtils::InvalidateWindowNoChildren(hwnd);
                     return;
                 }
             }

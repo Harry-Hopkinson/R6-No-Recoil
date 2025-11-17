@@ -4,6 +4,7 @@
 #include "../ui/Bitmap.h"
 #include "../ui/widgets/Button.h"
 #include "../utils/LayoutUtils.h"
+#include "../utils/WindowUtils.h"
 
 namespace ClickDetection
 {
@@ -23,8 +24,7 @@ namespace ClickDetection
                 for (const auto& button : Buttons::GetButtons())
                     ShowWindow(button.GetHWND(), SW_HIDE);
 
-                RedrawWindow(hwnd, NULL, NULL,
-                    RDW_INVALIDATE | RDW_UPDATENOW | RDW_NOERASE | RDW_NOCHILDREN);
+                    WindowUtils::InvalidateWindowNoChildren(hwnd);
                 break;
             }
         }

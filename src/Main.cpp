@@ -105,8 +105,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             Buttons::CreateOperatorSelectionButtons(hwnd);
 
-            Bitmap::AttackerBitmaps = Bitmap::LoadOperatorBitmaps(AttackerNames);
-            Bitmap::DefenderBitmaps = Bitmap::LoadOperatorBitmaps(DefenderNames);
+            Bitmap::InitialiseOperatorBitmaps(AttackerNames, DefenderNames);
 
             Font::CreateFonts();
         }
@@ -173,8 +172,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         {
             Buttons::ClearButtons();
 
-            Bitmap::CleanupBitmaps(Bitmap::AttackerBitmaps);
-            Bitmap::CleanupBitmaps(Bitmap::DefenderBitmaps);
+            Bitmap::CleanupOperatorBitmaps();
             Bitmap::CleanupWeaponBitmaps();
 
             Font::Cleanup();

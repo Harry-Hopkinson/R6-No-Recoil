@@ -55,8 +55,18 @@ namespace Bitmap
      */
     bool DrawBitmap(HDC hdc, HBITMAP bitmap, int x, int y, int width, int height);
 
-    extern std::vector<HBITMAP> AttackerBitmaps;
-    extern std::vector<HBITMAP> DefenderBitmaps;
+    /**
+     * @brief Initialises operator bitmaps for attackers and defenders
+     * @param attackerNames Vector of attacker names
+     * @param defenderNames Vector of defender names
+     */
+    void InitialiseOperatorBitmaps(
+        const std::vector<const char*>& attackerNames, const std::vector<const char*>& defenderNames);
+
+    /**
+     * @brief Cleans up all operator bitmaps
+     */
+    void CleanupOperatorBitmaps();
 
     std::vector<HBITMAP>& GetCurrentBitmapList();
 

@@ -53,7 +53,7 @@ namespace Bitmap
      * @param showPlaceholder Whether to show placeholder on failure
      * @return True if bitmap was drawn successfully
      */
-    bool DrawBitmap(HDC hdc, HBITMAP bitmap, int x, int y, int width, int height);
+    void DrawBitmap(HDC hdc, HBITMAP bitmap, int x, int y, int width, int height);
 
     /**
      * @brief Initialises operator bitmaps for attackers and defenders

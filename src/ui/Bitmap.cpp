@@ -94,23 +94,8 @@ namespace Bitmap
         bitmaps.clear();
     }
 
-    static void DrawPlaceholder(HDC hdc, int x, int y, int width, int height)
+    void DrawBitmap(HDC hdc, HBITMAP bitmap, int x, int y, int width, int height)
     {
-        if (!hdc) return;
-
-        RECT imgRect = { x, y, x + width, y + height };
-        FrameRect(hdc, &imgRect, (HBRUSH)GetStockObject(BLACK_BRUSH));
-        FillRect(hdc, &imgRect, (HBRUSH)GetStockObject(LTGRAY_BRUSH));
-    }
-
-    bool DrawBitmap(HDC hdc, HBITMAP bitmap, int x, int y, int width, int height)
-    {
-        if (!hdc || !bitmap)
-        {
-            DrawPlaceholder(hdc, x, y, width, height);
-            return false;
-        }
-
         HDC hdcMem = CreateCompatibleDC(hdc);
         HGDIOBJ oldBmp = SelectObject(hdcMem, bitmap);
 
@@ -123,12 +108,10 @@ namespace Bitmap
         SetStretchBltMode(hdc, HALFTONE);
         SetBrushOrgEx(hdc, 0, 0, nullptr);
 
-        BOOL result = StretchBlt(hdc, x, y, width, height, hdcMem, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY);
-
-        if (oldBmp) SelectObject(hdcMem, oldBmp);
+        StretchBlt(hdc, x, y, width, height, hdcMem, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY);
+        SelectObject(hdcMem, oldBmp);
 
         DeleteDC(hdcMem);
-        return result != FALSE;
     }
 
 } // namespace Bitmap

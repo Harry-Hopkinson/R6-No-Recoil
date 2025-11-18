@@ -31,7 +31,6 @@ target_compile_definitions(R6NoRecoil PRIVATE
 file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR})
 
 target_link_libraries(R6NoRecoil PRIVATE xinput)
-target_link_libraries(R6NoRecoil PRIVATE msimg32)
 
 if(MINGW)
     target_compile_options(R6NoRecoil PRIVATE

@@ -94,24 +94,49 @@ namespace Bitmap
         bitmaps.clear();
     }
 
-    void DrawBitmap(HDC hdc, HBITMAP bitmap, int x, int y, int width, int height)
+    void DrawOperatorBitmap(HDC hdc, HBITMAP bitmap, int x, int y, int width, int height)
     {
-        HDC hdcMem = CreateCompatibleDC(hdc);
-        HGDIOBJ oldBmp = SelectObject(hdcMem, bitmap);
+        if (!hdc || !bitmap) return;
+
+        HDC memDC = CreateCompatibleDC(hdc);
+        HGDIOBJ oldBmp = SelectObject(memDC, bitmap);
 
         BITMAP bm{};
         GetObject(bitmap, sizeof(bm), &bm);
 
-        RECT imgRect = { x, y, x + width, y + height };
-        FrameRect(hdc, &imgRect, (HBRUSH)GetStockObject(BLACK_BRUSH));
+        const int cropMargin = 45;
+
+        int cropLeft = cropMargin;
+        int cropTop = cropMargin;
+        int cropWidth = bm.bmWidth - (cropMargin * 2);
+        int cropHeight = bm.bmHeight - (cropMargin * 2);
 
         SetStretchBltMode(hdc, HALFTONE);
-        SetBrushOrgEx(hdc, 0, 0, nullptr);
+        SetBrushOrgEx(hdc, 0, 0, NULL);
 
-        StretchBlt(hdc, x, y, width, height, hdcMem, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY);
-        SelectObject(hdcMem, oldBmp);
+        StretchBlt(hdc, x, y, width, height, memDC, cropLeft, cropTop, cropWidth, cropHeight, SRCCOPY);
 
-        DeleteDC(hdcMem);
+        SelectObject(memDC, oldBmp);
+        DeleteDC(memDC);
+    }
+
+    void DrawWeaponBitmap(HDC hdc, HBITMAP bitmap, int x, int y, int width, int height)
+    {
+        if (!hdc || !bitmap) return;
+
+        HDC memDC = CreateCompatibleDC(hdc);
+        HGDIOBJ oldBmp = SelectObject(memDC, bitmap);
+
+        BITMAP bm{};
+        GetObject(bitmap, sizeof(bm), &bm);
+
+        SetStretchBltMode(hdc, HALFTONE);
+        SetBrushOrgEx(hdc, 0, 0, NULL);
+
+        StretchBlt(hdc, x, y, width, height, memDC, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY);
+
+        SelectObject(memDC, oldBmp);
+        DeleteDC(memDC);
     }
 
 } // namespace Bitmap

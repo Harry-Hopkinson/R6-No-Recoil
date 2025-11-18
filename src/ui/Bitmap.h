@@ -43,16 +43,26 @@ namespace Bitmap
     void CleanupBitmaps(std::vector<HBITMAP>& bitmaps);
 
     /**
-     * @brief Draws a bitmap with proper scaling and error handling
+     * @brief Draws a bitmap for an operator
      * @param hdc Device context to draw on
      * @param bitmap Bitmap to draw
      * @param x X position
      * @param y Y position
      * @param width Width to draw
      * @param height Height to draw
-     * @param showPlaceholder Whether to show placeholder on failure
      */
-    void DrawBitmap(HDC hdc, HBITMAP bitmap, int x, int y, int width, int height);
+    void DrawOperatorBitmap(HDC hdc, HBITMAP bitmap, int x, int y, int width, int height);
+
+    /**
+     * @brief Draws a weapon bitmap
+     * @param hdc Device context to draw on
+     * @param bitmap Bitmap to draw
+     * @param x X position
+     * @param y Y position
+     * @param width Width to draw
+     * @param height Height to draw
+     */
+     void DrawWeaponBitmap(HDC hdc, HBITMAP bitmap, int x, int y, int width, int height);
 
     /**
      * @brief Initialises operator bitmaps for attackers and defenders

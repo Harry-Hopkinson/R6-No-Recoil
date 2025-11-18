@@ -7,6 +7,7 @@
 #include "../scenes/Scenes.h"
 
 #include "../ui/Bitmap.h"
+#include "../ui/Themes.h"
 #include "../ui/widgets/Font.h"
 
 #include "../utils/LayoutUtils.h"
@@ -23,6 +24,8 @@ namespace Drawing
                                                : DefenderWeapons[SelectedOperatorIndex];
 
         // Titles
+        SetBkMode(memDC, TRANSPARENT); // <<< Add this once
+
         Font::DrawCenteredText(memDC, operatorName, 0, 220, right, Font::GetLargeFont());
         Font::DrawCenteredText(memDC, "Select a weapon:", 0, 260, right, Font::GetMediumFont());
 
@@ -125,7 +128,7 @@ namespace Drawing
         // Back button
         RECT backBtn = { 30, bottom - 80, 130, bottom - 31 };
         DrawText(memDC, "Back", -1, &backBtn, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-        FrameRect(memDC, &backBtn, (HBRUSH)GetStockObject(BLACK_BRUSH));
+        FrameRect(memDC, &backBtn, (HBRUSH)GetStockObject(GRAY_BRUSH));
     }
 
 } // namespace Drawing

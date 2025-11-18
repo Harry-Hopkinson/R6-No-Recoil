@@ -2,6 +2,7 @@
 #include "../recoil/Recoil.h"
 
 #include "../ui/Bitmap.h"
+#include "../ui/Themes.h"
 #include "../ui/widgets/Font.h"
 
 #include "../utils/LayoutUtils.h"
@@ -32,11 +33,14 @@ namespace Drawing
             int x, y;
             LayoutUtils::OperatorGridLayout::GetCellPosition(i, x, y);
             Bitmap::DrawBitmap(
-                memDC, bitmaps[i], x, y, LayoutUtils::OperatorGridLayout::CELL_SIZE,
-                LayoutUtils::OperatorGridLayout::CELL_SIZE, 45);
+                memDC, bitmaps[i], x, y, LayoutUtils::OperatorGridLayout::CELL_SIZE, LayoutUtils::OperatorGridLayout::CELL_SIZE,
+                45);
         }
 
         RECT infoBoxRect = { 40, 10, right - 355, 40 };
+        HBRUSH bgBrush = CreateSolidBrush(DarkTheme ? RGB(40, 40, 40) : RGB(240, 240, 240));
+        HGDIOBJ oldBrush = SelectObject(memDC, bgBrush);
+
         Rectangle(memDC, infoBoxRect.left, infoBoxRect.top, infoBoxRect.right - 75, infoBoxRect.bottom);
 
         const int sectionWidth = (infoBoxRect.right - infoBoxRect.left) / 4;
@@ -80,6 +84,10 @@ namespace Drawing
         SelectObject(memDC, oldFont);
         SelectObject(memDC, oldPen);
         DeleteObject(pen);
+
+        // Restore brush
+        SelectObject(memDC, oldBrush);
+        DeleteObject(bgBrush);
     }
 
 } // namespace Drawing

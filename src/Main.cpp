@@ -15,6 +15,7 @@
 #include "threads/Threads.h"
 
 #include "ui/Bitmap.h"
+#include "ui/Themes.h"
 #include "ui/widgets/Button.h"
 #include "ui/widgets/Font.h"
 

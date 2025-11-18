@@ -66,35 +66,37 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 case 5: // Support button
                     system("start https://ko-fi.com/harryhopkinson");
                     break;
-                case 6: // GitHub button
-                    system("start https://github.com/Harry-Hopkinson/R6-No-Recoil");
-                    break;
-                case 7: // Discord button
+                case 6: // Discord button
                     system("start https://discord.gg/H98vCAWQ3m");
                     break;
-                case 8: // "+" button (Vertical)
+                case 7: // "+" button (Vertical)
                     CurrentRecoil.Vertical = round(CurrentRecoil.Vertical + 0.5f);
                     Files::SaveConfig();
                     WindowUtils::InvalidateWindow(hwnd);
                     break;
-                case 9: // "-" button (Vertical)
+                case 8: // "-" button (Vertical)
                     CurrentRecoil.Vertical = round(CurrentRecoil.Vertical - 0.5f);
                     Files::SaveConfig();
                     WindowUtils::InvalidateWindow(hwnd);
                     break;
-                case 10: // "+" button (Horizontal)
+                case 9: // "+" button (Horizontal)
                     CurrentRecoil.Horizontal = round(CurrentRecoil.Horizontal + 0.5f);
                     Files::SaveConfig();
                     WindowUtils::InvalidateWindow(hwnd);
                     break;
-                case 11: // "-" button (Horizontal)
+                case 10: // "-" button (Horizontal)
                     CurrentRecoil.Horizontal = round(CurrentRecoil.Horizontal - 0.5f);
                     Files::SaveConfig();
                     WindowUtils::InvalidateWindow(hwnd);
                     break;
-                case 12: // Save Config button
+                case 11: // Save Config button
                     Files::SaveConfig();
                     Files::SaveWeaponData(PresetIndex);
+                    WindowUtils::InvalidateWindow(hwnd);
+                    break;
+                case 12: // Dark Theme toggle
+                    DarkTheme = !DarkTheme;
+                    Files::SaveConfig();
                     WindowUtils::InvalidateWindow(hwnd);
                     break;
             }

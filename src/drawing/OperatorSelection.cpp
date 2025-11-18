@@ -31,9 +31,9 @@ namespace Drawing
         {
             int x, y;
             LayoutUtils::OperatorGridLayout::GetCellPosition(i, x, y);
-            Bitmap::DrawOperatorBitmap(
+            Bitmap::DrawBitmap(
                 memDC, bitmaps[i], x, y, LayoutUtils::OperatorGridLayout::CELL_SIZE,
-                LayoutUtils::OperatorGridLayout::CELL_SIZE);
+                LayoutUtils::OperatorGridLayout::CELL_SIZE, 45);
         }
 
         RECT infoBoxRect = { 40, 10, right - 355, 40 };

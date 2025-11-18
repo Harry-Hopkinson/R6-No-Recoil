@@ -44,7 +44,7 @@ namespace Drawing
 
             // Draw weapon image
             HBITMAP weaponBmp = Bitmap::GetWeaponBitmap(weapons[i]);
-            Bitmap::DrawWeaponBitmap(
+            Bitmap::DrawBitmap(
                 memDC, weaponBmp, x, y, LayoutUtils::WeaponDisplayLayout::WEAPON_WIDTH,
                 LayoutUtils::WeaponDisplayLayout::WEAPON_HEIGHT);
 

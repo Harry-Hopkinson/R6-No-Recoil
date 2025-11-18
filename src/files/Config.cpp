@@ -4,6 +4,8 @@
 #include "../core/Keys.h"
 #include "../recoil/Recoil.h"
 
+#include "../ui/Themes.h"
+
 #include "../utils/FileUtils.h"
 #include "../utils/StringUtils.h"
 
@@ -41,6 +43,10 @@ namespace Files
         len += sprintf_s(buffer + len, bufferSize - len, "PrimaryKey = %d\r\n", PrimaryKey);
         len += sprintf_s(buffer + len, bufferSize - len, "SecondaryKey = %d\r\n", SecondaryKey);
         len += sprintf_s(buffer + len, bufferSize - len, "TertiaryKey = %d\r\n", TertiaryKey);
+        len += sprintf_s(buffer + len, bufferSize - len, "\r\n");
+
+        len += sprintf_s(buffer + len, bufferSize - len, "[Theme]\r\n");
+        len += sprintf_s(buffer + len, bufferSize - len, "DarkTheme = %s\r\n", DarkTheme ? "true" : "false");
 
         FileUtils::WriteFileFromMemory("Config.toml", buffer, len);
     }
@@ -118,6 +124,11 @@ namespace Files
                     SecondaryKey = atoi(value);
                 else if (StringUtils::StringEquals(key, "TertiaryKey"))
                     TertiaryKey = atoi(value);
+            }
+            else if (StringUtils::StringEquals(section, "Theme"))
+            {
+                if (StringUtils::StringEquals(key, "DarkTheme"))
+                    DarkTheme = (StringUtils::StringEquals(value, "true") || StringUtils::StringEquals(value, "1"));
             }
 
             line = strtok(NULL, "\r\n");

@@ -82,6 +82,9 @@ ToggleRecoilEnabled = false
 PrimaryKey = 49
 SecondaryKey = 50
 TertiaryKey = 51
+
+[Theme]
+DarkTheme = true
 ```
 
 ### Fields Explained
@@ -104,6 +107,9 @@ TertiaryKey = 51
 - **PrimaryKey:** The key code for selecting the first weapon of a selected operator.
 - **SecondaryKey:** The key code for selecting the second weapon of a selected operator.
 - **TertiaryKey:** The key code for selecting the third weapon of a selected operator
+
+#### [Theme]
+- **DarkTheme:** Enable or disable dark theme for the tool.
 
 ## 🔫 WeaponData.json Explained
 

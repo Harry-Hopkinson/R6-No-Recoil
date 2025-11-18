@@ -16,3 +16,6 @@ ToggleRecoilEnabled = false
 PrimaryKey = 49
 SecondaryKey = 50
 TertiaryKey = 51
+
+[Theme]
+DarkTheme = true

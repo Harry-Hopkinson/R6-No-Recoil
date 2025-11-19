@@ -121,4 +121,31 @@ namespace Bitmap
         DeleteDC(memDC);
     }
 
+    void DrawWeaponBitmap(HDC hdc, HBITMAP bitmap, int x, int y, int width, int height, int cropMargin)
+    {
+        if (!hdc || !bitmap) return;
+
+        HDC memDC = CreateCompatibleDC(hdc);
+        HGDIOBJ oldBmp = SelectObject(memDC, bitmap);
+
+        BITMAP bm{};
+        GetObject(bitmap, sizeof(bm), &bm);
+
+        int srcX = cropMargin;
+        int srcY = cropMargin;
+        int srcW = bm.bmWidth - (cropMargin * 2);
+        int srcH = bm.bmHeight - (cropMargin * 2);
+
+        if (srcW < 1) srcW = 1;
+        if (srcH < 1) srcH = 1;
+
+        SetStretchBltMode(hdc, HALFTONE);
+        SetBrushOrgEx(hdc, 0, 0, NULL);
+
+        TransparentBlt(hdc, x, y, width, height, memDC, srcX, srcY, srcW, srcH, RGB(255, 255, 255));
+
+        SelectObject(memDC, oldBmp);
+        DeleteDC(memDC);
+    }
+
 } // namespace Bitmap

@@ -127,7 +127,6 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             HBITMAP memBitmap = CreateCompatibleBitmap(hdc, rect.right, rect.bottom);
             HGDIOBJ oldBitmap = SelectObject(memDC, memBitmap);
 
-            // Background color depending on DarkTheme
             HBRUSH bgBrush = CreateSolidBrush(DarkTheme ? RGB(30, 30, 30) : RGB(255, 255, 255));
             FillRect(memDC, &rect, bgBrush);
             DeleteObject(bgBrush);

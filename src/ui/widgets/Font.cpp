@@ -41,11 +41,9 @@ void Font::DrawCenteredText(HDC hdc, LPCSTR text, int x, int y, int width, HFONT
 
     HFONT oldFont = (HFONT)SelectObject(hdc, font);
 
-    // Save previous text color and background mode
     COLORREF oldColor = GetTextColor(hdc);
     int oldBkMode = SetBkMode(hdc, TRANSPARENT);
 
-    // Theme-aware text color
     COLORREF textColor = DarkTheme ? RGB(220, 220, 220) : RGB(40, 40, 40);
     SetTextColor(hdc, textColor);
 
@@ -56,7 +54,6 @@ void Font::DrawCenteredText(HDC hdc, LPCSTR text, int x, int y, int width, HFONT
 
     TextOutA(hdc, textX, y, text, static_cast<int>(strlen(text)));
 
-    // Restore previous settings
     SetTextColor(hdc, oldColor);
     SetBkMode(hdc, oldBkMode);
 

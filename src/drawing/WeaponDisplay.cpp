@@ -24,7 +24,7 @@ namespace Drawing
                                                : DefenderWeapons[SelectedOperatorIndex];
 
         // Titles
-        SetBkMode(memDC, TRANSPARENT); // <<< Add this once
+        SetBkMode(memDC, TRANSPARENT);
 
         Font::DrawCenteredText(memDC, operatorName, 0, 220, right, Font::GetLargeFont());
         Font::DrawCenteredText(memDC, "Select a weapon:", 0, 260, right, Font::GetMediumFont());

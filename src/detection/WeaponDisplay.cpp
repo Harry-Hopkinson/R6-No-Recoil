@@ -19,7 +19,7 @@ namespace ClickDetection
                                                : DefenderWeapons[SelectedOperatorIndex];
 
         const char* weapons[3] = { nullptr, nullptr, nullptr };
-        int weaponCount = String::ParseWeaponList(weaponStr, weapons, 3);
+        int weaponCount = String::ParseWeaponList(weaponStr, weapons);
 
         int startX, startY;
         LayoutUtils::WeaponDisplayLayout::GetWeaponStartPosition(weaponCount, right, bottom, startX, startY);

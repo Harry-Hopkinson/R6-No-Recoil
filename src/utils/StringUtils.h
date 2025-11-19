@@ -99,18 +99,17 @@ namespace StringUtils
     /**
      * @brief Parses a comma-separated weapon list into an array
      * @param weaponStr Comma-separated weapon string
-     * @param weapons Output array to store weapon names (max maxWeapons)
-     * @param maxWeapons Maximum number of weapons to parse
+     * @param weapons Output array to store weapon names (max 3)
      * @return Number of weapons parsed
      */
-    inline int ParseWeaponList(const char* weaponStr, const char* weapons[], int maxWeapons)
+    inline int ParseWeaponList(const char* weaponStr, const char* weapons[])
     {
-        if (!weaponStr || !weapons || maxWeapons <= 0) return 0;
+        if (!weaponStr || !weapons) return 0;
 
         int weaponCount = 0;
         const char* ptr = weaponStr;
 
-        while (*ptr && weaponCount < maxWeapons)
+        while (*ptr && weaponCount < 3)
         {
             // Skip leading spaces
             while (*ptr == ' ')

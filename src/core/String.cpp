@@ -15,9 +15,9 @@ namespace String
         return StringUtils::CopyString(input);
     }
 
-    int ParseWeaponList(const char* weaponStr, const char* weapons[], int maxWeapons)
+    int ParseWeaponList(const char* weaponStr, const char* weapons[])
     {
-        return StringUtils::ParseWeaponList(weaponStr, weapons, maxWeapons);
+        return StringUtils::ParseWeaponList(weaponStr, weapons);
     }
 
     void FreeWeaponList(const char* weapons[], int count)

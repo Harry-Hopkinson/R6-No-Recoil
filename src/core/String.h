@@ -22,10 +22,9 @@ namespace String
      * @brief Parses a comma-separated weapon list into an array
      * @param weaponStr The comma-separated weapon string
      * @param weapons Output array to store weapon names (max 3)
-     * @param maxWeapons Maximum number of weapons to parse
      * @return Number of weapons parsed
      */
-    int ParseWeaponList(const char* weaponStr, const char* weapons[], int maxWeapons);
+    int ParseWeaponList(const char* weaponStr, const char* weapons[]);
 
     /**
      * @brief Frees memory allocated for weapon names array

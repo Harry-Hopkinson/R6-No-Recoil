@@ -46,8 +46,8 @@ namespace LayoutUtils
      */
     struct WeaponDisplayLayout
     {
-        static constexpr int WEAPON_WIDTH = 300;
-        static constexpr int WEAPON_HEIGHT = 100;
+        static constexpr int WEAPON_WIDTH = 400;
+        static constexpr int WEAPON_HEIGHT = 150;
         static constexpr int WEAPON_SPACING = 10;
         static constexpr int WEAPON_NAME_HEIGHT = 30;
 

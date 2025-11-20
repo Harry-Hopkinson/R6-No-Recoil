@@ -109,7 +109,6 @@ namespace Bitmap
         int srcY = cropMargin;
         int srcW = bm.bmWidth - cropMargin * 2;
         int srcH = bm.bmHeight - cropMargin * 2;
-
         if (srcW < 1) srcW = 1;
         if (srcH < 1) srcH = 1;
 
@@ -117,9 +116,25 @@ namespace Bitmap
         SetBrushOrgEx(hdc, 0, 0, NULL);
 
         if (useTransparency)
-            TransparentBlt(hdc, x, y, width, height, memDC, srcX, srcY, srcW, srcH, RGB(255, 255, 255));
+        {
+            HDC tempDC = CreateCompatibleDC(hdc);
+            HBITMAP tempBmp = CreateCompatibleBitmap(hdc, width, height);
+            HGDIOBJ oldTempBmp = SelectObject(tempDC, tempBmp);
+
+            SetStretchBltMode(tempDC, HALFTONE);
+            SetBrushOrgEx(tempDC, 0, 0, NULL);
+
+            StretchBlt(tempDC, 0, 0, width, height, memDC, srcX, srcY, srcW, srcH, SRCCOPY);
+            TransparentBlt(hdc, x, y, width, height, tempDC, 0, 0, width, height, RGB(255, 255, 255));
+
+            SelectObject(tempDC, oldTempBmp);
+            DeleteObject(tempBmp);
+            DeleteDC(tempDC);
+        }
         else
+        {
             StretchBlt(hdc, x, y, width, height, memDC, srcX, srcY, srcW, srcH, SRCCOPY);
+        }
 
         SelectObject(memDC, oldBmp);
         DeleteDC(memDC);

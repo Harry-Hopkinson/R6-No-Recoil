@@ -94,7 +94,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     Files::SaveWeaponData(PresetIndex);
                     WindowUtils::InvalidateWindow(hwnd);
                     break;
-                case 12: // Dark Theme toggle
+                case 12: // Toggle theme
                     DarkTheme = !DarkTheme;
                     Files::SaveConfig();
                     WindowUtils::InvalidateWindow(hwnd);

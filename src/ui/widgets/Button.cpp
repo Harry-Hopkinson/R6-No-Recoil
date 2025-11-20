@@ -65,7 +65,7 @@ namespace Buttons
         ButtonsVector.emplace_back(hwnd, startX + 150, startY - 100, 80, 40, "-", 10);
 
         ButtonsVector.emplace_back(hwnd, startX + 100, startY + 100, 140, 40, "Save Config", 11);
-        ButtonsVector.emplace_back(hwnd, WINDOW_WIDTH - 200, WINDOW_HEIGHT - 150, 160, 40, "Dark Theme", 12);
+        ButtonsVector.emplace_back(hwnd, WINDOW_WIDTH - 200, WINDOW_HEIGHT - 150, 160, 40, "Toggle Theme", 12);
     }
 
 } // namespace Buttons

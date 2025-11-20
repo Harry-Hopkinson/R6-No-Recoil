@@ -94,7 +94,8 @@ namespace Bitmap
         bitmaps.clear();
     }
 
-    void DrawBitmap(HDC hdc, HBITMAP bitmap, int x, int y, int width, int height, int cropMargin)
+    void DrawBitmap(
+        HDC hdc, HBITMAP bitmap, int x, int y, int width, int height, int cropMargin, bool useTransparency)
     {
         if (!hdc || !bitmap) return;
 
@@ -106,8 +107,8 @@ namespace Bitmap
 
         int srcX = cropMargin;
         int srcY = cropMargin;
-        int srcW = bm.bmWidth - (cropMargin * 2);
-        int srcH = bm.bmHeight - (cropMargin * 2);
+        int srcW = bm.bmWidth - cropMargin * 2;
+        int srcH = bm.bmHeight - cropMargin * 2;
 
         if (srcW < 1) srcW = 1;
         if (srcH < 1) srcH = 1;
@@ -115,32 +116,10 @@ namespace Bitmap
         SetStretchBltMode(hdc, HALFTONE);
         SetBrushOrgEx(hdc, 0, 0, NULL);
 
-        StretchBlt(hdc, x, y, width, height, memDC, srcX, srcY, srcW, srcH, SRCCOPY);
-
-        SelectObject(memDC, oldBmp);
-        DeleteDC(memDC);
-    }
-
-    void DrawWeaponBitmap(HDC hdc, HBITMAP bitmap, int x, int y, int width, int height)
-    {
-        if (!hdc || !bitmap) return;
-
-        HDC memDC = CreateCompatibleDC(hdc);
-        HGDIOBJ oldBmp = SelectObject(memDC, bitmap);
-
-        BITMAP bm{};
-        GetObject(bitmap, sizeof(bm), &bm);
-
-        int srcW = bm.bmWidth;
-        int srcH = bm.bmHeight;
-
-        if (srcW < 1) srcW = 1;
-        if (srcH < 1) srcH = 1;
-
-        SetStretchBltMode(hdc, HALFTONE);
-        SetBrushOrgEx(hdc, 0, 0, NULL);
-
-        TransparentBlt(hdc, x, y, width, height, memDC, 0, 0, srcW, srcH, RGB(255, 255, 255));
+        if (useTransparency)
+            TransparentBlt(hdc, x, y, width, height, memDC, srcX, srcY, srcW, srcH, RGB(255, 255, 255));
+        else
+            StretchBlt(hdc, x, y, width, height, memDC, srcX, srcY, srcW, srcH, SRCCOPY);
 
         SelectObject(memDC, oldBmp);
         DeleteDC(memDC);

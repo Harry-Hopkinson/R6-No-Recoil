@@ -67,7 +67,7 @@
     },
     {
         "name": "Scorpion-EVO",
-        "preset-1": { "vertical": 3.0, "horizontal": 0 },
+        "preset-1": { "vertical": 3.5, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
@@ -133,7 +133,7 @@
     },
     {
         "name": "AK-12",
-        "preset-1": { "vertical": 6.5, "horizontal": 0 },
+        "preset-1": { "vertical": 7.5, "horizontal": 0 },
         "preset-2": { "vertical": 2.5, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
@@ -151,8 +151,8 @@
     },
     {
         "name": "556XI",
-        "preset-1": { "vertical": 3.5, "horizontal": 0 },
-        "preset-2": { "vertical": 1.5, "horizontal": 0 },
+        "preset-1": { "vertical": 4.5, "horizontal": 0 },
+        "preset-2": { "vertical": 2.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
@@ -193,7 +193,7 @@
     },
     {
         "name": "C7E",
-        "preset-1": { "vertical": 7.5, "horizontal": 0 },
+        "preset-1": { "vertical": 8.0, "horizontal": 0 },
         "preset-2": { "vertical": 3.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
@@ -325,7 +325,7 @@
     },
     {
         "name": "417",
-        "preset-1": { "vertical": 2.5, "horizontal": 0 },
+        "preset-1": { "vertical": 3.0, "horizontal": 0 },
         "preset-2": { "vertical": 1.5, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
@@ -379,7 +379,7 @@
     },
     {
         "name": "SMG-12",
-        "preset-1": { "vertical": 4.5, "horizontal": 0 },
+        "preset-1": { "vertical": 5.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },

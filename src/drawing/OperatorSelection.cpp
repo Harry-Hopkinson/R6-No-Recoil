@@ -2,6 +2,7 @@
 #include "../recoil/Recoil.h"
 
 #include "../ui/Bitmap.h"
+#include "../ui/Themes.h"
 #include "../ui/widgets/Font.h"
 
 #include "../utils/LayoutUtils.h"
@@ -17,21 +18,30 @@ namespace Drawing
     {
         const auto& bitmaps = Bitmap::GetCurrentBitmapList();
 
-        // Draw operator bitmaps in grid
+        COLORREF textColor = DarkTheme ? RGB(230, 230, 230) : RGB(40, 40, 40);
+        COLORREF lineColor = DarkTheme ? RGB(180, 180, 180) : RGB(0, 0, 0);
+
+        HPEN pen = CreatePen(PS_SOLID, 1, lineColor);
+        HGDIOBJ oldPen = SelectObject(memDC, pen);
+        HFONT oldFont = (HFONT)SelectObject(memDC, Font::GetDescFont());
+        SetTextColor(memDC, textColor);
+        SetBkMode(memDC, TRANSPARENT);
+
+        // Draw operator bitmaps
         for (size_t i = 0; i < bitmaps.size(); ++i)
         {
             int x, y;
             LayoutUtils::OperatorGridLayout::GetCellPosition(i, x, y);
             Bitmap::DrawBitmap(
-                memDC, bitmaps[i], x, y, LayoutUtils::OperatorGridLayout::CELL_SIZE,
-                LayoutUtils::OperatorGridLayout::CELL_SIZE);
+                memDC, bitmaps[i], x, y, LayoutUtils::OperatorGridLayout::CELL_SIZE, LayoutUtils::OperatorGridLayout::CELL_SIZE,
+                45);
         }
 
         RECT infoBoxRect = { 40, 10, right - 355, 40 };
-        Rectangle(memDC, infoBoxRect.left, infoBoxRect.top, infoBoxRect.right - 75, infoBoxRect.bottom);
+        HBRUSH bgBrush = CreateSolidBrush(DarkTheme ? RGB(40, 40, 40) : RGB(240, 240, 240));
+        HGDIOBJ oldBrush = SelectObject(memDC, bgBrush);
 
-        HFONT oldFont = (HFONT)SelectObject(memDC, Font::GetDescFont());
-        SetTextColor(memDC, RGB(60, 60, 60));
+        Rectangle(memDC, infoBoxRect.left, infoBoxRect.top, infoBoxRect.right - 75, infoBoxRect.bottom);
 
         const int sectionWidth = (infoBoxRect.right - infoBoxRect.left) / 4;
         RECT textRect;
@@ -70,7 +80,14 @@ namespace Drawing
         MoveToEx(memDC, 760, 60, nullptr);
         LineTo(memDC, 760, bottom - 20);
 
+        // Cleanup
         SelectObject(memDC, oldFont);
+        SelectObject(memDC, oldPen);
+        DeleteObject(pen);
+
+        // Restore brush
+        SelectObject(memDC, oldBrush);
+        DeleteObject(bgBrush);
     }
 
 } // namespace Drawing

@@ -1,5 +1,7 @@
 #include "Font.h"
 
+#include "../Themes.h"
+
 #include <windows.h>
 
 HFONT Font::FontMedium = nullptr;
@@ -39,11 +41,21 @@ void Font::DrawCenteredText(HDC hdc, LPCSTR text, int x, int y, int width, HFONT
 
     HFONT oldFont = (HFONT)SelectObject(hdc, font);
 
+    COLORREF oldColor = GetTextColor(hdc);
+    int oldBkMode = SetBkMode(hdc, TRANSPARENT);
+
+    COLORREF textColor = DarkTheme ? RGB(220, 220, 220) : RGB(40, 40, 40);
+    SetTextColor(hdc, textColor);
+
+    // Measure text size to center
     SIZE textSize{};
     GetTextExtentPoint32A(hdc, text, static_cast<int>(strlen(text)), &textSize);
-
     int textX = x + (width - textSize.cx) / 2;
+
     TextOutA(hdc, textX, y, text, static_cast<int>(strlen(text)));
+
+    SetTextColor(hdc, oldColor);
+    SetBkMode(hdc, oldBkMode);
 
     if (oldFont) SelectObject(hdc, oldFont);
 }

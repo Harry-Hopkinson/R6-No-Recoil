@@ -94,24 +94,50 @@ namespace Bitmap
         bitmaps.clear();
     }
 
-    void DrawBitmap(HDC hdc, HBITMAP bitmap, int x, int y, int width, int height)
+    void DrawBitmap(
+        HDC hdc, HBITMAP bitmap, int x, int y, int width, int height, int cropMargin, bool useTransparency)
     {
-        HDC hdcMem = CreateCompatibleDC(hdc);
-        HGDIOBJ oldBmp = SelectObject(hdcMem, bitmap);
+        if (!hdc || !bitmap) return;
+
+        HDC memDC = CreateCompatibleDC(hdc);
+        HGDIOBJ oldBmp = SelectObject(memDC, bitmap);
 
         BITMAP bm{};
         GetObject(bitmap, sizeof(bm), &bm);
 
-        RECT imgRect = { x, y, x + width, y + height };
-        FrameRect(hdc, &imgRect, (HBRUSH)GetStockObject(BLACK_BRUSH));
+        int srcX = cropMargin;
+        int srcY = cropMargin;
+        int srcW = bm.bmWidth - cropMargin * 2;
+        int srcH = bm.bmHeight - cropMargin * 2;
+        if (srcW < 1) srcW = 1;
+        if (srcH < 1) srcH = 1;
 
         SetStretchBltMode(hdc, HALFTONE);
-        SetBrushOrgEx(hdc, 0, 0, nullptr);
+        SetBrushOrgEx(hdc, 0, 0, NULL);
 
-        StretchBlt(hdc, x, y, width, height, hdcMem, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY);
-        SelectObject(hdcMem, oldBmp);
+        if (useTransparency)
+        {
+            HDC tempDC = CreateCompatibleDC(hdc);
+            HBITMAP tempBmp = CreateCompatibleBitmap(hdc, width, height);
+            HGDIOBJ oldTempBmp = SelectObject(tempDC, tempBmp);
 
-        DeleteDC(hdcMem);
+            SetStretchBltMode(tempDC, HALFTONE);
+            SetBrushOrgEx(tempDC, 0, 0, NULL);
+
+            StretchBlt(tempDC, 0, 0, width, height, memDC, srcX, srcY, srcW, srcH, SRCCOPY);
+            TransparentBlt(hdc, x, y, width, height, tempDC, 0, 0, width, height, RGB(255, 255, 255));
+
+            SelectObject(tempDC, oldTempBmp);
+            DeleteObject(tempBmp);
+            DeleteDC(tempDC);
+        }
+        else
+        {
+            StretchBlt(hdc, x, y, width, height, memDC, srcX, srcY, srcW, srcH, SRCCOPY);
+        }
+
+        SelectObject(memDC, oldBmp);
+        DeleteDC(memDC);
     }
 
 } // namespace Bitmap

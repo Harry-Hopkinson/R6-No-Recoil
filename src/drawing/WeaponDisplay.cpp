@@ -7,6 +7,7 @@
 #include "../scenes/Scenes.h"
 
 #include "../ui/Bitmap.h"
+#include "../ui/Themes.h"
 #include "../ui/widgets/Font.h"
 
 #include "../utils/LayoutUtils.h"
@@ -23,12 +24,14 @@ namespace Drawing
                                                : DefenderWeapons[SelectedOperatorIndex];
 
         // Titles
+        SetBkMode(memDC, TRANSPARENT);
+
         Font::DrawCenteredText(memDC, operatorName, 0, 220, right, Font::GetLargeFont());
         Font::DrawCenteredText(memDC, "Select a weapon:", 0, 260, right, Font::GetMediumFont());
 
         // Parse weapon list
         const char* weapons[3] = { nullptr, nullptr, nullptr };
-        int weaponCount = String::ParseWeaponList(weaponStr, weapons, 3);
+        int weaponCount = String::ParseWeaponList(weaponStr, weapons);
 
         int startX, startY;
         LayoutUtils::WeaponDisplayLayout::GetWeaponStartPosition(weaponCount, right, bottom, startX, startY);
@@ -46,12 +49,12 @@ namespace Drawing
             HBITMAP weaponBmp = Bitmap::GetWeaponBitmap(weapons[i]);
             Bitmap::DrawBitmap(
                 memDC, weaponBmp, x, y, LayoutUtils::WeaponDisplayLayout::WEAPON_WIDTH,
-                LayoutUtils::WeaponDisplayLayout::WEAPON_HEIGHT);
+                LayoutUtils::WeaponDisplayLayout::WEAPON_HEIGHT, 0, true);
 
             // Weapon name
             HFONT weaponFont = Font::GetLargeFont();
             HFONT oldFont = (HFONT)SelectObject(memDC, weaponFont);
-            SetTextColor(memDC, RGB(0, 0, 0));
+            SetTextColor(memDC, DarkTheme ? RGB(220, 220, 220) : RGB(60, 60, 60));
             RECT nameRect = { x, y + LayoutUtils::WeaponDisplayLayout::WEAPON_HEIGHT + 15,
                               x + LayoutUtils::WeaponDisplayLayout::WEAPON_WIDTH,
                               y + LayoutUtils::WeaponDisplayLayout::WEAPON_HEIGHT + 45 };
@@ -109,7 +112,7 @@ namespace Drawing
 
                 HFONT btnFont = Font::GetMediumFont();
                 HFONT oldBtnFont = (HFONT)SelectObject(memDC, btnFont);
-                SetTextColor(memDC, RGB(0, 0, 0));
+                SetTextColor(memDC, DarkTheme ? RGB(220, 220, 220) : RGB(60, 60, 60));
                 DrawText(memDC, presetText, -1, &btnRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
                 SelectObject(memDC, oldBtnFont);
             }
@@ -125,7 +128,7 @@ namespace Drawing
         // Back button
         RECT backBtn = { 30, bottom - 80, 130, bottom - 31 };
         DrawText(memDC, "Back", -1, &backBtn, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-        FrameRect(memDC, &backBtn, (HBRUSH)GetStockObject(BLACK_BRUSH));
+        FrameRect(memDC, &backBtn, (HBRUSH)GetStockObject(GRAY_BRUSH));
     }
 
 } // namespace Drawing

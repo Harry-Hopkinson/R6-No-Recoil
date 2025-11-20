@@ -43,25 +43,26 @@ namespace Bitmap
     void CleanupBitmaps(std::vector<HBITMAP>& bitmaps);
 
     /**
-     * @brief Draws a bitmap with proper scaling and error handling
+     * @brief Draws a bitmap onto a device context with optional cropping
      * @param hdc Device context to draw on
      * @param bitmap Bitmap to draw
      * @param x X position
      * @param y Y position
      * @param width Width to draw
      * @param height Height to draw
-     * @param showPlaceholder Whether to show placeholder on failure
-     * @return True if bitmap was drawn successfully
+     * @param cropMargin Margin to crop from the bitmap
+     * @param useTransparency Whether to use transparency when drawing
      */
-    void DrawBitmap(HDC hdc, HBITMAP bitmap, int x, int y, int width, int height);
+    void DrawBitmap(
+        HDC hdc, HBITMAP bitmap, int x, int y, int width, int height, int cropMargin = 0, bool useTransparency = false);
 
-    /**
-     * @brief Initialises operator bitmaps for attackers and defenders
-     * @param attackerNames Vector of attacker names
-     * @param defenderNames Vector of defender names
-     */
-    void InitialiseOperatorBitmaps(
-        const std::vector<const char*>& attackerNames, const std::vector<const char*>& defenderNames);
+        /**
+         * @brief Initialises operator bitmaps for attackers and defenders
+         * @param attackerNames Vector of attacker names
+         * @param defenderNames Vector of defender names
+         */
+        void InitialiseOperatorBitmaps(
+            const std::vector<const char*>& attackerNames, const std::vector<const char*>& defenderNames);
 
     /**
      * @brief Cleans up all operator bitmaps

@@ -62,9 +62,8 @@ namespace Bitmap
      * @param y Y position
      * @param width Width to draw
      * @param height Height to draw
-     * @param cropMargin Margin to crop from the bitmap
      */
-    void DrawWeaponBitmap(HDC hdc, HBITMAP bitmap, int x, int y, int width, int height, int cropMargin = 0);
+    void DrawWeaponBitmap(HDC hdc, HBITMAP bitmap, int x, int y, int width, int height);
 
     /**
      * @brief Initialises operator bitmaps for attackers and defenders

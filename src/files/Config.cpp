@@ -14,7 +14,7 @@ namespace Files
 
     void SaveConfig()
     {
-        char buffer[512];
+        char buffer[600];
         int len = 0;
         const int bufferSize = sizeof(buffer);
 
@@ -46,7 +46,12 @@ namespace Files
         len += sprintf_s(buffer + len, bufferSize - len, "\r\n");
 
         len += sprintf_s(buffer + len, bufferSize - len, "[Theme]\r\n");
-        len += sprintf_s(buffer + len, bufferSize - len, "DarkTheme = %s\r\n", DarkTheme ? "true" : "false");
+        len += sprintf_s(buffer + len, bufferSize - len, "BackgroundColour = RGB(%d, %d, %d)\r\n",
+            GetRValue(BackgroundColour), GetGValue(BackgroundColour), GetBValue(BackgroundColour));
+        len += sprintf_s(buffer + len, bufferSize - len, "TextColour = RGB(%d, %d, %d)\r\n",
+            GetRValue(TextColour), GetGValue(TextColour), GetBValue(TextColour));
+        len += sprintf_s(buffer + len, bufferSize - len, "LineColour = RGB(%d, %d, %d)\r\n",
+            GetRValue(LineColour), GetGValue(LineColour), GetBValue(LineColour));
 
         FileUtils::WriteFileFromMemory("Config.toml", buffer, len);
     }
@@ -127,8 +132,24 @@ namespace Files
             }
             else if (StringUtils::StringEquals(section, "Theme"))
             {
-                if (StringUtils::StringEquals(key, "DarkTheme"))
-                    DarkTheme = (StringUtils::StringEquals(value, "true") || StringUtils::StringEquals(value, "1"));
+                if (StringUtils::StringEquals(key, "BackgroundColour"))
+                {
+                    int r, g, b;
+                    if (sscanf_s(value, "RGB(%d, %d, %d)", &r, &g, &b) == 3)
+                        BackgroundColour = RGB(r, g, b);
+                }
+                else if (StringUtils::StringEquals(key, "TextColour"))
+                {
+                    int r, g, b;
+                    if (sscanf_s(value, "RGB(%d, %d, %d)", &r, &g, &b) == 3)
+                        TextColour = RGB(r, g, b);
+                }
+                else if (StringUtils::StringEquals(key, "LineColour"))
+                {
+                    int r, g, b;
+                    if (sscanf_s(value, "RGB(%d, %d, %d)", &r, &g, &b) == 3)
+                        LineColour = RGB(r, g, b);
+                }
             }
 
             line = strtok(NULL, "\r\n");

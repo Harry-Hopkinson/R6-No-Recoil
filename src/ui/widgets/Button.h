@@ -5,8 +5,6 @@
 #include <vector>
 
 typedef struct HWND__* HWND;
-typedef struct HMENU__* HMENU;
-typedef struct HINSTANCE__* HINSTANCE;
 
 class Button
 {

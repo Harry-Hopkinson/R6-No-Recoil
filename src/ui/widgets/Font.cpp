@@ -44,8 +44,7 @@ void Font::DrawCenteredText(HDC hdc, LPCSTR text, int x, int y, int width, HFONT
     COLORREF oldColor = GetTextColor(hdc);
     int oldBkMode = SetBkMode(hdc, TRANSPARENT);
 
-    COLORREF textColor = DarkTheme ? RGB(220, 220, 220) : RGB(40, 40, 40);
-    SetTextColor(hdc, textColor);
+    SetTextColor(hdc, TextColour);
 
     // Measure text size to center
     SIZE textSize{};

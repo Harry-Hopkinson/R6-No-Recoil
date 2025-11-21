@@ -84,7 +84,9 @@ SecondaryKey = 50
 TertiaryKey = 51
 
 [Theme]
-DarkTheme = true
+BackgroundColour = RGB(30, 30, 30)
+TextColour = RGB(230, 230, 230)
+LineColour = RGB(180, 180, 180)
 ```
 
 ### Fields Explained
@@ -109,7 +111,9 @@ DarkTheme = true
 - **TertiaryKey:** The key code for selecting the third weapon of a selected operator
 
 #### [Theme]
-- **DarkTheme:** Enable or disable dark theme for the tool.
+- **BackgroundColour:** RGB values for the background colour of the app.
+- **TextColour:** RGB values for the text colour of the app.
+- **LineColour:** RGB values for the line colour of the app.
 
 ## 🔫 WeaponData.json Explained
 

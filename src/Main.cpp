@@ -94,11 +94,6 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     Files::SaveWeaponData(PresetIndex);
                     WindowUtils::InvalidateWindow(hwnd);
                     break;
-                case 12: // Toggle theme
-                    DarkTheme = !DarkTheme;
-                    Files::SaveConfig();
-                    WindowUtils::InvalidateWindow(hwnd);
-                    break;
             }
         }
         break;
@@ -127,7 +122,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             HBITMAP memBitmap = CreateCompatibleBitmap(hdc, rect.right, rect.bottom);
             HGDIOBJ oldBitmap = SelectObject(memDC, memBitmap);
 
-            HBRUSH bgBrush = CreateSolidBrush(DarkTheme ? RGB(30, 30, 30) : RGB(255, 255, 255));
+            HBRUSH bgBrush = CreateSolidBrush(BackgroundColour);
             FillRect(memDC, &rect, bgBrush);
             DeleteObject(bgBrush);
 

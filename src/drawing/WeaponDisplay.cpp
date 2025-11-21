@@ -54,7 +54,8 @@ namespace Drawing
             // Weapon name
             HFONT weaponFont = Font::GetLargeFont();
             HFONT oldFont = (HFONT)SelectObject(memDC, weaponFont);
-            SetTextColor(memDC, DarkTheme ? RGB(220, 220, 220) : RGB(60, 60, 60));
+            SetTextColor(memDC, TextColour);
+
             RECT nameRect = { x, y + LayoutUtils::WeaponDisplayLayout::WEAPON_HEIGHT + 15,
                               x + LayoutUtils::WeaponDisplayLayout::WEAPON_WIDTH,
                               y + LayoutUtils::WeaponDisplayLayout::WEAPON_HEIGHT + 45 };
@@ -112,7 +113,7 @@ namespace Drawing
 
                 HFONT btnFont = Font::GetMediumFont();
                 HFONT oldBtnFont = (HFONT)SelectObject(memDC, btnFont);
-                SetTextColor(memDC, DarkTheme ? RGB(220, 220, 220) : RGB(60, 60, 60));
+                SetTextColor(memDC, TextColour);
                 DrawText(memDC, presetText, -1, &btnRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
                 SelectObject(memDC, oldBtnFont);
             }

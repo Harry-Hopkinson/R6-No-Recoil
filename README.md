@@ -63,7 +63,7 @@ The app automatically creates a `Config.toml` file on first run. You can manuall
 
 ### Example:
 
-```toml
+```ini
 [RecoilPresets]
 Enabled = true
 VerticalRecoil = 3.00

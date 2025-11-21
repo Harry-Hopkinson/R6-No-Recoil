@@ -111,8 +111,9 @@ namespace ClickDetection
         {
             Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
             Buttons::CreateOperatorSelectionButtons(hwnd);
-            RedrawWindow(hwnd, NULL, NULL,
-                RDW_INVALIDATE | RDW_UPDATENOW | RDW_NOERASE | RDW_NOCHILDREN);
+
+            WindowUtils::InvalidateWindowNoChildren(hwnd);
+            return;
         }
 
         String::FreeWeaponList(weapons, weaponCount);

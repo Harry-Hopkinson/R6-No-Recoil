@@ -43,18 +43,18 @@ void Font::DrawCenteredText(HDC hdc, LPCSTR text, int x, int y, int width, HFONT
 
     COLORREF oldColor = GetTextColor(hdc);
     int oldBkMode = SetBkMode(hdc, TRANSPARENT);
-
     SetTextColor(hdc, TextColour);
 
-    // Measure text size to center
+    int len = static_cast<int>(strlen(text));
     SIZE textSize{};
-    GetTextExtentPoint32A(hdc, text, static_cast<int>(strlen(text)), &textSize);
+    GetTextExtentPoint32A(hdc, text, len, &textSize);
+
     int textX = x + (width - textSize.cx) / 2;
 
-    TextOutA(hdc, textX, y, text, static_cast<int>(strlen(text)));
+    TextOutA(hdc, textX, y, text, len);
 
     SetTextColor(hdc, oldColor);
     SetBkMode(hdc, oldBkMode);
 
-    if (oldFont) SelectObject(hdc, oldFont);
+    if (oldFont != HGDI_ERROR) SelectObject(hdc, oldFont);
 }

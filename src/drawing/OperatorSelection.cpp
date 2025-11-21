@@ -3,6 +3,7 @@
 
 #include "../ui/Bitmap.h"
 #include "../ui/Themes.h"
+#include "../ui/widgets/Button.h"
 #include "../ui/widgets/Font.h"
 
 #include "../utils/LayoutUtils.h"
@@ -14,14 +15,33 @@ inline constexpr float CURRENT_VERSION = 3.0f;
 namespace Drawing
 {
 
+    static void DrawButton(HDC memDC, const Button& btn)
+    {
+        HBRUSH bgBrush = CreateSolidBrush(ButtonColour);
+        HPEN pen = CreatePen(PS_SOLID, 1, LineColour);
+        HGDIOBJ oldBrush = SelectObject(memDC, bgBrush);
+        HGDIOBJ oldPen = SelectObject(memDC, pen);
+
+        Rectangle(memDC, btn.x, btn.y, btn.x + btn.width, btn.y + btn.height);
+
+        SelectObject(memDC, oldBrush);
+        SelectObject(memDC, oldPen);
+        DeleteObject(bgBrush);
+        DeleteObject(pen);
+
+        SetTextColor(memDC, TextColour);
+        SetBkMode(memDC, TRANSPARENT);
+
+        RECT textRect = btn.GetRect();
+        DrawText(memDC, btn.text, -1, &textRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+    }
+
     void DrawOperatorSelection(HDC memDC, int right, int bottom)
     {
         const auto& bitmaps = Bitmap::GetCurrentBitmapList();
-
         HPEN pen = CreatePen(PS_SOLID, 1, LineColour);
         HGDIOBJ oldPen = SelectObject(memDC, pen);
         HFONT oldFont = (HFONT)SelectObject(memDC, Font::GetDescFont());
-
         SetTextColor(memDC, TextColour);
         SetBkMode(memDC, TRANSPARENT);
 
@@ -35,10 +55,10 @@ namespace Drawing
                 45);
         }
 
+        // Draw info box
         RECT infoBoxRect = { 40, 10, right - 355, 40 };
         HBRUSH bgBrush = CreateSolidBrush(BackgroundColour);
         HGDIOBJ oldBrush = SelectObject(memDC, bgBrush);
-
         Rectangle(memDC, infoBoxRect.left, infoBoxRect.top, infoBoxRect.right - 75, infoBoxRect.bottom);
 
         const int sectionWidth = (infoBoxRect.right - infoBoxRect.left) / 4;
@@ -67,14 +87,19 @@ namespace Drawing
         sprintf_s(currentVersionText, "Version: %.1f", CURRENT_VERSION);
         DrawText(memDC, currentVersionText, -1, &textRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
+        // Draw recoil labels
         RECT verticalLabelRect = { WINDOW_WIDTH - 340, (WINDOW_HEIGHT - 90) / 2 - 140, WINDOW_WIDTH - 150,
                                    (WINDOW_HEIGHT - 90) / 2 - 120 };
         RECT horizontalLabelRect = { WINDOW_WIDTH - 355, (WINDOW_HEIGHT - 90) / 2 - 90, WINDOW_WIDTH - 150,
                                      (WINDOW_HEIGHT - 90) / 2 - 70 };
-
         DrawText(memDC, "Vertical Recoil:", -1, &verticalLabelRect, DT_LEFT | DT_SINGLELINE | DT_VCENTER);
         DrawText(memDC, "Horizontal Recoil:", -1, &horizontalLabelRect, DT_LEFT | DT_SINGLELINE | DT_VCENTER);
 
+        // Draw all buttons
+        for (const auto& btn : Buttons::GetButtons())
+            DrawButton(memDC, btn);
+
+        // Draw vertical line
         MoveToEx(memDC, 760, 60, nullptr);
         LineTo(memDC, 760, bottom - 20);
 
@@ -82,8 +107,6 @@ namespace Drawing
         SelectObject(memDC, oldFont);
         SelectObject(memDC, oldPen);
         DeleteObject(pen);
-
-        // Restore brush
         SelectObject(memDC, oldBrush);
         DeleteObject(bgBrush);
     }

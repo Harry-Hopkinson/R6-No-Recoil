@@ -1,5 +1,7 @@
 #include "ClickDetection.h"
 
+#include "../Globals.h"
+
 #include "../core/Keys.h"
 #include "../core/String.h"
 #include "../files/Files.h"
@@ -35,7 +37,7 @@ namespace ClickDetection
             Files::SaveConfig();
 
             Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
-            Buttons::CreateOperatorSelectionButtons(hwnd);
+            Buttons::CreateOperatorSelectionButtons();
         };
 
         // Detect weapon and preset clicks
@@ -110,7 +112,7 @@ namespace ClickDetection
         if (LayoutUtils::IsPointInRect(backBtn, mouseX, mouseY))
         {
             Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
-            Buttons::CreateOperatorSelectionButtons(hwnd);
+            Buttons::CreateOperatorSelectionButtons();
 
             WindowUtils::InvalidateWindowNoChildren(hwnd);
             return;

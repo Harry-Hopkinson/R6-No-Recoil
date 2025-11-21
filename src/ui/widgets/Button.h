@@ -1,28 +1,32 @@
 #pragma once
 
-#include "../../Globals.h"
+#include <windows.h>
 
 #include <vector>
 
-typedef struct HWND__* HWND;
-
-class Button
+struct Button
 {
-public:
-    Button(HWND parent, int x, int y, int width, int height, const char* text, int id);
-
-    HWND GetHWND() const;
-
-private:
-    HWND hwndButton;
     int id;
+    int x, y, width, height;
+    const char* text;
+
+    RECT GetRect() const
+    {
+        return { x, y, x + width, y + height };
+    }
+
+    bool Contains(int px, int py) const
+    {
+        return px >= x && px < x + width && py >= y && py < y + height;
+    }
 };
 
 namespace Buttons
 {
-    const std::vector<Button>& GetButtons();
+
+    std::vector<Button>& GetButtons();
+
+    void CreateOperatorSelectionButtons();
 
     void ClearButtons();
-
-    void CreateOperatorSelectionButtons(HWND hwnd);
 } // namespace Buttons

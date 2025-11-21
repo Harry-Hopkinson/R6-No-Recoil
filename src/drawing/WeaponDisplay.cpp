@@ -113,6 +113,7 @@ namespace Drawing
 
                 HFONT btnFont = Font::GetMediumFont();
                 HFONT oldBtnFont = (HFONT)SelectObject(memDC, btnFont);
+
                 SetTextColor(memDC, TextColour);
                 DrawText(memDC, presetText, -1, &btnRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
                 SelectObject(memDC, oldBtnFont);

@@ -86,6 +86,7 @@ TertiaryKey = 51
 [Theme]
 BackgroundColour = RGB(30, 30, 30)
 TextColour = RGB(230, 230, 230)
+ButtonColour = RGB(70, 70, 70)
 LineColour = RGB(180, 180, 180)
 ```
 
@@ -113,6 +114,7 @@ LineColour = RGB(180, 180, 180)
 #### [Theme]
 - **BackgroundColour:** RGB values for the background colour of the app.
 - **TextColour:** RGB values for the text colour of the app.
+- **ButtonColour:** RGB values for the button colour of the app.
 - **LineColour:** RGB values for the line colour of the app.
 
 ## 🔫 WeaponData.json Explained

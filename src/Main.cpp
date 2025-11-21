@@ -5,6 +5,8 @@
 
 #include <thread>
 
+#include "Globals.h"
+
 #include "detection/ClickDetection.h"
 #include "drawing/Drawing.h"
 
@@ -19,11 +21,6 @@
 #include "ui/widgets/Button.h"
 #include "ui/widgets/Font.h"
 
-#include "utils/WindowUtils.h"
-
-#define ceilf(x) ((int)(x) + ((x) > (int)(x) ? 1 : 0))
-#define round(x) (ceilf((x) * 2.0f) / 2.0f)
-
 // Window Procedure for handling events
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
@@ -37,73 +34,12 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         }
         break;
 
-        case WM_COMMAND:
-        {
-            switch (LOWORD(wParam))
-            {
-                case 1: // Enable/Disable Recoil
-                    EnableRC = !EnableRC;
-                    Files::SaveConfig();
-                    WindowUtils::InvalidateWindow(hwnd);
-                    break;
-                case 2: // Toggle Key
-                    UseToggleKey = !UseToggleKey;
-                    Files::SaveConfig();
-                    WindowUtils::InvalidateWindow(hwnd);
-                    break;
-                case 3: // Attacker Selection
-                    IsAttackerView = true;
-                    Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
-                    Buttons::CreateOperatorSelectionButtons(hwnd);
-                    WindowUtils::InvalidateWindow(hwnd);
-                    break;
-                case 4: // Defender Selection
-                    IsAttackerView = false;
-                    Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
-                    Buttons::CreateOperatorSelectionButtons(hwnd);
-                    WindowUtils::InvalidateWindow(hwnd);
-                    break;
-                case 5: // Support button
-                    system("start https://ko-fi.com/harryhopkinson");
-                    break;
-                case 6: // Discord button
-                    system("start https://discord.gg/H98vCAWQ3m");
-                    break;
-                case 7: // "+" button (Vertical)
-                    CurrentRecoil.Vertical = round(CurrentRecoil.Vertical + 0.5f);
-                    Files::SaveConfig();
-                    WindowUtils::InvalidateWindow(hwnd);
-                    break;
-                case 8: // "-" button (Vertical)
-                    CurrentRecoil.Vertical = round(CurrentRecoil.Vertical - 0.5f);
-                    Files::SaveConfig();
-                    WindowUtils::InvalidateWindow(hwnd);
-                    break;
-                case 9: // "+" button (Horizontal)
-                    CurrentRecoil.Horizontal = round(CurrentRecoil.Horizontal + 0.5f);
-                    Files::SaveConfig();
-                    WindowUtils::InvalidateWindow(hwnd);
-                    break;
-                case 10: // "-" button (Horizontal)
-                    CurrentRecoil.Horizontal = round(CurrentRecoil.Horizontal - 0.5f);
-                    Files::SaveConfig();
-                    WindowUtils::InvalidateWindow(hwnd);
-                    break;
-                case 11: // Save Config button
-                    Files::SaveConfig();
-                    Files::SaveWeaponData(PresetIndex);
-                    WindowUtils::InvalidateWindow(hwnd);
-                    break;
-            }
-        }
-        break;
-
         case WM_CREATE:
         {
             HICON hIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON1));
             SendMessage(hwnd, WM_SETICON, ICON_BIG, (LPARAM)hIcon);
 
-            Buttons::CreateOperatorSelectionButtons(hwnd);
+            Buttons::CreateOperatorSelectionButtons();
 
             Bitmap::InitialiseOperatorBitmaps(AttackerNames, DefenderNames);
 

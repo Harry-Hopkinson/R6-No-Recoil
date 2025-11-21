@@ -20,4 +20,5 @@ TertiaryKey = 51
 [Theme]
 BackgroundColour = RGB(30, 30, 30)
 TextColour = RGB(230, 230, 230)
+ButtonColour = RGB(70, 70, 70)
 LineColour = RGB(180, 180, 180)

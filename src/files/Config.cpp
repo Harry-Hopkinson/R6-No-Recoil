@@ -50,6 +50,8 @@ namespace Files
             GetRValue(BackgroundColour), GetGValue(BackgroundColour), GetBValue(BackgroundColour));
         len += sprintf_s(buffer + len, bufferSize - len, "TextColour = RGB(%d, %d, %d)\r\n",
             GetRValue(TextColour), GetGValue(TextColour), GetBValue(TextColour));
+        len += sprintf_s(buffer + len, bufferSize - len, "ButtonColour = RGB(%d, %d, %d)\r\n",
+            GetRValue(ButtonColour), GetGValue(ButtonColour), GetBValue(ButtonColour));
         len += sprintf_s(buffer + len, bufferSize - len, "LineColour = RGB(%d, %d, %d)\r\n",
             GetRValue(LineColour), GetGValue(LineColour), GetBValue(LineColour));
 
@@ -143,6 +145,12 @@ namespace Files
                     int r, g, b;
                     if (sscanf_s(value, "RGB(%d, %d, %d)", &r, &g, &b) == 3)
                         TextColour = RGB(r, g, b);
+                }
+                else if (StringUtils::StringEquals(key, "ButtonColour"))
+                {
+                    int r, g, b;
+                    if (sscanf_s(value, "RGB(%d, %d, %d)", &r, &g, &b) == 3)
+                        ButtonColour = RGB(r, g, b);
                 }
                 else if (StringUtils::StringEquals(key, "LineColour"))
                 {

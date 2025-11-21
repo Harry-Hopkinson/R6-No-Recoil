@@ -1,20 +1,6 @@
 #include "Button.h"
 
-#include <windows.h>
-
-Button::Button(HWND parent, int x, int y, int width, int height, const char* text, int id)
-    : hwndButton(nullptr)
-    , id(id)
-{
-    hwndButton = CreateWindow(
-        "BUTTON", text, WS_VISIBLE | WS_CHILD | BS_PUSHBUTTON, x, y, width, height, parent,
-        reinterpret_cast<HMENU>(static_cast<uintptr_t>(id)), GetModuleHandle(NULL), NULL);
-}
-
-HWND Button::GetHWND() const
-{
-    return hwndButton;
-}
+#include "../../Globals.h"
 
 namespace
 {
@@ -24,47 +10,42 @@ namespace
 namespace Buttons
 {
 
-    const std::vector<Button>& GetButtons()
+    std::vector<Button>& GetButtons()
     {
         return ButtonsVector;
     }
 
     void ClearButtons()
     {
-        for (const auto& button : ButtonsVector)
-        {
-            HWND hwnd = button.GetHWND();
-            if (hwnd && IsWindow(hwnd)) DestroyWindow(hwnd);
-        }
         ButtonsVector.clear();
     }
 
-    void CreateOperatorSelectionButtons(HWND hwnd)
+    void CreateOperatorSelectionButtons()
     {
         ClearButtons();
 
         int startX = WINDOW_WIDTH - 200 - (350 / 2);
         int startY = (WINDOW_HEIGHT - 90) / 2;
 
-        ButtonsVector.emplace_back(hwnd, startX + 90, startY, 170, 40, "Toggle Recoil", 1);
-        ButtonsVector.emplace_back(hwnd, startX, startY + 50, 170, 40, "Toggle Key", 2);
+        ButtonsVector.push_back({ 1, startX + 90, startY, 170, 40, "Toggle Recoil" });
+        ButtonsVector.push_back({ 2, startX, startY + 50, 170, 40, "Toggle Key" });
 
-        ButtonsVector.emplace_back(
-            hwnd, startX + 180, startY + 50, 170, 40, IsAttackerView ? "Switch to Defenders" : "Switch to Attackers",
-            IsAttackerView ? 4 : 3);
+        ButtonsVector.push_back(
+            { IsAttackerView ? 4 : 3, startX + 180, startY + 50, 170, 40,
+              IsAttackerView ? "Switch to Defenders" : "Switch to Attackers" });
 
-        ButtonsVector.emplace_back(hwnd, startX, startY + 350, 160, 40, "Support the Project", 5);
-        ButtonsVector.emplace_back(hwnd, startX + 180, startY + 350, 160, 40, "Join the Discord", 6);
+        ButtonsVector.push_back({ 5, startX, startY + 350, 160, 40, "Support the Project" });
+        ButtonsVector.push_back({ 6, startX + 180, startY + 350, 160, 40, "Join the Discord" });
 
         // Vertical Recoil
-        ButtonsVector.emplace_back(hwnd, startX + 240, startY - 150, 80, 40, "+", 7);
-        ButtonsVector.emplace_back(hwnd, startX + 150, startY - 150, 80, 40, "-", 8);
+        ButtonsVector.push_back({ 7, startX + 240, startY - 150, 80, 40, "+" });
+        ButtonsVector.push_back({ 8, startX + 150, startY - 150, 80, 40, "-" });
 
         // Horizontal Recoil
-        ButtonsVector.emplace_back(hwnd, startX + 240, startY - 100, 80, 40, "+", 9);
-        ButtonsVector.emplace_back(hwnd, startX + 150, startY - 100, 80, 40, "-", 10);
+        ButtonsVector.push_back({ 9, startX + 240, startY - 100, 80, 40, "+" });
+        ButtonsVector.push_back({ 10, startX + 150, startY - 100, 80, 40, "-" });
 
-        ButtonsVector.emplace_back(hwnd, startX + 100, startY + 100, 140, 40, "Save Config", 11);
+        ButtonsVector.push_back({ 11, startX + 100, startY + 100, 140, 40, "Save Config" });
     }
 
 } // namespace Buttons

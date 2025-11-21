@@ -29,4 +29,5 @@ namespace Buttons
     void CreateOperatorSelectionButtons();
 
     void ClearButtons();
+
 } // namespace Buttons

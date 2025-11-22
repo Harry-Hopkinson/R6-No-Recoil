@@ -103,8 +103,8 @@ namespace Drawing
                 RECT btnRect = { buttonStartX, buttonStartY + p * (buttonHeight + buttonSpacing), buttonStartX + buttonWidth,
                                  buttonStartY + p * (buttonHeight + buttonSpacing) + buttonHeight };
 
-                // Outline
-                FrameRect(memDC, &btnRect, (HBRUSH)GetStockObject(BLACK_BRUSH));
+                HBRUSH lineBrush = CreateSolidBrush(LineColour);
+                FrameRect(memDC, &btnRect, lineBrush);
 
                 char presetText[32];
                 snprintf(
@@ -117,6 +117,8 @@ namespace Drawing
                 SetTextColor(memDC, TextColour);
                 DrawText(memDC, presetText, -1, &btnRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
                 SelectObject(memDC, oldBtnFont);
+
+                DeleteObject(lineBrush);
             }
         }
 

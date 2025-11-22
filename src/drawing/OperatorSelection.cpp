@@ -39,10 +39,13 @@ namespace Drawing
     void DrawOperatorSelection(HDC memDC, int right, int bottom)
     {
         const auto& bitmaps = Bitmap::GetCurrentBitmapList();
+
         HPEN pen = CreatePen(PS_SOLID, 1, LineColour);
         HGDIOBJ oldPen = SelectObject(memDC, pen);
+
         HFONT oldFont = (HFONT)SelectObject(memDC, Font::GetDescFont());
         SetTextColor(memDC, TextColour);
+
         SetBkMode(memDC, TRANSPARENT);
 
         // Draw operator bitmaps
@@ -106,8 +109,9 @@ namespace Drawing
         // Cleanup
         SelectObject(memDC, oldFont);
         SelectObject(memDC, oldPen);
-        DeleteObject(pen);
         SelectObject(memDC, oldBrush);
+
+        DeleteObject(pen);
         DeleteObject(bgBrush);
     }
 

@@ -53,7 +53,7 @@ std::vector<const char*> AttackerWeapons = {
     "552-Commando",               // Grim
     "PARA-308, CAMRS",            // Brava
     "R4-C, LMG-E",                // Ram
-    "AK-74M",                     // Deimos
+    "AK-74M, 44-Vendetta",        // Deimos
     "417, M249",                  // Rauora
 };
 

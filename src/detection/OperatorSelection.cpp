@@ -1,10 +1,7 @@
 #include "ClickDetection.h"
 
-#include "../Globals.h"
+#include "../handlers/ButtonHandler.h"
 
-#include "../files/Files.h"
-
-#include "../recoil/Recoil.h"
 #include "../scenes/Scenes.h"
 
 #include "../ui/Bitmap.h"
@@ -12,97 +9,6 @@
 
 #include "../utils/LayoutUtils.h"
 #include "../utils/WindowUtils.h"
-
-#define ceilf(x) ((int)(x) + ((x) > (int)(x) ? 1 : 0))
-#define round(x) (ceilf((x) * 2.0f) / 2.0f)
-
-namespace ButtonHandlers
-{
-
-    void HandleToggleRecoil(HWND hwnd)
-    {
-        EnableRC = !EnableRC;
-        Files::SaveConfig();
-        WindowUtils::InvalidateWindow(hwnd);
-    }
-
-    void HandleToggleKey(HWND hwnd)
-    {
-        UseToggleKey = !UseToggleKey;
-        Files::SaveConfig();
-
-        WindowUtils::InvalidateWindow(hwnd);
-    }
-
-    void HandleSwitchToAttackers(HWND hwnd)
-    {
-        IsAttackerView = true;
-        Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
-        Buttons::CreateOperatorSelectionButtons();
-
-        WindowUtils::InvalidateWindow(hwnd);
-    }
-
-    void HandleSwitchToDefenders(HWND hwnd)
-    {
-        IsAttackerView = false;
-        Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
-        Buttons::CreateOperatorSelectionButtons();
-
-        WindowUtils::InvalidateWindow(hwnd);
-    }
-
-    void HandleSupportProject(HWND)
-    {
-        system("start https://ko-fi.com/harryhopkinson");
-    }
-
-    void HandleJoinDiscord(HWND)
-    {
-        system("start https://discord.gg/H98vCAWQ3m");
-    }
-
-    void HandleVerticalRecoilPlus(HWND hwnd)
-    {
-        CurrentRecoil.Vertical = round(CurrentRecoil.Vertical + 0.5f);
-        Files::SaveConfig();
-
-        WindowUtils::InvalidateWindow(hwnd);
-    }
-
-    void HandleVerticalRecoilMinus(HWND hwnd)
-    {
-        CurrentRecoil.Vertical = round(CurrentRecoil.Vertical - 0.5f);
-        Files::SaveConfig();
-
-        WindowUtils::InvalidateWindow(hwnd);
-    }
-
-    void HandleHorizontalRecoilPlus(HWND hwnd)
-    {
-        CurrentRecoil.Horizontal = round(CurrentRecoil.Horizontal + 0.5f);
-        Files::SaveConfig();
-
-        WindowUtils::InvalidateWindow(hwnd);
-    }
-
-    void HandleHorizontalRecoilMinus(HWND hwnd)
-    {
-        CurrentRecoil.Horizontal = round(CurrentRecoil.Horizontal - 0.5f);
-        Files::SaveConfig();
-
-        WindowUtils::InvalidateWindow(hwnd);
-    }
-
-    void HandleSaveConfig(HWND hwnd)
-    {
-        Files::SaveConfig();
-        Files::SaveWeaponData(PresetIndex);
-
-        WindowUtils::InvalidateWindow(hwnd);
-    }
-
-} // namespace ButtonHandlers
 
 namespace ClickDetection
 {
@@ -116,37 +22,37 @@ namespace ClickDetection
                 switch (btn.id)
                 {
                     case 1:
-                        ButtonHandlers::HandleToggleRecoil(hwnd);
+                        ButtonHandler::HandleToggleRecoil(hwnd);
                         break;
                     case 2:
-                        ButtonHandlers::HandleToggleKey(hwnd);
+                        ButtonHandler::HandleToggleKey(hwnd);
                         break;
                     case 3:
-                        ButtonHandlers::HandleSwitchToAttackers(hwnd);
+                        ButtonHandler::HandleSwitchToAttackers(hwnd);
                         break;
                     case 4:
-                        ButtonHandlers::HandleSwitchToDefenders(hwnd);
+                        ButtonHandler::HandleSwitchToDefenders(hwnd);
                         break;
                     case 5:
-                        ButtonHandlers::HandleSupportProject(hwnd);
+                        ButtonHandler::HandleSupportProject(hwnd);
                         break;
                     case 6:
-                        ButtonHandlers::HandleJoinDiscord(hwnd);
+                        ButtonHandler::HandleJoinDiscord(hwnd);
                         break;
                     case 7:
-                        ButtonHandlers::HandleVerticalRecoilPlus(hwnd);
+                        ButtonHandler::HandleVerticalRecoilPlus(hwnd);
                         break;
                     case 8:
-                        ButtonHandlers::HandleVerticalRecoilMinus(hwnd);
+                        ButtonHandler::HandleVerticalRecoilMinus(hwnd);
                         break;
                     case 9:
-                        ButtonHandlers::HandleHorizontalRecoilPlus(hwnd);
+                        ButtonHandler::HandleHorizontalRecoilPlus(hwnd);
                         break;
                     case 10:
-                        ButtonHandlers::HandleHorizontalRecoilMinus(hwnd);
+                        ButtonHandler::HandleHorizontalRecoilMinus(hwnd);
                         break;
                     case 11:
-                        ButtonHandlers::HandleSaveConfig(hwnd);
+                        ButtonHandler::HandleSaveConfig(hwnd);
                         break;
                 }
 
@@ -171,6 +77,7 @@ namespace ClickDetection
             {
                 SelectedOperatorIndex = static_cast<int>(i);
                 Scenes::ChangeCurrentScene(SceneType::WeaponDisplay);
+
                 WindowUtils::InvalidateWindowNoChildren(hwnd);
                 break;
             }

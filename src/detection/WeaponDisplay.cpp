@@ -23,14 +23,25 @@ namespace ClickDetection
         const char* weapons[3] = { nullptr, nullptr, nullptr };
         int weaponCount = String::ParseWeaponList(weaponStr, weapons);
 
+        struct WeaponListGuard
+        {
+            const char** list;
+            int count;
+
+            ~WeaponListGuard()
+            {
+                String::FreeWeaponList(list, count);
+            }
+        } guard{ weapons, weaponCount };
+
         int startX, startY;
         LayoutUtils::WeaponDisplayLayout::GetWeaponStartPosition(weaponCount, right, bottom, startX, startY);
 
-        auto ProceedIfReady = [&](int selectedWeaponIndex, int presetIndex)
-        {
+        auto ProceedIfReady = [&](int selectedWeaponIndex, int presetIndex) {
             PresetIndex = presetIndex;
 
             if (CurrentWeapon) free((void*)CurrentWeapon);
+
             CurrentWeapon = _strdup(weapons[selectedWeaponIndex]);
 
             CurrentRecoil = Files::GetWeaponData(CurrentWeapon, presetIndex);
@@ -53,10 +64,11 @@ namespace ClickDetection
             {
                 ProceedIfReady(i, 1);
                 WindowUtils::InvalidateWindowNoChildren(hwnd);
+
                 return;
             }
 
-            // Vertical preset buttons
+            // Preset button rectangles
             const int buttonWidth = 200;
             const int buttonHeight = 45;
             const int buttonSpacing = 10;
@@ -64,12 +76,13 @@ namespace ClickDetection
             int buttonStartY = y + LayoutUtils::WeaponDisplayLayout::WEAPON_HEIGHT + 60;
             int buttonStartX = x + (LayoutUtils::WeaponDisplayLayout::WEAPON_WIDTH - buttonWidth) / 2;
 
-            // Key bind button area
+            // Keybind toggle button
             const int keyWidth = 100;
             const int keyHeight = 30;
 
             const int keyStartX = x + (LayoutUtils::WeaponDisplayLayout::WEAPON_WIDTH - keyWidth) / 2;
             const int keyStartY = y + LayoutUtils::WeaponDisplayLayout::WEAPON_HEIGHT + 225;
+
             RECT keyRect = { keyStartX, keyStartY + keyHeight + 20, keyStartX + keyWidth,
                              keyStartY + keyHeight + 20 + keyHeight };
 
@@ -86,13 +99,13 @@ namespace ClickDetection
                     case 2:
                         TertiaryKeyEnabled = !TertiaryKeyEnabled;
                         break;
-                    default:
-                        break;
                 }
+
                 InvalidateRect(hwnd, nullptr, FALSE);
                 return;
             }
 
+            // Preset 1/2/3 buttons
             for (int p = 0; p < 3; ++p)
             {
                 RECT btnRect = { buttonStartX, buttonStartY + p * (buttonHeight + buttonSpacing), buttonStartX + buttonWidth,
@@ -100,25 +113,24 @@ namespace ClickDetection
 
                 if (LayoutUtils::IsPointInRect(btnRect, mouseX, mouseY))
                 {
-                    ProceedIfReady(i, p + 1); // Preset 1/2/3
+                    ProceedIfReady(i, p + 1);
                     WindowUtils::InvalidateWindowNoChildren(hwnd);
+
                     return;
                 }
             }
         }
 
-        // Back button detection
+        // Back button
         RECT backBtn = { 30, bottom - 80, 130, bottom - 30 };
         if (LayoutUtils::IsPointInRect(backBtn, mouseX, mouseY))
         {
             Scenes::ChangeCurrentScene(SceneType::OperatorSelection);
             Buttons::CreateOperatorSelectionButtons();
-
             WindowUtils::InvalidateWindowNoChildren(hwnd);
+
             return;
         }
-
-        String::FreeWeaponList(weapons, weaponCount);
     }
 
 } // namespace ClickDetection

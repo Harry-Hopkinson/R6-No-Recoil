@@ -38,6 +38,15 @@ if(MINGW)
         -O2
         -Wall
         -Wextra
+
+        -Wpedantic
+        -Wunused
+        -Wunused-variable
+        -Wunused-function
+        -Wunused-parameter
+        -Wunused-but-set-variable
+        -Wunused-result
+
         -Wno-missing-field-initializers
         -fno-exceptions
         -fno-rtti

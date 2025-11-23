@@ -52,7 +52,7 @@ namespace ClickDetection
                         ButtonHandler::HandleHorizontalRecoilMinus(hwnd);
                         break;
                     case 11:
-                        ButtonHandler::HandleSaveConfig(hwnd);
+                        ButtonHandler::HandleSavePreset(hwnd);
                         break;
                 }
 

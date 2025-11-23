@@ -45,7 +45,7 @@ namespace Buttons
         ButtonsVector.push_back({ 9, startX + 240, startY - 100, 80, 40, "+" });
         ButtonsVector.push_back({ 10, startX + 150, startY - 100, 80, 40, "-" });
 
-        ButtonsVector.push_back({ 11, startX + 100, startY + 100, 140, 40, "Save Config" });
+        ButtonsVector.push_back({ 11, startX + 100, startY + 100, 140, 40, "Save Preset" });
     }
 
 } // namespace Buttons

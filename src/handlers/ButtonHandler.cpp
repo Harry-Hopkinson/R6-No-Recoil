@@ -23,6 +23,7 @@ namespace ButtonHandler
     {
         EnableRC = !EnableRC;
         Files::SaveConfig();
+        
         WindowUtils::InvalidateWindow(hwnd);
     }
 
@@ -94,9 +95,8 @@ namespace ButtonHandler
         WindowUtils::InvalidateWindow(hwnd);
     }
 
-    void HandleSaveConfig(HWND hwnd)
+    void HandleSavePreset(HWND hwnd)
     {
-        Files::SaveConfig();
         Files::SaveWeaponData(PresetIndex);
 
         WindowUtils::InvalidateWindow(hwnd);

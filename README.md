@@ -42,7 +42,7 @@ Most recoil tools like Logitech G Hub (now detectable) are bloated, heavy, and c
     - **Press `Toggle Recoil`** → Toggle the no-recoil effect on/off.
     - **Press `Change Mode`** → Adjust the strength of the recoil compensation.
     - **Press `Toggle Key`** -> Enable/Disable toggle key activating/deactivating recoil. Default CapsLock.
-    - **Press `Save Config`** -> Save current weapon data to the selected preset.
+    - **Press `Save Preset`** -> Save current weapon data to the selected preset.
     - **Switch to Defenders/Attackers** -> Change operator type.
 6. **Enjoy Smoother Aim!**
 

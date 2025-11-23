@@ -15,6 +15,6 @@ namespace ButtonHandler
     void HandleVerticalRecoilMinus(HWND hwnd);
     void HandleHorizontalRecoilPlus(HWND hwnd);
     void HandleHorizontalRecoilMinus(HWND hwnd);
-    void HandleSaveConfig(HWND hwnd);
+    void HandleSavePreset(HWND hwnd);
 
 } // namespace ButtonHandlers

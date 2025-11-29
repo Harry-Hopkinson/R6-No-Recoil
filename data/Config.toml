@@ -4,7 +4,7 @@ VerticalRecoil = 3.00
 HorizontalRecoil = 0.00
 
 [Controller]
-Enabled = false
+Enabled = true
 Multiplier = 10
 
 [Keys]
@@ -22,3 +22,4 @@ BackgroundColour = RGB(30, 30, 30)
 TextColour = RGB(230, 230, 230)
 ButtonColour = RGB(70, 70, 70)
 LineColour = RGB(180, 180, 180)
+

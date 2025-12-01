@@ -1,0 +1,454 @@
+---
+import "../styles/styles.css";
+
+import BaseLayout from "../BaseLayout.astro";
+
+const themes = [
+  {
+    name: "All Black",
+    image: "/themes/all-black.png",
+    config: {
+      BackgroundColour: "RGB(0, 0, 0)",
+      TextColour: "RGB(230, 230, 230)",
+      ButtonColour: "RGB(0, 0, 0)",
+      LineColour: "RGB(0, 0, 0)",
+    },
+  },
+  {
+    name: "Dracula",
+    image: "/themes/dracula.png",
+    config: {
+      BackgroundColour: "RGB(40, 42, 54)",
+      TextColour: "RGB(248, 248, 242)",
+      ButtonColour: "RGB(98, 114, 164)",
+      LineColour: "RGB(68, 71, 90)",
+    },
+  },
+  {
+    name: "Gruvbox",
+    image: "/themes/gruvbox.png",
+    config: {
+      BackgroundColour: "RGB(40, 40, 40)",
+      TextColour: "RGB(235, 219, 178)",
+      ButtonColour: "RGB(131, 104, 66)",
+      LineColour: "RGB(146, 131, 116)",
+    },
+  },
+  {
+    name: "Frost",
+    image: "/themes/frost.png",
+    config: {
+      BackgroundColour: "RGB(230, 240, 255)",
+      TextColour: "RGB(20, 40, 60)",
+      ButtonColour: "RGB(180, 200, 230)",
+      LineColour: "RGB(100, 130, 170)",
+    },
+  },
+  {
+    name: "Minimal Green",
+    image: "/themes/minimal-green.png",
+    config: {
+      BackgroundColour: "RGB(240, 245, 240)",
+      TextColour: "RGB(40, 55, 40)",
+      ButtonColour: "RGB(130, 180, 130)",
+      LineColour: "RGB(90, 130, 90)",
+    },
+  },
+  {
+    name: "Solarised",
+    image: "/themes/solarised.png",
+    config: {
+      BackgroundColour: "RGB(0, 43, 54)",
+      TextColour: "RGB(253, 246, 227)",
+      ButtonColour: "RGB(38, 139, 210)",
+      LineColour: "RGB(131, 148, 150)",
+    },
+  },
+  {
+    name: "Teal",
+    image: "/themes/teal.png",
+    config: {
+      BackgroundColour: "RGB(25, 30, 32)",
+      TextColour: "RGB(235, 235, 235)",
+      ButtonColour: "RGB(0, 150, 160)",
+      LineColour: "RGB(0, 110, 120)",
+    },
+  },
+];
+---
+
+<BaseLayout
+  title="Themes - R6 No Recoil"
+  description="Preview customisable themes for R6 No Recoil."
+  url="https://r6norecoil.com/themes"
+>
+  <style>
+    section.content {
+      background: white;
+      padding: 6rem 3rem;
+      border-top-left-radius: 40px;
+      border-top-right-radius: 40px;
+      box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.05);
+      min-height: 100vh;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 4rem;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s ease-out forwards;
+      animation-delay: 0.2s;
+    }
+
+    .page-header h1 {
+      font-size: 3rem;
+      color: #111;
+      margin-bottom: 1rem;
+    }
+
+    .page-header p {
+      font-size: 1.2rem;
+      color: #555;
+      line-height: 1.8;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .themes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s ease-out forwards;
+      animation-delay: 0.2s;
+    }
+
+    .theme-card {
+      background: #f8fafc;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 2px solid #e2e8f0;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .theme-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+      border-color: #0d6efd;
+    }
+
+    .theme-image {
+      width: 100%;
+      height: 250px;
+      overflow: hidden;
+      background: #e2e8f0;
+    }
+
+    .theme-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .theme-card:hover .theme-image img {
+      transform: scale(1.05);
+    }
+
+    .theme-info {
+      padding: 1.5rem;
+    }
+
+    .theme-name {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 1rem;
+    }
+
+    .config-preview {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1rem;
+      font-family: monospace;
+      font-size: 0.85rem;
+    }
+
+    .config-line {
+      color: #555;
+      margin: 0.25rem 0;
+    }
+
+    .config-key {
+      color: #0d6efd;
+      font-weight: 600;
+    }
+
+    .config-value {
+      color: #059669;
+    }
+
+    .info-box {
+      background: linear-gradient(135deg, #0d6efd, #3b82f6);
+      padding: 2.5rem;
+      border-radius: 16px;
+      color: white;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s ease-out forwards;
+      animation-delay: 0.2s;
+    }
+
+    .info-box h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .info-box p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 0.5rem;
+    }
+
+    .info-box code {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.95);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      position: relative;
+      max-width: 90%;
+      max-height: 90vh;
+      animation: zoomIn 0.3s ease-out;
+    }
+
+    .modal-image {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      color: white;
+      font-size: 2rem;
+      font-weight: bold;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.1);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .modal-close:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: rotate(90deg);
+    }
+
+    .modal-info {
+      position: absolute;
+      bottom: -80px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      color: white;
+    }
+
+    .modal-info h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .modal-info p {
+      font-size: 0.9rem;
+      color: #cbd5e1;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes zoomIn {
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 968px) {
+      section.content {
+        padding: 4rem 2rem;
+      }
+
+      .themes-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .page-header h1 {
+        font-size: 2.5rem;
+      }
+
+      .modal-content {
+        max-width: 95%;
+      }
+
+      .modal-info {
+        bottom: -100px;
+      }
+    }
+  </style>
+
+  <body>
+    <section class="content">
+      <div class="page-header">
+        <h1>🎨 Custom Themes</h1>
+        <p>
+          Browse collection of themes for R6 No Recoil. Click any theme to view
+          it in full size and see the exact configuration values.
+        </p>
+        <div style="margin-top: 2rem;">
+          <a href="/" class="icon-btn github-btn" aria-label="Home">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="28"
+              height="28"
+              fill="white"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 3l9 9-1.5 1.5L19 20a1 1 0 0 1-1 1h-4v-5h-4v5H6a1 1 0 0 1-1-1v-6.5L3 12l9-9z"
+              ></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="themes-grid">
+        {
+          themes.map((theme) => (
+            <div
+              class="theme-card"
+              data-theme-name={theme.name}
+              data-theme-image={theme.image}
+            >
+              <div class="theme-image">
+                <img src={theme.image} alt={theme.name} loading="lazy" />
+              </div>
+              <div class="theme-info">
+                <h3 class="theme-name">{theme.name}</h3>
+                <div class="config-preview">
+                  {Object.entries(theme.config).map(([key, value]) => (
+                    <div class="config-line">
+                      <span class="config-key">{key}</span> ={" "}
+                      <span class="config-value">{value}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="info-box">
+        <h2>💡 How to Apply Themes</h2>
+        <p>
+          Copy the RGB values from any theme and paste them into your
+          <code>Config.toml</code> file (located in the R6 No Recoil folder) under
+          the <code>[Theme]</code> section.
+        </p>
+        <p>Restart the application to see your new theme in action!</p>
+      </div>
+    </section>
+
+    <div class="modal" id="themeModal">
+      <div class="modal-content">
+        <span class="modal-close" id="modalClose">&times;</span>
+        <img class="modal-image" id="modalImage" src="" alt="" />
+        <div class="modal-info">
+          <h3 id="modalThemeName"></h3>
+          <p>Click outside or press ESC to close</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const modal = document.getElementById("themeModal")!;
+      const modalImage = document.getElementById(
+        "modalImage"
+      ) as HTMLImageElement;
+      const modalThemeName = document.getElementById("modalThemeName")!;
+      const modalClose = document.getElementById("modalClose")!;
+
+      function closeModal() {
+        modal.classList.remove("active");
+        document.body.style.overflow = "auto";
+      }
+
+      function openModal(name: string, image: string) {
+        modalImage.src = image;
+        modalImage.alt = name;
+        modalThemeName.textContent = name;
+        modal.classList.add("active");
+        document.body.style.overflow = "hidden";
+      }
+
+      document.querySelectorAll(".theme-card").forEach((card) => {
+        card.addEventListener("click", () => {
+          const name = card.getAttribute("data-theme-name");
+          const image = card.getAttribute("data-theme-image");
+          if (name && image) openModal(name, image);
+        });
+      });
+
+      modalClose.addEventListener("click", closeModal);
+      modal.addEventListener(
+        "click",
+        (e) => e.target === modal && closeModal()
+      );
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && modal.classList.contains("active")) {
+          closeModal();
+        }
+      });
+    </script>
+  </body>
+</BaseLayout>

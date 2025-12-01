@@ -12,87 +12,190 @@ import BaseLayout from "../BaseLayout.astro";
   <style>
     section.content {
       background: white;
-      padding: 5rem 3rem;
+      padding: 6rem 3rem;
       border-top-left-radius: 40px;
       border-top-right-radius: 40px;
       box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.05);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 3rem;
-      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
     }
 
-    .content .text {
-      margin-left: 20rem;
-      flex: 1;
-      min-width: 0;
+    .intro-section {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 4rem;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s ease-out forwards;
+      animation-delay: 0.2s;
     }
 
-    .content .image {
-      margin-left: -2rem;
-      flex: 1;
-      min-width: 0;
-    }
-
-    .content .image img {
-      width: 140%;
-      max-width: 1120px;
-      min-width: 800px;
-      height: auto;
-      object-fit: cover;
-      border-radius: 20px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      margin-top: 2rem;
-    }
-
-    @media (max-width: 768px) {
-      .content .image img {
-        display: none;
-      }
-      section.content {
-        flex-direction: column;
-        padding: 2rem 1rem;
-      }
-      .content .text,
-      .content .image {
-        margin-left: 0;
-        flex: unset;
-        width: 100%;
-      }
-      .content .image img {
-        max-width: 100%;
-        height: auto;
-      }
-    }
-
-    h2 {
-      font-size: 2rem;
+    .intro-section h2 {
+      font-size: 2.5rem;
       color: #111;
       margin-bottom: 1rem;
     }
 
-    ul,
-    ol {
-      padding-left: 1.5rem;
+    .intro-section p {
+      font-size: 1.2rem;
+      color: #555;
+      line-height: 1.8;
     }
 
-    ul li {
-      margin-bottom: 0.6rem;
+    .app-showcase {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      margin-bottom: 4rem;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s ease-out forwards;
+      animation-delay: 0.4s;
     }
 
-    ul li::before {
-      content: "✔️";
-      margin-right: 0.5rem;
+    .app-image {
+      position: relative;
+    }
+
+    .app-image img {
+      width: 100%;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      transition: transform 0.4s ease;
+    }
+
+    .app-image img:hover {
+      transform: scale(1.02);
+    }
+
+    .app-details h3 {
+      font-size: 1.8rem;
+      color: #111;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .app-details p {
+      font-size: 1.1rem;
+      color: #555;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-top: 4rem;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s ease-out forwards;
+      animation-delay: 0.6s;
+    }
+
+    .feature-card {
+      background: #f8fafc;
+      padding: 2rem;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      border-color: #0d6efd;
+    }
+
+    .feature-card h3 {
+      font-size: 1.3rem;
+      color: #111;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .feature-card p {
+      color: #555;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .usage-steps {
+      background: linear-gradient(135deg, #0d6efd, #3b82f6);
+      padding: 3rem;
+      border-radius: 20px;
+      color: white;
+      margin-top: 4rem;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s ease-out forwards;
+      animation-delay: 0.8s;
+    }
+
+    .usage-steps h3 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .steps-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .step {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1.5rem;
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+    }
+
+    .step-number {
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      background: white;
       color: #0d6efd;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 32px;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
     }
 
-    ol li {
-      margin-bottom: 0.6rem;
+    .step p {
+      margin: 0;
+      line-height: 1.6;
     }
 
-    p {
-      margin-top: 0.5rem;
-      margin-bottom: 1rem;
+    .disclaimer {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-top: 3rem;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s ease-out forwards;
+      animation-delay: 1s;
+    }
+
+    .disclaimer h3 {
+      color: #856404;
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .disclaimer p {
+      color: #856404;
+      margin: 0.5rem 0;
       line-height: 1.7;
     }
 
@@ -104,51 +207,39 @@ import BaseLayout from "../BaseLayout.astro";
       font-family: monospace;
     }
 
-    .social-buttons {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 1rem;
-      margin-top: 1.5rem;
+    .usage-steps code {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
     }
 
-    .icon-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 54px;
-      height: 54px;
-      padding: 0.6rem;
-      border-radius: 50%;
-      transition:
-        background 0.3s ease,
-        transform 0.2s ease;
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    .icon-btn svg {
-      width: 28px;
-      height: 28px;
-      fill: white;
-    }
+    @media (max-width: 968px) {
+      section.content {
+        padding: 4rem 2rem;
+      }
 
-    .icon-btn:hover {
-      transform: scale(1.05);
-    }
+      .app-showcase {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
 
-    .github-btn {
-      background-color: #000;
-    }
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
 
-    .github-btn:hover {
-      background: #333;
-    }
+      .intro-section h2 {
+        font-size: 2rem;
+      }
 
-    .discord-btn {
-      background-color: #7289da;
-    }
-
-    .discord-btn:hover {
-      background: #4b5cc4;
+      .steps-container {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 
@@ -230,49 +321,137 @@ import BaseLayout from "../BaseLayout.astro";
 
     <!-- Info Section -->
     <section id="info" class="content">
-      <div class="image">
-        <img src="/app.png" alt="App preview" />
-      </div>
-      <div class="text">
+      <div class="intro-section">
         <h2>🎯 What is R6 No Recoil?</h2>
         <p>
-          A lightweight, efficient no-recoil tool for Rainbow Six Siege. <br />
-          Designed for smooth performance and ease of use.
+          A lightweight, efficient no-recoil tool for Rainbow Six Siege.
+          Designed for smooth performance and ease of use, this open-source tool
+          does one thing exceptionally well — without the bloat.
         </p>
+      </div>
 
-        <h2>🚀 Why Use This Tool?</h2>
-        <ul>
-          <li>Reduces weapon recoil for better accuracy</li>
-          <li>Lightweight & fast — optimised for low CPU usage</li>
-          <li>No installation required — just run the <code>.exe</code></li>
-          <li>Powerful Config Support</li>
-          <li>Works on Windows 10 & 11</li>
-          <li>Open source & customisable</li>
-        </ul>
+      <div class="app-showcase">
+        <div class="app-image">
+          <img src="/app.png" alt="R6 No Recoil App Interface" />
+        </div>
+        <div class="app-details">
+          <h3>🚀 Built for Performance</h3>
+          <p>
+            Most recoil control tools are packed with features you'll never use,
+            slowing down your system. R6 No Recoil is different — it's optimised
+            for low CPU usage and lightning-fast response times.
+          </p>
+          <p>
+            With powerful config support and a clean interface, you get precise
+            control without the complexity. Just download, run, and play.
+          </p>
+          <p>
+            No installation required. Works seamlessly on Windows 10 and 11.
+            Fully open source and customisable to fit your playstyle.
+          </p>
+        </div>
+      </div>
 
-        <h2>🎮 How to Use</h2>
-        <ol>
-          <li>
-            Download <code>R6NoRecoil.exe</code> from the GitHub release page
-          </li>
-          <li>Double-click to run the program</li>
-          <li>Choose whether Attacking or Defending</li>
-          <li>Choose the operator and the primary gun</li>
-          <li>
-            Use the <strong>Toggle Recoil Button</strong> to toggle the effect
-          </li>
-          <li>Use the <strong>Change Mode Button</strong> to adjust speed</li>
-          <li>
-            Use the <strong>Toggle Key Button</strong> (default: CapsLock)
-          </li>
-        </ol>
+      <div class="features-grid">
+        <div class="feature-card">
+          <h3>⚡ Lightning Fast</h3>
+          <p>
+            Optimised for minimal CPU usage and instant response. No lag, no
+            delays — meaning no missed frames in game.
+          </p>
+        </div>
+        <div class="feature-card">
+          <h3>🎨 Powerful Configs</h3>
+          <p>
+            Extensive configuration options for every operator and weapon.
+            Fine-tune your recoil control to perfection on top of custom
+            keybinds and theme customisation.
+          </p>
+        </div>
+        <div class="feature-card">
+          <h3>🔓 Open Source</h3>
+          <p>
+            Fully transparent and customisable. Inspect the code, suggest
+            improvements, or modify it to your needs.
+          </p>
+        </div>
+        <div class="feature-card">
+          <h3>💻 No Installation</h3>
+          <p>
+            Just download, extract the zip folder and run the .exe file. No
+            bloated installers, no unnecessary dependencies — it just works.
+          </p>
+        </div>
+      </div>
 
-        <h2>⚠️ Disclaimer</h2>
-        <ul>
-          <li>This tool is for <strong>educational purposes only.</strong></li>
-          <li>Windows Defender may show a false positive.</li>
-          <li>Check using VirusTotal if unsure.</li>
-        </ul>
+      <div class="usage-steps">
+        <h3>🎮 How to Use</h3>
+        <div class="steps-container">
+          <div class="step">
+            <div class="step-number">1</div>
+            <p>
+              Click on the <code>Download Button</code> at the top of the website
+              and extract the zip folder
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <p>Double-click to run the program (no installation needed)</p>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <p>
+              Choose whether you're Attacking or Defending (defaults to
+              Attacking Operators)
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-number">4</div>
+            <p>
+              Select your operator and primary weapon by clicking on the icons
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-number">5</div>
+            <p>
+              Use the <strong>Toggle Recoil Button</strong> to enable/disable the
+              recoil control
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-number">6</div>
+            <p>
+              Use <strong>CapsLock</strong> (default) to toggle on/off during gameplay.
+              Enable by clicking on the Toggle Key button
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-number">7</div>
+            <p>
+              Modify toggle keys, themes, controller support and more in the
+              Config.toml file
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-number">8</div>
+            <p>
+              Enjoy improved accuracy and reduced recoil in Rainbow Six Siege
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="disclaimer">
+        <h3>⚠️ Important Disclaimer</h3>
+        <p>
+          <strong>This tool is for educational purposes only.</strong> Windows Defender
+          may flag it as a false positive due to the nature of input simulation. You
+          can verify the safety by checking the file on VirusTotal.
+        </p>
+        <p>
+          Always download from the official GitHub repository to ensure you have
+          the real version.
+        </p>
       </div>
     </section>
 

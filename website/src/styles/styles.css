@@ -115,6 +115,59 @@ section.hero {
   border: 1px solid #cbd5e1;
 }
 
+.btn.tertiary:hover {
+  background: #e2e8f0;
+}
+
+.social-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  padding: 0.6rem;
+  border-radius: 50%;
+  transition:
+    background 0.3s ease,
+    transform 0.2s ease;
+  text-decoration: none;
+}
+
+.icon-btn svg {
+  width: 28px;
+  height: 28px;
+  fill: white;
+}
+
+.icon-btn:hover {
+  transform: scale(1.05);
+}
+
+.github-btn {
+  background-color: #000;
+}
+
+.github-btn:hover {
+  background: #333;
+}
+
+.discord-btn {
+  background-color: #7289da;
+}
+
+.discord-btn:hover {
+  background: #4b5cc4;
+}
+
+/* Animations */
 @keyframes fadeIn {
   to {
     opacity: 1;

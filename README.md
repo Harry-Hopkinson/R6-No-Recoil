@@ -17,34 +17,30 @@
 
 </div>
 
-A lightweight, efficient **no-recoil tool** for Rainbow Six Siege. Designed for smooth performance and ease of use.
+A lightweight, efficient **no-recoil tool** for Rainbow Six Siege. Designed for smooth performance and ease of use, this open-source tool does one thing exceptionally well — without the bloat.
 
 ## 🧠 Why I Made This
 
-Most recoil tools like Logitech G Hub (now detectable) are bloated, heavy, and come with a ton of unnecessary overhead just to perform a simple task. I built this tool to be **clean**, **compact**, and **laser-focused** on one thing: **removing recoil with minimal system impact**. No drivers, no background bloat—just raw utility.
+Most recoil control tools are packed with features you'll never use, slowing down your system. Tools like Logitech G Hub (now detectable) were too large and bloated just to handle simple recoil control. I built this tool to be **clean**, **compact**, and **laser-focused** on one thing: **removing recoil with minimal system impact**. No drivers, no background bloat—just raw utility.
 
 ## 🚀 Why Use This Tool?
 
-- **📌 No Recoil** – Reduces weapon recoil for better accuracy.
-- **⚡ Lightweight & Fast** – Optimised for minimal CPU usage.
-- **🔧 No Installation Required** – Just run the `.exe`.
-- **⚙️ Powerful Config Support** – Modify the Config.toml/WeaponData.json files.
-- **🛠️ Highly Customisable** – Save weapon data to presets for quick switching.
-- **🖥️ Works on Any Setup** – Supports Windows 10/11.
+- **⚡ Lightning Fast** – Optimised for minimal CPU usage and instant response. No lag, no delays — meaning no missed frames in game.
+- **🎨 Powerful Configs** – Extensive configuration options for every operator and weapon. Fine-tune your recoil control to perfection on top of custom keybinds and theme customisation.
+- **🔓 Open Source** – Fully transparent and customisable. Inspect the code, suggest improvements, or modify it to your needs.
+- **💻 No Installation** – Just download, extract the zip folder and run the .exe file. No bloated installers, no unnecessary dependencies — it just works.
+- **🖥️ Works Seamlessly** – Supports Windows 10 and 11. Fully open source and customisable to fit your playstyle.
 
 ## 🎮 How to Use
 
-1. **Download** `R6NoRecoil` from the [Github Release Page](https://github.com/Harry-Hopkinson/R6-No-Recoil/releases/latest). Then extract the zip folder.
-2. **Run the Program** (double-click `R6NoRecoil.exe`).
-3. **Choose your operator and their primary weapon**.
-4. **Choose your weapon preset (clicking on the weapon image will default to preset 1)**.
-5. **Controls:**
-    - **Press `Toggle Recoil`** → Toggle the no-recoil effect on/off.
-    - **Press `Change Mode`** → Adjust the strength of the recoil compensation.
-    - **Press `Toggle Key`** -> Enable/Disable toggle key activating/deactivating recoil. Default CapsLock.
-    - **Press `Save Preset`** -> Save current weapon data to the selected preset.
-    - **Switch to Defenders/Attackers** -> Change operator type.
-6. **Enjoy Smoother Aim!**
+1. **Download** `R6NoRecoil.exe` from the [Website](https://r6norecoil.com/download) and extract the zip folder.
+2. **Run the Program** (double-click `R6NoRecoil.exe`). No installation needed.
+3. **Choose whether you're Attacking or Defending** (defaults to Attacking Operators).
+4. **Select your operator and primary weapon** by clicking on the icons.
+5. **Use the Toggle Recoil Button** to enable/disable the recoil control.
+6. **Use CapsLock** (default) to toggle on/off during gameplay. Enable by clicking on the Toggle Key button.
+7. **Modify toggle keys, themes, controller support and more** in the Config.toml file.
+8. **Enjoy improved accuracy and reduced recoil** in Rainbow Six Siege!
 
 ## 💸 Support Development
 
@@ -112,6 +108,7 @@ LineColour = RGB(180, 180, 180)
 - **TertiaryKey:** The key code for selecting the third weapon of a selected operator
 
 #### [Theme]
+
 - **BackgroundColour:** RGB values for the background colour of the app.
 - **TextColour:** RGB values for the text colour of the app.
 - **ButtonColour:** RGB values for the button colour of the app.
@@ -145,9 +142,10 @@ The app uses a `WeaponData.json` file to store **recoil compensation values** fo
 
 ## ⚠️ Disclaimer
 
-This tool is for **educational purposes only**. Use it at your own risk. I do not advocate cheating.
-Windows Defender may falsely flag this program as a virus. Just allow the app to run anyway. If you are unsure, use **VirusTotal** to check the program.
+**This tool is for educational purposes only.** Use it at your own risk. I do not advocate cheating.
+
+Windows Defender may flag it as a false positive due to the nature of input simulation. You can verify the safety by checking the file on VirusTotal. Always download from the official GitHub repository or the website to ensure you have the real version.
 
 ---
 
-**Got questions?** Feel free to open an issue!
+**Got questions?** Feel free to open an issue or join our [Discord](http://discord.gg/H98vCAWQ3m)!

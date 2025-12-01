@@ -9,6 +9,29 @@ import BaseLayout from "../BaseLayout.astro";
   description="Download the latest release or development build of R6 No Recoil."
   url="https://r6norecoil.com"
 >
+  <style>
+    .download-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .download-buttons .btn {
+      width: 260px;
+    }
+
+    .download-label {
+      color: #e0e0e0;
+      font-size: 0.98rem;
+      margin-bottom: 1rem;
+    }
+
+    .download-label:last-of-type {
+      margin-bottom: 0;
+    }
+  </style>
+
   <body>
     <!-- Hero Section -->
     <section class="hero">
@@ -19,39 +42,33 @@ import BaseLayout from "../BaseLayout.astro";
           <h1>Downloads</h1>
 
           <div class="buttons">
-            <div
-              style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;"
-            >
+            <div class="download-buttons">
               <a
                 target="_blank"
                 class="btn primary"
-                style="width: 260px;"
                 href="https://github.com/Harry-Hopkinson/R6-No-Recoil/releases/latest/download/R6NoRecoil.zip"
               >
                 🚀 Release Build
               </a>
-              <span
-                style="color: #e0e0e0; font-size: 0.98rem; margin-bottom: 1rem;"
-              >
+              <span class="download-label">
                 Stable, recommended for most users.
               </span>
               <a
                 href="https://nightly.link/Harry-Hopkinson/R6-No-Recoil/workflows/CI/main/R6NoRecoil.zip"
                 target="_blank"
                 class="btn secondary"
-                style="width: 260px;"
               >
                 🧪 Development Build
               </a>
-              <span style="color: #e0e0e0; font-size: 0.98rem;">
+              <span class="download-label">
                 Latest features & fixes. May be unstable.
               </span>
             </div>
           </div>
-          <div
-            style="display: flex; justify-content: center; gap: 1rem; margin-top: 1.5rem;"
-          >
-            <a href="/" class="github-btn" aria-label="Home">
+
+          <!-- Social Buttons -->
+          <div class="social-buttons">
+            <a href="/" class="icon-btn github-btn" aria-label="Home">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="28"
@@ -68,10 +85,9 @@ import BaseLayout from "../BaseLayout.astro";
             <a
               href="https://github.com/Harry-Hopkinson/R6-No-Recoil"
               target="_blank"
-              class="github-btn"
+              class="icon-btn github-btn"
               aria-label="View source on GitHub"
             >
-              <!-- GitHub SVG Icon -->
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 role="img"

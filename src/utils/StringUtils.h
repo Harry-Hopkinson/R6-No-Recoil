@@ -85,18 +85,6 @@ namespace StringUtils
     }
 
     /**
-     * @brief Checks if a string starts with a prefix
-     * @param str String to check
-     * @param prefix Prefix to look for
-     * @return true if str starts with prefix
-     */
-    inline bool StartsWith(const char* str, const char* prefix)
-    {
-        if (!str || !prefix) return false;
-        return strncmp(str, prefix, strlen(prefix)) == 0;
-    }
-
-    /**
      * @brief Parses a comma-separated weapon list into an array
      * @param weaponStr Comma-separated weapon string
      * @param weapons Output array to store weapon names (max 3)

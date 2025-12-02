@@ -42,6 +42,7 @@ namespace Bitmap
 
         char* path = String::BuildPath("assets/weapons/", weaponName);
         HBITMAP bitmap = LoadBitmap(path);
+
         delete[] path;
         return bitmap;
     }

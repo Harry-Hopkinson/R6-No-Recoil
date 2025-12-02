@@ -15,7 +15,7 @@
 namespace ClickDetection
 {
 
-    void WeaponDisplay(HWND hwnd, int right, int bottom, int mouseX, int mouseY)
+    void WeaponDisplay(HWND hwnd, int windowWidth, int windowHeight, int mouseX, int mouseY)
     {
         const char* weaponStr = IsAttackerView ? AttackerWeapons[SelectedOperatorIndex]
                                                : DefenderWeapons[SelectedOperatorIndex];
@@ -35,7 +35,12 @@ namespace ClickDetection
         } guard{ weapons, weaponCount };
 
         int startX, startY;
-        LayoutUtils::WeaponDisplayLayout::GetWeaponStartPosition(weaponCount, right, bottom, startX, startY);
+        LayoutUtils::WeaponDisplayLayout::GetWeaponStartPosition(weaponCount, windowWidth, windowHeight, startX, startY);
+
+        // Get dimensions
+        int weaponWidth = LayoutUtils::WeaponDisplayLayout::GetWeaponWidth(windowWidth);
+        int weaponHeight = LayoutUtils::WeaponDisplayLayout::GetWeaponHeight(windowHeight);
+        int spacing = LayoutUtils::WeaponDisplayLayout::GetWeaponSpacing(windowWidth);
 
         auto ProceedIfReady = [&](int selectedWeaponIndex, int presetIndex) {
             PresetIndex = presetIndex;
@@ -54,12 +59,12 @@ namespace ClickDetection
         // Detect weapon and preset clicks
         for (int i = 0; i < weaponCount; ++i)
         {
-            int x = startX
-                + i * (LayoutUtils::WeaponDisplayLayout::WEAPON_WIDTH + LayoutUtils::WeaponDisplayLayout::WEAPON_SPACING);
+            int x = startX + i * (weaponWidth + spacing);
             int y = startY;
 
             // Check if weapon image clicked and default to Preset 1
-            RECT weaponRect = LayoutUtils::WeaponDisplayLayout::GetWeaponRect(i, startX, startY);
+            RECT weaponRect = LayoutUtils::WeaponDisplayLayout::GetWeaponRect(
+                i, windowWidth, windowHeight, startX, startY);
             if (LayoutUtils::IsPointInRect(weaponRect, mouseX, mouseY))
             {
                 ProceedIfReady(i, 1);
@@ -73,15 +78,15 @@ namespace ClickDetection
             const int buttonHeight = 45;
             const int buttonSpacing = 10;
 
-            int buttonStartY = y + LayoutUtils::WeaponDisplayLayout::WEAPON_HEIGHT + 60;
-            int buttonStartX = x + (LayoutUtils::WeaponDisplayLayout::WEAPON_WIDTH - buttonWidth) / 2;
+            int buttonStartY = y + weaponHeight + 60;
+            int buttonStartX = x + (weaponWidth - buttonWidth) / 2;
 
             // Keybind toggle button
             const int keyWidth = 100;
             const int keyHeight = 30;
 
-            const int keyStartX = x + (LayoutUtils::WeaponDisplayLayout::WEAPON_WIDTH - keyWidth) / 2;
-            const int keyStartY = y + LayoutUtils::WeaponDisplayLayout::WEAPON_HEIGHT + 225;
+            const int keyStartX = x + (weaponWidth - keyWidth) / 2;
+            const int keyStartY = y + weaponHeight + 225;
 
             RECT keyRect = { keyStartX, keyStartY + keyHeight + 20, keyStartX + keyWidth,
                              keyStartY + keyHeight + 20 + keyHeight };
@@ -122,7 +127,7 @@ namespace ClickDetection
         }
 
         // Back button
-        RECT backBtn = { 30, bottom - 80, 130, bottom - 30 };
+        RECT backBtn = { 30, windowHeight - 80, 130, windowHeight - 30 };
         if (LayoutUtils::IsPointInRect(backBtn, mouseX, mouseY))
         {
             Scenes::ChangeCurrentScene(SceneType::OperatorSelection);

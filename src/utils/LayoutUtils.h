@@ -4,40 +4,77 @@
 
 namespace LayoutUtils
 {
+
     /**
      * @brief Layout constants for operator selection grid
      */
     struct OperatorGridLayout
     {
-        static constexpr int GRID_START_X = 30;
-        static constexpr int GRID_START_Y = 50;
         static constexpr int COLUMNS = 6;
-        static constexpr int CELL_SIZE = 110;
-        static constexpr int CELL_SPACING = 10;
-        static constexpr int CELL_STRIDE = CELL_SIZE + CELL_SPACING;
+        static constexpr float GRID_START_X_PERCENT = 0.025f; // 2.5% from left
+        static constexpr float GRID_START_Y_PERCENT = 0.054f; // 5.4% from top
+        static constexpr float CELL_SIZE_PERCENT = 0.092f;    // 9.2% of width
+        static constexpr float CELL_SPACING_PERCENT = 0.008f; // 0.8% of width
+
+        // Minimum sizes to prevent UI from becoming unusable
+        static constexpr int MIN_CELL_SIZE = 80;
+        static constexpr int MIN_CELL_SPACING = 8;
+
+        /**
+         * @brief Get dynamic cell size based on window width
+         * @param windowWidth Current window width
+         * @return Calculated cell size
+         */
+        static inline int GetCellSize(int windowWidth)
+        {
+            int size = static_cast<int>(windowWidth * CELL_SIZE_PERCENT);
+            return (std::max)(size, MIN_CELL_SIZE);
+        }
+
+        /**
+         * @brief Get dynamic cell spacing based on window width
+         * @param windowWidth Current window width
+         * @return Calculated cell spacing
+         */
+        static inline int GetCellSpacing(int windowWidth)
+        {
+            int spacing = static_cast<int>(windowWidth * CELL_SPACING_PERCENT);
+            return (std::max)(spacing, MIN_CELL_SPACING);
+        }
 
         /**
          * @brief Calculate grid cell position
          * @param index Cell index
+         * @param windowWidth Current window width
+         * @param windowHeight Current window height
          * @param outX Output X position
          * @param outY Output Y position
          */
-        static inline void GetCellPosition(size_t index, int& outX, int& outY)
+        static inline void GetCellPosition(size_t index, int windowWidth, int windowHeight, int& outX, int& outY)
         {
-            outX = GRID_START_X + static_cast<int>(index % COLUMNS) * CELL_STRIDE;
-            outY = GRID_START_Y + static_cast<int>(index / COLUMNS) * CELL_STRIDE;
+            int gridStartX = static_cast<int>(windowWidth * GRID_START_X_PERCENT);
+            int gridStartY = static_cast<int>(windowHeight * GRID_START_Y_PERCENT);
+            int cellSize = GetCellSize(windowWidth);
+            int cellSpacing = GetCellSpacing(windowWidth);
+            int cellStride = cellSize + cellSpacing;
+
+            outX = gridStartX + static_cast<int>(index % COLUMNS) * cellStride;
+            outY = gridStartY + static_cast<int>(index / COLUMNS) * cellStride;
         }
 
         /**
          * @brief Get cell bounds as RECT
          * @param index Cell index
+         * @param windowWidth Current window width
+         * @param windowHeight Current window height
          * @return RECT with cell bounds
          */
-        static inline RECT GetCellRect(size_t index)
+        static inline RECT GetCellRect(size_t index, int windowWidth, int windowHeight)
         {
             int x, y;
-            GetCellPosition(index, x, y);
-            return { x, y, x + CELL_SIZE, y + CELL_SIZE };
+            GetCellPosition(index, windowWidth, windowHeight, x, y);
+            int cellSize = GetCellSize(windowWidth);
+            return { x, y, x + cellSize, y + cellSize };
         }
     };
 
@@ -46,40 +83,98 @@ namespace LayoutUtils
      */
     struct WeaponDisplayLayout
     {
-        static constexpr int WEAPON_WIDTH = 400;
-        static constexpr int WEAPON_HEIGHT = 150;
-        static constexpr int WEAPON_SPACING = 10;
-        static constexpr int WEAPON_NAME_HEIGHT = 30;
+        static constexpr float WEAPON_WIDTH_PERCENT = 0.333f;   // 33.3% of width per weapon
+        static constexpr float WEAPON_HEIGHT_PERCENT = 0.162f;  // 16.2% of height
+        static constexpr float WEAPON_SPACING_PERCENT = 0.008f; // 0.8% of width
 
-        static constexpr int SECTION_OFFSET_FROM_BOTTOM = 330;
+        // Minimum sizes
+        static constexpr int MIN_WEAPON_WIDTH = 300;
+        static constexpr int MIN_WEAPON_HEIGHT = 120;
+        static constexpr int MIN_WEAPON_SPACING = 8;
+
+        static constexpr int WEAPON_NAME_HEIGHT = 30;
+        static constexpr float SECTION_OFFSET_PERCENT = 0.357f; // 35.7% from bottom
+
+        /**
+         * @brief Get dynamic weapon width
+         * @param windowWidth Current window width
+         * @return Calculated weapon width
+         */
+        static inline int GetWeaponWidth(int windowWidth)
+        {
+            int width = static_cast<int>(windowWidth * WEAPON_WIDTH_PERCENT);
+            return (std::max)(width, MIN_WEAPON_WIDTH);
+        }
+
+        /**
+         * @brief Get dynamic weapon height
+         * @param windowHeight Current window height
+         * @return Calculated weapon height
+         */
+        static inline int GetWeaponHeight(int windowHeight)
+        {
+            int height = static_cast<int>(windowHeight * WEAPON_HEIGHT_PERCENT);
+            return (std::max)(height, MIN_WEAPON_HEIGHT);
+        }
+
+        /**
+         * @brief Get dynamic weapon spacing
+         * @param windowWidth Current window width
+         * @return Calculated weapon spacing
+         */
+        static inline int GetWeaponSpacing(int windowWidth)
+        {
+            int spacing = static_cast<int>(windowWidth * WEAPON_SPACING_PERCENT);
+            return (std::max)(spacing, MIN_WEAPON_SPACING);
+        }
 
         /**
          * @brief Calculate centered weapon positions
          * @param weaponCount Number of weapons
-         * @param screenWidth Screen width
-         * @param screenHeight Screen height
+         * @param windowWidth Current window width
+         * @param windowHeight Current window height
          * @param outStartX Output start X position
          * @param outStartY Output start Y position
          */
         static inline void GetWeaponStartPosition(
-            int weaponCount, int screenWidth, int screenHeight, int& outStartX, int& outStartY)
+            int weaponCount, int windowWidth, int windowHeight, int& outStartX, int& outStartY)
         {
-            int totalWidth = weaponCount * WEAPON_WIDTH + (weaponCount - 1) * WEAPON_SPACING;
-            outStartX = (screenWidth - totalWidth) / 2;
-            outStartY = 40 + (screenHeight - 120 - (WEAPON_HEIGHT + 50)) / 2;
+            int weaponWidth = GetWeaponWidth(windowWidth);
+            int weaponHeight = GetWeaponHeight(windowHeight);
+            int spacing = GetWeaponSpacing(windowWidth);
+
+            int totalWidth = weaponCount * weaponWidth + (weaponCount - 1) * spacing;
+            outStartX = (windowWidth - totalWidth) / 2;
+            outStartY = static_cast<int>(windowHeight * 0.25f); // 25% from top
         }
 
         /**
          * @brief Get weapon click area rect
          * @param weaponIndex Weapon index
+         * @param windowWidth Current window width
+         * @param windowHeight Current window height
          * @param startX Start X position from GetWeaponStartPosition
          * @param startY Start Y position from GetWeaponStartPosition
          * @return RECT with weapon clickable area
          */
-        static inline RECT GetWeaponRect(int weaponIndex, int startX, int startY)
+        static inline RECT GetWeaponRect(int weaponIndex, int windowWidth, int windowHeight, int startX, int startY)
         {
-            int x = startX + weaponIndex * (WEAPON_WIDTH + WEAPON_SPACING);
-            return { x, startY, x + WEAPON_WIDTH, startY + WEAPON_HEIGHT + 45 };
+            int weaponWidth = GetWeaponWidth(windowWidth);
+            int weaponHeight = GetWeaponHeight(windowHeight);
+            int spacing = GetWeaponSpacing(windowWidth);
+
+            int x = startX + weaponIndex * (weaponWidth + spacing);
+            return { x, startY, x + weaponWidth, startY + weaponHeight + 45 };
+        }
+
+        /**
+         * @brief Get section offset from bottom (for notes, etc.)
+         * @param windowHeight Current window height
+         * @return Calculated offset
+         */
+        static inline int GetSectionOffset(int windowHeight)
+        {
+            return static_cast<int>(windowHeight * SECTION_OFFSET_PERCENT);
         }
     };
 

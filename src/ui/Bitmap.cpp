@@ -112,7 +112,7 @@ namespace Bitmap
         if (srcW < 1) srcW = 1;
         if (srcH < 1) srcH = 1;
 
-        SetStretchBltMode(hdc, HALFTONE);
+        SetStretchBltMode(hdc, IsResizing ? COLORONCOLOR : HALFTONE);
         SetBrushOrgEx(hdc, 0, 0, NULL);
 
         if (useTransparency)
@@ -121,7 +121,7 @@ namespace Bitmap
             HBITMAP tempBmp = CreateCompatibleBitmap(hdc, width, height);
             HGDIOBJ oldTempBmp = SelectObject(tempDC, tempBmp);
 
-            SetStretchBltMode(tempDC, HALFTONE);
+            SetStretchBltMode(tempDC, IsResizing ? COLORONCOLOR : HALFTONE);
             SetBrushOrgEx(tempDC, 0, 0, NULL);
 
             StretchBlt(tempDC, 0, 0, width, height, memDC, srcX, srcY, srcW, srcH, SRCCOPY);

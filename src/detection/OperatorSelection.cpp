@@ -69,7 +69,7 @@ namespace ClickDetection
         return false;
     }
 
-    void OperatorSelection(HWND hwnd, const int mouseX, const int mouseY)
+    void OperatorSelection(HWND hwnd, int windowWidth, int windowHeight, int mouseX, int mouseY)
     {
         // Check button clicks first
         if (HandleButtonClick(hwnd, mouseX, mouseY)) return;
@@ -78,7 +78,7 @@ namespace ClickDetection
         const auto& bitmaps = Bitmap::GetCurrentBitmapList();
         for (size_t i = 0; i < bitmaps.size(); ++i)
         {
-            RECT cellRect = LayoutUtils::OperatorGridLayout::GetCellRect(i);
+            RECT cellRect = LayoutUtils::OperatorGridLayout::GetCellRect(i, windowWidth, windowHeight);
             if (LayoutUtils::IsPointInRect(cellRect, mouseX, mouseY))
             {
                 SelectedOperatorIndex = static_cast<int>(i);

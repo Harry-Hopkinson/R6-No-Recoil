@@ -83,6 +83,25 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         }
         break;
 
+        case WM_SIZE:
+        {
+            if (wParam != SIZE_MINIMIZED)
+            {
+                InvalidateRect(hwnd, NULL, FALSE);
+            }
+            return 0;
+        }
+        break;
+
+        case WM_GETMINMAXINFO:
+        {
+            LPMINMAXINFO lpMMI = (LPMINMAXINFO)lParam;
+            lpMMI->ptMinTrackSize.x = 900;
+            lpMMI->ptMinTrackSize.y = 700;
+
+            return 0;
+        }
+
         case WM_LBUTTONDOWN:
         {
             int mouseX = GET_X_LPARAM(lParam);
@@ -90,15 +109,17 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             RECT rect;
             GetClientRect(hwnd, &rect);
+            int windowWidth = rect.right;
+            int windowHeight = rect.bottom;
 
             switch (Scenes::GetCurrentScene())
             {
                 case SceneType::OperatorSelection:
-                    ClickDetection::OperatorSelection(hwnd, mouseX, mouseY);
+                    ClickDetection::OperatorSelection(hwnd, windowWidth, windowHeight, mouseX, mouseY);
                     break;
 
                 case SceneType::WeaponDisplay:
-                    ClickDetection::WeaponDisplay(hwnd, rect.right, rect.bottom, mouseX, mouseY);
+                    ClickDetection::WeaponDisplay(hwnd, windowWidth, windowHeight, mouseX, mouseY);
                     break;
 
                 default:
@@ -106,6 +127,46 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             }
         }
         break;
+
+        case WM_NCHITTEST:
+        {
+            LRESULT hit = DefWindowProc(hwnd, uMsg, wParam, lParam);
+
+            POINT pt = { GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam) };
+            ScreenToClient(hwnd, &pt);
+
+            RECT rect;
+            GetClientRect(hwnd, &rect);
+
+            const int borderSize = 8;
+
+            if (pt.x > borderSize && pt.x < rect.right - borderSize && pt.y > borderSize && pt.y < rect.bottom - borderSize)
+            {
+                return HTCLIENT;
+            }
+
+            return hit;
+        }
+        break;
+
+        case WM_ERASEBKGND:
+        {
+            return 1;
+        }
+        break;
+
+        case WM_ENTERSIZEMOVE:
+        {
+            IsResizing = true;
+            return 0;
+        }
+
+        case WM_EXITSIZEMOVE:
+        {
+            IsResizing = false;
+            InvalidateRect(hwnd, NULL, FALSE);
+            return 0;
+        }
 
         case WM_DESTROY:
         {
@@ -131,19 +192,20 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
 {
     WNDCLASS wc = {};
-    wc.style = CS_HREDRAW | CS_VREDRAW | CS_PARENTDC;
+    wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
     wc.lpszClassName = "R6NoRecoil";
     wc.hInstance = hInstance;
     wc.lpfnWndProc = WindowProc;
     wc.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON1));
+    wc.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
 
     RegisterClass(&wc);
 
     Files::LoadConfig();
 
     HWND hwnd = CreateWindowEx(
-        0, wc.lpszClassName, "R6 No Recoil", WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX | WS_CLIPCHILDREN,
-        CW_USEDEFAULT, CW_USEDEFAULT, WINDOW_WIDTH, WINDOW_HEIGHT, nullptr, nullptr, hInstance, nullptr);
+        0, wc.lpszClassName, "R6 No Recoil", WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN, CW_USEDEFAULT, CW_USEDEFAULT, WINDOW_WIDTH,
+        WINDOW_HEIGHT, nullptr, nullptr, hInstance, nullptr);
 
     if (!hwnd) return 0;
 
@@ -164,7 +226,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
             DispatchMessage(&msg);
         }
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(16));
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
 
     if (recoilThread.joinable()) recoilThread.join();

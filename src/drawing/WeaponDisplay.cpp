@@ -36,29 +36,30 @@ namespace Drawing
         int startX, startY;
         LayoutUtils::WeaponDisplayLayout::GetWeaponStartPosition(weaponCount, right, bottom, startX, startY);
 
+        // Get dimensions
+        int weaponWidth = LayoutUtils::WeaponDisplayLayout::GetWeaponWidth(right);
+        int weaponHeight = LayoutUtils::WeaponDisplayLayout::GetWeaponHeight(bottom);
+        int spacing = LayoutUtils::WeaponDisplayLayout::GetWeaponSpacing(right);
+
         SetStretchBltMode(memDC, HALFTONE);
         SetBrushOrgEx(memDC, 0, 0, nullptr);
 
         for (int i = 0; i < weaponCount; ++i)
         {
-            int x = startX
-                + i * (LayoutUtils::WeaponDisplayLayout::WEAPON_WIDTH + LayoutUtils::WeaponDisplayLayout::WEAPON_SPACING);
+            int x = startX + i * (weaponWidth + spacing);
             int y = startY;
 
             // Draw weapon image
             HBITMAP weaponBmp = Bitmap::GetWeaponBitmap(weapons[i]);
-            Bitmap::DrawBitmap(
-                memDC, weaponBmp, x, y, LayoutUtils::WeaponDisplayLayout::WEAPON_WIDTH,
-                LayoutUtils::WeaponDisplayLayout::WEAPON_HEIGHT, 0, true);
+            Bitmap::DrawBitmap(memDC, weaponBmp, x, y, weaponWidth, weaponHeight, 0, true);
 
             // Weapon name
             HFONT weaponFont = Font::GetLargeFont();
             HFONT oldFont = (HFONT)SelectObject(memDC, weaponFont);
             SetTextColor(memDC, TextColour);
 
-            RECT nameRect = { x, y + LayoutUtils::WeaponDisplayLayout::WEAPON_HEIGHT + 15,
-                              x + LayoutUtils::WeaponDisplayLayout::WEAPON_WIDTH,
-                              y + LayoutUtils::WeaponDisplayLayout::WEAPON_HEIGHT + 45 };
+            RECT nameRect = { x, y + weaponHeight + 15, x + weaponWidth,
+                              y + weaponHeight + 45 };
             DrawText(memDC, weapons[i], -1, &nameRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
             SelectObject(memDC, oldFont);
 
@@ -66,15 +67,15 @@ namespace Drawing
             const int buttonHeight = 45;
             const int buttonSpacing = 10;
 
-            int buttonStartY = y + LayoutUtils::WeaponDisplayLayout::WEAPON_HEIGHT + 60;
-            int buttonStartX = x + (LayoutUtils::WeaponDisplayLayout::WEAPON_WIDTH - buttonWidth) / 2;
+            int buttonStartY = y + weaponHeight + 60;
+            int buttonStartX = x + (weaponWidth - buttonWidth) / 2;
 
             // Key bindings
             const int keyWidth = 100;
             const int keyHeight = 30;
 
-            const int keyStartX = x + LayoutUtils::WeaponDisplayLayout::WEAPON_WIDTH - 250;
-            const int keyStartY = y + LayoutUtils::WeaponDisplayLayout::WEAPON_HEIGHT + 225;
+            const int keyStartX = x + weaponWidth - 250;
+            const int keyStartY = y + weaponHeight + 225;
             RECT keyRect = { keyStartX, keyStartY, keyStartX + keyWidth, keyStartY + keyHeight };
 
             char keyBindText[16];
@@ -125,7 +126,7 @@ namespace Drawing
         String::FreeWeaponList(weapons, weaponCount);
 
         // Note text
-        const int sectionTop = bottom - LayoutUtils::WeaponDisplayLayout::SECTION_OFFSET_FROM_BOTTOM;
+        int sectionTop = bottom - LayoutUtils::WeaponDisplayLayout::GetSectionOffset(bottom);
         const char* noteText = "Click a weapon or preset to select recoil settings.";
         Font::DrawCenteredText(memDC, noteText, 0, sectionTop + 260, right, Font::GetMediumFont());
 

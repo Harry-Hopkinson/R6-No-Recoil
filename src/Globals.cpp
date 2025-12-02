@@ -9,3 +9,5 @@ bool EnableController = false;
 bool UseToggleKey = false;
 
 const char* CurrentWeapon = nullptr;
+
+bool IsResizing = false;

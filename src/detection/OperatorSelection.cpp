@@ -54,6 +54,12 @@ namespace ClickDetection
                     case 11:
                         ButtonHandler::HandleSavePreset(hwnd);
                         break;
+                    case 12:
+                        ButtonHandler::HandleUpdateTool(hwnd);
+                        break;
+
+                    default:
+                        break;
                 }
 
                 WindowUtils::InvalidateWindowNoChildren(hwnd);

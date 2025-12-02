@@ -99,9 +99,9 @@ echo Location: "%cd%\%outputFolder%"
 echo ------------------------------------------------------------
 echo.
 
-set /p openfolder="Would you like to open the folder now? (Y/N): "
-if /I "%openfolder%"=="Y" (
-    start "" "%cd%\%outputFolder%"
+set /p runnow="Would you like to run R6 No Recoil now? (Y/N): "
+if /I "%runnow%"=="Y" (
+    start "" "%cd%\%outputFolder%\R6NoRecoil.exe"
 )
 
 echo ------------------------------------------------------------

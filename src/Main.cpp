@@ -182,8 +182,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
     Files::LoadConfig();
 
     HWND hwnd = CreateWindowEx(
-        0, wc.lpszClassName, "R6 No Recoil", WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN, CW_USEDEFAULT, CW_USEDEFAULT, WINDOW_WIDTH,
-        WINDOW_HEIGHT, nullptr, nullptr, hInstance, nullptr);
+        0, wc.lpszClassName, "R6 No Recoil",
+        WS_OVERLAPPEDWINDOW & ~WS_MAXIMIZEBOX,
+        CW_USEDEFAULT, CW_USEDEFAULT, WINDOW_WIDTH, WINDOW_HEIGHT, nullptr, nullptr, hInstance, nullptr);
 
     if (!hwnd) return 0;
 

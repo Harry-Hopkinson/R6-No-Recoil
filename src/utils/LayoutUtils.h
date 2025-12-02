@@ -21,7 +21,7 @@ namespace LayoutUtils
         static constexpr int MIN_CELL_SPACING = 8;
 
         /**
-         * @brief Get dynamic cell size based on window width
+         * @brief Get cell size based on window width
          * @param windowWidth Current window width
          * @return Calculated cell size
          */
@@ -32,7 +32,7 @@ namespace LayoutUtils
         }
 
         /**
-         * @brief Get dynamic cell spacing based on window width
+         * @brief Get cell spacing based on window width
          * @param windowWidth Current window width
          * @return Calculated cell spacing
          */
@@ -96,7 +96,7 @@ namespace LayoutUtils
         static constexpr float SECTION_OFFSET_PERCENT = 0.357f; // 35.7% from bottom
 
         /**
-         * @brief Get dynamic weapon width
+         * @brief Get weapon width
          * @param windowWidth Current window width
          * @return Calculated weapon width
          */
@@ -107,7 +107,7 @@ namespace LayoutUtils
         }
 
         /**
-         * @brief Get dynamic weapon height
+         * @brief Get weapon height
          * @param windowHeight Current window height
          * @return Calculated weapon height
          */
@@ -118,7 +118,7 @@ namespace LayoutUtils
         }
 
         /**
-         * @brief Get dynamic weapon spacing
+         * @brief Get weapon spacing
          * @param windowWidth Current window width
          * @return Calculated weapon spacing
          */

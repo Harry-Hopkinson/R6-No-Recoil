@@ -40,9 +40,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             SendMessage(hwnd, WM_SETICON, ICON_BIG, (LPARAM)hIcon);
 
             Buttons::CreateOperatorSelectionButtons();
-
             Bitmap::InitialiseOperatorBitmaps(AttackerNames, DefenderNames);
-
             Font::CreateFonts();
         }
         break;
@@ -75,11 +73,16 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             BitBlt(hdc, 0, 0, rect.right, rect.bottom, memDC, 0, 0, SRCCOPY);
 
-            // Clean up
             SelectObject(memDC, oldBitmap);
             DeleteObject(memBitmap);
             DeleteDC(memDC);
             EndPaint(hwnd, &ps);
+        }
+        break;
+
+        case WM_ERASEBKGND:
+        {
+            return 1;
         }
         break;
 
@@ -101,6 +104,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             return 0;
         }
+        break;
 
         case WM_LBUTTONDOWN:
         {
@@ -128,38 +132,12 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         }
         break;
 
-        case WM_NCHITTEST:
-        {
-            LRESULT hit = DefWindowProc(hwnd, uMsg, wParam, lParam);
-
-            POINT pt = { GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam) };
-            ScreenToClient(hwnd, &pt);
-
-            RECT rect;
-            GetClientRect(hwnd, &rect);
-
-            const int borderSize = 8;
-
-            if (pt.x > borderSize && pt.x < rect.right - borderSize && pt.y > borderSize && pt.y < rect.bottom - borderSize)
-            {
-                return HTCLIENT;
-            }
-
-            return hit;
-        }
-        break;
-
-        case WM_ERASEBKGND:
-        {
-            return 1;
-        }
-        break;
-
         case WM_ENTERSIZEMOVE:
         {
             IsResizing = true;
             return 0;
         }
+        break;
 
         case WM_EXITSIZEMOVE:
         {
@@ -167,6 +145,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             InvalidateRect(hwnd, NULL, FALSE);
             return 0;
         }
+        break;
 
         case WM_DESTROY:
         {
@@ -192,12 +171,11 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
 {
     WNDCLASS wc = {};
-    wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
+    wc.style = CS_HREDRAW | CS_VREDRAW;
     wc.lpszClassName = "R6NoRecoil";
     wc.hInstance = hInstance;
     wc.lpfnWndProc = WindowProc;
     wc.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON1));
-    wc.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
 
     RegisterClass(&wc);
 
@@ -226,7 +204,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
             DispatchMessage(&msg);
         }
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        std::this_thread::sleep_for(std::chrono::milliseconds(16));
     }
 
     if (recoilThread.joinable()) recoilThread.join();

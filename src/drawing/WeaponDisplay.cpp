@@ -58,8 +58,7 @@ namespace Drawing
             HFONT oldFont = (HFONT)SelectObject(memDC, weaponFont);
             SetTextColor(memDC, TextColour);
 
-            RECT nameRect = { x, y + weaponHeight + 15, x + weaponWidth,
-                              y + weaponHeight + 45 };
+            RECT nameRect = { x, y + weaponHeight + 15, x + weaponWidth, y + weaponHeight + 45 };
             DrawText(memDC, weapons[i], -1, &nameRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
             SelectObject(memDC, oldFont);
 

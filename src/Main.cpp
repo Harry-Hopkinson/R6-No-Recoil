@@ -99,6 +99,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             }
             return 0;
         }
+        break;
 
         case WM_GETMINMAXINFO:
         {
@@ -136,6 +137,26 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         }
         break;
 
+        case WM_SETCURSOR:
+        {
+            int hitTest = LOWORD(lParam);
+
+            bool isMouseDown = (GetAsyncKeyState(VK_LBUTTON) & 0x8000) != 0;
+
+            bool isBorder
+                = (hitTest == HTLEFT || hitTest == HTRIGHT || hitTest == HTTOP || hitTest == HTBOTTOM || hitTest == HTTOPLEFT
+                   || hitTest == HTTOPRIGHT || hitTest == HTBOTTOMLEFT || hitTest == HTBOTTOMRIGHT);
+
+            if (isBorder && !isMouseDown)
+            {
+                SetCursor(LoadCursor(NULL, IDC_ARROW));
+                return TRUE;
+            }
+
+            return DefWindowProc(hwnd, uMsg, wParam, lParam);
+        }
+        break;
+
         case WM_ENTERSIZEMOVE:
         {
             IsResizing = true;
@@ -146,29 +167,9 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         case WM_EXITSIZEMOVE:
         {
             IsResizing = false;
+
             InvalidateRect(hwnd, NULL, FALSE);
             return 0;
-        }
-        break;
-
-        case WM_NCHITTEST:
-        {
-            LRESULT hit = DefWindowProc(hwnd, uMsg, wParam, lParam);
-
-            POINT pt = { GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam) };
-            ScreenToClient(hwnd, &pt);
-
-            RECT rect;
-            GetClientRect(hwnd, &rect);
-
-            const int borderSize = 8;
-
-            if (pt.x > borderSize && pt.x < rect.right - borderSize && pt.y > borderSize && pt.y < rect.bottom - borderSize)
-            {
-                return HTCLIENT;
-            }
-
-            return hit;
         }
         break;
 

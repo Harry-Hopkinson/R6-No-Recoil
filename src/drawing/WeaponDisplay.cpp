@@ -91,9 +91,9 @@ namespace Drawing
             DrawText(memDC, enabledText, -1, &keyRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
             // Enable key bind button underneath text
+            HBRUSH buttonBrush = CreateSolidBrush(LineColour);
             RECT buttonRect = { keyStartX, keyStartY + keyHeight + 20, keyStartX + keyWidth,
                                 keyStartY + keyHeight + 20 + keyHeight };
-            HBRUSH buttonBrush = CreateSolidBrush(LineColour);
             FrameRect(memDC, &buttonRect, buttonBrush);
             DrawText(memDC, "Toggle", -1, &buttonRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
             DeleteObject(buttonBrush);

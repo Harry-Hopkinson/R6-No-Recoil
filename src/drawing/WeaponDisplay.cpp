@@ -93,8 +93,10 @@ namespace Drawing
             // Enable key bind button underneath text
             RECT buttonRect = { keyStartX, keyStartY + keyHeight + 20, keyStartX + keyWidth,
                                 keyStartY + keyHeight + 20 + keyHeight };
-            FrameRect(memDC, &buttonRect, (HBRUSH)GetStockObject(BLACK_BRUSH));
+            HBRUSH buttonBrush = CreateSolidBrush(LineColour);
+            FrameRect(memDC, &buttonRect, buttonBrush);
             DrawText(memDC, "Toggle", -1, &buttonRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+            DeleteObject(buttonBrush);
 
             for (int p = 0; p < 3; ++p)
             {

@@ -90,16 +90,20 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         {
             if (wParam != SIZE_MINIMIZED)
             {
+                WINDOW_WIDTH = LOWORD(lParam);
+                WINDOW_HEIGHT = HIWORD(lParam);
+
+                Buttons::CreateOperatorSelectionButtons();
+
                 InvalidateRect(hwnd, NULL, FALSE);
             }
             return 0;
         }
-        break;
 
         case WM_GETMINMAXINFO:
         {
             LPMINMAXINFO lpMMI = (LPMINMAXINFO)lParam;
-            lpMMI->ptMinTrackSize.x = 900;
+            lpMMI->ptMinTrackSize.x = 1100;
             lpMMI->ptMinTrackSize.y = 700;
 
             return 0;
@@ -147,6 +151,27 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         }
         break;
 
+        case WM_NCHITTEST:
+        {
+            LRESULT hit = DefWindowProc(hwnd, uMsg, wParam, lParam);
+
+            POINT pt = { GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam) };
+            ScreenToClient(hwnd, &pt);
+
+            RECT rect;
+            GetClientRect(hwnd, &rect);
+
+            const int borderSize = 8;
+
+            if (pt.x > borderSize && pt.x < rect.right - borderSize && pt.y > borderSize && pt.y < rect.bottom - borderSize)
+            {
+                return HTCLIENT;
+            }
+
+            return hit;
+        }
+        break;
+
         case WM_DESTROY:
         {
             Buttons::ClearButtons();
@@ -182,9 +207,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
     Files::LoadConfig();
 
     HWND hwnd = CreateWindowEx(
-        0, wc.lpszClassName, "R6 No Recoil",
-        WS_OVERLAPPEDWINDOW & ~WS_MAXIMIZEBOX,
-        CW_USEDEFAULT, CW_USEDEFAULT, WINDOW_WIDTH, WINDOW_HEIGHT, nullptr, nullptr, hInstance, nullptr);
+        0, wc.lpszClassName, "R6 No Recoil", WS_OVERLAPPEDWINDOW & ~WS_MAXIMIZEBOX, CW_USEDEFAULT, CW_USEDEFAULT, WINDOW_WIDTH,
+        WINDOW_HEIGHT, nullptr, nullptr, hInstance, nullptr);
 
     if (!hwnd) return 0;
 

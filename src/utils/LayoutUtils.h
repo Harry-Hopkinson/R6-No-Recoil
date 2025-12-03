@@ -11,10 +11,10 @@ namespace LayoutUtils
     struct OperatorGridLayout
     {
         static constexpr int COLUMNS = 6;
-        static constexpr float GRID_START_X_PERCENT = 0.025f; // 2.5% from left
-        static constexpr float GRID_START_Y_PERCENT = 0.054f; // 5.4% from top
-        static constexpr float CELL_SIZE_PERCENT = 0.092f;    // 9.2% of width
-        static constexpr float CELL_SPACING_PERCENT = 0.008f; // 0.8% of width
+        static constexpr float GRID_START_X_PERCENT = 0.025f;
+        static constexpr float GRID_START_Y_PERCENT = 0.054f;
+        static constexpr float CELL_SIZE_PERCENT = 0.092f;
+        static constexpr float CELL_SPACING_PERCENT = 0.008f;
 
         // Minimum sizes to prevent UI from becoming unusable
         static constexpr int MIN_CELL_SIZE = 80;

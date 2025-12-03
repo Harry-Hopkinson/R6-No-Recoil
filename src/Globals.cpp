@@ -1,5 +1,8 @@
 #include "Globals.h"
 
+int WINDOW_WIDTH = 1200;
+int WINDOW_HEIGHT = 925;
+
 bool EnableRC = true;
 bool Running = true;
 bool IsAttackerView = true;

@@ -139,21 +139,46 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         case WM_SETCURSOR:
         {
-            int hitTest = LOWORD(lParam);
+            static HCURSOR hArrow = LoadCursor(NULL, IDC_ARROW);
+            static HCURSOR hSizeNS = LoadCursor(NULL, IDC_SIZENS);     // Vertical
+            static HCURSOR hSizeWE = LoadCursor(NULL, IDC_SIZEWE);     // Horizontal
+            static HCURSOR hSizeNWSE = LoadCursor(NULL, IDC_SIZENWSE); // Diagonal
+            static HCURSOR hSizeNESW = LoadCursor(NULL, IDC_SIZENESW); // Diagonal
 
+            int hitTest = LOWORD(lParam);
             bool isMouseDown = (GetAsyncKeyState(VK_LBUTTON) & 0x8000) != 0;
 
-            bool isBorder
-                = (hitTest == HTLEFT || hitTest == HTRIGHT || hitTest == HTTOP || hitTest == HTBOTTOM || hitTest == HTTOPLEFT
-                   || hitTest == HTTOPRIGHT || hitTest == HTBOTTOMLEFT || hitTest == HTBOTTOMRIGHT);
-
-            if (isBorder && !isMouseDown)
+            if (isMouseDown)
             {
-                SetCursor(LoadCursor(NULL, IDC_ARROW));
-                return TRUE;
+                return DefWindowProc(hwnd, uMsg, wParam, lParam);
             }
 
-            return DefWindowProc(hwnd, uMsg, wParam, lParam);
+            switch (hitTest)
+            {
+                case HTTOP:
+                case HTBOTTOM:
+                    SetCursor(hSizeNS);
+                    return TRUE;
+
+                case HTLEFT:
+                case HTRIGHT:
+                    SetCursor(hSizeWE);
+                    return TRUE;
+
+                case HTTOPLEFT:
+                case HTBOTTOMRIGHT:
+                    SetCursor(hSizeNWSE);
+                    return TRUE;
+
+                case HTTOPRIGHT:
+                case HTBOTTOMLEFT:
+                    SetCursor(hSizeNESW);
+                    return TRUE;
+
+                default:
+                    SetCursor(hArrow);
+                    return TRUE;
+            }
         }
         break;
 

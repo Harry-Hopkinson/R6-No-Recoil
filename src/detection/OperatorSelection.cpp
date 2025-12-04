@@ -72,7 +72,8 @@ namespace ClickDetection
     void OperatorSelection(HWND hwnd, int windowWidth, int windowHeight, int mouseX, int mouseY)
     {
         // Check button clicks first
-        if (HandleButtonClick(hwnd, mouseX, mouseY)) return;
+        if (HandleButtonClick(hwnd, mouseX, mouseY))
+            return;
 
         // Check operator grid clicks
         const auto& bitmaps = Bitmap::GetCurrentBitmapList();

@@ -109,4 +109,4 @@ namespace ButtonHandler
         WindowUtils::InvalidateWindow(hwnd);
     }
 
-} // namespace ButtonHandlers
+} // namespace ButtonHandler

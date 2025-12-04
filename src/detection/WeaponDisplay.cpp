@@ -45,7 +45,8 @@ namespace ClickDetection
         auto ProceedIfReady = [&](int selectedWeaponIndex, int presetIndex) {
             PresetIndex = presetIndex;
 
-            if (CurrentWeapon) free((void*)CurrentWeapon);
+            if (CurrentWeapon)
+                free((void*)CurrentWeapon);
 
             CurrentWeapon = _strdup(weapons[selectedWeaponIndex]);
 
@@ -63,8 +64,7 @@ namespace ClickDetection
             int y = startY;
 
             // Check if weapon image clicked and default to Preset 1
-            RECT weaponRect = LayoutUtils::WeaponDisplayLayout::GetWeaponRect(
-                i, windowWidth, windowHeight, startX, startY);
+            RECT weaponRect = LayoutUtils::WeaponDisplayLayout::GetWeaponRect(i, windowWidth, windowHeight, startX, startY);
             if (LayoutUtils::IsPointInRect(weaponRect, mouseX, mouseY))
             {
                 ProceedIfReady(i, 1);

@@ -139,19 +139,17 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         case WM_SETCURSOR:
         {
+            int hitTest = LOWORD(lParam);
+            bool isMouseDown = (GetAsyncKeyState(VK_LBUTTON) & 0x8000) != 0;
+
+            if (isMouseDown)
+                return DefWindowProc(hwnd, uMsg, wParam, lParam);
+
             static HCURSOR hArrow = LoadCursor(NULL, IDC_ARROW);
             static HCURSOR hSizeNS = LoadCursor(NULL, IDC_SIZENS);     // Vertical
             static HCURSOR hSizeWE = LoadCursor(NULL, IDC_SIZEWE);     // Horizontal
             static HCURSOR hSizeNWSE = LoadCursor(NULL, IDC_SIZENWSE); // Diagonal
             static HCURSOR hSizeNESW = LoadCursor(NULL, IDC_SIZENESW); // Diagonal
-
-            int hitTest = LOWORD(lParam);
-            bool isMouseDown = (GetAsyncKeyState(VK_LBUTTON) & 0x8000) != 0;
-
-            if (isMouseDown)
-            {
-                return DefWindowProc(hwnd, uMsg, wParam, lParam);
-            }
 
             switch (hitTest)
             {
@@ -236,7 +234,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
         0, wc.lpszClassName, "R6 No Recoil", WS_OVERLAPPEDWINDOW & ~WS_MAXIMIZEBOX, CW_USEDEFAULT, CW_USEDEFAULT, WINDOW_WIDTH,
         WINDOW_HEIGHT, nullptr, nullptr, hInstance, nullptr);
 
-    if (!hwnd) return 0;
+    if (!hwnd)
+        return 0;
 
     ShowWindow(hwnd, nCmdShow);
     UpdateWindow(hwnd);
@@ -249,7 +248,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
     {
         while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
-            if (msg.message == WM_KEYDOWN && msg.wParam == VK_ESCAPE) PostMessage(hwnd, WM_CLOSE, 0, 0);
+            if (msg.message == WM_KEYDOWN && msg.wParam == VK_ESCAPE)
+                PostMessage(hwnd, WM_CLOSE, 0, 0);
 
             TranslateMessage(&msg);
             DispatchMessage(&msg);
@@ -258,8 +258,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
         std::this_thread::sleep_for(std::chrono::milliseconds(16));
     }
 
-    if (recoilThread.joinable()) recoilThread.join();
-    if (toggleThread.joinable()) toggleThread.join();
+    if (recoilThread.joinable())
+        recoilThread.join();
+    if (toggleThread.joinable())
+        toggleThread.join();
 
     return 0;
 }

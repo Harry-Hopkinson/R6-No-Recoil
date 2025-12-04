@@ -1,0 +1,5 @@
+Checks: >
+  hicpp-use-const,
+  hicpp-use-const-explicit,
+  readability-qualified-auto,
+  performance-unnecessary-copy-initialization

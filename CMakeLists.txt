@@ -47,6 +47,7 @@ if(MINGW)
         -Wunused-parameter
         -Wunused-but-set-variable
         -Wunused-result
+        -Wconst-correctness
 
         -Wno-missing-field-initializers
         -fno-exceptions

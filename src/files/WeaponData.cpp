@@ -13,10 +13,12 @@ namespace Files
     WeaponRecoil GetWeaponData(const char* weaponName, int presetIndex)
     {
         WeaponRecoil recoil = { 3.00f, 0.00f };
-        if (!weaponName) return recoil;
+        if (!weaponName)
+            return recoil;
 
         FILE* file = fopen("WeaponData.json", "rb");
-        if (!file) return recoil;
+        if (!file)
+            return recoil;
 
         fseek(file, 0, SEEK_END);
         long len = ftell(file);
@@ -45,7 +47,8 @@ namespace Files
                 snprintf(presetKey, sizeof(presetKey), "\"preset-%d\"", presetIndex);
 
                 char* presetPos = strstr(pos, presetKey);
-                if (!presetPos) break;
+                if (!presetPos)
+                    break;
 
                 float vertical = 0.0f, horizontal = 0.0f;
                 sscanf(presetPos, " \"%*[^\"]\" : { \"vertical\" : %f , \"horizontal\" : %f", &vertical, &horizontal);
@@ -64,10 +67,12 @@ namespace Files
 
     void SaveWeaponData(int presetIndex)
     {
-        if (!CurrentWeapon) return;
+        if (!CurrentWeapon)
+            return;
 
         FILE* file = fopen("WeaponData.json", "rb");
-        if (!file) return;
+        if (!file)
+            return;
 
         fseek(file, 0, SEEK_END);
         long len = ftell(file);

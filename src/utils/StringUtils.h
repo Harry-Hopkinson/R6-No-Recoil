@@ -19,7 +19,8 @@ namespace StringUtils
      */
     inline char* BuildPath(const char* dir, const char* filename, const char* ext)
     {
-        if (!dir || !filename || !ext) return nullptr;
+        if (!dir || !filename || !ext)
+            return nullptr;
 
         const size_t len1 = strlen(dir);
         const size_t len2 = strlen(filename);
@@ -41,7 +42,8 @@ namespace StringUtils
      */
     inline char* CopyString(const char* input)
     {
-        if (!input) return nullptr;
+        if (!input)
+            return nullptr;
 
         const size_t len = strlen(input);
         char* result = new char[len + 1];
@@ -56,13 +58,15 @@ namespace StringUtils
      */
     inline char* TrimWhitespace(char* str)
     {
-        if (!str) return nullptr;
+        if (!str)
+            return nullptr;
 
         // Trim leading
         while (*str == ' ' || *str == '\t')
             ++str;
 
-        if (*str == '\0') return str;
+        if (*str == '\0')
+            return str;
 
         // Trim trailing
         char* end = str + strlen(str) - 1;
@@ -80,20 +84,9 @@ namespace StringUtils
      */
     inline bool StringEquals(const char* a, const char* b)
     {
-        if (!a || !b) return (a == b);
+        if (!a || !b)
+            return (a == b);
         return strcmp(a, b) == 0;
-    }
-
-    /**
-     * @brief Checks if a string starts with a prefix
-     * @param str String to check
-     * @param prefix Prefix to look for
-     * @return true if str starts with prefix
-     */
-    inline bool StartsWith(const char* str, const char* prefix)
-    {
-        if (!str || !prefix) return false;
-        return strncmp(str, prefix, strlen(prefix)) == 0;
     }
 
     /**
@@ -104,7 +97,8 @@ namespace StringUtils
      */
     inline int ParseWeaponList(const char* weaponStr, const char* weapons[])
     {
-        if (!weaponStr || !weapons) return 0;
+        if (!weaponStr || !weapons)
+            return 0;
 
         int weaponCount = 0;
         const char* ptr = weaponStr;
@@ -139,7 +133,8 @@ namespace StringUtils
             }
 
             // Skip comma
-            if (*ptr == ',') ++ptr;
+            if (*ptr == ',')
+                ++ptr;
         }
 
         return weaponCount;
@@ -154,7 +149,8 @@ namespace StringUtils
      */
     inline void GetWeaponAtIndex(const char* weapons, int index, char* out, size_t out_size)
     {
-        if (!weapons || !out || out_size == 0) return;
+        if (!weapons || !out || out_size == 0)
+            return;
 
         int current = 0;
         const char* start = weapons;
@@ -175,14 +171,16 @@ namespace StringUtils
                     --trim_end;
 
                 size_t len = trim_end - start;
-                if (len >= out_size) len = out_size - 1;
+                if (len >= out_size)
+                    len = out_size - 1;
 
                 memcpy(out, start, len);
                 out[len] = '\0';
                 return;
             }
 
-            if (*end == ',') ++end;
+            if (*end == ',')
+                ++end;
 
             start = end;
             ++current;
@@ -198,11 +196,13 @@ namespace StringUtils
      */
     inline void FreeWeaponList(const char* weapons[], int count)
     {
-        if (!weapons) return;
+        if (!weapons)
+            return;
 
         for (int i = 0; i < count; i++)
         {
-            if (weapons[i]) delete[] weapons[i];
+            if (weapons[i])
+                delete[] weapons[i];
         }
     }
 

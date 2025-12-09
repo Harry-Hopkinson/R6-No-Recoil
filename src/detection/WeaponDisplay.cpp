@@ -15,7 +15,7 @@
 namespace ClickDetection
 {
 
-    void WeaponDisplay(HWND hwnd, int windowWidth, int windowHeight, int mouseX, int mouseY)
+    void WeaponDisplay(HWND hwnd, const int windowWidth, const int windowHeight, int mouseX, int mouseY)
     {
         const char* weaponStr = IsAttackerView ? AttackerWeapons[SelectedOperatorIndex]
                                                : DefenderWeapons[SelectedOperatorIndex];

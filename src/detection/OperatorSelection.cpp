@@ -69,7 +69,7 @@ namespace ClickDetection
         return false;
     }
 
-    void OperatorSelection(HWND hwnd, int windowWidth, int windowHeight, int mouseX, int mouseY)
+    void OperatorSelection(HWND hwnd, const int windowWidth, const int windowHeight, int mouseX, int mouseY)
     {
         // Check button clicks first
         if (HandleButtonClick(hwnd, mouseX, mouseY))

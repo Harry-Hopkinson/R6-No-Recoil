@@ -16,7 +16,6 @@ namespace LayoutUtils
         static constexpr float CELL_SIZE_PERCENT = 0.092f;
         static constexpr float CELL_SPACING_PERCENT = 0.008f;
 
-        // Minimum sizes to prevent UI from becoming unusable
         static constexpr int MIN_CELL_SIZE = 80;
         static constexpr int MIN_CELL_SPACING = 8;
 
@@ -83,17 +82,16 @@ namespace LayoutUtils
      */
     struct WeaponDisplayLayout
     {
-        static constexpr float WEAPON_WIDTH_PERCENT = 0.333f;   // 33.3% of width per weapon
-        static constexpr float WEAPON_HEIGHT_PERCENT = 0.162f;  // 16.2% of height
-        static constexpr float WEAPON_SPACING_PERCENT = 0.008f; // 0.8% of width
+        static constexpr float WEAPON_WIDTH_PERCENT = 0.333f;
+        static constexpr float WEAPON_HEIGHT_PERCENT = 0.162f;
+        static constexpr float WEAPON_SPACING_PERCENT = 0.008f;
 
-        // Minimum sizes
         static constexpr int MIN_WEAPON_WIDTH = 300;
         static constexpr int MIN_WEAPON_HEIGHT = 120;
         static constexpr int MIN_WEAPON_SPACING = 8;
 
         static constexpr int WEAPON_NAME_HEIGHT = 30;
-        static constexpr float SECTION_OFFSET_PERCENT = 0.357f; // 35.7% from bottom
+        static constexpr float SECTION_OFFSET_PERCENT = 0.357f;
 
         /**
          * @brief Get weapon width
@@ -140,7 +138,6 @@ namespace LayoutUtils
             int weaponCount, int windowWidth, int windowHeight, int& outStartX, int& outStartY)
         {
             int weaponWidth = GetWeaponWidth(windowWidth);
-            int weaponHeight = GetWeaponHeight(windowHeight);
             int spacing = GetWeaponSpacing(windowWidth);
 
             int totalWidth = weaponCount * weaponWidth + (weaponCount - 1) * spacing;

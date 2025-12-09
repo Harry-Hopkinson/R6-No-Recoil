@@ -23,11 +23,13 @@ namespace Drawing
         const char* weaponStr = IsAttackerView ? AttackerWeapons[SelectedOperatorIndex]
                                                : DefenderWeapons[SelectedOperatorIndex];
 
-        // Titles
         SetBkMode(memDC, TRANSPARENT);
 
-        Font::DrawCenteredText(memDC, operatorName, 0, 220, right, Font::GetLargeFont());
-        Font::DrawCenteredText(memDC, "Select a weapon:", 0, 260, right, Font::GetMediumFont());
+        int titleY = static_cast<int>(bottom * 0.05f);
+        int subtitleY = static_cast<int>(bottom * 0.10f);
+
+        Font::DrawCenteredText(memDC, operatorName, 0, titleY, right, Font::GetLargeFont());
+        Font::DrawCenteredText(memDC, "Select a weapon:", 0, subtitleY, right, Font::GetMediumFont());
 
         // Parse weapon list
         const char* weapons[3] = { nullptr, nullptr, nullptr };
@@ -36,7 +38,6 @@ namespace Drawing
         int startX, startY;
         LayoutUtils::WeaponDisplayLayout::GetWeaponStartPosition(weaponCount, right, bottom, startX, startY);
 
-        // Get dimensions
         int weaponWidth = LayoutUtils::WeaponDisplayLayout::GetWeaponWidth(right);
         int weaponHeight = LayoutUtils::WeaponDisplayLayout::GetWeaponHeight(bottom);
         int spacing = LayoutUtils::WeaponDisplayLayout::GetWeaponSpacing(right);
@@ -44,12 +45,18 @@ namespace Drawing
         SetStretchBltMode(memDC, HALFTONE);
         SetBrushOrgEx(memDC, 0, 0, nullptr);
 
+        int buttonWidth = static_cast<int>(weaponWidth * 0.5f);
+        int buttonHeight = static_cast<int>(bottom * 0.049f);
+        int buttonSpacing = static_cast<int>(bottom * 0.011f);
+
+        int keyWidth = static_cast<int>(weaponWidth * 0.25f);
+        int keyHeight = static_cast<int>(bottom * 0.032f);
+
         for (int i = 0; i < weaponCount; ++i)
         {
             int x = startX + i * (weaponWidth + spacing);
             int y = startY;
 
-            // Draw weapon image
             HBITMAP weaponBmp = Bitmap::GetWeaponBitmap(weapons[i]);
             Bitmap::DrawBitmap(memDC, weaponBmp, x, y, weaponWidth, weaponHeight, 0, true);
 
@@ -58,46 +65,51 @@ namespace Drawing
             HFONT oldFont = (HFONT)SelectObject(memDC, weaponFont);
             SetTextColor(memDC, TextColour);
 
-            RECT nameRect = { x, y + weaponHeight + 15, x + weaponWidth, y + weaponHeight + 45 };
+            int nameOffsetY = static_cast<int>(weaponHeight * 0.1f);
+            int nameHeight = static_cast<int>(bottom * 0.049f);
+
+            RECT nameRect = { x, y + weaponHeight + nameOffsetY, x + weaponWidth, y + weaponHeight + nameOffsetY + nameHeight };
             DrawText(memDC, weapons[i], -1, &nameRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
             SelectObject(memDC, oldFont);
 
-            const int buttonWidth = 200;
-            const int buttonHeight = 45;
-            const int buttonSpacing = 10;
-
-            int buttonStartY = y + weaponHeight + 60;
+            // Preset buttons
+            int buttonStartY = y + weaponHeight + nameOffsetY + nameHeight
+                + static_cast<int>(bottom * 0.016f); // Add some spacing
             int buttonStartX = x + (weaponWidth - buttonWidth) / 2;
 
             // Key bindings
-            const int keyWidth = 100;
-            const int keyHeight = 30;
+            int keyStartX = x + (weaponWidth - keyWidth) / 2;
+            int keyStartY = buttonStartY + 3 * (buttonHeight + buttonSpacing)
+                + static_cast<int>(bottom * 0.032f);
 
-            const int keyStartX = x + weaponWidth - 250;
-            const int keyStartY = y + weaponHeight + 225;
             RECT keyRect = { keyStartX, keyStartY, keyStartX + keyWidth, keyStartY + keyHeight };
 
             char keyBindText[16];
             snprintf(keyBindText, sizeof(keyBindText), "Key Bind %d", i + 1);
             DrawText(memDC, keyBindText, -1, &keyRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
+            // Enabled status
             char enabledText[16];
             snprintf(
                 enabledText, sizeof(enabledText), "Toggled: %s",
                 (PrimaryKeyEnabled && i == 0) || (SecondaryKeyEnabled && i == 1) || (TertiaryKeyEnabled && i == 2) ? "Yes"
                                                                                                                    : "No");
-            keyRect.top += 20;
-            keyRect.bottom += 20;
+
+            int statusOffsetY = static_cast<int>(keyHeight * 0.67f);
+            keyRect.top += statusOffsetY;
+            keyRect.bottom += statusOffsetY;
             DrawText(memDC, enabledText, -1, &keyRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
-            // Enable key bind button underneath text
+            // Toggle button
             HBRUSH buttonBrush = CreateSolidBrush(LineColour);
-            RECT buttonRect = { keyStartX, keyStartY + keyHeight + 20, keyStartX + keyWidth,
-                                keyStartY + keyHeight + 20 + keyHeight };
+            int toggleOffsetY = static_cast<int>(keyHeight * 0.67f);
+            RECT buttonRect = { keyStartX, keyStartY + keyHeight + toggleOffsetY, keyStartX + keyWidth,
+                                keyStartY + keyHeight + toggleOffsetY + keyHeight };
             FrameRect(memDC, &buttonRect, buttonBrush);
             DrawText(memDC, "Toggle", -1, &buttonRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
             DeleteObject(buttonBrush);
 
+            // Draw preset buttons
             for (int p = 0; p < 3; ++p)
             {
                 WeaponRecoil recoilData = Files::GetWeaponData(weapons[i], p + 1);
@@ -127,12 +139,17 @@ namespace Drawing
         String::FreeWeaponList(weapons, weaponCount);
 
         // Note text
-        int sectionTop = bottom - LayoutUtils::WeaponDisplayLayout::GetSectionOffset(bottom);
+        int noteY = static_cast<int>(bottom * 0.92f);
         const char* noteText = "Click a weapon or preset to select recoil settings.";
-        Font::DrawCenteredText(memDC, noteText, 0, sectionTop + 260, right, Font::GetMediumFont());
+        Font::DrawCenteredText(memDC, noteText, 0, noteY, right, Font::GetMediumFont());
 
         // Back button
-        RECT backBtn = { 30, bottom - 80, 130, bottom - 31 };
+        int backBtnWidth = static_cast<int>(right * 0.083f);
+        int backBtnHeight = static_cast<int>(bottom * 0.053f);
+        int backBtnX = static_cast<int>(right * 0.025f);
+        int backBtnY = bottom - backBtnHeight - static_cast<int>(bottom * 0.032f);
+
+        RECT backBtn = { backBtnX, backBtnY, backBtnX + backBtnWidth, backBtnY + backBtnHeight };
         DrawText(memDC, "Back", -1, &backBtn, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
         FrameRect(memDC, &backBtn, (HBRUSH)GetStockObject(GRAY_BRUSH));
     }

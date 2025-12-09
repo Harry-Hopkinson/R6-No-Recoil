@@ -148,8 +148,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             static HCURSOR hArrow = LoadCursor(NULL, IDC_ARROW);
             static HCURSOR hSizeNS = LoadCursor(NULL, IDC_SIZENS);     // Vertical
             static HCURSOR hSizeWE = LoadCursor(NULL, IDC_SIZEWE);     // Horizontal
-            static HCURSOR hSizeNWSE = LoadCursor(NULL, IDC_SIZENWSE); // Diagonal
-            static HCURSOR hSizeNESW = LoadCursor(NULL, IDC_SIZENESW); // Diagonal
+            static HCURSOR hSizeNWSE = LoadCursor(NULL, IDC_SIZENWSE); // Diagonal (\)
+            static HCURSOR hSizeNESW = LoadCursor(NULL, IDC_SIZENESW); // Diagonal (/)
 
             switch (hitTest)
             {

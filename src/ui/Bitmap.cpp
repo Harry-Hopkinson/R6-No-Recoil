@@ -77,7 +77,7 @@ namespace Bitmap
             const char* path = Files::GetImagePath(name);
             HBITMAP bitmap = LoadBitmap(path);
             if (!bitmap)
-                return {}; // Return empty if any bitmap fails
+                return {};
             bitmaps.push_back(bitmap);
         }
 

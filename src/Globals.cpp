@@ -11,6 +11,8 @@ bool EnableController = false;
 
 bool UseToggleKey = false;
 
+bool ToggleADS = false;
+
 const char* CurrentWeapon = nullptr;
 
 bool IsResizing = false;

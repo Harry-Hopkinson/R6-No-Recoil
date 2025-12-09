@@ -18,11 +18,12 @@ namespace Files
         int len = 0;
         const int bufferSize = sizeof(buffer);
 
-        // [RecoilPresets]
-        len += sprintf_s(buffer + len, bufferSize - len, "[RecoilPresets]\r\n");
+        // [Core]
+        len += sprintf_s(buffer + len, bufferSize - len, "[Core]\r\n");
         len += sprintf_s(buffer + len, bufferSize - len, "Enabled = %s\r\n", EnableRC ? "true" : "false");
         len += sprintf_s(buffer + len, bufferSize - len, "VerticalRecoil = %.2f\r\n", CurrentRecoil.Vertical);
         len += sprintf_s(buffer + len, bufferSize - len, "HorizontalRecoil = %.2f\r\n", CurrentRecoil.Horizontal);
+        len += sprintf_s(buffer + len, bufferSize - len, "ToggleADS = %s\r\n", ToggleADS ? "true" : "false");
         len += sprintf_s(buffer + len, bufferSize - len, "\r\n");
 
         // [Controller]
@@ -107,7 +108,7 @@ namespace Files
             char* key = StringUtils::TrimWhitespace(line);
             char* value = StringUtils::TrimWhitespace(equal + 1);
 
-            if (StringUtils::StringEquals(section, "RecoilPresets"))
+            if (StringUtils::StringEquals(section, "Core"))
             {
                 if (StringUtils::StringEquals(key, "Enabled"))
                     EnableRC = (StringUtils::StringEquals(value, "true") || StringUtils::StringEquals(value, "1"));
@@ -115,6 +116,8 @@ namespace Files
                     CurrentRecoil.Vertical = static_cast<float>(atof(value));
                 else if (StringUtils::StringEquals(key, "HorizontalRecoil"))
                     CurrentRecoil.Horizontal = static_cast<float>(atof(value));
+                else if (StringUtils::StringEquals(key, "ToggleADS"))
+                    ToggleADS = (StringUtils::StringEquals(value, "true") || StringUtils::StringEquals(value, "1"));
             }
             else if (StringUtils::StringEquals(section, "Controller"))
             {

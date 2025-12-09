@@ -1,7 +1,8 @@
-[RecoilPresets]
+[Core]
 Enabled = true
 VerticalRecoil = 3.00
 HorizontalRecoil = 0.00
+ToggleADS = false
 
 [Controller]
 Enabled = false

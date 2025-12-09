@@ -11,6 +11,8 @@ extern bool EnableController;
 
 extern bool UseToggleKey;
 
+extern bool ToggleADS;
+
 extern const char* CurrentWeapon;
 
 extern bool IsResizing;

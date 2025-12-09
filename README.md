@@ -60,10 +60,11 @@ The app automatically creates a `Config.toml` file on first run. You can manuall
 ### Example:
 
 ```ini
-[RecoilPresets]
+[Core]
 Enabled = true
 VerticalRecoil = 3.00
 HorizontalRecoil = 0.00
+ToggleADS = false
 
 [Controller]
 Enabled = false
@@ -88,11 +89,12 @@ LineColour = RGB(180, 180, 180)
 
 ### Fields Explained
 
-#### [RecoilPresets]
+#### [Core]
 
 - **Enabled:** Enable or disable recoil adjustment.
 - **VerticalRecoil:** The vertical recoil compensation value.
-- **HorizontalRecoil:** The horizontal recoil compensation value (Positive goes right, negative goes left)
+- **HorizontalRecoil:** The horizontal recoil compensation value (Positive goes right, negative goes left).
+- **ToggleADS:** Enable if you use toggle for ADS (aim down sights).
 
 #### [Controller]
 
@@ -105,7 +107,7 @@ LineColour = RGB(180, 180, 180)
 - **ToggleRecoilEnabled:** Enable or disable recoil adjustment with a toggle key.
 - **PrimaryKey:** The key code for selecting the first weapon of a selected operator.
 - **SecondaryKey:** The key code for selecting the second weapon of a selected operator.
-- **TertiaryKey:** The key code for selecting the third weapon of a selected operator
+- **TertiaryKey:** The key code for selecting the third weapon of a selected operator.
 
 #### [Theme]
 

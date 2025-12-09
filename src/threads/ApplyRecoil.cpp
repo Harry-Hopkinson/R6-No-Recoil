@@ -25,17 +25,20 @@ namespace Threads
         {
             const bool controllerEnabled = EnableController;
             const bool controllerConnected = controllerEnabled && Inputs::IsControllerConnected();
-            const bool isADS = Inputs::IsMouseADS()
-                || (controllerConnected && Inputs::IsControllerADS(Inputs::GetControllerState()));
+
+            bool isADS = Inputs::IsMouseADS() || (controllerConnected && Inputs::IsControllerADS(Inputs::GetControllerState()));
+
+            const bool firingMouse = Inputs::IsMouseFiring();
+            const bool firingController = controllerConnected && Inputs::IsControllerFiring(Inputs::GetControllerState());
+
+            if (ToggleADS && firingMouse)
+                isADS = true;
 
             if (!EnableRC || !isADS)
             {
                 std::this_thread::sleep_for(std::chrono::milliseconds(IDLE_DELAY_MS));
                 continue;
             }
-
-            const bool firingMouse = Inputs::IsMouseFiring();
-            const bool firingController = controllerConnected && Inputs::IsControllerFiring(Inputs::GetControllerState());
 
             if (!firingMouse && !firingController)
             {

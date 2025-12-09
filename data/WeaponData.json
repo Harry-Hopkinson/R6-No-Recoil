@@ -235,134 +235,134 @@
     },
     {
         "name": "552-Commando",
-        "preset-1": { "vertical": 5.5, "horizontal": 0 },
-        "preset-2": { "vertical": 2.0, "horizontal": 0 },
+        "preset-1": { "vertical": 10.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "L85A2",
-        "preset-1": { "vertical": 4.5, "horizontal": 0 },
-        "preset-2": { "vertical": 2.0, "horizontal": 0 },
+        "preset-1": { "vertical": 9.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "V308",
-        "preset-1": { "vertical": 5.0, "horizontal": 0 },
-        "preset-2": { "vertical": 2.0, "horizontal": 0 },
+        "preset-1": { "vertical": 10.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "Spear-308",
-        "preset-1": { "vertical": 7.0, "horizontal": 0 },
-        "preset-2": { "vertical": 3.0, "horizontal": 0 },
+        "preset-1": { "vertical": 14.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "416-carbine",
-        "preset-1": { "vertical": 3.0, "horizontal": 0 },
+        "preset-1": { "vertical": 9.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "M4",
-        "preset-1": { "vertical": 6.0, "horizontal": 0 },
-        "preset-2": { "vertical": 2.5, "horizontal": 0 },
+        "preset-1": { "vertical": 12.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "DP27",
-        "preset-1": { "vertical": 1.0, "horizontal": 0 },
+        "preset-1": { "vertical": 3.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "PCX-33",
-        "preset-1": { "vertical": 2.0, "horizontal": 0 },
+        "preset-1": { "vertical": 6.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "6P41",
-        "preset-1": { "vertical": 6.0, "horizontal": 0 },
-        "preset-2": { "vertical": 2.5, "horizontal": 0 },
+        "preset-1": { "vertical": 13.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "G8A1",
-        "preset-1": { "vertical": 6.0, "horizontal": 0 },
-        "preset-2": { "vertical": 2.5, "horizontal": 0 },
+        "preset-1": { "vertical": 11.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "ALDA",
-        "preset-1": { "vertical": 3.0, "horizontal": 0 },
+        "preset-1": { "vertical": 10.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "T-95-LSW",
-        "preset-1": { "vertical": 5.5, "horizontal": 0 },
-        "preset-2": { "vertical": 2.5, "horizontal": 0 },
+        "preset-1": { "vertical": 11.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "LMG-E",
-        "preset-1": { "vertical": 7.0, "horizontal": 0 },
-        "preset-2": { "vertical": 3.0, "horizontal": 0 },
+        "preset-1": { "vertical": 13.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "M249",
-        "preset-1": { "vertical": 4.0, "horizontal": 0 },
-        "preset-2": { "vertical": 1.5, "horizontal": 0 },
+        "preset-1": { "vertical": 8.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "M249-SAW",
-        "preset-1": { "vertical": 5.0, "horizontal": 0 },
-        "preset-2": { "vertical": 2.5, "horizontal": 0 },
+        "preset-1": { "vertical": 10.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "417",
-        "preset-1": { "vertical": 3.0, "horizontal": 0 },
-        "preset-2": { "vertical": 1.5, "horizontal": 0 },
+        "preset-1": { "vertical": 5.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "SR-25",
-        "preset-1": { "vertical": 5.5, "horizontal": 0 },
-        "preset-2": { "vertical": 2.5, "horizontal": 0 },
+        "preset-1": { "vertical": 12.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "Mk-14-EBR",
-        "preset-1": { "vertical": 5.5, "horizontal": 0 },
-        "preset-2": { "vertical": 2.5, "horizontal": 0 },
+        "preset-1": { "vertical": 6.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "CAMRS",
-        "preset-1": { "vertical": 3.0, "horizontal": 0 },
-        "preset-2": { "vertical": 1.5, "horizontal": 0 },
+        "preset-1": { "vertical": 6.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "AR-15.50",
-        "preset-1": { "vertical": 3.5, "horizontal": 0 },
-        "preset-2": { "vertical": 1.5, "horizontal": 0 },
+        "preset-1": { "vertical": 7.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "TCSG12",
-        "preset-1": { "vertical": 12.0, "horizontal": 0 },
-        "preset-2": { "vertical": 5.5, "horizontal": 0 },
+        "preset-1": { "vertical": 19.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "ACS12",
-        "preset-1": { "vertical": 4.5, "horizontal": 0 },
-        "preset-2": { "vertical": 2.0, "horizontal": 0 },
+        "preset-1": { "vertical": 10.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
@@ -373,49 +373,49 @@
     },
     {
         "name": "SMG-11",
-        "preset-1": { "vertical": 5.0, "horizontal": 0 },
+        "preset-1": { "vertical": 13.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "SMG-12",
-        "preset-1": { "vertical": 4.5, "horizontal": 0 },
+        "preset-1": { "vertical": 13.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "C75",
-        "preset-1": { "vertical": 2.0, "horizontal": 0 },
+        "preset-1": { "vertical": 8.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "SPSMG9",
-        "preset-1": { "vertical": 2.0, "horizontal": 0 },
+        "preset-1": { "vertical": 6.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "44-Vendetta",
-        "preset-1": { "vertical": 3.0, "horizontal": 0 },
+        "preset-1": { "vertical": 11.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "P9",
-        "preset-1": { "vertical": 0.5, "horizontal": 0 },
+        "preset-1": { "vertical": 2.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "P12",
-        "preset-1": { "vertical": 1.0, "horizontal": 0 },
+        "preset-1": { "vertical": 3.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "LFP586",
-        "preset-1": { "vertical": 8.0, "horizontal": 0 },
+        "preset-1": { "vertical": 24.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     }

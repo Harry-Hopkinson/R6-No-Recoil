@@ -18,7 +18,8 @@ inline constexpr int POLL_INTERVAL_MS = 50;
 static HWND GetWindowHandle()
 {
     static HWND hwnd = nullptr;
-    if (!hwnd || !IsWindow(hwnd)) hwnd = FindWindow(NULL, WINDOW_TITLE);
+    if (!hwnd || !IsWindow(hwnd))
+        hwnd = FindWindow(NULL, WINDOW_TITLE);
     return hwnd;
 }
 
@@ -32,7 +33,8 @@ static void LoadWeaponRecoil(int weaponIndex)
     CurrentRecoil = Files::GetWeaponData(weaponName, 1);
     Files::SaveConfig();
 
-    if (HWND hwnd = GetWindowHandle()) InvalidateRect(hwnd, NULL, FALSE);
+    if (HWND hwnd = GetWindowHandle())
+        InvalidateRect(hwnd, NULL, FALSE);
     std::this_thread::sleep_for(std::chrono::milliseconds(TOGGLE_DELAY_MS));
 }
 
@@ -48,7 +50,8 @@ namespace Threads
                 EnableRC = !EnableRC;
                 Files::SaveConfig();
 
-                if (HWND hwnd = GetWindowHandle()) InvalidateRect(hwnd, NULL, FALSE);
+                if (HWND hwnd = GetWindowHandle())
+                    InvalidateRect(hwnd, NULL, FALSE);
                 std::this_thread::sleep_for(std::chrono::milliseconds(TOGGLE_DELAY_MS));
             }
             else if (PrimaryKeyEnabled && (GetAsyncKeyState(PrimaryKey) & 0x8000))

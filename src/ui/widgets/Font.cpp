@@ -37,7 +37,8 @@ void Font::Cleanup()
 
 void Font::DrawCenteredText(HDC hdc, LPCSTR text, int x, int y, int width, HFONT font)
 {
-    if (!hdc || !text || !font) return;
+    if (!hdc || !text || !font)
+        return;
 
     HFONT oldFont = (HFONT)SelectObject(hdc, font);
 
@@ -56,5 +57,6 @@ void Font::DrawCenteredText(HDC hdc, LPCSTR text, int x, int y, int width, HFONT
     SetTextColor(hdc, oldColor);
     SetBkMode(hdc, oldBkMode);
 
-    if (oldFont != HGDI_ERROR) SelectObject(hdc, oldFont);
+    if (oldFont != HGDI_ERROR)
+        SelectObject(hdc, oldFont);
 }

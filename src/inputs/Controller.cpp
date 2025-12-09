@@ -28,8 +28,10 @@ namespace Inputs
         SHORT stickX = state.Gamepad.sThumbRX;
         SHORT stickY = state.Gamepad.sThumbRY;
 
-        if (abs(stickX) < DEADZONE) stickX = 0;
-        if (abs(stickY) < DEADZONE) stickY = 0;
+        if (abs(stickX) < DEADZONE)
+            stickX = 0;
+        if (abs(stickY) < DEADZONE)
+            stickY = 0;
 
         outX = static_cast<float>(stickX) / 32767.0f;
         outY = static_cast<float>(stickY) / 32767.0f;

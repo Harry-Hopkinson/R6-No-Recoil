@@ -40,6 +40,7 @@ if(MINGW)
         -Wextra
 
         -Wpedantic
+        -Wshadow
         -Wunused
         -Wunused-variable
         -Wunused-function

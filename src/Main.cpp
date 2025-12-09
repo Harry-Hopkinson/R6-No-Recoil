@@ -40,9 +40,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             SendMessage(hwnd, WM_SETICON, ICON_BIG, (LPARAM)hIcon);
 
             Buttons::CreateOperatorSelectionButtons();
-
             Bitmap::InitialiseOperatorBitmaps(AttackerNames, DefenderNames);
-
             Font::CreateFonts();
         }
         break;
@@ -75,11 +73,41 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             BitBlt(hdc, 0, 0, rect.right, rect.bottom, memDC, 0, 0, SRCCOPY);
 
-            // Clean up
             SelectObject(memDC, oldBitmap);
             DeleteObject(memBitmap);
             DeleteDC(memDC);
             EndPaint(hwnd, &ps);
+        }
+        break;
+
+        case WM_ERASEBKGND:
+        {
+            return 1;
+        }
+        break;
+
+        case WM_SIZE:
+        {
+            if (wParam != SIZE_MINIMIZED)
+            {
+                WINDOW_WIDTH = LOWORD(lParam);
+                WINDOW_HEIGHT = HIWORD(lParam);
+
+                Buttons::CreateOperatorSelectionButtons();
+
+                InvalidateRect(hwnd, NULL, FALSE);
+            }
+            return 0;
+        }
+        break;
+
+        case WM_GETMINMAXINFO:
+        {
+            LPMINMAXINFO lpMMI = (LPMINMAXINFO)lParam;
+            lpMMI->ptMinTrackSize.x = 1100;
+            lpMMI->ptMinTrackSize.y = 700;
+
+            return 0;
         }
         break;
 
@@ -90,20 +118,81 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             RECT rect;
             GetClientRect(hwnd, &rect);
+            int windowWidth = rect.right;
+            int windowHeight = rect.bottom;
 
             switch (Scenes::GetCurrentScene())
             {
                 case SceneType::OperatorSelection:
-                    ClickDetection::OperatorSelection(hwnd, mouseX, mouseY);
+                    ClickDetection::OperatorSelection(hwnd, windowWidth, windowHeight, mouseX, mouseY);
                     break;
 
                 case SceneType::WeaponDisplay:
-                    ClickDetection::WeaponDisplay(hwnd, rect.right, rect.bottom, mouseX, mouseY);
+                    ClickDetection::WeaponDisplay(hwnd, windowWidth, windowHeight, mouseX, mouseY);
                     break;
 
                 default:
                     break;
             }
+        }
+        break;
+
+        case WM_SETCURSOR:
+        {
+            int hitTest = LOWORD(lParam);
+            bool isMouseDown = (GetAsyncKeyState(VK_LBUTTON) & 0x8000) != 0;
+
+            if (isMouseDown)
+                return DefWindowProc(hwnd, uMsg, wParam, lParam);
+
+            static HCURSOR hArrow = LoadCursor(NULL, IDC_ARROW);
+            static HCURSOR hSizeNS = LoadCursor(NULL, IDC_SIZENS);     // Vertical
+            static HCURSOR hSizeWE = LoadCursor(NULL, IDC_SIZEWE);     // Horizontal
+            static HCURSOR hSizeNWSE = LoadCursor(NULL, IDC_SIZENWSE); // Diagonal (\)
+            static HCURSOR hSizeNESW = LoadCursor(NULL, IDC_SIZENESW); // Diagonal (/)
+
+            switch (hitTest)
+            {
+                case HTTOP:
+                case HTBOTTOM:
+                    SetCursor(hSizeNS);
+                    return TRUE;
+
+                case HTLEFT:
+                case HTRIGHT:
+                    SetCursor(hSizeWE);
+                    return TRUE;
+
+                case HTTOPLEFT:
+                case HTBOTTOMRIGHT:
+                    SetCursor(hSizeNWSE);
+                    return TRUE;
+
+                case HTTOPRIGHT:
+                case HTBOTTOMLEFT:
+                    SetCursor(hSizeNESW);
+                    return TRUE;
+
+                default:
+                    SetCursor(hArrow);
+                    return TRUE;
+            }
+        }
+        break;
+
+        case WM_ENTERSIZEMOVE:
+        {
+            IsResizing = true;
+            return 0;
+        }
+        break;
+
+        case WM_EXITSIZEMOVE:
+        {
+            IsResizing = false;
+
+            InvalidateRect(hwnd, NULL, FALSE);
+            return 0;
         }
         break;
 
@@ -131,7 +220,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
 {
     WNDCLASS wc = {};
-    wc.style = CS_HREDRAW | CS_VREDRAW | CS_PARENTDC;
+    wc.style = CS_HREDRAW | CS_VREDRAW;
     wc.lpszClassName = "R6NoRecoil";
     wc.hInstance = hInstance;
     wc.lpfnWndProc = WindowProc;
@@ -142,10 +231,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
     Files::LoadConfig();
 
     HWND hwnd = CreateWindowEx(
-        0, wc.lpszClassName, "R6 No Recoil", WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX | WS_CLIPCHILDREN,
-        CW_USEDEFAULT, CW_USEDEFAULT, WINDOW_WIDTH, WINDOW_HEIGHT, nullptr, nullptr, hInstance, nullptr);
+        0, wc.lpszClassName, "R6 No Recoil", WS_OVERLAPPEDWINDOW & ~WS_MAXIMIZEBOX, CW_USEDEFAULT, CW_USEDEFAULT, WINDOW_WIDTH,
+        WINDOW_HEIGHT, nullptr, nullptr, hInstance, nullptr);
 
-    if (!hwnd) return 0;
+    if (!hwnd)
+        return 0;
 
     ShowWindow(hwnd, nCmdShow);
     UpdateWindow(hwnd);
@@ -158,7 +248,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
     {
         while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
-            if (msg.message == WM_KEYDOWN && msg.wParam == VK_ESCAPE) PostMessage(hwnd, WM_CLOSE, 0, 0);
+            if (msg.message == WM_KEYDOWN && msg.wParam == VK_ESCAPE)
+                PostMessage(hwnd, WM_CLOSE, 0, 0);
 
             TranslateMessage(&msg);
             DispatchMessage(&msg);
@@ -167,8 +258,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
         std::this_thread::sleep_for(std::chrono::milliseconds(16));
     }
 
-    if (recoilThread.joinable()) recoilThread.join();
-    if (toggleThread.joinable()) toggleThread.join();
+    if (recoilThread.joinable())
+        recoilThread.join();
+    if (toggleThread.joinable())
+        toggleThread.join();
 
     return 0;
 }

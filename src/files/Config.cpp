@@ -46,14 +46,18 @@ namespace Files
         len += sprintf_s(buffer + len, bufferSize - len, "\r\n");
 
         len += sprintf_s(buffer + len, bufferSize - len, "[Theme]\r\n");
-        len += sprintf_s(buffer + len, bufferSize - len, "BackgroundColour = RGB(%d, %d, %d)\r\n",
-            GetRValue(BackgroundColour), GetGValue(BackgroundColour), GetBValue(BackgroundColour));
-        len += sprintf_s(buffer + len, bufferSize - len, "TextColour = RGB(%d, %d, %d)\r\n",
-            GetRValue(TextColour), GetGValue(TextColour), GetBValue(TextColour));
-        len += sprintf_s(buffer + len, bufferSize - len, "ButtonColour = RGB(%d, %d, %d)\r\n",
-            GetRValue(ButtonColour), GetGValue(ButtonColour), GetBValue(ButtonColour));
-        len += sprintf_s(buffer + len, bufferSize - len, "LineColour = RGB(%d, %d, %d)\r\n",
-            GetRValue(LineColour), GetGValue(LineColour), GetBValue(LineColour));
+        len += sprintf_s(
+            buffer + len, bufferSize - len, "BackgroundColour = RGB(%d, %d, %d)\r\n", GetRValue(BackgroundColour),
+            GetGValue(BackgroundColour), GetBValue(BackgroundColour));
+        len += sprintf_s(
+            buffer + len, bufferSize - len, "TextColour = RGB(%d, %d, %d)\r\n", GetRValue(TextColour), GetGValue(TextColour),
+            GetBValue(TextColour));
+        len += sprintf_s(
+            buffer + len, bufferSize - len, "ButtonColour = RGB(%d, %d, %d)\r\n", GetRValue(ButtonColour),
+            GetGValue(ButtonColour), GetBValue(ButtonColour));
+        len += sprintf_s(
+            buffer + len, bufferSize - len, "LineColour = RGB(%d, %d, %d)\r\n", GetRValue(LineColour), GetGValue(LineColour),
+            GetBValue(LineColour));
 
         FileUtils::WriteFileFromMemory("Config.toml", buffer, len);
     }

@@ -49,13 +49,12 @@ namespace Drawing
         SetBkMode(memDC, TRANSPARENT);
 
         // Draw operator bitmaps
+        int cellSize = LayoutUtils::OperatorGridLayout::GetCellSize(right);
         for (size_t i = 0; i < bitmaps.size(); ++i)
         {
             int x, y;
-            LayoutUtils::OperatorGridLayout::GetCellPosition(i, x, y);
-            Bitmap::DrawBitmap(
-                memDC, bitmaps[i], x, y, LayoutUtils::OperatorGridLayout::CELL_SIZE, LayoutUtils::OperatorGridLayout::CELL_SIZE,
-                45);
+            LayoutUtils::OperatorGridLayout::GetCellPosition(i, right, bottom, x, y);
+            Bitmap::DrawBitmap(memDC, bitmaps[i], x, y, cellSize, cellSize, 45);
         }
 
         // Draw info box
@@ -91,10 +90,8 @@ namespace Drawing
         DrawText(memDC, currentVersionText, -1, &textRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
         // Draw recoil labels
-        RECT verticalLabelRect = { WINDOW_WIDTH - 340, (WINDOW_HEIGHT - 90) / 2 - 140, WINDOW_WIDTH - 150,
-                                   (WINDOW_HEIGHT - 90) / 2 - 120 };
-        RECT horizontalLabelRect = { WINDOW_WIDTH - 355, (WINDOW_HEIGHT - 90) / 2 - 90, WINDOW_WIDTH - 150,
-                                     (WINDOW_HEIGHT - 90) / 2 - 70 };
+        RECT verticalLabelRect = { right - 340, (bottom - 90) / 2 - 140, right - 150, (bottom - 90) / 2 - 120 };
+        RECT horizontalLabelRect = { right - 355, (bottom - 90) / 2 - 90, right - 150, (bottom - 90) / 2 - 70 };
         DrawText(memDC, "Vertical Recoil:", -1, &verticalLabelRect, DT_LEFT | DT_SINGLELINE | DT_VCENTER);
         DrawText(memDC, "Horizontal Recoil:", -1, &horizontalLabelRect, DT_LEFT | DT_SINGLELINE | DT_VCENTER);
 
@@ -103,8 +100,9 @@ namespace Drawing
             DrawButton(memDC, btn);
 
         // Draw vertical line
-        MoveToEx(memDC, 760, 60, nullptr);
-        LineTo(memDC, 760, bottom - 20);
+        int lineX = static_cast<int>(right * 0.633f);
+        MoveToEx(memDC, lineX, 60, nullptr);
+        LineTo(memDC, lineX, bottom - 20);
 
         // Cleanup
         SelectObject(memDC, oldFont);

@@ -1,85 +1,85 @@
 [
     {
         "name": "P90",
-        "preset-1": { "vertical": 2.5, "horizontal": 0 },
+        "preset-1": { "vertical": 7.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "MP5",
-        "preset-1": { "vertical": 2.5, "horizontal": 0 },
+        "preset-1": { "vertical": 8.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "MP5K",
-        "preset-1": { "vertical": 2.5, "horizontal": 0 },
+        "preset-1": { "vertical": 7.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "MP5SD",
-        "preset-1": { "vertical": 2.0, "horizontal": 0 },
+        "preset-1": { "vertical": 7.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "UMP45",
-        "preset-1": { "vertical": 1.5, "horizontal": 0 },
+        "preset-1": { "vertical": 5.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "MP7",
-        "preset-1": { "vertical": 2.5, "horizontal": 0 },
+        "preset-1": { "vertical": 7.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "9x19VSN",
-        "preset-1": { "vertical": 2.0, "horizontal": 0 },
+        "preset-1": { "vertical": 8.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "FMG-9",
-        "preset-1": { "vertical": 5.0, "horizontal": 0 },
-        "preset-2": { "vertical": 2.5, "horizontal": 0 },
+        "preset-1": { "vertical": 11.0, "horizontal": 0 },
+        "preset-2": { "vertical": 7.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "Mx4-Storm",
-        "preset-1": { "vertical": 2.5, "horizontal": 0 },
+        "preset-1": { "vertical": 9.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "MPX",
-        "preset-1": { "vertical": 2.5, "horizontal": 0 },
+        "preset-1": { "vertical": 7.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "T-5",
-        "preset-1": { "vertical": 3.0, "horizontal": 0 },
+        "preset-1": { "vertical": 9.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "Scorpion-EVO",
-        "preset-1": { "vertical": 3.5, "horizontal": 0 },
+        "preset-1": { "vertical": 10.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "K1A",
-        "preset-1": { "vertical": 2.0, "horizontal": 0 },
+        "preset-1": { "vertical": 8.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "Vector",
-        "preset-1": { "vertical": 3.0, "horizontal": 0 },
+        "preset-1": { "vertical": 9.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },

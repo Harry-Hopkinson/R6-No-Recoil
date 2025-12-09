@@ -85,151 +85,151 @@
     },
     {
         "name": "P10-RONI",
-        "preset-1": { "vertical": 2.5, "horizontal": 0 },
+        "preset-1": { "vertical": 9.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "Commando-9",
-        "preset-1": { "vertical": 2.0, "horizontal": 0 },
+        "preset-1": { "vertical": 7.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "9mm-C1",
-        "preset-1": { "vertical": 1.0, "horizontal": 0 },
+        "preset-1": { "vertical": 5.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "M12",
-        "preset-1": { "vertical": 1.5, "horizontal": 0 },
+        "preset-1": { "vertical": 4.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "PDW9",
-        "preset-1": { "vertical": 4.5, "horizontal": 0 },
-        "preset-2": { "vertical": 2.0, "horizontal": 0 },
+        "preset-1": { "vertical": 11.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "POF-9",
-        "preset-1": { "vertical": 4.5, "horizontal": 0 },
-        "preset-2": { "vertical": 2.0, "horizontal": 0 },
+        "preset-1": { "vertical": 10.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "SC3000K",
-        "preset-1": { "vertical": 6.0, "horizontal": 0 },
-        "preset-2": { "vertical": 2.5, "horizontal": 0 },
+        "preset-1": { "vertical": 14.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "UZK50GI",
-        "preset-1": { "vertical": 2.0, "horizontal": 0 },
+        "preset-1": { "vertical": 8.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "AK-12",
-        "preset-1": { "vertical": 7.0, "horizontal": 0 },
-        "preset-2": { "vertical": 2.5, "horizontal": 0 },
+        "preset-1": { "vertical": 13.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "F2",
-        "preset-1": { "vertical": 10.0, "horizontal": 0 },
-        "preset-2": { "vertical": 4.0, "horizontal": 0 },
+        "preset-1": { "vertical": 18.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "AR33",
-        "preset-1": { "vertical": 5.5, "horizontal": 0 },
-        "preset-2": { "vertical": 2.0, "horizontal": 0 },
+        "preset-1": { "vertical": 10.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "556XI",
-        "preset-1": { "vertical": 4.5, "horizontal": 0 },
-        "preset-2": { "vertical": 2.0, "horizontal": 0 },
+        "preset-1": { "vertical": 8.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "G36C",
-        "preset-1": { "vertical": 5.0, "horizontal": 0 },
-        "preset-2": { "vertical": 2.0, "horizontal": 0 },
+        "preset-1": { "vertical": 12.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "R4-C",
-        "preset-1": { "vertical": 8.0, "horizontal": 0 },
-        "preset-2": { "vertical": 3.0, "horizontal": 0 },
+        "preset-1": { "vertical": 15.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "C8-SFW",
-        "preset-1": { "vertical": 6.5, "horizontal": 0 },
-        "preset-2": { "vertical": 2.5, "horizontal": 0 },
+        "preset-1": { "vertical": 11.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "MK17-CQB",
-        "preset-1": { "vertical": 2.5, "horizontal": 0 },
-        "preset-2": { "vertical": 1.0, "horizontal": 0 },
+        "preset-1": { "vertical": 4.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "PARA-308",
-        "preset-1": { "vertical": 4.0, "horizontal": 0 },
-        "preset-2": { "vertical": 1.5, "horizontal": 0 },
+        "preset-1": { "vertical": 9.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "Type-89",
-        "preset-1": { "vertical": 6.0, "horizontal": 0 },
-        "preset-2": { "vertical": 2.5, "horizontal": 0 },
+        "preset-1": { "vertical": 12.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "C7E",
-        "preset-1": { "vertical": 8.0, "horizontal": 0 },
-        "preset-2": { "vertical": 3.0, "horizontal": 0 },
+        "preset-1": { "vertical": 14.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "M762",
-        "preset-1": { "vertical": 7.0, "horizontal": 0 },
-        "preset-2": { "vertical": 2.0, "horizontal": 0 },
+        "preset-1": { "vertical": 13.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "AK-74M",
-        "preset-1": { "vertical": 4.0, "horizontal": 0 },
-        "preset-2": { "vertical": 1.5, "horizontal": 0 },
+        "preset-1": { "vertical": 8.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "ARX200",
-        "preset-1": { "vertical": 6.0, "horizontal": 0 },
-        "preset-2": { "vertical": 2.0, "horizontal": 0 },
+        "preset-1": { "vertical": 10.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "F90",
-        "preset-1": { "vertical": 6.5, "horizontal": 0 },
-        "preset-2": { "vertical": 2.0, "horizontal": 0 },
+        "preset-1": { "vertical": 12.0, "horizontal": 0 },
+        "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "AUG-A2",
-        "preset-1": { "vertical": 6.0, "horizontal": 0 },
-        "preset-2": { "vertical": 2.5, "horizontal": 0 },
+        "preset-1": { "vertical": 11.0, "horizontal": 0 },
+        "preset-2": { "vertical": 8.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
     {
         "name": "AUG-A3",
-        "preset-1": { "vertical": 2.0, "horizontal": 0 },
+        "preset-1": { "vertical": 7.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },
@@ -367,7 +367,7 @@
     },
     {
         "name": "Bearing-9",
-        "preset-1": { "vertical": 4.0, "horizontal": 0 },
+        "preset-1": { "vertical": 12.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },

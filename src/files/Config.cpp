@@ -18,8 +18,8 @@ namespace Files
         int len = 0;
         const int bufferSize = sizeof(buffer);
 
-        // [Core]
-        len += sprintf_s(buffer + len, bufferSize - len, "[Core]\r\n");
+        // [General]
+        len += sprintf_s(buffer + len, bufferSize - len, "[General]\r\n");
         len += sprintf_s(buffer + len, bufferSize - len, "Enabled = %s\r\n", EnableRC ? "true" : "false");
         len += sprintf_s(buffer + len, bufferSize - len, "VerticalRecoil = %.2f\r\n", CurrentRecoil.Vertical);
         len += sprintf_s(buffer + len, bufferSize - len, "HorizontalRecoil = %.2f\r\n", CurrentRecoil.Horizontal);
@@ -108,7 +108,7 @@ namespace Files
             char* key = StringUtils::TrimWhitespace(line);
             char* value = StringUtils::TrimWhitespace(equal + 1);
 
-            if (StringUtils::StringEquals(section, "Core"))
+            if (StringUtils::StringEquals(section, "General"))
             {
                 if (StringUtils::StringEquals(key, "Enabled"))
                     EnableRC = (StringUtils::StringEquals(value, "true") || StringUtils::StringEquals(value, "1"));

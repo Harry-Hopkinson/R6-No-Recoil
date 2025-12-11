@@ -60,7 +60,7 @@ The app automatically creates a `Config.toml` file on first run. You can manuall
 ### Example:
 
 ```ini
-[Core]
+[General]
 Enabled = true
 VerticalRecoil = 3.00
 HorizontalRecoil = 0.00
@@ -89,7 +89,7 @@ LineColour = RGB(180, 180, 180)
 
 ### Fields Explained
 
-#### [Core]
+#### [General]
 
 - **Enabled:** Enable or disable recoil adjustment.
 - **VerticalRecoil:** The vertical recoil compensation value.

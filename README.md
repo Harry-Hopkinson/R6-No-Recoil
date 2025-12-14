@@ -4,7 +4,7 @@
         <img src="https://raw.githubusercontent.com/Harry-Hopkinson/R6-No-Recoil/master/website/public/app.png" alt="App Preview" width="750px">
     </a>
     <hr>
-    <a href="http://discord.gg/CTfnFWW4cm">
+    <a href="http://discord.gg/TCMP8u8bKE">
         <img src="https://img.shields.io/badge/Join%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Join Discord">
     </a>
     <a href="https://ko-fi.com/harryhopkinson">
@@ -150,4 +150,4 @@ Windows Defender may flag it as a false positive due to the nature of input simu
 
 ---
 
-**Got questions?** Feel free to open an issue or join our [Discord](http://discord.gg/H98vCAWQ3m)!
+**Got questions?** Feel free to open an issue or join our [Discord](http://discord.gg/TCMP8u8bKE)!

@@ -7,7 +7,6 @@ body {
   color: #333;
 }
 
-/* Hero Section */
 section.hero {
   position: relative;
   height: 100vh;
@@ -167,7 +166,6 @@ section.hero {
   background: #4b5cc4;
 }
 
-/* Animations */
 @keyframes fadeIn {
   to {
     opacity: 1;

@@ -4,7 +4,9 @@
 
 static inline int is_space(int c)
 {
-    return (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r');
+    return (
+        c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f'
+        || c == '\r');
 }
 
 namespace StringUtils
@@ -15,9 +17,10 @@ namespace StringUtils
      * @param dir Directory path
      * @param filename Filename without extension
      * @param ext Extension (including dot, e.g., ".bmp")
-     * @return Newly allocated string with full path (caller must delete[])
+     * @return Newly allocated string with full path
      */
-    inline char* BuildPath(const char* dir, const char* filename, const char* ext)
+    inline char* BuildPath(
+        const char* dir, const char* filename, const char* ext)
     {
         if (!dir || !filename || !ext)
             return nullptr;
@@ -38,7 +41,7 @@ namespace StringUtils
     /**
      * @brief Creates a copy of a string
      * @param input String to copy
-     * @return Newly allocated copy (caller must delete[])
+     * @return Newly allocated copy
      */
     inline char* CopyString(const char* input)
     {
@@ -141,13 +144,14 @@ namespace StringUtils
     }
 
     /**
-     * @brief Retrieves the weapon name at a specific index from a comma-separated list
+     * @brief Retrieves the weapon name at a specific index
      * @param weapons Comma-separated weapon string
      * @param index Index of the weapon to retrieve
      * @param out Output buffer to store the weapon name
      * @param out_size Size of the output buffer
      */
-    inline void GetWeaponAtIndex(const char* weapons, int index, char* out, size_t out_size)
+    inline void GetWeaponAtIndex(
+        const char* weapons, int index, char* out, size_t out_size)
     {
         if (!weapons || !out || out_size == 0)
             return;
@@ -167,7 +171,8 @@ namespace StringUtils
             if (current == index)
             {
                 const char* trim_end = end;
-                while (trim_end > start && is_space((unsigned char)*(trim_end - 1)))
+                while (trim_end > start
+                       && is_space((unsigned char)*(trim_end - 1)))
                     --trim_end;
 
                 size_t len = trim_end - start;

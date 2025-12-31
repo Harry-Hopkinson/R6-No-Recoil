@@ -18,7 +18,9 @@ namespace Bitmap
         return IsAttackerView ? AttackerBitmaps : DefenderBitmaps;
     }
 
-    void InitialiseOperatorBitmaps(const std::vector<const char*>& attackerNames, const std::vector<const char*>& defenderNames)
+    void InitialiseOperatorBitmaps(
+        const std::vector<const char*>& attackerNames,
+        const std::vector<const char*>& defenderNames)
     {
         AttackerBitmaps = LoadOperatorBitmaps(attackerNames);
         DefenderBitmaps = LoadOperatorBitmaps(defenderNames);
@@ -34,7 +36,8 @@ namespace Bitmap
     {
         if (!path)
             return nullptr;
-        return (HBITMAP)LoadImageA(NULL, path, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE);
+        return (HBITMAP)LoadImageA(
+            NULL, path, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE);
     }
 
     HBITMAP LoadWeaponBitmap(const char* weaponName)
@@ -62,12 +65,14 @@ namespace Bitmap
         // Not cached, load
         HBITMAP bmp = LoadWeaponBitmap(weaponName);
         if (bmp)
-            WeaponBitmaps.push_back({ String::CreateStringCopy(weaponName), bmp });
+            WeaponBitmaps.push_back(
+                { String::CreateStringCopy(weaponName), bmp });
 
         return bmp;
     }
 
-    std::vector<HBITMAP> LoadOperatorBitmaps(const std::vector<const char*>& names)
+    std::vector<HBITMAP> LoadOperatorBitmaps(
+        const std::vector<const char*>& names)
     {
         std::vector<HBITMAP> bitmaps;
         bitmaps.reserve(names.size());
@@ -104,7 +109,9 @@ namespace Bitmap
         bitmaps.clear();
     }
 
-    void DrawBitmap(HDC hdc, HBITMAP bitmap, int x, int y, int width, int height, int cropMargin, bool useTransparency)
+    void DrawBitmap(
+        HDC hdc, HBITMAP bitmap, int x, int y, int width, int height,
+        int cropMargin, bool useTransparency)
     {
         if (!hdc || !bitmap)
             return;
@@ -136,8 +143,12 @@ namespace Bitmap
             SetStretchBltMode(tempDC, IsResizing ? COLORONCOLOR : HALFTONE);
             SetBrushOrgEx(tempDC, 0, 0, NULL);
 
-            StretchBlt(tempDC, 0, 0, width, height, memDC, srcX, srcY, srcW, srcH, SRCCOPY);
-            TransparentBlt(hdc, x, y, width, height, tempDC, 0, 0, width, height, RGB(255, 255, 255));
+            StretchBlt(
+                tempDC, 0, 0, width, height, memDC, srcX, srcY, srcW, srcH,
+                SRCCOPY);
+            TransparentBlt(
+                hdc, x, y, width, height, tempDC, 0, 0, width, height,
+                RGB(255, 255, 255));
 
             SelectObject(tempDC, oldTempBmp);
             DeleteObject(tempBmp);
@@ -145,7 +156,9 @@ namespace Bitmap
         }
         else
         {
-            StretchBlt(hdc, x, y, width, height, memDC, srcX, srcY, srcW, srcH, SRCCOPY);
+            StretchBlt(
+                hdc, x, y, width, height, memDC, srcX, srcY, srcW, srcH,
+                SRCCOPY);
         }
 
         SelectObject(memDC, oldBmp);

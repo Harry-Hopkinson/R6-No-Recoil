@@ -29,7 +29,8 @@ namespace Bitmap
      * @param names Vector of operator names
      * @return Vector of loaded bitmap handles
      */
-    std::vector<HBITMAP> LoadOperatorBitmaps(const std::vector<const char*>& names);
+    std::vector<HBITMAP> LoadOperatorBitmaps(
+        const std::vector<const char*>& names);
 
     /**
      * @brief Cleans up all cached weapon bitmaps
@@ -54,7 +55,8 @@ namespace Bitmap
      * @param useTransparency Whether to use transparency when drawing
      */
     void DrawBitmap(
-        HDC hdc, HBITMAP bitmap, int x, int y, int width, int height, int cropMargin = 0, bool useTransparency = false);
+        HDC hdc, HBITMAP bitmap, int x, int y, int width, int height,
+        int cropMargin = 0, bool useTransparency = false);
 
     /**
      * @brief Initialises operator bitmaps for attackers and defenders
@@ -62,7 +64,8 @@ namespace Bitmap
      * @param defenderNames Vector of defender names
      */
     void InitialiseOperatorBitmaps(
-        const std::vector<const char*>& attackerNames, const std::vector<const char*>& defenderNames);
+        const std::vector<const char*>& attackerNames,
+        const std::vector<const char*>& defenderNames);
 
     /**
      * @brief Cleans up all operator bitmaps

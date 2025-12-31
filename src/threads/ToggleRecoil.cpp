@@ -25,10 +25,13 @@ static HWND GetWindowHandle()
 
 static void LoadWeaponRecoil(int weaponIndex)
 {
-    const char* weapons = IsAttackerView ? AttackerWeapons[SelectedOperatorIndex] : DefenderWeapons[SelectedOperatorIndex];
+    const char* weapons = IsAttackerView
+        ? AttackerWeapons[SelectedOperatorIndex]
+        : DefenderWeapons[SelectedOperatorIndex];
 
     char weaponName[16] = {};
-    StringUtils::GetWeaponAtIndex(weapons, weaponIndex, weaponName, sizeof(weaponName));
+    StringUtils::GetWeaponAtIndex(
+        weapons, weaponIndex, weaponName, sizeof(weaponName));
 
     CurrentRecoil = Files::GetWeaponData(weaponName, 1);
     Files::SaveConfig();
@@ -52,22 +55,28 @@ namespace Threads
 
                 if (HWND hwnd = GetWindowHandle())
                     InvalidateRect(hwnd, NULL, FALSE);
-                std::this_thread::sleep_for(std::chrono::milliseconds(TOGGLE_DELAY_MS));
+                std::this_thread::sleep_for(
+                    std::chrono::milliseconds(TOGGLE_DELAY_MS));
             }
-            else if (PrimaryKeyEnabled && (GetAsyncKeyState(PrimaryKey) & 0x8000))
+            else if (
+                PrimaryKeyEnabled && (GetAsyncKeyState(PrimaryKey) & 0x8000))
             {
                 LoadWeaponRecoil(0);
             }
-            else if (SecondaryKeyEnabled && (GetAsyncKeyState(SecondaryKey) & 0x8000))
+            else if (
+                SecondaryKeyEnabled
+                && (GetAsyncKeyState(SecondaryKey) & 0x8000))
             {
                 LoadWeaponRecoil(1);
             }
-            else if (TertiaryKeyEnabled && (GetAsyncKeyState(TertiaryKey) & 0x8000))
+            else if (
+                TertiaryKeyEnabled && (GetAsyncKeyState(TertiaryKey) & 0x8000))
             {
                 LoadWeaponRecoil(2);
             }
 
-            std::this_thread::sleep_for(std::chrono::milliseconds(POLL_INTERVAL_MS));
+            std::this_thread::sleep_for(
+                std::chrono::milliseconds(POLL_INTERVAL_MS));
         }
     }
 } // namespace Threads

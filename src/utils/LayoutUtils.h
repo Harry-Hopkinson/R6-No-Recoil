@@ -49,10 +49,14 @@ namespace LayoutUtils
          * @param outX Output X position
          * @param outY Output Y position
          */
-        static inline void GetCellPosition(size_t index, int windowWidth, int windowHeight, int& outX, int& outY)
+        static inline void GetCellPosition(
+            size_t index, int windowWidth, int windowHeight, int& outX,
+            int& outY)
         {
-            int gridStartX = static_cast<int>(windowWidth * GRID_START_X_PERCENT);
-            int gridStartY = static_cast<int>(windowHeight * GRID_START_Y_PERCENT);
+            int gridStartX = static_cast<int>(
+                windowWidth * GRID_START_X_PERCENT);
+            int gridStartY = static_cast<int>(
+                windowHeight * GRID_START_Y_PERCENT);
             int cellSize = GetCellSize(windowWidth);
             int cellSpacing = GetCellSpacing(windowWidth);
             int cellStride = cellSize + cellSpacing;
@@ -68,7 +72,8 @@ namespace LayoutUtils
          * @param windowHeight Current window height
          * @return RECT with cell bounds
          */
-        static inline RECT GetCellRect(size_t index, int windowWidth, int windowHeight)
+        static inline RECT GetCellRect(
+            size_t index, int windowWidth, int windowHeight)
         {
             int x, y;
             GetCellPosition(index, windowWidth, windowHeight, x, y);
@@ -122,7 +127,8 @@ namespace LayoutUtils
          */
         static inline int GetWeaponSpacing(int windowWidth)
         {
-            int spacing = static_cast<int>(windowWidth * WEAPON_SPACING_PERCENT);
+            int spacing = static_cast<int>(
+                windowWidth * WEAPON_SPACING_PERCENT);
             return (std::max)(spacing, MIN_WEAPON_SPACING);
         }
 
@@ -135,12 +141,14 @@ namespace LayoutUtils
          * @param outStartY Output start Y position
          */
         static inline void GetWeaponStartPosition(
-            int weaponCount, int windowWidth, int windowHeight, int& outStartX, int& outStartY)
+            int weaponCount, int windowWidth, int windowHeight, int& outStartX,
+            int& outStartY)
         {
             int weaponWidth = GetWeaponWidth(windowWidth);
             int spacing = GetWeaponSpacing(windowWidth);
 
-            int totalWidth = weaponCount * weaponWidth + (weaponCount - 1) * spacing;
+            int totalWidth = weaponCount * weaponWidth
+                + (weaponCount - 1) * spacing;
             outStartX = (windowWidth - totalWidth) / 2;
             outStartY = static_cast<int>(windowHeight * 0.25f); // 25% from top
         }
@@ -154,7 +162,9 @@ namespace LayoutUtils
          * @param startY Start Y position from GetWeaponStartPosition
          * @return RECT with weapon clickable area
          */
-        static inline RECT GetWeaponRect(int weaponIndex, int windowWidth, int windowHeight, int startX, int startY)
+        static inline RECT GetWeaponRect(
+            int weaponIndex, int windowWidth, int windowHeight, int startX,
+            int startY)
         {
             int weaponWidth = GetWeaponWidth(windowWidth);
             int weaponHeight = GetWeaponHeight(windowHeight);
@@ -184,7 +194,8 @@ namespace LayoutUtils
      */
     inline bool IsPointInRect(const RECT& rect, int x, int y)
     {
-        return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
+        return x >= rect.left && x <= rect.right && y >= rect.top
+            && y <= rect.bottom;
     }
 
 } // namespace LayoutUtils

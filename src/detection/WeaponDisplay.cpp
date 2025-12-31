@@ -15,10 +15,13 @@
 namespace ClickDetection
 {
 
-    void WeaponDisplay(HWND hwnd, const int windowWidth, const int windowHeight, int mouseX, int mouseY)
+    void WeaponDisplay(
+        HWND hwnd, const int windowWidth, const int windowHeight, int mouseX,
+        int mouseY)
     {
-        const char* weaponStr = IsAttackerView ? AttackerWeapons[SelectedOperatorIndex]
-                                               : DefenderWeapons[SelectedOperatorIndex];
+        const char* weaponStr = IsAttackerView
+            ? AttackerWeapons[SelectedOperatorIndex]
+            : DefenderWeapons[SelectedOperatorIndex];
 
         const char* weapons[3] = { nullptr, nullptr, nullptr };
         int weaponCount = String::ParseWeaponList(weaponStr, weapons);
@@ -35,12 +38,16 @@ namespace ClickDetection
         } guard{ weapons, weaponCount };
 
         int startX, startY;
-        LayoutUtils::WeaponDisplayLayout::GetWeaponStartPosition(weaponCount, windowWidth, windowHeight, startX, startY);
+        LayoutUtils::WeaponDisplayLayout::GetWeaponStartPosition(
+            weaponCount, windowWidth, windowHeight, startX, startY);
 
         // Get dimensions
-        int weaponWidth = LayoutUtils::WeaponDisplayLayout::GetWeaponWidth(windowWidth);
-        int weaponHeight = LayoutUtils::WeaponDisplayLayout::GetWeaponHeight(windowHeight);
-        int spacing = LayoutUtils::WeaponDisplayLayout::GetWeaponSpacing(windowWidth);
+        int weaponWidth = LayoutUtils::WeaponDisplayLayout::GetWeaponWidth(
+            windowWidth);
+        int weaponHeight = LayoutUtils::WeaponDisplayLayout::GetWeaponHeight(
+            windowHeight);
+        int spacing = LayoutUtils::WeaponDisplayLayout::GetWeaponSpacing(
+            windowWidth);
 
         auto ProceedIfReady = [&](int selectedWeaponIndex, int presetIndex) {
             PresetIndex = presetIndex;
@@ -64,7 +71,8 @@ namespace ClickDetection
             int y = startY;
 
             // Check if weapon image clicked and default to Preset 1
-            RECT weaponRect = LayoutUtils::WeaponDisplayLayout::GetWeaponRect(i, windowWidth, windowHeight, startX, startY);
+            RECT weaponRect = LayoutUtils::WeaponDisplayLayout::GetWeaponRect(
+                i, windowWidth, windowHeight, startX, startY);
             if (LayoutUtils::IsPointInRect(weaponRect, mouseX, mouseY))
             {
                 ProceedIfReady(i, 1);
@@ -88,7 +96,8 @@ namespace ClickDetection
             const int keyStartX = x + (weaponWidth - keyWidth) / 2;
             const int keyStartY = y + weaponHeight + 225;
 
-            RECT keyRect = { keyStartX, keyStartY + keyHeight + 20, keyStartX + keyWidth,
+            RECT keyRect = { keyStartX, keyStartY + keyHeight + 20,
+                             keyStartX + keyWidth,
                              keyStartY + keyHeight + 20 + keyHeight };
 
             if (LayoutUtils::IsPointInRect(keyRect, mouseX, mouseY))
@@ -113,8 +122,13 @@ namespace ClickDetection
             // Preset 1/2/3 buttons
             for (int p = 0; p < 3; ++p)
             {
-                RECT btnRect = { buttonStartX, buttonStartY + p * (buttonHeight + buttonSpacing), buttonStartX + buttonWidth,
-                                 buttonStartY + p * (buttonHeight + buttonSpacing) + buttonHeight };
+                RECT btnRect = {
+                    buttonStartX,
+                    buttonStartY + p * (buttonHeight + buttonSpacing),
+                    buttonStartX + buttonWidth,
+                    buttonStartY + p * (buttonHeight + buttonSpacing)
+                        + buttonHeight
+                };
 
                 if (LayoutUtils::IsPointInRect(btnRect, mouseX, mouseY))
                 {

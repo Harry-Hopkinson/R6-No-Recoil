@@ -11,16 +11,19 @@ HFONT Font::FontDesc = nullptr;
 void Font::CreateFonts()
 {
     FontMedium = CreateFont(
-        20, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE, ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
+        20, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE, ANSI_CHARSET,
+        OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
         DEFAULT_PITCH | FF_SWISS, "Segoe UI");
 
     FontLarge = CreateFont(
-        32, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE, ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
+        32, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE, ANSI_CHARSET,
+        OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
         DEFAULT_PITCH | FF_SWISS, "Segoe UI");
 
     FontDesc = CreateFont(
-        18, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS, CLIP_DEFAULT_PRECIS,
-        CLEARTYPE_QUALITY, VARIABLE_PITCH, TEXT("Arial"));
+        18, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET,
+        OUT_OUTLINE_PRECIS, CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY,
+        VARIABLE_PITCH, TEXT("Arial"));
 }
 
 void Font::Cleanup()
@@ -35,7 +38,8 @@ void Font::Cleanup()
     FontDesc = nullptr;
 }
 
-void Font::DrawCenteredText(HDC hdc, LPCSTR text, int x, int y, int width, HFONT font)
+void Font::DrawCenteredText(
+    HDC hdc, LPCSTR text, int x, int y, int width, HFONT font)
 {
     if (!hdc || !text || !font)
         return;

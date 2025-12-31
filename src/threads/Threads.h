@@ -9,7 +9,7 @@ namespace Threads
     void ApplyRecoil();
 
     /**
-     * @brief Thread that detects if toggle key is pressed then enables/disables recoil control
+     * @brief Thread that detects if toggle key is pressed and toggles recoil
      */
     void ToggleRecoil();
 

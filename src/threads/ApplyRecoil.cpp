@@ -9,7 +9,8 @@
 inline constexpr int FIRE_DELAY_MS = 5;
 inline constexpr int IDLE_DELAY_MS = 5;
 
-static std::pair<float, float> CalculateRecoil(float baseX, float baseY, float lookX, float lookY)
+static std::pair<float, float> CalculateRecoil(
+    float baseX, float baseY, float lookX, float lookY)
 {
     float adjustedX = baseX + (lookX * ControllerMultiplier);
     float adjustedY = baseY + (-lookY * ControllerMultiplier);
@@ -24,25 +25,31 @@ namespace Threads
         while (Running)
         {
             const bool controllerEnabled = EnableController;
-            const bool controllerConnected = controllerEnabled && Inputs::IsControllerConnected();
+            const bool controllerConnected = controllerEnabled
+                && Inputs::IsControllerConnected();
 
-            bool isADS = Inputs::IsMouseADS() || (controllerConnected && Inputs::IsControllerADS(Inputs::GetControllerState()));
+            bool isADS = Inputs::IsMouseADS()
+                || (controllerConnected
+                    && Inputs::IsControllerADS(Inputs::GetControllerState()));
 
             const bool firingMouse = Inputs::IsMouseFiring();
-            const bool firingController = controllerConnected && Inputs::IsControllerFiring(Inputs::GetControllerState());
+            const bool firingController = controllerConnected
+                && Inputs::IsControllerFiring(Inputs::GetControllerState());
 
             if (ToggleADS && firingMouse)
                 isADS = true;
 
             if (!EnableRC || !isADS)
             {
-                std::this_thread::sleep_for(std::chrono::milliseconds(IDLE_DELAY_MS));
+                std::this_thread::sleep_for(
+                    std::chrono::milliseconds(IDLE_DELAY_MS));
                 continue;
             }
 
             if (!firingMouse && !firingController)
             {
-                std::this_thread::sleep_for(std::chrono::milliseconds(IDLE_DELAY_MS));
+                std::this_thread::sleep_for(
+                    std::chrono::milliseconds(IDLE_DELAY_MS));
                 continue;
             }
 
@@ -62,7 +69,8 @@ namespace Threads
 
             Inputs::MoveMouseRaw(moveX, moveY);
 
-            std::this_thread::sleep_for(std::chrono::milliseconds(FIRE_DELAY_MS));
+            std::this_thread::sleep_for(
+                std::chrono::milliseconds(FIRE_DELAY_MS));
         }
     }
 

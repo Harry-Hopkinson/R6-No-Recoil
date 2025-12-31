@@ -36,7 +36,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         case WM_CREATE:
         {
-            HICON hIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON1));
+            HICON hIcon = LoadIcon(
+                GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON1));
             SendMessage(hwnd, WM_SETICON, ICON_BIG, (LPARAM)hIcon);
 
             Buttons::CreateOperatorSelectionButtons();
@@ -53,7 +54,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             GetClientRect(hwnd, &rect);
 
             HDC memDC = CreateCompatibleDC(hdc);
-            HBITMAP memBitmap = CreateCompatibleBitmap(hdc, rect.right, rect.bottom);
+            HBITMAP memBitmap = CreateCompatibleBitmap(
+                hdc, rect.right, rect.bottom);
             HGDIOBJ oldBitmap = SelectObject(memDC, memBitmap);
 
             HBRUSH bgBrush = CreateSolidBrush(BackgroundColour);
@@ -63,7 +65,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             switch (Scenes::GetCurrentScene())
             {
                 case SceneType::OperatorSelection:
-                    Drawing::DrawOperatorSelection(memDC, rect.right, rect.bottom);
+                    Drawing::DrawOperatorSelection(
+                        memDC, rect.right, rect.bottom);
                     break;
 
                 case SceneType::WeaponDisplay:
@@ -124,11 +127,13 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             switch (Scenes::GetCurrentScene())
             {
                 case SceneType::OperatorSelection:
-                    ClickDetection::OperatorSelection(hwnd, windowWidth, windowHeight, mouseX, mouseY);
+                    ClickDetection::OperatorSelection(
+                        hwnd, windowWidth, windowHeight, mouseX, mouseY);
                     break;
 
                 case SceneType::WeaponDisplay:
-                    ClickDetection::WeaponDisplay(hwnd, windowWidth, windowHeight, mouseX, mouseY);
+                    ClickDetection::WeaponDisplay(
+                        hwnd, windowWidth, windowHeight, mouseX, mouseY);
                     break;
 
                 default:
@@ -146,10 +151,12 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 return DefWindowProc(hwnd, uMsg, wParam, lParam);
 
             static HCURSOR hArrow = LoadCursor(NULL, IDC_ARROW);
-            static HCURSOR hSizeNS = LoadCursor(NULL, IDC_SIZENS);     // Vertical
-            static HCURSOR hSizeWE = LoadCursor(NULL, IDC_SIZEWE);     // Horizontal
-            static HCURSOR hSizeNWSE = LoadCursor(NULL, IDC_SIZENWSE); // Diagonal (\)
-            static HCURSOR hSizeNESW = LoadCursor(NULL, IDC_SIZENESW); // Diagonal (/)
+            static HCURSOR hSizeNS = LoadCursor(NULL, IDC_SIZENS); // Vertical
+            static HCURSOR hSizeWE = LoadCursor(NULL, IDC_SIZEWE); // Horizontal
+            static HCURSOR hSizeNWSE = LoadCursor(
+                NULL, IDC_SIZENWSE); // Diagonal (\)
+            static HCURSOR hSizeNESW = LoadCursor(
+                NULL, IDC_SIZENESW); // Diagonal (/)
 
             switch (hitTest)
             {
@@ -231,9 +238,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
     Files::LoadConfig();
 
     HWND hwnd = CreateWindowEx(
-        0, wc.lpszClassName, "R6 No Recoil", WS_OVERLAPPEDWINDOW & ~WS_MAXIMIZEBOX,
-        CW_USEDEFAULT, CW_USEDEFAULT, WINDOW_WIDTH, WINDOW_HEIGHT,
-        nullptr, nullptr, hInstance, nullptr);
+        0, wc.lpszClassName, "R6 No Recoil",
+        WS_OVERLAPPEDWINDOW & ~WS_MAXIMIZEBOX, CW_USEDEFAULT, CW_USEDEFAULT,
+        WINDOW_WIDTH, WINDOW_HEIGHT, nullptr, nullptr, hInstance, nullptr);
 
     if (!hwnd)
         return 0;

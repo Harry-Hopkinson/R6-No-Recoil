@@ -44,14 +44,18 @@ namespace Files
 
                 // Find preset key (preset-1, preset-2, etc.)
                 char presetKey[32];
-                snprintf(presetKey, sizeof(presetKey), "\"preset-%d\"", presetIndex);
+                snprintf(
+                    presetKey, sizeof(presetKey), "\"preset-%d\"", presetIndex);
 
                 char* presetPos = strstr(pos, presetKey);
                 if (!presetPos)
                     break;
 
                 float vertical = 0.0f, horizontal = 0.0f;
-                sscanf(presetPos, " \"%*[^\"]\" : { \"vertical\" : %f , \"horizontal\" : %f", &vertical, &horizontal);
+                sscanf(
+                    presetPos,
+                    " \"%*[^\"]\" : { \"vertical\" : %f , \"horizontal\" : %f",
+                    &vertical, &horizontal);
 
                 recoil.Vertical = vertical;
                 recoil.Horizontal = horizontal;
@@ -129,8 +133,9 @@ namespace Files
 
         char newBlock[256];
         snprintf(
-            newBlock, sizeof(newBlock), " \"vertical\": %.2f, \"horizontal\": %.2f }", CurrentRecoil.Vertical,
-            CurrentRecoil.Horizontal);
+            newBlock, sizeof(newBlock),
+            " \"vertical\": %.2f, \"horizontal\": %.2f }",
+            CurrentRecoil.Vertical, CurrentRecoil.Horizontal);
 
         size_t newSize = beforeLen + strlen(newBlock) + afterLen + 2;
         char* newData = (char*)malloc(newSize);

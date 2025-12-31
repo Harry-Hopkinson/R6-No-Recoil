@@ -23,7 +23,8 @@ public:
         return FontDesc;
     }
 
-    static void DrawCenteredText(HDC hdc, LPCSTR text, int x, int y, int width, HFONT font);
+    static void DrawCenteredText(
+        HDC hdc, LPCSTR text, int x, int y, int width, HFONT font);
 
 private:
     static HFONT FontMedium;

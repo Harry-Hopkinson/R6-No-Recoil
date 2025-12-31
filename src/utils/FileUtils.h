@@ -56,43 +56,23 @@ namespace FileUtils
      * @param filename Path to file
      * @param buffer Data to write
      * @param length Length of data
-     * @return true on success, false on error
      */
-    inline bool WriteFileFromMemory(
+    inline void WriteFileFromMemory(
         const char* filename, const char* buffer, DWORD length)
     {
-        if (!filename || !buffer)
-            return false;
+        if (!filename || !buffer || length == 0)
+            return;
 
         HANDLE file = CreateFileA(
             filename, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS,
             FILE_ATTRIBUTE_NORMAL, NULL);
 
         if (file == INVALID_HANDLE_VALUE)
-            return false;
+            return;
 
         DWORD written;
-        bool success = WriteFile(file, buffer, length, &written, NULL)
-            && (written == length);
+        WriteFile(file, buffer, length, &written, NULL);
         CloseHandle(file);
-
-        return success;
-    }
-
-    /**
-     * @brief Checks if a file exists
-     * @param filename Path to file
-     * @return true if file exists, false otherwise
-     */
-    inline bool FileExists(const char* filename)
-    {
-        if (!filename)
-            return false;
-
-        DWORD attrib = GetFileAttributesA(filename);
-        return (
-            attrib != INVALID_FILE_ATTRIBUTES
-            && !(attrib & FILE_ATTRIBUTE_DIRECTORY));
     }
 
     /**

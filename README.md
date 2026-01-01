@@ -29,7 +29,7 @@ Most recoil control tools are packed with features you'll never use, slowing dow
 - **🎨 Powerful Configs** – Extensive configuration options for every operator and weapon. Fine-tune your recoil control to perfection on top of custom keybinds and theme customisation.
 - **🔓 Open Source** – Fully transparent and customisable. Inspect the code, suggest improvements, or modify it to your needs.
 - **💻 No Installation** – Just download, extract the zip folder and run the .exe file. No bloated installers, no unnecessary dependencies — it just works.
-- **🎮 Controller Support** – Full support for controller recoil compensation, with adjustable sensitivity while firing.
+- **🎮 Controller Support** – Full support for controller recoil compensation, with adjustable sensitivity while firing. (Requires DS4Windows for Playstation controllers).
 
 ## 🎮 How to Use
 

@@ -7,9 +7,12 @@
     "dev": "vite",
     "build": "vite build",
     "postbuild": "node ./postbuild.js ./dist/index.html ./dist/index_html.h",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "format": "prettier --write .",
+    "lint": "prettier --check ."
   },
   "devDependencies": {
+    "prettier": "^3.7.4",
     "vite": "npm:rolldown-vite@7.1.14",
     "vite-plugin-singlefile": "^2.3.0"
   },

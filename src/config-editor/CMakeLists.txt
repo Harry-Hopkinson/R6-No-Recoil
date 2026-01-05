@@ -16,15 +16,8 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(webview)
 
-FetchContent_Declare(
-  json
-  GIT_REPOSITORY https://github.com/nlohmann/json
-  GIT_TAG v3.12.0
-)
-FetchContent_MakeAvailable(json)
-
 add_executable(ConfigEditor WIN32)
 
 target_sources(ConfigEditor PRIVATE src/main.cpp ui/dist/index_html.h)
 target_include_directories(ConfigEditor PRIVATE ui/dist)
-target_link_libraries(ConfigEditor PRIVATE webview::core nlohmann_json::nlohmann_json)
+target_link_libraries(ConfigEditor PRIVATE webview::core)

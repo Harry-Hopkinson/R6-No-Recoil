@@ -1,9 +1,7 @@
 #include <iostream>
-#include <nlohmann/json.hpp>
+
 #include "webview/webview.h"
 #include "index_html.h"
-
-using json = nlohmann::json;
 
 #ifdef _WIN32
 int WINAPI WinMain(
@@ -22,12 +20,8 @@ int main()
 
         main_window.bind(
             "ping", [&](const std::string& args_str) -> std::string {
-                json args = json::parse(args_str);
-
-                std::cout << "Ping from UI: " << args[0] << std::endl;
-
-                json result = { { "code", 200 } };
-                return result.dump();
+                std::cout << "Ping from UI: " << args_str << std::endl;
+                return R"({"code": 200})";
             });
 
         main_window.set_html(INDEX_HTML);

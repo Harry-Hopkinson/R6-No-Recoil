@@ -17,7 +17,7 @@ int main()
     try
     {
         webview::webview main_window(false, nullptr);
-        main_window.set_title("Prompt Workbench");
+        main_window.set_title("R6 No Recoil - Config Editor");
         main_window.set_size(1280, 720, WEBVIEW_HINT_NONE);
 
         main_window.bind(

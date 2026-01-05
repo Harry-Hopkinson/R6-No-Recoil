@@ -16,21 +16,32 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v3
 
-            - name: Configure project with CMake
-              run: cmake -S . -B build -G "Visual Studio 17 2022" -A x64
+            - name: Build Application
+              run: |
+                  cmake -S . -B build -G "Visual Studio 17 2022" -A x64
+                  cmake --build build --config Release --target R6NoRecoil
 
-            - name: Build the project (Release)
-              run: cmake --build build --config Release --target R6NoRecoil
+            - name: Build Config Editor
+              run: |
+                  cd src/config-editor/ui
+                  yarn install
+                  yarn build
+                  cd ..
+                  cmake -S . -B build -G "Visual Studio 17 2022" -A x64
+                  cmake --build build --config Release --target ConfigEditor
 
-            - name: Strip symbols from executable
-              run: strip build/Release/R6NoRecoil.exe
+            - name: Strip symbols from executables
+              run: |
+                  strip build/Release/R6NoRecoil.exe
+                  strip src/config-editor/build/bin/Release/ConfigEditor.exe
 
             - name: Prepare release folder
               run: |
                   mkdir R6NoRecoil
+                  copy build\Release\R6NoRecoil.exe R6NoRecoil\
+                  copy src\config-editor\build\bin\Release\ConfigEditor.exe R6NoRecoil\
                   copy build\Config.toml R6NoRecoil\
                   copy build\WeaponData.json R6NoRecoil\
-                  copy build\Release\R6NoRecoil.exe R6NoRecoil\
                   copy scripts\UpdateTool.bat R6NoRecoil\
                   xcopy assets R6NoRecoil\assets /E /I /Y
 

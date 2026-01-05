@@ -1,0 +1,19 @@
+{
+  "name": "ui",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "postbuild": "node ./postbuild.js ./dist/index.html ./dist/index_html.h",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "npm:rolldown-vite@7.1.14",
+    "vite-plugin-singlefile": "^2.3.0"
+  },
+  "overrides": {
+    "vite": "npm:rolldown-vite@7.1.14"
+  }
+}

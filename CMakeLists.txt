@@ -104,3 +104,9 @@ foreach(FILE Config.toml WeaponData.json)
                 ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${FILE}
     )
 endforeach()
+
+message(STATUS "========================================")
+message(STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
+message(STATUS "Compiler: ${CMAKE_CXX_COMPILER_ID}")
+message(STATUS "C++ Standard: C++${CMAKE_CXX_STANDARD}")
+message(STATUS "========================================")

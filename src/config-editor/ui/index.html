@@ -3,13 +3,123 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>View</title>
+    <title>Config Editor</title>
+    <link rel="stylesheet" href="src/style.css" />
   </head>
   <body>
-    <h1>Hello!</h1>
-    <label for="text-field">String to Send to the C++ Process:</label>
-    <input type="text" name="text-field" id="text-field" />
-    <button id="send-btn">Send</button>
-    <script type="module" src="/src/main.js"></script>
+    <div class="container">
+      <div class="header">
+        <h1>R6 No Recoil - Config Editor</h1>
+        <p>Edit configuration variables in the Config.toml in a GUI format.</p>
+      </div>
+      <div class="section">
+        <div class="section-title">⚙️ General Settings</div>
+        <div class="checkbox-group">
+          <input type="checkbox" id="enabled" />
+          <label for="enabled">Enable Recoil Control</label>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="verticalRecoil">Vertical Recoil Compensation</label>
+            <input type="number" id="verticalRecoil" step="0.01" />
+          </div>
+          <div class="form-group">
+            <label for="horizontalRecoil">Horizontal Recoil Compensation</label>
+            <input type="number" id="horizontalRecoil" step="0.01" />
+          </div>
+        </div>
+        <div class="checkbox-group">
+          <input type="checkbox" id="toggleADS" />
+          <label for="toggleADS">Toggle ADS Mode</label>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-title">🎮 Controller Settings</div>
+        <div class="checkbox-group">
+          <input type="checkbox" id="controllerEnabled" />
+          <label for="controllerEnabled">Enable Controller Support</label>
+        </div>
+        <div class="form-group">
+          <label for="multiplier">Controller Multiplier</label>
+          <input type="number" id="multiplier" />
+          <p class="info-text">Default: 10.0</p>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-title">⌨️ Key Bindings</div>
+        <div class="checkbox-group">
+          <input type="checkbox" id="toggleRecoilEnabled" />
+          <label for="toggleRecoilEnabled">Enable Toggle Key</label>
+        </div>
+        <div class="form-group">
+          <label for="toggleRecoilKey"
+            >Toggle Recoil Key (Virtual Key Code)</label
+          >
+          <input type="number" id="toggleRecoilKey" />
+          <p class="info-text">Default: 20 (CAPS LOCK)</p>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="primaryKey">Primary Key</label>
+            <input type="number" id="primaryKey" />
+            <p class="info-text">Default: 49 (1)</p>
+          </div>
+          <div class="form-group">
+            <label for="secondaryKey">Secondary Key</label>
+            <input type="number" id="secondaryKey" />
+            <p class="info-text">Default: 50 (2)</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="tertiaryKey">Tertiary Key</label>
+          <input type="number" id="tertiaryKey" />
+          <p class="info-text">Default: 51 (3)</p>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-title">🎨 Theme Colors</div>
+        <div class="form-group">
+          <label for="bgColor">Background Color</label>
+          <div class="color-input-group">
+            <input type="text" id="bgColor" placeholder="RGB(30, 30, 30)" />
+            <div class="color-preview" id="bgColorPreview"></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="textColor">Text Color</label>
+          <div class="color-input-group">
+            <input
+              type="text"
+              id="textColor"
+              placeholder="RGB(230, 230, 230)"
+            />
+            <div class="color-preview" id="textColorPreview"></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="buttonColor">Button Color</label>
+          <div class="color-input-group">
+            <input type="text" id="buttonColor" placeholder="RGB(70, 70, 70)" />
+            <div class="color-preview" id="buttonColorPreview"></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="lineColor">Line Color</label>
+          <div class="color-input-group">
+            <input
+              type="text"
+              id="lineColor"
+              placeholder="RGB(180, 180, 180)"
+            />
+            <div class="color-preview" id="lineColorPreview"></div>
+          </div>
+        </div>
+      </div>
+      <div class="button-group">
+        <button id="loadBtn">Load Config</button>
+        <button id="saveBtn" class="primary">Save Config</button>
+      </div>
+    </div>
+    <div class="status-message" id="statusMessage"></div>
   </body>
 </html>

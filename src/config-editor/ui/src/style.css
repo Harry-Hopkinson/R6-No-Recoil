@@ -1,35 +1,176 @@
 :root {
   font-family:
     -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
-    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    sans-serif;
   font-size: 14px;
   font-weight: 400;
+  --bg-primary: rgb(30, 30, 30);
+  --bg-secondary: rgb(40, 40, 40);
+  --text-primary: rgb(230, 230, 230);
+  --text-secondary: rgb(180, 180, 180);
+  --button-bg: rgb(70, 70, 70);
+  --button-hover: rgb(90, 90, 90);
+  --border-color: rgb(60, 60, 60);
+  --accent: rgb(100, 150, 255);
 }
-
-*,
-*:before,
-*:after {
+* {
   box-sizing: border-box;
-}
-
-html,
-body {
+  margin: 0;
   padding: 0;
-  margin: 0;
 }
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  padding: 20px;
+  min-height: 100vh;
+}
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--border-color);
+}
+.header h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.header p {
+  color: var(--text-secondary);
+}
+.section {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.form-group {
+  margin-bottom: 15px;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+input[type="text"],
+input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--text-primary);
   font-size: 1rem;
-  font-weight: 400;
-  margin: 0;
 }
-
-label,
-input {
+input[type="text"]:focus,
+input[type="number"]:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+}
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+.checkbox-group label {
+  margin: 0;
+  cursor: pointer;
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 30px;
+  justify-content: center;
+}
+button {
+  padding: 12px 30px;
+  background-color: var(--button-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--text-primary);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+button:hover {
+  background-color: var(--button-hover);
+}
+button.primary {
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+button.primary:hover {
+  background-color: rgb(80, 130, 235);
+}
+.info-text {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-top: 5px;
+}
+.color-input-group {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+}
+.color-input-group input[type="text"] {
+  flex: 1;
+}
+.color-preview {
+  width: 50px;
+  height: 42px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+}
+.status-message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 15px 20px;
+  background-color: var(--accent);
+  color: white;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  display: none;
+  animation: slideIn 0.3s ease;
+}
+@keyframes slideIn {
+  from {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+.status-message.show {
   display: block;
 }

@@ -1,5 +1,6 @@
 #include "Threads.h"
 
+#include <windows.h>
 #include <thread>
 
 #include "../Globals.h"
@@ -22,6 +23,8 @@ namespace Threads
 
     void ApplyRecoil()
     {
+        SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_HIGHEST);
+
         while (Running)
         {
             const bool controllerEnabled = EnableController;

@@ -379,7 +379,7 @@
     },
     {
         "name": "SMG-12",
-        "preset-1": { "vertical": 13.0, "horizontal": 0 },
+        "preset-1": { "vertical": 12.0, "horizontal": 0 },
         "preset-2": { "vertical": 0.0, "horizontal": 0 },
         "preset-3": { "vertical": 0.0, "horizontal": 0 }
     },

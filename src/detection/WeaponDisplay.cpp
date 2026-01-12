@@ -82,25 +82,22 @@ namespace ClickDetection
             }
 
             // Preset button rectangles
-            const int buttonWidth = 200;
-            const int buttonHeight = 45;
-            const int buttonSpacing = 10;
+            const int buttonWidth = static_cast<int>(weaponWidth * 0.5f);
+            const int buttonHeight = static_cast<int>(windowHeight * 0.049f);
+            const int buttonSpacing = static_cast<int>(windowHeight * 0.011f);
 
-            int buttonStartY = y + weaponHeight + 60;
-            int buttonStartX = x + (weaponWidth - buttonWidth) / 2;
+            const int nameOffsetY = static_cast<int>(weaponHeight * 0.1f);
+            const int nameHeight = static_cast<int>(windowHeight * 0.049f);
 
-            // Keybind toggle button
-            const int keyWidth = 100;
-            const int keyHeight = 30;
+            const int buttonStartY = y + weaponHeight + nameOffsetY + nameHeight
+                + static_cast<int>(windowHeight * 0.016f);
+            const int buttonStartX = x + (weaponWidth - buttonWidth) / 2;
 
-            const int keyStartX = x + (weaponWidth - keyWidth) / 2;
-            const int keyStartY = y + weaponHeight + 225;
+            RECT toggleRect = LayoutUtils::WeaponDisplayLayout::
+                GetToggleButtonRect(
+                    x, y, weaponWidth, weaponHeight, windowHeight);
 
-            RECT keyRect = { keyStartX, keyStartY + keyHeight + 20,
-                             keyStartX + keyWidth,
-                             keyStartY + keyHeight + 20 + keyHeight };
-
-            if (LayoutUtils::IsPointInRect(keyRect, mouseX, mouseY))
+            if (LayoutUtils::IsPointInRect(toggleRect, mouseX, mouseY))
             {
                 switch (i)
                 {
@@ -134,7 +131,6 @@ namespace ClickDetection
                 {
                     ProceedIfReady(i, p + 1);
                     WindowUtils::InvalidateWindowNoChildren(hwnd);
-
                     return;
                 }
             }

@@ -3,9 +3,9 @@
 
 #include "resource/resource.h"
 
-#include <thread>
-
 #include "Globals.h"
+
+#include "core/Threads.h"
 
 #include "detection/ClickDetection.h"
 #include "drawing/Drawing.h"
@@ -14,7 +14,6 @@
 
 #include "recoil/Recoil.h"
 #include "scenes/Scenes.h"
-#include "threads/Threads.h"
 
 #include "ui/Bitmap.h"
 #include "ui/Themes.h"
@@ -248,8 +247,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
     ShowWindow(hwnd, nCmdShow);
     UpdateWindow(hwnd);
 
-    std::thread recoilThread(Threads::ApplyRecoil);
-    std::thread toggleThread(Threads::ToggleRecoil);
+    HANDLE hWorker = CreateThread(
+        nullptr, 0, WorkerThreadProc, nullptr, 0, nullptr);
 
     MSG msg = {};
     while (Running)
@@ -257,19 +256,20 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
         while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
             if (msg.message == WM_KEYDOWN && msg.wParam == VK_ESCAPE)
+            {
+                Running = false;
                 PostMessage(hwnd, WM_CLOSE, 0, 0);
+            }
 
             TranslateMessage(&msg);
             DispatchMessage(&msg);
         }
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(16));
+        Sleep(16);
     }
 
-    if (recoilThread.joinable())
-        recoilThread.join();
-    if (toggleThread.joinable())
-        toggleThread.join();
+    WaitForSingleObject(hWorker, INFINITE);
+    CloseHandle(hWorker);
 
     return 0;
 }

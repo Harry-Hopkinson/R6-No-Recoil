@@ -123,12 +123,9 @@ namespace Drawing
 
             // Toggle button
             HBRUSH buttonBrush = CreateSolidBrush(LineColour);
-            int toggleOffsetY = static_cast<int>(keyHeight * 0.67f);
-            RECT buttonRect = { keyStartX,
-                                keyStartY + keyHeight + toggleOffsetY,
-                                keyStartX + keyWidth,
-                                keyStartY + keyHeight + toggleOffsetY
-                                    + keyHeight };
+            RECT buttonRect = LayoutUtils::WeaponDisplayLayout::
+                GetToggleButtonRect(x, y, weaponWidth, weaponHeight, bottom);
+
             FrameRect(memDC, &buttonRect, buttonBrush);
             DrawText(
                 memDC, "Toggle", -1, &buttonRect,

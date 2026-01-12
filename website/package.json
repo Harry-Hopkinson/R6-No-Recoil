@@ -11,7 +11,7 @@
     "lint": "prettier --check ."
   },
   "dependencies": {
-    "astro": "5.16.6"
+    "astro": "5.16.9"
   },
   "devDependencies": {
     "prettier": "3.7.4",

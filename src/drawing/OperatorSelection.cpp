@@ -10,7 +10,7 @@
 
 #include <cstdio>
 
-inline constexpr float CURRENT_VERSION = 3.0f;
+inline constexpr float CURRENT_VERSION = 3.1f;
 
 namespace Drawing
 {
@@ -50,22 +50,33 @@ namespace Drawing
 
         SetBkMode(memDC, TRANSPARENT);
 
-        // Draw operator bitmaps
-        int cellSize = LayoutUtils::OperatorGridLayout::GetCellSize(right);
+        int cellSize = LayoutUtils::OperatorGridLayout::GetCellSize(
+            right, bottom);
+
         for (size_t i = 0; i < bitmaps.size(); ++i)
         {
             int x, y;
             LayoutUtils::OperatorGridLayout::GetCellPosition(
                 i, right, bottom, x, y);
+
             Bitmap::DrawBitmap(memDC, bitmaps[i], x, y, cellSize, cellSize, 45);
         }
 
         // Draw info box
-        RECT infoBoxRect = { 40, 10, right - 355, 40 };
+        int gridStartX = static_cast<int>(
+            right * LayoutUtils::OperatorGridLayout::GRID_START_X_PERCENT);
+        int cellSpacing = LayoutUtils::OperatorGridLayout::GetCellSpacing(
+            right);
+        int cellStride = cellSize + cellSpacing;
+        int gridWidth = LayoutUtils::OperatorGridLayout::COLUMNS * cellStride
+            - cellSpacing;
+        RECT infoBoxRect = { gridStartX, 10, gridStartX + gridWidth, 40 };
+
+        // Center info box with grid
         HBRUSH bgBrush = CreateSolidBrush(BackgroundColour);
         HGDIOBJ oldBrush = SelectObject(memDC, bgBrush);
         Rectangle(
-            memDC, infoBoxRect.left, infoBoxRect.top, infoBoxRect.right - 75,
+            memDC, infoBoxRect.left, infoBoxRect.top, infoBoxRect.right,
             infoBoxRect.bottom);
 
         const int sectionWidth = (infoBoxRect.right - infoBoxRect.left) / 4;
@@ -125,7 +136,7 @@ namespace Drawing
             DrawButton(memDC, btn);
 
         // Draw vertical line
-        int lineX = static_cast<int>(right * 0.633f);
+        int lineX = static_cast<int>(right * 0.670f);
         MoveToEx(memDC, lineX, 60, nullptr);
         LineTo(memDC, lineX, bottom - 20);
 

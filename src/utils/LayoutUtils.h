@@ -6,32 +6,37 @@ namespace LayoutUtils
 {
 
     /**
-     * @brief Layout constants for operator selection grid
+     * @brief Layout constants and calculations for operator grid
      */
     struct OperatorGridLayout
     {
         static constexpr int COLUMNS = 6;
+
         static constexpr float GRID_START_X_PERCENT = 0.025f;
         static constexpr float GRID_START_Y_PERCENT = 0.054f;
         static constexpr float CELL_SIZE_PERCENT = 0.092f;
-        static constexpr float CELL_SPACING_PERCENT = 0.008f;
+        static constexpr float CELL_SPACING_PERCENT = 0.015f;
 
         static constexpr int MIN_CELL_SIZE = 80;
         static constexpr int MIN_CELL_SPACING = 8;
 
         /**
-         * @brief Get cell size based on window width
+         * @brief Calculate cell size based on window dimensions
          * @param windowWidth Current window width
+         * @param windowHeight Current window height
          * @return Calculated cell size
          */
-        static inline int GetCellSize(int windowWidth)
+        static inline int GetCellSize(int windowWidth, int windowHeight)
         {
-            int size = static_cast<int>(windowWidth * CELL_SIZE_PERCENT);
+            int sizeByWidth = static_cast<int>(windowWidth * CELL_SIZE_PERCENT);
+            int sizeByHeight = static_cast<int>(windowHeight * 0.12f);
+
+            int size = (std::min)(sizeByWidth, sizeByHeight);
             return (std::max)(size, MIN_CELL_SIZE);
         }
 
         /**
-         * @brief Get cell spacing based on window width
+         * @brief Calculate cell spacing based on window width
          * @param windowWidth Current window width
          * @return Calculated cell spacing
          */
@@ -42,7 +47,19 @@ namespace LayoutUtils
         }
 
         /**
-         * @brief Calculate grid cell position
+         * @brief Calculate grid start X position
+         * @param windowWidth Current window width
+         * @param cellSize Current cell size
+         * @param spacing Current cell spacing
+         * @return Calculated grid start X position
+         */
+        static inline int GetGridStartX(int windowWidth)
+        {
+            return static_cast<int>(windowWidth * GRID_START_X_PERCENT);
+        }
+
+        /**
+         * @brief Calculate cell position by index
          * @param index Cell index
          * @param windowWidth Current window width
          * @param windowHeight Current window height
@@ -53,16 +70,16 @@ namespace LayoutUtils
             size_t index, int windowWidth, int windowHeight, int& outX,
             int& outY)
         {
-            int gridStartX = static_cast<int>(
-                windowWidth * GRID_START_X_PERCENT);
+            int cellSize = GetCellSize(windowWidth, windowHeight);
+            int spacing = GetCellSpacing(windowWidth);
+            int stride = cellSize + spacing;
+
+            int gridStartX = GetGridStartX(windowWidth);
             int gridStartY = static_cast<int>(
                 windowHeight * GRID_START_Y_PERCENT);
-            int cellSize = GetCellSize(windowWidth);
-            int cellSpacing = GetCellSpacing(windowWidth);
-            int cellStride = cellSize + cellSpacing;
 
-            outX = gridStartX + static_cast<int>(index % COLUMNS) * cellStride;
-            outY = gridStartY + static_cast<int>(index / COLUMNS) * cellStride;
+            outX = gridStartX + static_cast<int>(index % COLUMNS) * stride;
+            outY = gridStartY + static_cast<int>(index / COLUMNS) * stride;
         }
 
         /**
@@ -77,7 +94,7 @@ namespace LayoutUtils
         {
             int x, y;
             GetCellPosition(index, windowWidth, windowHeight, x, y);
-            int cellSize = GetCellSize(windowWidth);
+            int cellSize = GetCellSize(windowWidth, windowHeight);
             return { x, y, x + cellSize, y + cellSize };
         }
     };
@@ -172,16 +189,6 @@ namespace LayoutUtils
 
             int x = startX + weaponIndex * (weaponWidth + spacing);
             return { x, startY, x + weaponWidth, startY + weaponHeight + 45 };
-        }
-
-        /**
-         * @brief Get section offset from bottom (for notes, etc.)
-         * @param windowHeight Current window height
-         * @return Calculated offset
-         */
-        static inline int GetSectionOffset(int windowHeight)
-        {
-            return static_cast<int>(windowHeight * SECTION_OFFSET_PERCENT);
         }
     };
 

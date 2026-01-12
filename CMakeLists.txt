@@ -104,3 +104,9 @@ foreach(FILE Config.toml WeaponData.json)
                 ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${FILE}
     )
 endforeach()
+
+message(STATUS "========================================")
+message(STATUS "Project: R6NoRecoil")
+message(STATUS "C++ Standard: C++${CMAKE_CXX_STANDARD}")
+message(STATUS "CMake Version: ${CMAKE_VERSION}")
+message(STATUS "========================================")

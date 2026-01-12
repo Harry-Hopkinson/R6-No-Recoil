@@ -27,8 +27,7 @@ namespace Threads
 
         while (Running)
         {
-            const bool controllerEnabled = EnableController;
-            const bool controllerConnected = controllerEnabled
+            const bool controllerConnected = EnableController
                 && Inputs::IsControllerConnected();
 
             bool isADS = Inputs::IsMouseADS()

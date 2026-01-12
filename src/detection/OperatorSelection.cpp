@@ -83,6 +83,7 @@ namespace ClickDetection
         {
             RECT cellRect = LayoutUtils::OperatorGridLayout::GetCellRect(
                 i, windowWidth, windowHeight);
+
             if (LayoutUtils::IsPointInRect(cellRect, mouseX, mouseY))
             {
                 SelectedOperatorIndex = static_cast<int>(i);

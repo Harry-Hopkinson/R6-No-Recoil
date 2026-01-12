@@ -137,7 +137,14 @@ namespace ClickDetection
         }
 
         // Back button
-        RECT backBtn = { 30, windowHeight - 80, 130, windowHeight - 30 };
+        const int backBtnWidth = static_cast<int>(windowWidth * 0.083f);
+        const int backBtnHeight = static_cast<int>(windowHeight * 0.053f);
+        const int backBtnX = static_cast<int>(windowWidth * 0.025f);
+        const int backBtnY = windowHeight - backBtnHeight
+            - static_cast<int>(windowHeight * 0.032f);
+
+        RECT backBtn = { backBtnX, backBtnY, backBtnX + backBtnWidth,
+                         backBtnY + backBtnHeight };
         if (LayoutUtils::IsPointInRect(backBtn, mouseX, mouseY))
         {
             Scenes::ChangeCurrentScene(SceneType::OperatorSelection);

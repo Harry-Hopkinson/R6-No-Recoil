@@ -177,10 +177,10 @@ namespace Drawing
             memDC, noteText, 0, noteY, right, Font::GetMediumFont());
 
         // Back button
-        int backBtnWidth = static_cast<int>(right * 0.083f);
-        int backBtnHeight = static_cast<int>(bottom * 0.053f);
-        int backBtnX = static_cast<int>(right * 0.025f);
-        int backBtnY = bottom - backBtnHeight
+        const int backBtnWidth = static_cast<int>(right * 0.083f);
+        const int backBtnHeight = static_cast<int>(bottom * 0.053f);
+        const int backBtnX = static_cast<int>(right * 0.025f);
+        const int backBtnY = bottom - backBtnHeight
             - static_cast<int>(bottom * 0.032f);
 
         RECT backBtn = { backBtnX, backBtnY, backBtnX + backBtnWidth,

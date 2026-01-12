@@ -7,11 +7,11 @@ bool EnableRC = true;
 bool Running = true;
 bool IsAttackerView = true;
 
+bool RapidFire = false;
+
 bool EnableController = false;
 
 bool UseToggleKey = false;
-
-bool ToggleADS = false;
 
 const char* CurrentWeapon = nullptr;
 

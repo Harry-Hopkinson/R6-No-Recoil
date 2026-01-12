@@ -58,43 +58,44 @@ DWORD WINAPI WorkerThreadProc(LPVOID)
 {
     while (Running)
     {
-        if (EnableRC)
+        const bool controllerConnected = EnableController
+            && Inputs::IsControllerConnected();
+
+        const bool isADS = Inputs::IsMouseADS()
+            || (controllerConnected
+                && Inputs::IsControllerADS(Inputs::GetControllerState()));
+
+        const bool firingMouse = Inputs::IsMouseFiring();
+        const bool firingController = controllerConnected
+            && Inputs::IsControllerFiring(Inputs::GetControllerState());
+
+        if (RapidFire && isADS && (firingMouse || firingController))
         {
-            const bool controllerConnected = EnableController
-                && Inputs::IsControllerConnected();
+            Inputs::FireMouseClick();
 
-            bool isADS = Inputs::IsMouseADS()
-                || (controllerConnected
-                    && Inputs::IsControllerADS(Inputs::GetControllerState()));
+            Sleep(DMR_FIRE_DELAY_MS);
+            continue;
+        }
 
-            bool firingMouse = Inputs::IsMouseFiring();
-            bool firingController = controllerConnected
-                && Inputs::IsControllerFiring(Inputs::GetControllerState());
+        if (EnableRC && isADS && (firingMouse || firingController))
+        {
+            float moveX = CurrentRecoil.Horizontal * 2.0f;
+            float moveY = CurrentRecoil.Vertical * 2.0f;
 
-            if (ToggleADS && firingMouse)
-                isADS = true;
-
-            if (isADS && (firingMouse || firingController))
+            if (controllerConnected)
             {
-                float moveX = CurrentRecoil.Horizontal * 2.0f;
-                float moveY = CurrentRecoil.Vertical * 2.0f;
+                XINPUT_STATE state = Inputs::GetControllerState();
+                float lookX, lookY;
+                Inputs::GetControllerStickInput(state, lookX, lookY);
 
-                if (controllerConnected)
-                {
-                    XINPUT_STATE state = Inputs::GetControllerState();
-                    float lookX, lookY;
-                    Inputs::GetControllerStickInput(state, lookX, lookY);
-
-                    auto [rx, ry] = CalculateRecoil(moveX, moveY, lookX, lookY);
-                    moveX = rx;
-                    moveY = ry;
-                }
-
-                Inputs::MoveMouseRaw(moveX, moveY);
-
-                Sleep(FIRE_DELAY_MS);
-                continue;
+                auto [rx, ry] = CalculateRecoil(moveX, moveY, lookX, lookY);
+                moveX = rx;
+                moveY = ry;
             }
+
+            Inputs::MoveMouseRaw(moveX, moveY);
+            Sleep(FIRE_DELAY_MS);
+            continue;
         }
 
         if (UseToggleKey && (GetAsyncKeyState(ToggleKey) & 0x8000))

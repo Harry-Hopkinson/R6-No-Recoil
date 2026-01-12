@@ -113,11 +113,22 @@ namespace Drawing
         textRect = { infoBoxRect.left + 3 * sectionWidth + 10,
                      infoBoxRect.top + 5, infoBoxRect.right - 60,
                      infoBoxRect.bottom - 5 };
-        char currentVersionText[50];
-        sprintf_s(currentVersionText, "Version: %.1f", CURRENT_VERSION);
+        char rapidFireText[50];
+        sprintf_s(
+            rapidFireText, "Rapid Fire: %s",
+            RapidFire ? "ENABLED" : "DISABLED");
         DrawText(
-            memDC, currentVersionText, -1, &textRect,
+            memDC, rapidFireText, -1, &textRect,
             DT_LEFT | DT_VCENTER | DT_SINGLELINE);
+
+        // draw current version in bottom right corner saying Version x.x
+        RECT versionRect = { right - 150, bottom - 40, right - 20,
+                             bottom - 20 };
+        char versionText[30];
+        sprintf_s(versionText, "Version %.1f", CURRENT_VERSION);
+        DrawText(
+            memDC, versionText, -1, &versionRect,
+            DT_RIGHT | DT_VCENTER | DT_SINGLELINE);
 
         // Draw recoil labels
         RECT verticalLabelRect = { right - 340, (bottom - 90) / 2 - 140,

@@ -30,8 +30,8 @@ namespace Files
             buffer + len, bufferSize - len, "HorizontalRecoil = %.2f\r\n",
             CurrentRecoil.Horizontal);
         len += sprintf_s(
-            buffer + len, bufferSize - len, "ToggleADS = %s\r\n",
-            ToggleADS ? "true" : "false");
+            buffer + len, bufferSize - len, "RapidFire = %s\r\n",
+            RapidFire ? "true" : "false");
         len += sprintf_s(buffer + len, bufferSize - len, "\r\n");
 
         // [Controller]
@@ -58,10 +58,10 @@ namespace Files
             buffer + len, bufferSize - len,
             "# Toggle Key (e.g. 20 = CAPS LOCK)\r\n");
         len += sprintf_s(
-            buffer + len, bufferSize - len, "ToggleRecoilKey = %d\r\n",
+            buffer + len, bufferSize - len, "ToggleKey = %d\r\n",
             ToggleKey);
         len += sprintf_s(
-            buffer + len, bufferSize - len, "ToggleRecoilEnabled = %s\r\n",
+            buffer + len, bufferSize - len, "ToggleKeyEnabled = %s\r\n",
             UseToggleKey ? "true" : "false");
         len += sprintf_s(
             buffer + len, bufferSize - len, "PrimaryKey = %d\r\n", PrimaryKey);
@@ -151,8 +151,8 @@ namespace Files
                     CurrentRecoil.Vertical = static_cast<float>(atof(value));
                 else if (StringUtils::StringEquals(key, "HorizontalRecoil"))
                     CurrentRecoil.Horizontal = static_cast<float>(atof(value));
-                else if (StringUtils::StringEquals(key, "ToggleADS"))
-                    ToggleADS
+                else if (StringUtils::StringEquals(key, "RapidFire"))
+                    RapidFire
                         = (StringUtils::StringEquals(value, "true")
                            || StringUtils::StringEquals(value, "1"));
             }
@@ -167,9 +167,9 @@ namespace Files
             }
             else if (StringUtils::StringEquals(section, "Keys"))
             {
-                if (StringUtils::StringEquals(key, "ToggleRecoilKey"))
+                if (StringUtils::StringEquals(key, "ToggleKey"))
                     ToggleKey = atoi(value);
-                else if (StringUtils::StringEquals(key, "ToggleRecoilEnabled"))
+                else if (StringUtils::StringEquals(key, "ToggleKeyEnabled"))
                     UseToggleKey
                         = (StringUtils::StringEquals(value, "true")
                            || StringUtils::StringEquals(value, "1"));

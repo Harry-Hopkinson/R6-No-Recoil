@@ -64,7 +64,7 @@ The app automatically creates a `Config.toml` file on first run. You can manuall
 Enabled = true
 VerticalRecoil = 3.00
 HorizontalRecoil = 0.00
-ToggleADS = false
+RapidFire = false
 
 [Controller]
 Enabled = false
@@ -74,8 +74,8 @@ Multiplier = 10
 # Use https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
 # And then convert the key code to decimal
 # Toggle Key (e.g. 20 = CAPS LOCK)
-ToggleRecoilKey = 20
-ToggleRecoilEnabled = false
+ToggleKey = 20
+ToggleKeyEnabled = false
 PrimaryKey = 49
 SecondaryKey = 50
 TertiaryKey = 51
@@ -94,7 +94,7 @@ LineColour = RGB(180, 180, 180)
 - **Enabled:** Enable or disable recoil adjustment.
 - **VerticalRecoil:** The vertical recoil compensation value.
 - **HorizontalRecoil:** The horizontal recoil compensation value (Positive goes right, negative goes left).
-- **ToggleADS:** Enable if you use toggle for ADS (aim down sights).
+- **RapidFire:** Enable if you want rapid fire mode for DMRs.
 
 #### [Controller]
 
@@ -103,8 +103,8 @@ LineColour = RGB(180, 180, 180)
 
 #### [Keys]
 
-- **ToggleRecoilKey:** The key code for toggling recoil adjustment.
-- **ToggleRecoilEnabled:** Enable or disable recoil adjustment with a toggle key.
+- **ToggleKey:** The key code for toggling recoil adjustment.
+- **ToggleKeyEnabled:** Enable or disable recoil adjustment with a toggle key.
 - **PrimaryKey:** The key code for selecting the first weapon of a selected operator.
 - **SecondaryKey:** The key code for selecting the second weapon of a selected operator.
 - **TertiaryKey:** The key code for selecting the third weapon of a selected operator.

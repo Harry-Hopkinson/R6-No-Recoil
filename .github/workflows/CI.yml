@@ -3,6 +3,12 @@ name: CI
 on:
     push:
     pull_request:
+    workflow_dispatch:
+        inputs:
+            upload:
+                description: "Upload build artifacts"
+                type: boolean
+                default: false
 
 jobs:
     application:
@@ -30,6 +36,7 @@ jobs:
                   xcopy assets R6NoRecoil\assets /E /I /Y
 
             - name: Upload artifact
+              if: github.event_name == 'workflow_dispatch' && inputs.upload == true
               uses: actions/upload-artifact@v6
               with:
                   name: R6NoRecoil

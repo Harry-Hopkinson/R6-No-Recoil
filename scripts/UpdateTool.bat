@@ -9,7 +9,7 @@ title R6 No Recoil Downloader
 color 07
 
 echo ============================================================
-echo     R6 NO RECOIL - LATEST DEVELOPMENT BUILD DOWNLOADER
+echo     R6 NO RECOIL - LATEST RELEASE BUILD DOWNLOADER
 echo ============================================================
 echo.
 echo This script will:
@@ -23,7 +23,7 @@ echo ------------------------------------------------------------
 echo.
 
 :: Variables
-set "url=https://nightly.link/Harry-Hopkinson/R6-No-Recoil/workflows/CI/main/R6NoRecoil.zip"
+set "url=https://github.com/Harry-Hopkinson/R6-No-Recoil/releases/latest/download/R6NoRecoil.zip"
 set "zipFile=R6NoRecoil.zip"
 set "outputFolder=R6NoRecoil"
 set "weaponData=WeaponData.json"

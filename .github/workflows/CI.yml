@@ -1,4 +1,4 @@
-name: Build and Upload Application, Lint and Build Website
+name: CI
 
 on:
     push:
@@ -10,13 +10,12 @@ jobs:
 
         steps:
             - name: Checkout code
-              uses: actions/checkout@v3
+              uses: actions/checkout@v6
 
-            - name: Configure project with CMake
-              run: cmake -S . -B build -G "Visual Studio 17 2022" -A x64
-
-            - name: Build the project (Release)
-              run: cmake --build build --config Release --target R6NoRecoil
+            - name: Build the Project with CMake
+              run: |
+                  cmake -S . -B build -G "Visual Studio 17 2022" -A x64
+                  cmake --build build --config Release --target R6NoRecoil
 
             - name: Strip symbols from executable
               run: strip build/Release/R6NoRecoil.exe
@@ -31,7 +30,7 @@ jobs:
                   xcopy assets R6NoRecoil\assets /E /I /Y
 
             - name: Upload artifact
-              uses: actions/upload-artifact@v4
+              uses: actions/upload-artifact@v6
               with:
                   name: R6NoRecoil
                   path: R6NoRecoil

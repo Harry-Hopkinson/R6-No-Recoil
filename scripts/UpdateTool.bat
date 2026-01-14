@@ -23,7 +23,7 @@ echo ------------------------------------------------------------
 echo.
 
 :: Variables
-set "url=https://github.com/Harry-Hopkinson/R6-No-Recoil/releases/latest/download/R6NoRecoil.zip"
+set "url=https://nightly.link/Harry-Hopkinson/R6-No-Recoil/workflows/CI/main/R6NoRecoil.zip"
 set "zipFile=R6NoRecoil.zip"
 set "outputFolder=R6NoRecoil"
 set "weaponData=WeaponData.json"
@@ -109,3 +109,4 @@ powershell -Command "Write-Host 'Script completed successfully. Thank you for us
 echo ------------------------------------------------------------
 pause
 endlocal
+

@@ -25,10 +25,10 @@ Most recoil control tools are packed with features you'll never use, slowing dow
 
 ## Why Use This Tool?
 
-- **Lightning Fast** – Optimised for minimal CPU usage and instant response. No lag, no delays — meaning no missed frames in game.
+- **Lightning Fast** – Optimised for minimal CPU usage and instant response.
 - **Powerful Configs** – Extensive configuration options for every operator and weapon. Fine-tune your recoil control to perfection on top of custom keybinds and theme customisation.
-- **Open Source** – Fully transparent and customisable. Inspect the code, suggest improvements, or modify it to your needs.
-- **No Installation** – Just download, extract the zip folder and run the .exe file. No bloated installers, no unnecessary dependencies — it just works.
+- **Open Source** – Fully transparent and customisable. Inspect the code and modify it to your heart's content.
+- **No Installation** – Just download, extract the zip folder and run the .exe file.
 - **Controller Support** – Full support for controller recoil compensation, with adjustable sensitivity while firing. (Requires DS4Windows for Playstation controllers).
 
 ## How to Use

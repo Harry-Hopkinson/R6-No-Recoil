@@ -19,19 +19,19 @@ A lightweight, efficient **no-recoil tool** for Rainbow Six Siege. Designed for 
 
 </div>
 
-## 🧠 Why I Made This
+## Why I Made This
 
 Most recoil control tools are packed with features you'll never use, slowing down your system. Tools like Logitech G Hub (now detectable) were too large and bloated just to handle simple recoil control. I built this tool to be **clean**, **compact**, and **laser-focused** on one thing: **removing recoil with minimal system impact**. No drivers, no background bloat—just raw utility.
 
-## 🚀 Why Use This Tool?
+## Why Use This Tool?
 
-- **⚡ Lightning Fast** – Optimised for minimal CPU usage and instant response. No lag, no delays — meaning no missed frames in game.
-- **🎨 Powerful Configs** – Extensive configuration options for every operator and weapon. Fine-tune your recoil control to perfection on top of custom keybinds and theme customisation.
-- **🔓 Open Source** – Fully transparent and customisable. Inspect the code, suggest improvements, or modify it to your needs.
-- **💻 No Installation** – Just download, extract the zip folder and run the .exe file. No bloated installers, no unnecessary dependencies — it just works.
-- **🎮 Controller Support** – Full support for controller recoil compensation, with adjustable sensitivity while firing. (Requires DS4Windows for Playstation controllers).
+- **Lightning Fast** – Optimised for minimal CPU usage and instant response. No lag, no delays — meaning no missed frames in game.
+- **Powerful Configs** – Extensive configuration options for every operator and weapon. Fine-tune your recoil control to perfection on top of custom keybinds and theme customisation.
+- **Open Source** – Fully transparent and customisable. Inspect the code, suggest improvements, or modify it to your needs.
+- **No Installation** – Just download, extract the zip folder and run the .exe file. No bloated installers, no unnecessary dependencies — it just works.
+- **Controller Support** – Full support for controller recoil compensation, with adjustable sensitivity while firing. (Requires DS4Windows for Playstation controllers).
 
-## 🎮 How to Use
+## How to Use
 
 1. **Download** `R6NoRecoil.exe` from the [Website](https://r6norecoil.com/download) and extract the zip folder.
 2. **Run the Program** (double-click `R6NoRecoil.exe`). No installation needed.
@@ -42,7 +42,7 @@ Most recoil control tools are packed with features you'll never use, slowing dow
 7. **Modify toggle keys, themes, controller support and more** in the Config.toml file.
 8. **Enjoy improved accuracy and reduced recoil** in Rainbow Six Siege!
 
-## 💸 Support Development
+## Support Development
 
 Any form of donation is greatly appreciated and will help keep me motivated to keep working on this project and developing it further with new features and improvements. If you become a member you get:
 
@@ -53,7 +53,7 @@ Any form of donation is greatly appreciated and will help keep me motivated to k
 
 [![Ko-Fi](https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/harryhopkinson)
 
-## ⚙️ Config Explained
+## Config Explained
 
 The app automatically creates a `Config.toml` file on first run. You can manually edit it to customise the experience.
 
@@ -116,7 +116,7 @@ LineColour = RGB(180, 180, 180)
 - **ButtonColour:** RGB values for the button colour of the app.
 - **LineColour:** RGB values for the line colour of the app.
 
-## 🔫 WeaponData.json Explained
+## WeaponData.json Explained
 
 The app uses a `WeaponData.json` file to store **recoil compensation values** for each weapon. This allows you to fine-tune how much recoil reduction is applied for every primary gun in Rainbow Six Siege.
 
@@ -142,7 +142,7 @@ The app uses a `WeaponData.json` file to store **recoil compensation values** fo
     - **Positive Values (Horizontal) = movement to the right**
     - **Negative Values (Horizontal) = movement to the left**
 
-## ⚠️ Disclaimer
+## Disclaimer
 
 **This tool is for educational purposes only.** Use it at your own risk. I do not advocate cheating.
 

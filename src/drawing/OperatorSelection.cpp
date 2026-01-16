@@ -63,14 +63,9 @@ namespace Drawing
         }
 
         // Draw info box
-        int gridStartX = static_cast<int>(
-            right * LayoutUtils::OperatorGridLayout::GRID_START_X_PERCENT);
-        int cellSpacing = LayoutUtils::OperatorGridLayout::GetCellSpacing(
-            right);
-        int cellStride = cellSize + cellSpacing;
-        int gridWidth = LayoutUtils::OperatorGridLayout::COLUMNS * cellStride
-            - cellSpacing;
-        RECT infoBoxRect = { gridStartX, 10, gridStartX + gridWidth, 40 };
+        const int padding = 30;
+        const int innerPadding = 10;
+        RECT infoBoxRect = { padding, 10, right - padding, 40 };
 
         // Center info box with grid
         HBRUSH bgBrush = CreateSolidBrush(BackgroundColour);
@@ -79,28 +74,24 @@ namespace Drawing
             memDC, infoBoxRect.left, infoBoxRect.top, infoBoxRect.right,
             infoBoxRect.bottom);
 
-        const int sectionWidth = (infoBoxRect.right - infoBoxRect.left) / 4;
+        const int totalWidth = infoBoxRect.right - infoBoxRect.left;
+        const int sectionWidth = totalWidth / 5;
         RECT textRect;
 
-        textRect = { infoBoxRect.left + 15, infoBoxRect.top + 5,
-                     infoBoxRect.left + sectionWidth, infoBoxRect.bottom - 5 };
+        // Status
+        textRect = { infoBoxRect.left + innerPadding, infoBoxRect.top + 5,
+                     infoBoxRect.left + sectionWidth - innerPadding,
+                     infoBoxRect.bottom - 5 };
         char statusText[50];
-        sprintf_s(statusText, "Status: %s", EnableRC ? "ENABLED" : "DISABLED");
+        sprintf_s(statusText, "Status: %s", EnableRC ? "Enabled" : "Disabled");
         DrawText(
             memDC, statusText, -1, &textRect,
             DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
-        textRect = { infoBoxRect.left + sectionWidth + 10, infoBoxRect.top + 5,
-                     infoBoxRect.left + 2 * sectionWidth,
-                     infoBoxRect.bottom - 5 };
-        char toggleText[50];
-        sprintf_s(toggleText, "Toggle: %s", UseToggleKey ? "ON" : "OFF");
-        DrawText(
-            memDC, toggleText, -1, &textRect,
-            DT_LEFT | DT_VCENTER | DT_SINGLELINE);
-
-        textRect = { infoBoxRect.left + 2 * sectionWidth + 10,
-                     infoBoxRect.top + 5, infoBoxRect.left + 3 * sectionWidth,
+        // Recoil
+        textRect = { infoBoxRect.left + sectionWidth + innerPadding,
+                     infoBoxRect.top + 5,
+                     infoBoxRect.left + 2 * sectionWidth - innerPadding,
                      infoBoxRect.bottom - 5 };
         char recoilText[60];
         sprintf_s(
@@ -110,24 +101,37 @@ namespace Drawing
             memDC, recoilText, -1, &textRect,
             DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
-        textRect = { infoBoxRect.left + 3 * sectionWidth + 10,
-                     infoBoxRect.top + 5, infoBoxRect.right - 60,
+        // Toggle Key
+        textRect = { infoBoxRect.left + 2 * sectionWidth + innerPadding,
+                     infoBoxRect.top + 5,
+                     infoBoxRect.left + 3 * sectionWidth - innerPadding,
                      infoBoxRect.bottom - 5 };
+        char toggleText[50];
+        sprintf_s(toggleText, "Toggle: %s", UseToggleKey ? "On" : "Off");
+        DrawText(
+            memDC, toggleText, -1, &textRect,
+            DT_LEFT | DT_VCENTER | DT_SINGLELINE);
+
+        // Rapid Fire
+        textRect.left = textRect.right + innerPadding;
+        textRect.right = infoBoxRect.left + 4 * sectionWidth - innerPadding;
         char rapidFireText[50];
         sprintf_s(
             rapidFireText, "Rapid Fire: %s",
-            RapidFire ? "ENABLED" : "DISABLED");
+            RapidFire ? "Enabled" : "Disabled");
         DrawText(
             memDC, rapidFireText, -1, &textRect,
             DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
-        // draw current version in bottom right corner saying Version x.x
-        RECT versionRect = { right - 150, bottom - 40, right - 20,
-                             bottom - 20 };
+        // Version
+        textRect = { infoBoxRect.left + 4 * sectionWidth + innerPadding,
+                     infoBoxRect.top + 5,
+                     infoBoxRect.left + 5 * sectionWidth - innerPadding,
+                     infoBoxRect.bottom - 5 };
         char versionText[30];
         sprintf_s(versionText, "Version %.1f", CURRENT_VERSION);
         DrawText(
-            memDC, versionText, -1, &versionRect,
+            memDC, versionText, -1, &textRect,
             DT_RIGHT | DT_VCENTER | DT_SINGLELINE);
 
         // Draw recoil labels
@@ -147,7 +151,7 @@ namespace Drawing
             DrawButton(memDC, btn);
 
         // Draw vertical line
-        int lineX = static_cast<int>(right * 0.670f);
+        int lineX = static_cast<int>(right * 0.66f);
         MoveToEx(memDC, lineX, 60, nullptr);
         LineTo(memDC, lineX, bottom - 20);
 

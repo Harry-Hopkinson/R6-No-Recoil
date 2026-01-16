@@ -10,7 +10,6 @@
 #include "../utils/StringUtils.h"
 
 inline constexpr int FIRE_DELAY_MS = 5;
-inline constexpr int IDLE_DELAY_MS = 5;
 
 inline constexpr int TOGGLE_DELAY_MS = 300;
 inline constexpr int POLL_INTERVAL_MS = 50;
@@ -56,8 +55,13 @@ static void LoadWeaponRecoil(int weaponIndex)
 
 DWORD WINAPI WorkerThreadProc(LPVOID)
 {
+    ULONGLONG lastMoveTime = 0;
+    ULONGLONG lastRapidFireTime = 0;
+
     while (Running)
     {
+        ULONGLONG now = GetTickCount64();
+
         const bool controllerConnected = EnableController
             && Inputs::IsControllerConnected();
 
@@ -71,30 +75,38 @@ DWORD WINAPI WorkerThreadProc(LPVOID)
 
         if (RapidFire && isADS && (firingMouse || firingController))
         {
-            Inputs::FireMouseClick();
-
-            Sleep(DMR_FIRE_DELAY_MS);
+            if (now - lastRapidFireTime >= DMR_FIRE_DELAY_MS)
+            {
+                Inputs::FireMouseClick();
+                lastRapidFireTime = now;
+            }
+            Sleep(1);
             continue;
         }
 
         if (EnableRC && isADS && (firingMouse || firingController))
         {
-            float moveX = CurrentRecoil.Horizontal * 2.0f;
-            float moveY = CurrentRecoil.Vertical * 2.0f;
-
-            if (controllerConnected)
+            if (now - lastMoveTime >= FIRE_DELAY_MS)
             {
-                XINPUT_STATE state = Inputs::GetControllerState();
-                float lookX, lookY;
-                Inputs::GetControllerStickInput(state, lookX, lookY);
+                float moveX = CurrentRecoil.Horizontal * 2.0f;
+                float moveY = CurrentRecoil.Vertical * 2.0f;
 
-                auto [rx, ry] = CalculateRecoil(moveX, moveY, lookX, lookY);
-                moveX = rx;
-                moveY = ry;
+                if (controllerConnected)
+                {
+                    XINPUT_STATE state = Inputs::GetControllerState();
+                    float lookX, lookY;
+                    Inputs::GetControllerStickInput(state, lookX, lookY);
+
+                    auto [rx, ry] = CalculateRecoil(moveX, moveY, lookX, lookY);
+                    moveX = rx;
+                    moveY = ry;
+                }
+
+                Inputs::MoveMouseRaw(moveX, moveY);
+                lastMoveTime = now;
             }
 
-            Inputs::MoveMouseRaw(moveX, moveY);
-            Sleep(FIRE_DELAY_MS);
+            Sleep(1);
             continue;
         }
 

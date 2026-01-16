@@ -2,6 +2,18 @@
 
 WeaponRecoil CurrentRecoil = { 3.00f, 0.00f };
 
+int ControllerMultiplier = 10;
+
+int PresetIndex = 0;
+
+std::pair<float, float> CalculateRecoil(
+    float baseX, float baseY, float lookX, float lookY)
+{
+    float adjustedX = baseX + (lookX * ControllerMultiplier);
+    float adjustedY = baseY + (-lookY * ControllerMultiplier);
+    return { adjustedX, adjustedY };
+}
+
 std::vector<const char*> AttackerNames = {
     "Striker",    "Sledge",  "Thatcher", "Ash",      "Thermite", "Twitch",
     "Montagne",   "Glaz",    "Fuze",     "Blitz",    "IQ",       "Buck",
@@ -103,7 +115,3 @@ std::vector<const char*> DefenderWeapons = {
     "PCX-33",                   // Skopos
     "Scorpion-EVO, FMG-9"       // Denari
 };
-
-int ControllerMultiplier = 10;
-
-int PresetIndex = 0;

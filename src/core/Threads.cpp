@@ -26,14 +26,6 @@ static HWND GetWindowHandle()
     return hwnd;
 }
 
-static std::pair<float, float> CalculateRecoil(
-    float baseX, float baseY, float lookX, float lookY)
-{
-    float adjustedX = baseX + (lookX * ControllerMultiplier);
-    float adjustedY = baseY + (-lookY * ControllerMultiplier);
-    return { adjustedX, adjustedY };
-}
-
 static void LoadWeaponRecoil(int weaponIndex)
 {
     const char* weapons = IsAttackerView
